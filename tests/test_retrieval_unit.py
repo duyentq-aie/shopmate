@@ -204,7 +204,7 @@ def test_dense_ties_are_broken_by_stable_key_after_over_fetching(client):
     assert runs == {("product:SM-NAM-0001", "product:SM-NAM-0002", "product:SM-NAM-0003")}
 
 
-@pytest.mark.parametrize("mode", ["dense", "hybrid"])
+@pytest.mark.parametrize("mode", ["dense", "hybrid", "dense_sparse_folded", "dense_folded"])
 def test_fused_ties_are_sorted_after_over_fetching(mode):
     """Fake Qdrant that returns tied points in a different random order on every call (like the
     real RRF ties). The retriever must ask for fetch_limit(k) points and return a stable order."""

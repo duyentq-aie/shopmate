@@ -1,26 +1,39 @@
-"""Baseline retrieval evaluation on the DEV split (Phase 3B). Measures; changes nothing.
+"""Retrieval evaluation on the DEV split (Phase 3B baseline, Phase 4 experiment 1). Measures; changes nothing.
 
-One run = one (mode, filter setting):
-  mode     dense | hybrid
+One run = one (mode, filter setting[, intents][, queryset]):
+  mode     dense | hybrid                                  (Phase 3B baseline)
+           dense_sparse_folded | dense_folded              (Phase 4: needs the folded vector, layout v2)
   filters  none     no filters at all
            routing  doc_type derived from the intent only (product_search -> product,
                     policy_question -> policy): the value of correct intent routing
            oracle   routing + the item's expected_filters minus `keyword` (DECISIONS R14):
                     the value of perfect filter extraction (an upper bound)
 
+  queryset dev          the dev items as written (default)
+           dev_folded   the same items with the question machine-folded (eval/perturbation/dev_folded.json,
+                        a robustness test; its hash is checked and recorded)
+  intents  product_search and/or policy_question (default both), e.g. oracle for policy_question only
+
 Only product_search and policy_question items are evaluated. Items come from
 eval.golden.loader.load_split("dev"); the test split is never read here.
+The collection evaluated is the one the committed manifest names (data/index/manifest.json), and
+the live index is verified against that manifest first (counts, per-point fingerprints, dense/sparse
+digest, lexical fingerprints), so a result can only come from the index it claims.
 
 Refuses to run unless the git working tree is clean (no modified/staged tracked file anywhere,
 no untracked file outside eval/results/), so every result references a real commit with
 dirty=false. Refuses to overwrite an existing result file without --overwrite.
 
-Output: eval/results/<mode>-<filters>.json with a `deterministic` section (per-item results,
-aggregates, provenance; hashed into `deterministic_sha256`) and a `measurements` section
-(latency, wall time; not hashed).
+Output: <results dir>/<mode>-<filters>[.<intents>][.<queryset>].json with a `deterministic` section
+(per-item results, aggregates, provenance; hashed into `deterministic_sha256`) and a `measurements`
+section (latency, wall time; not hashed). The results dir defaults to eval/results/ and may be any
+directory below it (--results-dir eval/results/phase4-exp1), so committed results are never touched.
+Provenance of the Phase 3B modes on the default queryset has exactly the Phase 3B shape.
 
 Usage (from the repo root; Qdrant running, index built):
     uv run python -m eval.run_retrieval_eval --mode dense --filters none
+    uv run python -m eval.run_retrieval_eval --mode dense_folded --filters none --queryset dev_folded \
+        --results-dir eval/results/phase4-exp1
 """
 
 from __future__ import annotations
@@ -36,6 +49,7 @@ from pathlib import Path
 
 from app.config import REPO_ROOT
 from app.retrieval.embedder import EmbeddingConfig
+from app.retrieval.lexical import LexicalConfig
 from app.retrieval.manifest import MANIFEST_PATH, file_sha256, load_manifest
 from eval.golden.loader import items_hash, load_split
 from eval.golden.schema import GOLDEN_PATH, GoldenItem
@@ -53,7 +67,10 @@ from eval.retrieval_metrics import (
 RESULTS_DIR = REPO_ROOT / "eval" / "results"
 ALLOWED_UNTRACKED_PREFIX = "eval/results/"
 RETRIEVAL_INTENTS = ("product_search", "policy_question")
-MODES = ("dense", "hybrid")
+PHASE3B_MODES = ("dense", "hybrid")
+FOLDED_MODES = ("dense_sparse_folded", "dense_folded")  # Phase 4: need the folded vector (layout v2)
+MODES = PHASE3B_MODES + FOLDED_MODES
+QUERYSETS = ("dev", "dev_folded")
 FILTER_SETTINGS = ("none", "routing", "oracle")
 TOP_K = 10
 MIN_INTERPRETABLE_N = 8
@@ -65,16 +82,29 @@ class DirtyWorkingTree(Exception):
     pass
 
 
-def index_problems(client, manifest: dict, query_config: EmbeddingConfig, collection: str | None = None) -> list[str]:
+def index_problems(client, manifest: dict, query_config: EmbeddingConfig, collection: str | None = None,
+                   query_lexical: LexicalConfig | None = None) -> list[str]:
     """Why the live index cannot be trusted to be the one the manifest describes ([] if it can).
 
     Point counts alone can match while contents differ (e.g. a re-index with another model revision
     keeps 269 points), so every point's embedding fingerprint must equal the manifest's, and the
-    manifest's must equal the embedder used for queries.
+    manifest's must equal the embedder used for queries. A layout-v2 manifest adds the same for the
+    folded vector (lexical fingerprint per point, query-side config, vector present with the IDF
+    modifier) and a digest of the dense/sparse vectors, so the baseline vectors cannot drift
+    unnoticed under a configuration that does not even use the folded one.
     """
-    from app.retrieval.store import COLLECTION, count_by_doc_type, fingerprint_counts
+    from qdrant_client import models
 
-    collection = collection or COLLECTION
+    from app.retrieval.store import (
+        COLLECTION,
+        FOLDED,
+        count_by_doc_type,
+        fingerprint_counts,
+        lexical_fingerprint_counts,
+        vectors_digest,
+    )
+
+    collection = collection or manifest.get("collection", COLLECTION)
     problems = []
     counts = count_by_doc_type(client, collection)
     if counts != manifest["documents"]:
@@ -85,7 +115,38 @@ def index_problems(client, manifest: dict, query_config: EmbeddingConfig, collec
     wrong = {fp: n for fp, n in fingerprint_counts(client, collection).items() if fp != expected}
     if wrong:
         problems.append(f"points with another embedding fingerprint than the manifest ({expected}): {wrong}")
+
+    sparse_vectors = client.get_collection(collection).config.params.sparse_vectors or {}
+    folded = sparse_vectors.get(FOLDED)
+    lexical = manifest.get("lexical")
+    if lexical:
+        expected_lexical = lexical["fingerprint"]
+        query_lexical = query_lexical or LexicalConfig()
+        if expected_lexical != query_lexical.fingerprint():
+            problems.append(f"manifest lexical fingerprint {expected_lexical} != query lexical config "
+                            f"{query_lexical.fingerprint()}")
+        if folded is None or folded.modifier != models.Modifier.IDF:
+            problems.append(f"collection {collection!r} has no folded vector with the IDF modifier, but the "
+                            f"manifest declares a lexical config")
+        wrong_lexical = {fp: n for fp, n in lexical_fingerprint_counts(client, collection).items()
+                         if fp != expected_lexical}
+        if wrong_lexical:
+            problems.append(f"points with another lexical fingerprint than the manifest ({expected_lexical}): "
+                            f"{wrong_lexical}")
+    elif folded is not None:
+        problems.append(f"collection {collection!r} has a folded vector but the manifest declares no lexical config")
+    if "vectors_digest" in manifest:
+        live = vectors_digest(client, collection)
+        if live != manifest["vectors_digest"]:
+            problems.append(f"dense/sparse vectors digest {live[:16]} != manifest {manifest['vectors_digest'][:16]}")
     return problems
+
+
+def mode_problems(mode: str, manifest: dict) -> list[str]:
+    """Why `mode` cannot run against the index the manifest describes."""
+    if mode in FOLDED_MODES and not manifest.get("lexical"):
+        return [f"mode {mode!r} needs the folded vector, but the manifest declares no lexical config (layout v1)"]
+    return []
 
 
 # --- provenance --------------------------------------------------------------------------
@@ -136,6 +197,39 @@ def write_result(path: Path, result: dict, overwrite: bool) -> None:
 def canonical_sha256(data: dict) -> str:
     canonical = json.dumps(data, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
     return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+
+# --- naming and selection -----------------------------------------------------------------------
+
+
+def resolve_results_dir(arg: str | None) -> Path:
+    """The results directory: eval/results/ or any directory below it (the clean-tree check only
+    tolerates new files there). Relative paths are taken from the repo root."""
+    if arg is None:
+        return RESULTS_DIR
+    path = (REPO_ROOT / arg).resolve()
+    if path != RESULTS_DIR.resolve() and RESULTS_DIR.resolve() not in path.parents:
+        raise ValueError(f"--results-dir must be eval/results or a directory below it, got {arg!r}")
+    return path
+
+
+def canonical_intents(intents) -> tuple[str, ...]:
+    """The requested intents in the fixed RETRIEVAL_INTENTS order, so the order typed does not matter."""
+    return tuple(i for i in RETRIEVAL_INTENTS if i in intents)
+
+
+def result_name(mode: str, setting: str, intents: tuple[str, ...] = RETRIEVAL_INTENTS, queryset: str = "dev") -> str:
+    """<mode>-<filters>[.<intents>][.<queryset>].json; the default run keeps its Phase 3B name."""
+    name = f"{mode}-{setting}"
+    if canonical_intents(intents) != RETRIEVAL_INTENTS:
+        name += "." + "+".join(canonical_intents(intents))
+    if queryset != "dev":
+        name += f".{queryset}"
+    return name + ".json"
+
+
+def select_items(items: list[GoldenItem], intents) -> list[GoldenItem]:
+    return [i for i in items if i.intent in intents]
 
 
 # --- evaluation ----------------------------------------------------------------------------
@@ -232,8 +326,13 @@ def aggregate(records: list[dict]) -> dict:
     }
 
 
-def provenance(commit: str, items: list[GoldenItem], mode: str, setting: str) -> dict:
-    return {
+def provenance(commit: str, items: list[GoldenItem], mode: str, setting: str, *,
+               intents: tuple[str, ...] = RETRIEVAL_INTENTS, queryset: str = "dev",
+               perturbation_sha256: str | None = None) -> dict:
+    """`items` are the ORIGINAL dev items evaluated (for a perturbed queryset too: the perturbation
+    file's own hash is recorded separately). Fields are only ADDED for the new modes/querysets, so
+    the Phase 3B runs keep exactly their Phase 3B shape."""
+    prov = {
         "git_commit": commit,
         "git_dirty": False,  # check_clean_tree() refuses to run otherwise
         "index_manifest_sha256": file_sha256(MANIFEST_PATH),
@@ -241,16 +340,22 @@ def provenance(commit: str, items: list[GoldenItem], mode: str, setting: str) ->
         "golden_file_sha256": file_sha256(GOLDEN_PATH),
         "dev_split_sha256": items_hash(items),
         "config": {"mode": mode, "filters": setting, "top_k": TOP_K, "ks": list(KS), "split": "dev",
-                   "intents": list(RETRIEVAL_INTENTS), "oracle_drops": ["keyword"],
+                   "intents": list(intents), "oracle_drops": ["keyword"],
                    "bootstrap": {"resamples": BOOTSTRAP_RESAMPLES, "seed": BOOTSTRAP_SEED, "confidence": 0.95},
                    "metrics_version": METRICS_VERSION},
     }
+    if mode in FOLDED_MODES:
+        prov["lexical_fingerprint"] = LexicalConfig().fingerprint()
+    if queryset != "dev":
+        prov["config"]["queryset"] = queryset
+        prov["perturbation_sha256"] = perturbation_sha256
+    return prov
 
 
 def build_result(commit: str, items: list[GoldenItem], records: list[dict], latencies: list[float],
-                 mode: str, setting: str, wall_seconds: float) -> dict:
-    deterministic = {"provenance": provenance(commit, items, mode, setting), "aggregate": aggregate(records),
-                     "items": records}
+                 mode: str, setting: str, wall_seconds: float, **provenance_options) -> dict:
+    deterministic = {"provenance": provenance(commit, items, mode, setting, **provenance_options),
+                     "aggregate": aggregate(records), "items": records}
     return {
         "deterministic": deterministic,
         "deterministic_sha256": canonical_sha256(deterministic),
@@ -260,13 +365,33 @@ def build_result(commit: str, items: list[GoldenItem], records: list[dict], late
     }
 
 
+def format_summary(name: str, result: dict) -> str:
+    agg = result["deterministic"]["aggregate"]
+
+    def fmt(cell: dict) -> str:
+        return "n/a" if cell["mean"] is None else f"{cell['mean']:.3f}"
+
+    return (f"{name}: {len(result['deterministic']['items'])} dev items; "
+            f"product hit@5={fmt(agg['product_search']['hit@5'])} policy hit@1={fmt(agg['policy_question']['hit@1'])}; "
+            f"p50={result['measurements']['latency_ms']['p50']} ms; sha256={result['deterministic_sha256'][:12]}")
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--mode", choices=MODES, required=True)
     parser.add_argument("--filters", choices=FILTER_SETTINGS, required=True)
+    parser.add_argument("--queryset", choices=QUERYSETS, default="dev")
+    parser.add_argument("--intents", nargs="+", choices=RETRIEVAL_INTENTS, default=list(RETRIEVAL_INTENTS))
+    parser.add_argument("--results-dir", default=None, help="a directory below eval/results (default: eval/results)")
     parser.add_argument("--overwrite", action="store_true", help="replace an existing result file")
     args = parser.parse_args(argv)
-    out = RESULTS_DIR / f"{args.mode}-{args.filters}.json"
+    try:
+        results_dir = resolve_results_dir(args.results_dir)
+    except ValueError as exc:
+        print(f"REFUSED: {exc}", file=sys.stderr)
+        return 1
+    intents = canonical_intents(args.intents)
+    out = results_dir / result_name(args.mode, args.filters, intents, args.queryset)
     if out.exists() and not args.overwrite:
         print(f"REFUSED: {out} exists; pass --overwrite to replace it", file=sys.stderr)
         return 1
@@ -280,14 +405,25 @@ def main(argv: list[str] | None = None) -> int:
     from app.retrieval.search import Retriever
     from app.retrieval.store import connect
 
+    manifest = load_manifest()
+    problems = mode_problems(args.mode, manifest)
+    if problems:
+        print("REFUSED: " + "; ".join(problems), file=sys.stderr)
+        return 1
     client = connect()
-    problems = index_problems(client, load_manifest(), EmbeddingConfig())
+    problems = index_problems(client, manifest, EmbeddingConfig(), query_lexical=LexicalConfig())
     if problems:
         print("REFUSED: the live index does not match data/index/manifest.json:\n  " + "\n  ".join(problems),
               file=sys.stderr)
         return 1
-    items = [i for i in load_split("dev") if i.intent in RETRIEVAL_INTENTS]
-    retriever = Retriever(client, BgeM3Embedder())
+    dev_items = select_items([i for i in load_split("dev") if i.intent in RETRIEVAL_INTENTS], intents)
+    items, perturbation_sha256 = dev_items, None
+    if args.queryset == "dev_folded":
+        from eval.perturbation.dev_folded import load_dev_folded
+
+        perturbed, perturbation_sha256 = load_dev_folded(load_split("dev"))
+        items = select_items(perturbed, intents)
+    retriever = Retriever(client, BgeM3Embedder(), collection=manifest["collection"])
     retriever.search("khởi động", k=1, mode=args.mode)  # warm-up, not measured
 
     def search(query, filters, k, mode):
@@ -295,12 +431,11 @@ def main(argv: list[str] | None = None) -> int:
 
     started = time.monotonic()
     records, latencies = run_items(items, search, args.mode, args.filters)
-    result = build_result(commit, items, records, latencies, args.mode, args.filters, time.monotonic() - started)
+    options = {"intents": intents, "queryset": args.queryset, "perturbation_sha256": perturbation_sha256}
+    result = build_result(commit, dev_items, records, latencies, args.mode, args.filters, time.monotonic() - started,
+                          **options)
     write_result(out, result, args.overwrite)
-    agg = result["deterministic"]["aggregate"]
-    print(f"{out.name}: {len(records)} dev items; product hit@5={agg['product_search']['hit@5']['mean']:.3f} "
-          f"policy hit@1={agg['policy_question']['hit@1']['mean']:.3f}; "
-          f"p50={result['measurements']['latency_ms']['p50']} ms; sha256={result['deterministic_sha256'][:12]}")
+    print(format_summary(out.name, result))
     return 0
 
 

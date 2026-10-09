@@ -1,0 +1,462 @@
+{
+  "description": "Dev retrieval items with the question passed through app.retrieval.folding.fold; gold unchanged.",
+  "limitation": "Machine-stripped text is not how real users type: it has no typos and no abbreviations beyond those already in the original question. This set is a robustness test of diacritic handling, not a substitute for real queries.",
+  "source": {
+    "split": "dev",
+    "intents": [
+      "product_search",
+      "policy_question"
+    ],
+    "gold_types": [
+      "skus",
+      "policy_clause"
+    ],
+    "items_sha256": "a1fbbe2c86864f069b0d2f3b98264da013967b09a95c51d5e4aebc31eaf5ee4e",
+    "folding_version": 1
+  },
+  "n_items": 33,
+  "n_changed": 24,
+  "items": [
+    {
+      "id": "gs-002",
+      "intent": "product_search",
+      "query_style": "khong_dau",
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-GIAY-0002",
+          "SM-GIAY-0014",
+          "SM-GIAY-0020",
+          "SM-GIAY-0032",
+          "SM-GIAY-0038"
+        ]
+      },
+      "original_question": "tim sneaker nu size 37 shop oi",
+      "question": "tim sneaker nu size 37 shop oi"
+    },
+    {
+      "id": "gs-003",
+      "intent": "product_search",
+      "query_style": "teencode",
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-NAM-0004"
+        ]
+      },
+      "original_question": "jean nam màu đen còn ko shop?",
+      "question": "jean nam mau den con ko shop?"
+    },
+    {
+      "id": "gs-004",
+      "intent": "product_search",
+      "query_style": "teencode",
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-NU-0003",
+          "SM-NU-0010"
+        ]
+      },
+      "original_question": "Có váy liền nào dưới 400k ko shop?",
+      "question": "co vay lien nao duoi 400k ko shop?"
+    },
+    {
+      "id": "gs-007",
+      "intent": "product_search",
+      "query_style": "teencode",
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-TT-0005",
+          "SM-TT-0010",
+          "SM-TT-0015",
+          "SM-TT-0020",
+          "SM-TT-0025",
+          "SM-TT-0030"
+        ]
+      },
+      "original_question": "shop ơi giày chạy bộ size 42 còn ko",
+      "question": "shop oi giay chay bo size 42 con ko"
+    },
+    {
+      "id": "gs-008",
+      "intent": "product_search",
+      "query_style": "teencode",
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-TUI-0008",
+          "SM-TUI-0028"
+        ]
+      },
+      "original_question": "Có balo đen nào đẹp ko shop?",
+      "question": "co balo den nao dep ko shop?"
+    },
+    {
+      "id": "gs-009",
+      "intent": "product_search",
+      "query_style": "teencode",
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-TUI-0004",
+          "SM-TUI-0009",
+          "SM-TUI-0014",
+          "SM-TUI-0019",
+          "SM-TUI-0024"
+        ]
+      },
+      "original_question": "ví da nam dưới 500k có mẫu nào ko",
+      "question": "vi da nam duoi 500k co mau nao ko"
+    },
+    {
+      "id": "gs-011",
+      "intent": "product_search",
+      "query_style": "teencode",
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-GIAY-0006"
+        ]
+      },
+      "original_question": "dép quai ngang trắng bn tiền vậy shop",
+      "question": "dep quai ngang trang bn tien vay shop"
+    },
+    {
+      "id": "gs-012",
+      "intent": "product_search",
+      "query_style": "teencode",
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-NU-0006",
+          "SM-NU-0013",
+          "SM-NU-0020",
+          "SM-NU-0034",
+          "SM-NU-0048"
+        ]
+      },
+      "original_question": "áo khoác len nữ còn mẫu nào ko shop?",
+      "question": "ao khoac len nu con mau nao ko shop?"
+    },
+    {
+      "id": "gs-013",
+      "intent": "product_search",
+      "query_style": "co_dau",
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-PK-0013"
+        ]
+      },
+      "original_question": "Cho mình xem kính mát gọng kim loại với",
+      "question": "cho minh xem kinh mat gong kim loai voi"
+    },
+    {
+      "id": "gs-014",
+      "intent": "product_search",
+      "query_style": "khong_dau",
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-NAM-0047"
+        ]
+      },
+      "original_question": "quan kaki nam mau be size 32 con ko",
+      "question": "quan kaki nam mau be size 32 con ko"
+    },
+    {
+      "id": "gs-015",
+      "intent": "product_search",
+      "query_style": "teencode",
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-TT-0001",
+          "SM-TT-0011",
+          "SM-TT-0026"
+        ]
+      },
+      "original_question": "shop có áo tập gym nam ko ạ",
+      "question": "shop co ao tap gym nam ko a"
+    },
+    {
+      "id": "gs-016",
+      "intent": "product_search",
+      "query_style": "teencode",
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-GIAY-0009",
+          "SM-GIAY-0039",
+          "SM-GIAY-0045"
+        ]
+      },
+      "original_question": "Có giày tây nam màu nâu size 41 ko shop?",
+      "question": "co giay tay nam mau nau size 41 ko shop?"
+    },
+    {
+      "id": "gs-017",
+      "intent": "product_search",
+      "query_style": "teencode",
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-PK-0027"
+        ]
+      },
+      "original_question": "shop có mũ bucket ko nhỉ",
+      "question": "shop co mu bucket ko nhi"
+    },
+    {
+      "id": "gs-018",
+      "intent": "product_search",
+      "query_style": "khong_dau",
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-TUI-0022",
+          "SM-TUI-0027",
+          "SM-TUI-0032"
+        ]
+      },
+      "original_question": "tui deo cheo duoi 400k co ko shop",
+      "question": "tui deo cheo duoi 400k co ko shop"
+    },
+    {
+      "id": "gs-019",
+      "intent": "product_search",
+      "query_style": "teencode",
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-TT-0007"
+        ]
+      },
+      "original_question": "bra thể thao hồng size M còn hàng k shop",
+      "question": "bra the thao hong size m con hang k shop"
+    },
+    {
+      "id": "gs-023",
+      "intent": "policy_question",
+      "query_style": "co_dau",
+      "gold_source": {
+        "type": "policy_clause",
+        "document": "doi-tra",
+        "clause": 2
+      },
+      "original_question": "Shop ơi đổi size trong mấy ngày vậy?",
+      "question": "shop oi doi size trong may ngay vay?"
+    },
+    {
+      "id": "gs-024",
+      "intent": "policy_question",
+      "query_style": "co_dau",
+      "gold_source": {
+        "type": "policy_clause",
+        "document": "van-chuyen",
+        "clause": 2
+      },
+      "original_question": "phi ship nhiêu vậy shop",
+      "question": "phi ship nhieu vay shop"
+    },
+    {
+      "id": "gs-025",
+      "intent": "policy_question",
+      "query_style": "teencode",
+      "gold_source": {
+        "type": "policy_clause",
+        "document": "van-chuyen",
+        "clause": 2
+      },
+      "original_question": "đơn trên 500k có free ship ko shop?",
+      "question": "don tren 500k co free ship ko shop?"
+    },
+    {
+      "id": "gs-026",
+      "intent": "policy_question",
+      "query_style": "teencode",
+      "gold_source": {
+        "type": "policy_clause",
+        "document": "doi-tra",
+        "clause": 5
+      },
+      "original_question": "Đồ sale 50% thì có đổi trả được ko?",
+      "question": "do sale 50% thi co doi tra duoc ko?"
+    },
+    {
+      "id": "gs-027",
+      "intent": "policy_question",
+      "query_style": "co_dau",
+      "gold_source": {
+        "type": "policy_clause",
+        "document": "doi-tra",
+        "clause": 6
+      },
+      "original_question": "Hoàn tiền thì khoảng bao lâu mới nhận được vậy shop?",
+      "question": "hoan tien thi khoang bao lau moi nhan duoc vay shop?"
+    },
+    {
+      "id": "gs-029",
+      "intent": "policy_question",
+      "query_style": "co_dau",
+      "gold_source": {
+        "type": "policy_clause",
+        "document": "van-chuyen",
+        "clause": 3
+      },
+      "original_question": "Gửi hàng ra Hà Nội thì mấy ngày tới?",
+      "question": "gui hang ra ha noi thi may ngay toi?"
+    },
+    {
+      "id": "gs-030",
+      "intent": "policy_question",
+      "query_style": "teencode",
+      "gold_source": {
+        "type": "policy_clause",
+        "document": "van-chuyen",
+        "clause": 5
+      },
+      "original_question": "shop cho kiểm hàng trước khi nhận ko",
+      "question": "shop cho kiem hang truoc khi nhan ko"
+    },
+    {
+      "id": "gs-031",
+      "intent": "policy_question",
+      "query_style": "co_dau",
+      "gold_source": {
+        "type": "policy_clause",
+        "document": "bao-hanh",
+        "clause": 1
+      },
+      "original_question": "Túi da bò bên mình bảo hành bao lâu ạ?",
+      "question": "tui da bo ben minh bao hanh bao lau a?"
+    },
+    {
+      "id": "gs-032",
+      "intent": "policy_question",
+      "query_style": "khong_dau",
+      "gold_source": {
+        "type": "policy_clause",
+        "document": "bao-hanh",
+        "clause": 3
+      },
+      "original_question": "do da bi moc vi de am thi co duoc bao hanh ko shop",
+      "question": "do da bi moc vi de am thi co duoc bao hanh ko shop"
+    },
+    {
+      "id": "gs-034",
+      "intent": "policy_question",
+      "query_style": "teencode",
+      "gold_source": {
+        "type": "policy_clause",
+        "document": "van-chuyen",
+        "clause": 1
+      },
+      "original_question": "Shop có ship hàng ra nước ngoài ko ạ?",
+      "question": "shop co ship hang ra nuoc ngoai ko a?"
+    },
+    {
+      "id": "gs-104",
+      "intent": "product_search",
+      "query_style": "teencode",
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-NAM-0018"
+        ]
+      },
+      "original_question": "co quan jean nam denim mau xanh dam size 31 k shop",
+      "question": "co quan jean nam denim mau xanh dam size 31 k shop"
+    },
+    {
+      "id": "gs-106",
+      "intent": "product_search",
+      "query_style": "co_dau",
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-GIAY-0002"
+        ]
+      },
+      "original_question": "Mình cần mua giày sneaker nữ màu trắng size 37 giá từ 300000 đến 700000",
+      "question": "minh can mua giay sneaker nu mau trang size 37 gia tu 300000 den 700000"
+    },
+    {
+      "id": "gs-107",
+      "intent": "product_search",
+      "query_style": "teencode",
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-TUI-0009"
+        ]
+      },
+      "original_question": "vi da nam mau den chat da bo bn tien vay mik can loai con hang",
+      "question": "vi da nam mau den chat da bo bn tien vay mik can loai con hang"
+    },
+    {
+      "id": "gs-109",
+      "intent": "product_search",
+      "query_style": "co_dau",
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-TT-0025"
+        ]
+      },
+      "original_question": "Tìm cho mình giày chạy bộ màu xám size 42 trong danh mục đồ thể thao.",
+      "question": "tim cho minh giay chay bo mau xam size 42 trong danh muc do the thao."
+    },
+    {
+      "id": "gs-113",
+      "intent": "policy_question",
+      "query_style": "khong_dau",
+      "gold_source": {
+        "type": "policy_clause",
+        "document": "van-chuyen",
+        "clause": 2
+      },
+      "original_question": "phi van chuyen giao hang ben shop tinh the nao vay",
+      "question": "phi van chuyen giao hang ben shop tinh the nao vay"
+    },
+    {
+      "id": "gs-118",
+      "intent": "policy_question",
+      "query_style": "teencode",
+      "gold_source": {
+        "type": "policy_clause",
+        "document": "doi-tra",
+        "clause": 7
+      },
+      "original_question": "lam the nao de gui yeu cau doi tra do vay mn",
+      "question": "lam the nao de gui yeu cau doi tra do vay mn"
+    },
+    {
+      "id": "gs-119",
+      "intent": "policy_question",
+      "query_style": "khong_dau",
+      "gold_source": {
+        "type": "policy_clause",
+        "document": "van-chuyen",
+        "clause": 3
+      },
+      "original_question": "shop mat bao lau de giao hang toi khu vuc cua minh",
+      "question": "shop mat bao lau de giao hang toi khu vuc cua minh"
+    },
+    {
+      "id": "gs-120",
+      "intent": "policy_question",
+      "query_style": "co_dau",
+      "gold_source": {
+        "type": "policy_clause",
+        "document": "bao-hanh",
+        "clause": 5
+      },
+      "original_question": "Thời gian xử lý bảo hành mất bao lâu và bên nào chịu phí vận chuyển?",
+      "question": "thoi gian xu ly bao hanh mat bao lau va ben nao chiu phi van chuyen?"
+    }
+  ],
+  "sha256": "3be1d846179bbd6b55eb973a14929c3ab6a7f2785cccd11b5bbf9d64c0cda506"
+}

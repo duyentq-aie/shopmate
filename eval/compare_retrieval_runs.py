@@ -18,7 +18,7 @@ import sys
 from pathlib import Path
 
 from eval.retrieval_metrics import paired_bootstrap
-from eval.run_retrieval_eval import FILTER_SETTINGS, MODES, RESULTS_DIR, canonical_sha256, write_result
+from eval.run_retrieval_eval import FILTER_SETTINGS, PHASE3B_MODES as MODES, RESULTS_DIR, canonical_sha256, write_result
 
 COMPARED = {"product_search": ["hit@1", "hit@5", "hit@10", "nrecall@10", "precision@5", "rr"],
             "policy_question": ["hit@1", "hit@5", "rr"]}

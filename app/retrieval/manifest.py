@@ -3,6 +3,12 @@
 Records the embedding model and revision, vector layout, document counts, source file hashes
 and Qdrant versions. Rewritten only when something other than its timestamps would change,
 so re-running an unchanged build leaves the committed file untouched.
+
+It also names the collection the evaluation runs against (`collection`, see active_collection), so
+the committed manifest, not a code constant, says which index a result belongs to. A layout-v2
+manifest (Phase 4) additionally records the `lexical` config with its fingerprint, `vectors_digest`
+(a digest of the dense and sparse vectors, which the eval runner re-checks on every run) and
+`derived_from`, the lineage of the dense/sparse vectors that were copied from the earlier collection.
 """
 
 from __future__ import annotations
@@ -18,6 +24,7 @@ from app.catalog.schema import CATALOG_PATH
 from app.config import REPO_ROOT
 from app.policies import POLICY_DOCUMENTS, policy_path
 from app.retrieval.embedder import EmbeddingConfig
+from app.retrieval.lexical import LexicalConfig
 from app.retrieval.store import COLLECTION, PAYLOAD_INDEXES, vector_config
 
 MANIFEST_PATH = REPO_ROOT / "data" / "index" / "manifest.json"
@@ -29,11 +36,12 @@ def file_sha256(path: Path) -> str:
 
 
 def build_manifest(config: EmbeddingConfig, counts: dict[str, int], qdrant_server_version: str,
-                   drift_check: str, collection: str = COLLECTION) -> dict:
-    return {
+                   drift_check: str, collection: str = COLLECTION, lexical: LexicalConfig | None = None,
+                   derived_from: dict | None = None, vectors_digest: str | None = None) -> dict:
+    manifest = {
         "collection": collection,
         "embedding": {**asdict(config), "fingerprint": config.fingerprint()},
-        "vectors": vector_config(config),
+        "vectors": vector_config(config, lexical=lexical is not None),
         "filterable_payload": sorted(PAYLOAD_INDEXES),
         "documents": counts,
         "sources": {
@@ -53,6 +61,13 @@ def build_manifest(config: EmbeddingConfig, counts: dict[str, int], qdrant_serve
         },
         "built_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
     }
+    if lexical is not None:
+        manifest["lexical"] = {**asdict(lexical), "fingerprint": lexical.fingerprint()}
+    if derived_from is not None:
+        manifest["derived_from"] = derived_from
+    if vectors_digest is not None:  # digest of the bge-m3 dense + sparse vectors (not of the folded one)
+        manifest["vectors_digest"] = vectors_digest
+    return manifest
 
 
 def _without_timestamps(manifest: dict) -> dict:
@@ -72,3 +87,8 @@ def write_manifest(manifest: dict, path: Path = MANIFEST_PATH, force: bool = Fal
 
 def load_manifest(path: Path = MANIFEST_PATH) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def active_collection(path: Path = MANIFEST_PATH) -> str:
+    """The collection the committed manifest describes: what retrieval and evaluation use by default."""
+    return load_manifest(path)["collection"]

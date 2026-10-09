@@ -2,6 +2,10 @@
 
 Run with `uv run pytest -m integration` (or scripts/test_all.sh). Smoke queries are written for
 these tests; the golden set is never used here.
+
+The collection under test and the modes come from the committed manifest (tests/active_index.py):
+layout v1 gives dense and hybrid; layout v2 (Phase 4) also checks the folded vector and the two folded
+modes, and that the baseline vectors are still the ones copied from the earlier collection.
 """
 
 from __future__ import annotations
@@ -19,10 +23,20 @@ from app.retrieval.embedder import EmbeddingConfig
 from app.retrieval.indexer import index_documents
 from app.retrieval.manifest import file_sha256, load_manifest
 from app.retrieval.search import Retriever, SearchFilters
-from app.retrieval.store import COLLECTION, DENSE, SPARSE, connect, count_by_doc_type
+from app.retrieval.store import (
+    DENSE,
+    FOLDED,
+    SPARSE,
+    connect,
+    count_by_doc_type,
+    lexical_fingerprint_counts,
+    vectors_digest,
+)
 from app.saleor.readonly_client import ReadOnlySaleorClient
 from app.catalog.schema import CATALOG_PATH
 from app.policies import policy_path
+from qdrant_client import models
+from tests.active_index import ACTIVE, LEXICAL, MODES
 
 pytestmark = pytest.mark.integration
 
@@ -41,7 +55,7 @@ SMOKE_QUERIES = [
 @pytest.fixture(scope="module")
 def client():
     c = connect()
-    assert c.collection_exists(COLLECTION), "index missing: run `uv run python -m scripts.build_index`"
+    assert c.collection_exists(ACTIVE), f"index {ACTIVE} missing: run `uv run python -m scripts.build_index`"
     return c
 
 
@@ -56,21 +70,21 @@ class _MemoEmbedder:
 
 @pytest.fixture(scope="module")
 def retriever(client, embedder):
-    return Retriever(client, _MemoEmbedder(embedder))
+    return Retriever(client, _MemoEmbedder(embedder), collection=ACTIVE)
 
 
 def test_manifest_matches_the_actual_index(client):
     manifest = load_manifest()
     config = EmbeddingConfig()
-    assert manifest["collection"] == COLLECTION
+    assert manifest["collection"] == ACTIVE
     assert manifest["embedding"]["fingerprint"] == config.fingerprint()
     assert manifest["embedding"]["revision"] == config.revision
-    assert manifest["documents"] == count_by_doc_type(client)
+    assert manifest["documents"] == count_by_doc_type(client, ACTIVE)
     assert "kind" in manifest["filterable_payload"] and "keyword" not in manifest["filterable_payload"]
-    assert "kind" in (client.get_collection(COLLECTION).payload_schema or {})
+    assert "kind" in (client.get_collection(ACTIVE).payload_schema or {})
     assert manifest["documents"]["product"] == len(load_catalog().products)
     assert manifest["documents"]["policy"] == sum(len(clauses(d)) for d in POLICY_DOCUMENTS)
-    params = client.get_collection(COLLECTION).config.params
+    params = client.get_collection(ACTIVE).config.params
     assert params.vectors[DENSE].size == manifest["vectors"][DENSE]["size"]
     assert SPARSE in params.sparse_vectors
     assert manifest["sources"]["catalog"]["sha256"] == file_sha256(CATALOG_PATH)
@@ -79,28 +93,43 @@ def test_manifest_matches_the_actual_index(client):
     fingerprints = set()
     offset = None
     while True:
-        points, offset = client.scroll(COLLECTION, limit=256, offset=offset, with_payload=["embedding_fingerprint"])
+        points, offset = client.scroll(ACTIVE, limit=256, offset=offset, with_payload=["embedding_fingerprint"])
         fingerprints |= {p.payload["embedding_fingerprint"] for p in points}
         if offset is None:
             break
     assert fingerprints == {config.fingerprint()}
 
 
+@pytest.mark.skipif(LEXICAL is None, reason="the committed manifest is layout v1: there is no folded vector yet")
+def test_v2_manifest_matches_the_folded_vector_and_the_baseline_vectors(client):
+    manifest = load_manifest()
+    assert manifest["lexical"]["fingerprint"] == LEXICAL.fingerprint()
+    assert manifest["vectors"][FOLDED] == {"modifier": "idf"}
+    folded = client.get_collection(ACTIVE).config.params.sparse_vectors[FOLDED]
+    assert folded.modifier == models.Modifier.IDF
+    assert lexical_fingerprint_counts(client, ACTIVE) == {LEXICAL.fingerprint(): manifest["documents"]["total"]}
+    assert vectors_digest(client, ACTIVE) == manifest["vectors_digest"]
+    source = manifest["derived_from"]["collection"]
+    if client.collection_exists(source):  # the frozen Phase 3A/3B collection: baseline vectors must be untouched
+        assert vectors_digest(client, source) == manifest["derived_from"]["vectors_digest"] == manifest["vectors_digest"]
+
+
 def test_reindexing_leaves_point_counts_unchanged(client):
     kinds = {p.sku: p.kind for p in load_catalog().products}
     with ReadOnlySaleorClient(api_url(), require_setting("SALEOR_RUNTIME_TOKEN")) as runtime:
         documents = fetch_product_documents(runtime, kinds) + policy_documents()
-    before = count_by_doc_type(client)
+    before = count_by_doc_type(client, ACTIVE)
 
     def must_not_load():
         raise AssertionError("re-index tried to load the model: some document changed")
 
-    stats = index_documents(client, documents, EmbeddingConfig(), embedder_factory=must_not_load)
+    stats = index_documents(client, documents, EmbeddingConfig(), embedder_factory=must_not_load, collection=ACTIVE,
+                            lexical=LEXICAL)
     assert (stats.embedded, stats.payload_updated, stats.deleted, stats.skipped) == (0, 0, 0, len(documents))
-    assert count_by_doc_type(client) == before
+    assert count_by_doc_type(client, ACTIVE) == before
 
 
-@pytest.mark.parametrize("mode", ["dense", "hybrid"])
+@pytest.mark.parametrize("mode", MODES)
 def test_smoke_queries_return_results(retriever, mode):
     for query in SMOKE_QUERIES:
         hits = retriever.search(query, k=5, mode=mode)
@@ -169,7 +198,7 @@ def _random_filters(rng: random.Random) -> SearchFilters:
     )
 
 
-@pytest.mark.parametrize("mode", ["dense", "hybrid"])
+@pytest.mark.parametrize("mode", MODES)
 def test_every_result_satisfies_random_filters(retriever, mode):
     rng = random.Random(20261009)
     checked = non_empty = kind_non_empty = 0
@@ -188,7 +217,7 @@ def test_every_result_satisfies_random_filters(retriever, mode):
     assert non_empty >= 100 and checked >= 1000 and kind_non_empty >= 10, (non_empty, checked, kind_non_empty)
 
 
-@pytest.mark.parametrize("mode", ["dense", "hybrid"])
+@pytest.mark.parametrize("mode", MODES)
 def test_kind_filter_for_every_catalog_kind(retriever, mode):
     """Every kind in the catalog: all hits have that kind (per the catalog file) and none is lost."""
     catalog = _catalog_view()

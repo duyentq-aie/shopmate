@@ -3,7 +3,13 @@
 search(query, filters, k, mode):
 - mode "dense":  nearest neighbours on the bge-m3 dense vector;
 - mode "hybrid": dense and sparse candidates (PREFETCH_LIMIT each) fused with Reciprocal Rank
-  Fusion inside Qdrant (Query API, FusionQuery RRF).
+  Fusion inside Qdrant (Query API, FusionQuery RRF);
+- Phase 4 experiment 1 (layout-v2 collection only), the same fusion with the diacritic-folded
+  lexical vector (`folded`) as an extra or replacement branch:
+    "dense_sparse_folded": dense + sparse + folded;
+    "dense_folded":        dense + folded (the folded branch replaces bge-m3 sparse).
+  Every fused mode uses the same RRF settings, PREFETCH_LIMIT and R16 ordering, so branches are the
+  only thing that differs. A branch with no query weights (no tokens) is dropped.
 Filters are translated to a Qdrant filter and applied INSIDE Qdrant, on every prefetch branch and
 on the final query, so a result can never violate them. There is deliberately no `keyword`
 filter: free-text name matching is the retrieval model's job, not a hard filter (DECISIONS R14).
@@ -16,8 +22,8 @@ cannot fix WHICH of two tied points made it into the list. The stable key is the
 and "file:clause" for policies. This is a fix, not a ranking choice; smarter tie-breaking (e.g.
 preferring the higher dense score) is a Phase 4 candidate.
 
-Deliberately a baseline: no query rewriting, no Vietnamese normalisation, no reranker, no LLM.
-Those come later as measured experiments.
+Deliberately a baseline: no query rewriting, no reranker, no LLM. Vietnamese normalisation exists
+only as the folded branch above, where it is the thing being measured.
 """
 
 from __future__ import annotations
@@ -29,9 +35,16 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 from qdrant_client import QdrantClient, models
 
 from app.retrieval.embedder import Embedding
-from app.retrieval.store import COLLECTION, DENSE, SPARSE
+from app.retrieval.lexical import LexicalConfig, query_vector
+from app.retrieval.manifest import active_collection
+from app.retrieval.store import DENSE, FOLDED, SPARSE, to_sparse_vector
 
-Mode = Literal["dense", "hybrid"]
+Mode = Literal["dense", "hybrid", "dense_sparse_folded", "dense_folded"]
+FUSED_BRANCHES: dict[str, tuple[str, ...]] = {
+    "hybrid": (DENSE, SPARSE),
+    "dense_sparse_folded": (DENSE, SPARSE, FOLDED),
+    "dense_folded": (DENSE, FOLDED),
+}
 PREFETCH_LIMIT = 50  # candidates per branch before RRF; part of the baseline definition
 MIN_FETCH = 30  # fused results fetched before the deterministic sort
 
@@ -102,15 +115,24 @@ class Hit:
 class Retriever:
     """Holds the Qdrant client and the (loaded once) embedder."""
 
-    def __init__(self, client: QdrantClient, embedder, collection: str = COLLECTION) -> None:
+    def __init__(self, client: QdrantClient, embedder, collection: str | None = None,
+                 lexical: LexicalConfig | None = None) -> None:
         self.client = client
         self.embedder = embedder
-        self.collection = collection
+        self.collection = collection or active_collection()
+        self.lexical = lexical or LexicalConfig()  # query side: only the folding is needed (weights are binary)
+
+    def _weights(self, branch: str, query: str, embedding: Embedding) -> dict[int, float] | list[float]:
+        if branch == DENSE:
+            return embedding.dense
+        return embedding.sparse if branch == SPARSE else query_vector(query)
 
     def search(self, query: str, filters: SearchFilters | dict | None = None, k: int = 10,
                mode: Mode = "dense") -> list[Hit]:
         if k < 1:
             raise ValueError("k must be >= 1")
+        if mode != "dense" and mode not in FUSED_BRANCHES:
+            raise ValueError(f"unknown mode {mode!r}")
         if isinstance(filters, dict):
             filters = SearchFilters.model_validate(filters)
         flt = filters.to_qdrant() if filters else None
@@ -119,17 +141,17 @@ class Retriever:
         if mode == "dense":
             result = self.client.query_points(self.collection, query=embedding.dense, using=DENSE,
                                               query_filter=flt, limit=fetch_limit(k), with_payload=True)
-        elif mode == "hybrid":
-            prefetch = [models.Prefetch(query=embedding.dense, using=DENSE, filter=flt, limit=PREFETCH_LIMIT)]
-            if embedding.sparse:
-                indices = sorted(embedding.sparse)
-                sparse = models.SparseVector(indices=indices, values=[embedding.sparse[i] for i in indices])
-                prefetch.append(models.Prefetch(query=sparse, using=SPARSE, filter=flt, limit=PREFETCH_LIMIT))
+        else:
+            prefetch = []
+            for branch in FUSED_BRANCHES[mode]:
+                weights = self._weights(branch, query, embedding)
+                if not weights:
+                    continue  # no sparse weights / no tokens: this branch cannot say anything
+                vector = weights if branch == DENSE else to_sparse_vector(weights)
+                prefetch.append(models.Prefetch(query=vector, using=branch, filter=flt, limit=PREFETCH_LIMIT))
             result = self.client.query_points(self.collection, prefetch=prefetch,
                                               query=models.FusionQuery(fusion=models.Fusion.RRF),
                                               query_filter=flt, limit=fetch_limit(k), with_payload=True)
-        else:
-            raise ValueError(f"unknown mode {mode!r}")
 
         ordered = sorted(result.points,
                          key=lambda p: (-p.score, stable_key(p.payload or {}, str(p.id))))[:k]
