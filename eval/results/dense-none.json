@@ -1,0 +1,1594 @@
+{
+  "deterministic": {
+    "provenance": {
+      "git_commit": "d8b4a6171d6e0c09b09735508ef3f5d4da892e4d",
+      "git_dirty": false,
+      "index_manifest_sha256": "004844ff62c6b2cbb14fd5a96da3c49187d723c21ed675d1bcfe2feb6ec0397c",
+      "embedder_fingerprint": "53b494c7da7e1203",
+      "golden_file_sha256": "89f0dd2deff438b09e7849c0f6c2bed022a347ce12e3ec97b93514bf9631bd81",
+      "dev_split_sha256": "62fe8897140b08601306f468b40a71512693f8543d96442deb3dca479b0e8ed6",
+      "config": {
+        "mode": "dense",
+        "filters": "none",
+        "top_k": 10,
+        "ks": [
+          1,
+          5,
+          10
+        ],
+        "split": "dev",
+        "intents": [
+          "product_search",
+          "policy_question"
+        ],
+        "oracle_drops": [
+          "keyword"
+        ],
+        "bootstrap": {
+          "resamples": 10000,
+          "seed": 20261009,
+          "confidence": 0.95
+        },
+        "metrics_version": "phase3b-v1"
+      }
+    },
+    "aggregate": {
+      "counts": {
+        "product_answerable": 19,
+        "policy": 14,
+        "no_answer": 5
+      },
+      "product_search": {
+        "hit@1": {
+          "n": 19,
+          "excluded": 0,
+          "mean": 0.631578947368421,
+          "ci_low": 0.42105263157894735,
+          "ci_high": 0.8421052631578947
+        },
+        "hit@5": {
+          "n": 19,
+          "excluded": 0,
+          "mean": 0.8947368421052632,
+          "ci_low": 0.7368421052631579,
+          "ci_high": 1.0
+        },
+        "hit@10": {
+          "n": 19,
+          "excluded": 0,
+          "mean": 0.9473684210526315,
+          "ci_low": 0.8421052631578947,
+          "ci_high": 1.0
+        },
+        "precision@1": {
+          "n": 19,
+          "excluded": 0,
+          "mean": 0.631578947368421,
+          "ci_low": 0.42105263157894735,
+          "ci_high": 0.8421052631578947
+        },
+        "precision@5": {
+          "n": 19,
+          "excluded": 0,
+          "mean": 0.3473684210526316,
+          "ci_low": 0.24210526315789477,
+          "ci_high": 0.47368421052631576
+        },
+        "precision@10": {
+          "n": 19,
+          "excluded": 0,
+          "mean": 0.19999999999999998,
+          "ci_low": 0.1368421052631579,
+          "ci_high": 0.2736842105263158
+        },
+        "nrecall@1": {
+          "n": 19,
+          "excluded": 0,
+          "mean": 0.631578947368421,
+          "ci_low": 0.42105263157894735,
+          "ci_high": 0.8421052631578947
+        },
+        "nrecall@5": {
+          "n": 19,
+          "excluded": 0,
+          "mean": 0.8315789473684211,
+          "ci_low": 0.6736842105263158,
+          "ci_high": 0.9684210526315788
+        },
+        "nrecall@10": {
+          "n": 19,
+          "excluded": 0,
+          "mean": 0.9157894736842105,
+          "ci_low": 0.7894736842105263,
+          "ci_high": 1.0
+        },
+        "rr": {
+          "n": 19,
+          "excluded": 0,
+          "mean": 0.7355889724310777,
+          "ci_low": 0.5720551378446115,
+          "ci_high": 0.8890977443609023
+        }
+      },
+      "policy_question": {
+        "hit@1": {
+          "n": 14,
+          "excluded": 0,
+          "mean": 0.6428571428571429,
+          "ci_low": 0.35714285714285715,
+          "ci_high": 0.8571428571428571
+        },
+        "hit@5": {
+          "n": 14,
+          "excluded": 0,
+          "mean": 0.8571428571428571,
+          "ci_low": 0.6428571428571429,
+          "ci_high": 1.0
+        },
+        "hit@10": {
+          "n": 14,
+          "excluded": 0,
+          "mean": 0.8571428571428571,
+          "ci_low": 0.6428571428571429,
+          "ci_high": 1.0
+        },
+        "rr": {
+          "n": 14,
+          "excluded": 0,
+          "mean": 0.75,
+          "ci_low": 0.5357142857142857,
+          "ci_high": 0.9285714285714286
+        }
+      },
+      "returned_results": {
+        "mean_returned_answerable": 10.0,
+        "answerable_with_zero_results": 0
+      },
+      "breakdown_by_query_style": {
+        "product_search": {
+          "co_dau": {
+            "n": 3,
+            "too_small_to_interpret": true,
+            "metrics": {
+              "hit@1": 0.3333333333333333,
+              "hit@5": 1.0,
+              "hit@10": 1.0,
+              "nrecall@10": 1.0,
+              "rr": 0.5833333333333334
+            }
+          },
+          "khong_dau": {
+            "n": 3,
+            "too_small_to_interpret": true,
+            "metrics": {
+              "hit@1": 0.0,
+              "hit@5": 0.3333333333333333,
+              "hit@10": 0.6666666666666666,
+              "nrecall@10": 0.5333333333333333,
+              "rr": 0.15873015873015872
+            }
+          },
+          "teencode": {
+            "n": 13,
+            "too_small_to_interpret": false,
+            "metrics": {
+              "hit@1": 0.8461538461538461,
+              "hit@5": 1.0,
+              "hit@10": 1.0,
+              "nrecall@10": 0.9846153846153847,
+              "rr": 0.9038461538461539
+            }
+          }
+        },
+        "policy_question": {
+          "co_dau": {
+            "n": 6,
+            "too_small_to_interpret": true,
+            "metrics": {
+              "hit@1": 1.0,
+              "hit@5": 1.0,
+              "rr": 1.0
+            }
+          },
+          "khong_dau": {
+            "n": 3,
+            "too_small_to_interpret": true,
+            "metrics": {
+              "hit@1": 0.0,
+              "hit@5": 0.6666666666666666,
+              "rr": 0.3333333333333333
+            }
+          },
+          "teencode": {
+            "n": 5,
+            "too_small_to_interpret": true,
+            "metrics": {
+              "hit@1": 0.6,
+              "hit@5": 0.8,
+              "rr": 0.7
+            }
+          }
+        }
+      },
+      "filter_correctness_check": {
+        "note": "no_answer items: share of correctly EMPTY result lists. Under oracle filters this is true by construction; it checks filter correctness, it is NOT a quality metric.",
+        "n": 5,
+        "correct_empty": 0.0
+      }
+    },
+    "items": [
+      {
+        "id": "gs-002",
+        "intent": "product_search",
+        "query_style": "khong_dau",
+        "author": "agent_draft",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-GIAY-0002",
+            "product:SM-GIAY-0014",
+            "product:SM-GIAY-0020",
+            "product:SM-GIAY-0032",
+            "product:SM-GIAY-0038"
+          ]
+        },
+        "filters": null,
+        "retrieved": [
+          "product:SM-GIAY-0043",
+          "product:SM-GIAY-0019",
+          "product:SM-GIAY-0032",
+          "product:SM-GIAY-0002",
+          "product:SM-GIAY-0031",
+          "product:SM-GIAY-0014",
+          "product:SM-GIAY-0044",
+          "product:SM-GIAY-0013",
+          "product:SM-GIAY-0039",
+          "product:SM-GIAY-0045"
+        ],
+        "metrics": {
+          "first_gold_rank": 3,
+          "rr": 0.3333333333333333,
+          "returned": 10,
+          "hit@1": 0.0,
+          "precision@1": 0.0,
+          "nrecall@1": 0.0,
+          "hit@5": 1.0,
+          "precision@5": 0.4,
+          "nrecall@5": 0.4,
+          "hit@10": 1.0,
+          "precision@10": 0.3,
+          "nrecall@10": 0.6
+        }
+      },
+      {
+        "id": "gs-003",
+        "intent": "product_search",
+        "query_style": "teencode",
+        "author": "agent_draft",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-NAM-0004"
+          ]
+        },
+        "filters": null,
+        "retrieved": [
+          "product:SM-NAM-0004",
+          "product:SM-NU-0026",
+          "product:SM-NAM-0025",
+          "product:SM-NAM-0026",
+          "product:SM-NAM-0007",
+          "product:SM-NAM-0039",
+          "product:SM-PK-0001",
+          "product:SM-NAM-0032",
+          "product:SM-PK-0016",
+          "product:SM-NAM-0046"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "precision@1": 1.0,
+          "nrecall@1": 1.0,
+          "hit@5": 1.0,
+          "precision@5": 0.2,
+          "nrecall@5": 1.0,
+          "hit@10": 1.0,
+          "precision@10": 0.1,
+          "nrecall@10": 1.0
+        }
+      },
+      {
+        "id": "gs-004",
+        "intent": "product_search",
+        "query_style": "teencode",
+        "author": "agent_draft",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-NU-0003",
+            "product:SM-NU-0010"
+          ]
+        },
+        "filters": null,
+        "retrieved": [
+          "product:SM-NU-0038",
+          "product:SM-NU-0010",
+          "product:SM-NU-0031",
+          "product:SM-NU-0024",
+          "product:SM-NU-0003",
+          "product:SM-NU-0045",
+          "product:SM-NU-0046",
+          "product:SM-NU-0018",
+          "product:SM-NU-0017",
+          "product:SM-NU-0011"
+        ],
+        "metrics": {
+          "first_gold_rank": 2,
+          "rr": 0.5,
+          "returned": 10,
+          "hit@1": 0.0,
+          "precision@1": 0.0,
+          "nrecall@1": 0.0,
+          "hit@5": 1.0,
+          "precision@5": 0.4,
+          "nrecall@5": 1.0,
+          "hit@10": 1.0,
+          "precision@10": 0.2,
+          "nrecall@10": 1.0
+        }
+      },
+      {
+        "id": "gs-007",
+        "intent": "product_search",
+        "query_style": "teencode",
+        "author": "agent_draft",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-TT-0005",
+            "product:SM-TT-0010",
+            "product:SM-TT-0015",
+            "product:SM-TT-0020",
+            "product:SM-TT-0025",
+            "product:SM-TT-0030"
+          ]
+        },
+        "filters": null,
+        "retrieved": [
+          "product:SM-TT-0015",
+          "product:SM-TT-0020",
+          "product:SM-TT-0010",
+          "product:SM-TT-0025",
+          "product:SM-TT-0030",
+          "product:SM-TT-0005",
+          "product:SM-TT-0035",
+          "product:SM-TT-0021",
+          "product:SM-GIAY-0037",
+          "product:SM-GIAY-0035"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "precision@1": 1.0,
+          "nrecall@1": 1.0,
+          "hit@5": 1.0,
+          "precision@5": 1.0,
+          "nrecall@5": 1.0,
+          "hit@10": 1.0,
+          "precision@10": 0.6,
+          "nrecall@10": 1.0
+        }
+      },
+      {
+        "id": "gs-008",
+        "intent": "product_search",
+        "query_style": "teencode",
+        "author": "agent_draft",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-TUI-0008",
+            "product:SM-TUI-0028"
+          ]
+        },
+        "filters": null,
+        "retrieved": [
+          "product:SM-TUI-0008",
+          "product:SM-TUI-0028",
+          "product:SM-TUI-0027",
+          "product:SM-TUI-0001",
+          "product:SM-TUI-0010",
+          "product:SM-TUI-0013",
+          "product:SM-TUI-0011",
+          "product:SM-TUI-0003",
+          "product:SM-TUI-0033",
+          "product:SM-PK-0008"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "precision@1": 1.0,
+          "nrecall@1": 1.0,
+          "hit@5": 1.0,
+          "precision@5": 0.4,
+          "nrecall@5": 1.0,
+          "hit@10": 1.0,
+          "precision@10": 0.2,
+          "nrecall@10": 1.0
+        }
+      },
+      {
+        "id": "gs-009",
+        "intent": "product_search",
+        "query_style": "teencode",
+        "author": "agent_draft",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-TUI-0004",
+            "product:SM-TUI-0009",
+            "product:SM-TUI-0014",
+            "product:SM-TUI-0019",
+            "product:SM-TUI-0024"
+          ]
+        },
+        "filters": null,
+        "retrieved": [
+          "product:SM-TUI-0004",
+          "product:SM-TUI-0024",
+          "product:SM-TUI-0034",
+          "product:SM-TUI-0009",
+          "product:SM-TUI-0019",
+          "product:SM-TUI-0029",
+          "product:SM-TUI-0014",
+          "product:SM-TUI-0030",
+          "product:SM-PK-0001",
+          "product:SM-TUI-0025"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "precision@1": 1.0,
+          "nrecall@1": 1.0,
+          "hit@5": 1.0,
+          "precision@5": 0.8,
+          "nrecall@5": 0.8,
+          "hit@10": 1.0,
+          "precision@10": 0.5,
+          "nrecall@10": 1.0
+        }
+      },
+      {
+        "id": "gs-011",
+        "intent": "product_search",
+        "query_style": "teencode",
+        "author": "agent_draft",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-GIAY-0006"
+          ]
+        },
+        "filters": null,
+        "retrieved": [
+          "product:SM-GIAY-0006",
+          "product:SM-GIAY-0011",
+          "product:SM-GIAY-0023",
+          "product:SM-GIAY-0018",
+          "product:SM-GIAY-0036",
+          "product:SM-GIAY-0019",
+          "product:SM-GIAY-0004",
+          "product:SM-GIAY-0030",
+          "product:SM-GIAY-0024",
+          "product:SM-GIAY-0042"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "precision@1": 1.0,
+          "nrecall@1": 1.0,
+          "hit@5": 1.0,
+          "precision@5": 0.2,
+          "nrecall@5": 1.0,
+          "hit@10": 1.0,
+          "precision@10": 0.1,
+          "nrecall@10": 1.0
+        }
+      },
+      {
+        "id": "gs-012",
+        "intent": "product_search",
+        "query_style": "teencode",
+        "author": "agent_draft",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-NU-0006",
+            "product:SM-NU-0013",
+            "product:SM-NU-0020",
+            "product:SM-NU-0034",
+            "product:SM-NU-0048"
+          ]
+        },
+        "filters": null,
+        "retrieved": [
+          "product:SM-NU-0020",
+          "product:SM-NU-0034",
+          "product:SM-NU-0048",
+          "product:SM-NU-0049",
+          "product:SM-NU-0027",
+          "product:SM-NU-0021",
+          "product:SM-NU-0013",
+          "product:SM-NU-0014",
+          "product:SM-NU-0028",
+          "product:SM-NU-0007"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "precision@1": 1.0,
+          "nrecall@1": 1.0,
+          "hit@5": 1.0,
+          "precision@5": 0.6,
+          "nrecall@5": 0.6,
+          "hit@10": 1.0,
+          "precision@10": 0.4,
+          "nrecall@10": 0.8
+        }
+      },
+      {
+        "id": "gs-013",
+        "intent": "product_search",
+        "query_style": "co_dau",
+        "author": "agent_draft",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-PK-0013"
+          ]
+        },
+        "filters": null,
+        "retrieved": [
+          "product:SM-PK-0028",
+          "product:SM-PK-0023",
+          "product:SM-PK-0018",
+          "product:SM-PK-0013",
+          "product:SM-PK-0008",
+          "product:SM-PK-0003",
+          "product:SM-PK-0033",
+          "product:SM-NU-0042",
+          "product:SM-PK-0022",
+          "product:SM-PK-0020"
+        ],
+        "metrics": {
+          "first_gold_rank": 4,
+          "rr": 0.25,
+          "returned": 10,
+          "hit@1": 0.0,
+          "precision@1": 0.0,
+          "nrecall@1": 0.0,
+          "hit@5": 1.0,
+          "precision@5": 0.2,
+          "nrecall@5": 1.0,
+          "hit@10": 1.0,
+          "precision@10": 0.1,
+          "nrecall@10": 1.0
+        }
+      },
+      {
+        "id": "gs-014",
+        "intent": "product_search",
+        "query_style": "khong_dau",
+        "author": "agent_draft",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-NAM-0047"
+          ]
+        },
+        "filters": null,
+        "retrieved": [
+          "product:SM-NAM-0040",
+          "product:SM-NAM-0026",
+          "product:SM-NAM-0005",
+          "product:SM-NAM-0019",
+          "product:SM-NAM-0012",
+          "product:SM-NAM-0033",
+          "product:SM-NAM-0047",
+          "product:SM-NAM-0006",
+          "product:SM-NAM-0011",
+          "product:SM-GIAY-0027"
+        ],
+        "metrics": {
+          "first_gold_rank": 7,
+          "rr": 0.14285714285714285,
+          "returned": 10,
+          "hit@1": 0.0,
+          "precision@1": 0.0,
+          "nrecall@1": 0.0,
+          "hit@5": 0.0,
+          "precision@5": 0.0,
+          "nrecall@5": 0.0,
+          "hit@10": 1.0,
+          "precision@10": 0.1,
+          "nrecall@10": 1.0
+        }
+      },
+      {
+        "id": "gs-015",
+        "intent": "product_search",
+        "query_style": "teencode",
+        "author": "agent_draft",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-TT-0001",
+            "product:SM-TT-0011",
+            "product:SM-TT-0026"
+          ]
+        },
+        "filters": null,
+        "retrieved": [
+          "product:SM-TT-0001",
+          "product:SM-TT-0026",
+          "product:SM-TT-0011",
+          "product:SM-TT-0004",
+          "product:SM-TT-0016",
+          "product:SM-TT-0024",
+          "product:SM-TT-0009",
+          "product:SM-TT-0021",
+          "product:SM-TT-0034",
+          "product:SM-TT-0006"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "precision@1": 1.0,
+          "nrecall@1": 1.0,
+          "hit@5": 1.0,
+          "precision@5": 0.6,
+          "nrecall@5": 1.0,
+          "hit@10": 1.0,
+          "precision@10": 0.3,
+          "nrecall@10": 1.0
+        }
+      },
+      {
+        "id": "gs-016",
+        "intent": "product_search",
+        "query_style": "teencode",
+        "author": "agent_draft",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-GIAY-0009",
+            "product:SM-GIAY-0039",
+            "product:SM-GIAY-0045"
+          ]
+        },
+        "filters": null,
+        "retrieved": [
+          "product:SM-GIAY-0039",
+          "product:SM-GIAY-0009",
+          "product:SM-GIAY-0045",
+          "product:SM-GIAY-0015",
+          "product:SM-GIAY-0021",
+          "product:SM-GIAY-0033",
+          "product:SM-GIAY-0043",
+          "product:SM-GIAY-0027",
+          "product:SM-GIAY-0019",
+          "product:SM-GIAY-0003"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "precision@1": 1.0,
+          "nrecall@1": 1.0,
+          "hit@5": 1.0,
+          "precision@5": 0.6,
+          "nrecall@5": 1.0,
+          "hit@10": 1.0,
+          "precision@10": 0.3,
+          "nrecall@10": 1.0
+        }
+      },
+      {
+        "id": "gs-017",
+        "intent": "product_search",
+        "query_style": "teencode",
+        "author": "agent_draft",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-PK-0027"
+          ]
+        },
+        "filters": null,
+        "retrieved": [
+          "product:SM-PK-0027",
+          "policy:bao-hanh:1",
+          "product:SM-PK-0007",
+          "policy:van-chuyen:1",
+          "product:SM-PK-0032",
+          "policy:bao-hanh:3",
+          "policy:doi-tra:5",
+          "policy:doi-tra:3",
+          "product:SM-PK-0018",
+          "product:SM-NAM-0021"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "precision@1": 1.0,
+          "nrecall@1": 1.0,
+          "hit@5": 1.0,
+          "precision@5": 0.2,
+          "nrecall@5": 1.0,
+          "hit@10": 1.0,
+          "precision@10": 0.1,
+          "nrecall@10": 1.0
+        }
+      },
+      {
+        "id": "gs-018",
+        "intent": "product_search",
+        "query_style": "khong_dau",
+        "author": "agent_draft",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-TUI-0022",
+            "product:SM-TUI-0027",
+            "product:SM-TUI-0032"
+          ]
+        },
+        "filters": null,
+        "retrieved": [
+          "policy:van-chuyen:5",
+          "product:SM-GIAY-0006",
+          "policy:doi-tra:4",
+          "policy:van-chuyen:2",
+          "product:SM-GIAY-0023",
+          "product:SM-GIAY-0035",
+          "product:SM-GIAY-0019",
+          "product:SM-TT-0005",
+          "product:SM-GIAY-0012",
+          "product:SM-GIAY-0018"
+        ],
+        "metrics": {
+          "first_gold_rank": null,
+          "rr": 0.0,
+          "returned": 10,
+          "hit@1": 0.0,
+          "precision@1": 0.0,
+          "nrecall@1": 0.0,
+          "hit@5": 0.0,
+          "precision@5": 0.0,
+          "nrecall@5": 0.0,
+          "hit@10": 0.0,
+          "precision@10": 0.0,
+          "nrecall@10": 0.0
+        }
+      },
+      {
+        "id": "gs-019",
+        "intent": "product_search",
+        "query_style": "teencode",
+        "author": "agent_draft",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-TT-0007"
+          ]
+        },
+        "filters": null,
+        "retrieved": [
+          "product:SM-TT-0007",
+          "product:SM-TT-0032",
+          "product:SM-TT-0012",
+          "product:SM-TT-0027",
+          "product:SM-TT-0002",
+          "product:SM-TT-0017",
+          "product:SM-TT-0022",
+          "product:SM-TUI-0006",
+          "product:SM-NU-0008",
+          "product:SM-NU-0006"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "precision@1": 1.0,
+          "nrecall@1": 1.0,
+          "hit@5": 1.0,
+          "precision@5": 0.2,
+          "nrecall@5": 1.0,
+          "hit@10": 1.0,
+          "precision@10": 0.1,
+          "nrecall@10": 1.0
+        }
+      },
+      {
+        "id": "gs-021",
+        "intent": "product_search",
+        "query_style": "khong_dau",
+        "author": "agent_draft",
+        "gold": {
+          "type": "no_answer",
+          "keys": []
+        },
+        "filters": null,
+        "retrieved": [
+          "product:SM-NU-0028",
+          "product:SM-NU-0041",
+          "product:SM-NU-0048",
+          "product:SM-NU-0031",
+          "product:SM-NU-0024",
+          "product:SM-NU-0045",
+          "product:SM-NU-0038",
+          "product:SM-NU-0027",
+          "product:SM-NAM-0040",
+          "product:SM-TT-0003"
+        ],
+        "metrics": {
+          "returned": 10,
+          "correct_empty": 0.0
+        }
+      },
+      {
+        "id": "gs-023",
+        "intent": "policy_question",
+        "query_style": "co_dau",
+        "author": "agent_draft",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:doi-tra:2"
+          ]
+        },
+        "filters": null,
+        "retrieved": [
+          "policy:doi-tra:2",
+          "policy:doi-tra:7",
+          "policy:doi-tra:6",
+          "policy:van-chuyen:3",
+          "policy:bao-hanh:5",
+          "policy:doi-tra:4",
+          "policy:doi-tra:1",
+          "policy:doi-tra:3",
+          "policy:bao-hanh:6",
+          "policy:doi-tra:5"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-024",
+        "intent": "policy_question",
+        "query_style": "co_dau",
+        "author": "agent_draft",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:van-chuyen:2"
+          ]
+        },
+        "filters": null,
+        "retrieved": [
+          "policy:van-chuyen:2",
+          "policy:doi-tra:4",
+          "policy:van-chuyen:5",
+          "policy:bao-hanh:5",
+          "product:SM-PK-0033",
+          "product:SM-PK-0013",
+          "policy:doi-tra:3",
+          "policy:doi-tra:1",
+          "policy:doi-tra:7",
+          "policy:doi-tra:6"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-025",
+        "intent": "policy_question",
+        "query_style": "teencode",
+        "author": "agent_draft",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:van-chuyen:2"
+          ]
+        },
+        "filters": null,
+        "retrieved": [
+          "policy:van-chuyen:5",
+          "policy:van-chuyen:2",
+          "policy:doi-tra:4",
+          "policy:doi-tra:5",
+          "policy:bao-hanh:5",
+          "policy:van-chuyen:1",
+          "policy:doi-tra:3",
+          "policy:doi-tra:1",
+          "policy:van-chuyen:3",
+          "policy:van-chuyen:6"
+        ],
+        "metrics": {
+          "first_gold_rank": 2,
+          "rr": 0.5,
+          "returned": 10,
+          "hit@1": 0.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-026",
+        "intent": "policy_question",
+        "query_style": "teencode",
+        "author": "agent_draft",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:doi-tra:5"
+          ]
+        },
+        "filters": null,
+        "retrieved": [
+          "policy:doi-tra:5",
+          "policy:doi-tra:3",
+          "policy:doi-tra:1",
+          "policy:doi-tra:2",
+          "policy:doi-tra:4",
+          "policy:doi-tra:7",
+          "policy:doi-tra:6",
+          "policy:van-chuyen:5",
+          "policy:bao-hanh:1",
+          "policy:bao-hanh:5"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-027",
+        "intent": "policy_question",
+        "query_style": "co_dau",
+        "author": "agent_draft",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:doi-tra:6"
+          ]
+        },
+        "filters": null,
+        "retrieved": [
+          "policy:doi-tra:6",
+          "policy:doi-tra:7",
+          "policy:bao-hanh:5",
+          "policy:doi-tra:2",
+          "policy:van-chuyen:3",
+          "policy:bao-hanh:6",
+          "policy:van-chuyen:5",
+          "policy:van-chuyen:6",
+          "policy:doi-tra:4",
+          "policy:doi-tra:1"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-029",
+        "intent": "policy_question",
+        "query_style": "co_dau",
+        "author": "agent_draft",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:van-chuyen:3"
+          ]
+        },
+        "filters": null,
+        "retrieved": [
+          "policy:van-chuyen:3",
+          "policy:bao-hanh:5",
+          "policy:doi-tra:7",
+          "policy:doi-tra:2",
+          "policy:doi-tra:6",
+          "policy:bao-hanh:6",
+          "policy:van-chuyen:6",
+          "policy:van-chuyen:1",
+          "policy:van-chuyen:2",
+          "policy:doi-tra:4"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-030",
+        "intent": "policy_question",
+        "query_style": "teencode",
+        "author": "agent_draft",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:van-chuyen:5"
+          ]
+        },
+        "filters": null,
+        "retrieved": [
+          "policy:van-chuyen:5",
+          "policy:van-chuyen:4",
+          "policy:van-chuyen:6",
+          "policy:doi-tra:3",
+          "policy:doi-tra:7",
+          "policy:doi-tra:5",
+          "policy:van-chuyen:3",
+          "policy:doi-tra:2",
+          "policy:doi-tra:6",
+          "policy:doi-tra:1"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-031",
+        "intent": "policy_question",
+        "query_style": "co_dau",
+        "author": "agent_draft",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:bao-hanh:1"
+          ]
+        },
+        "filters": null,
+        "retrieved": [
+          "policy:bao-hanh:1",
+          "product:SM-TUI-0030",
+          "product:SM-TUI-0026",
+          "policy:bao-hanh:5",
+          "policy:bao-hanh:3",
+          "product:SM-TUI-0024",
+          "product:SM-TUI-0006",
+          "product:SM-TUI-0010",
+          "policy:bao-hanh:2",
+          "product:SM-TUI-0004"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-032",
+        "intent": "policy_question",
+        "query_style": "khong_dau",
+        "author": "agent_draft",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:bao-hanh:3"
+          ]
+        },
+        "filters": null,
+        "retrieved": [
+          "product:SM-TUI-0030",
+          "policy:bao-hanh:3",
+          "product:SM-TUI-0024",
+          "product:SM-TUI-0009",
+          "policy:van-chuyen:6",
+          "policy:doi-tra:3",
+          "policy:van-chuyen:5",
+          "product:SM-TUI-0004",
+          "policy:bao-hanh:1",
+          "product:SM-TUI-0022"
+        ],
+        "metrics": {
+          "first_gold_rank": 2,
+          "rr": 0.5,
+          "returned": 10,
+          "hit@1": 0.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-034",
+        "intent": "policy_question",
+        "query_style": "teencode",
+        "author": "agent_draft",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:van-chuyen:1"
+          ]
+        },
+        "filters": null,
+        "retrieved": [
+          "policy:van-chuyen:1",
+          "policy:van-chuyen:3",
+          "policy:van-chuyen:2",
+          "policy:bao-hanh:5",
+          "policy:van-chuyen:6",
+          "policy:van-chuyen:4",
+          "policy:doi-tra:4",
+          "policy:doi-tra:1",
+          "policy:bao-hanh:1",
+          "policy:bao-hanh:6"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-104",
+        "intent": "product_search",
+        "query_style": "teencode",
+        "author": "human",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-NAM-0018"
+          ]
+        },
+        "filters": null,
+        "retrieved": [
+          "product:SM-NAM-0032",
+          "product:SM-NAM-0039",
+          "product:SM-NAM-0046",
+          "product:SM-NAM-0018",
+          "product:SM-NAM-0025",
+          "product:SM-NAM-0011",
+          "product:SM-NU-0019",
+          "product:SM-NAM-0028",
+          "product:SM-NAM-0004",
+          "product:SM-NU-0047"
+        ],
+        "metrics": {
+          "first_gold_rank": 4,
+          "rr": 0.25,
+          "returned": 10,
+          "hit@1": 0.0,
+          "precision@1": 0.0,
+          "nrecall@1": 0.0,
+          "hit@5": 1.0,
+          "precision@5": 0.2,
+          "nrecall@5": 1.0,
+          "hit@10": 1.0,
+          "precision@10": 0.1,
+          "nrecall@10": 1.0
+        }
+      },
+      {
+        "id": "gs-105",
+        "intent": "product_search",
+        "query_style": "khong_dau",
+        "author": "human",
+        "gold": {
+          "type": "no_answer",
+          "keys": []
+        },
+        "filters": null,
+        "retrieved": [
+          "product:SM-TUI-0002",
+          "product:SM-TUI-0032",
+          "product:SM-TUI-0022",
+          "product:SM-GIAY-0027",
+          "product:SM-PK-0029",
+          "product:SM-TUI-0012",
+          "product:SM-GIAY-0045",
+          "product:SM-PK-0012",
+          "product:SM-NAM-0025",
+          "product:SM-PK-0034"
+        ],
+        "metrics": {
+          "returned": 10,
+          "correct_empty": 0.0
+        }
+      },
+      {
+        "id": "gs-106",
+        "intent": "product_search",
+        "query_style": "co_dau",
+        "author": "human",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-GIAY-0002"
+          ]
+        },
+        "filters": null,
+        "retrieved": [
+          "product:SM-GIAY-0032",
+          "product:SM-GIAY-0002",
+          "product:SM-GIAY-0019",
+          "product:SM-GIAY-0014",
+          "product:SM-GIAY-0043",
+          "product:SM-GIAY-0011",
+          "product:SM-GIAY-0034",
+          "product:SM-GIAY-0004",
+          "product:SM-GIAY-0026",
+          "product:SM-GIAY-0020"
+        ],
+        "metrics": {
+          "first_gold_rank": 2,
+          "rr": 0.5,
+          "returned": 10,
+          "hit@1": 0.0,
+          "precision@1": 0.0,
+          "nrecall@1": 0.0,
+          "hit@5": 1.0,
+          "precision@5": 0.2,
+          "nrecall@5": 1.0,
+          "hit@10": 1.0,
+          "precision@10": 0.1,
+          "nrecall@10": 1.0
+        }
+      },
+      {
+        "id": "gs-107",
+        "intent": "product_search",
+        "query_style": "teencode",
+        "author": "human",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-TUI-0009"
+          ]
+        },
+        "filters": null,
+        "retrieved": [
+          "product:SM-TUI-0009",
+          "product:SM-TUI-0024",
+          "product:SM-TUI-0034",
+          "product:SM-NAM-0025",
+          "product:SM-NAM-0021",
+          "product:SM-TUI-0030",
+          "product:SM-TUI-0022",
+          "product:SM-TUI-0004",
+          "product:SM-TUI-0029",
+          "product:SM-TUI-0019"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "precision@1": 1.0,
+          "nrecall@1": 1.0,
+          "hit@5": 1.0,
+          "precision@5": 0.2,
+          "nrecall@5": 1.0,
+          "hit@10": 1.0,
+          "precision@10": 0.1,
+          "nrecall@10": 1.0
+        }
+      },
+      {
+        "id": "gs-108",
+        "intent": "product_search",
+        "query_style": "khong_dau",
+        "author": "human",
+        "gold": {
+          "type": "no_answer",
+          "keys": []
+        },
+        "filters": null,
+        "retrieved": [
+          "product:SM-PK-0034",
+          "product:SM-NU-0046",
+          "product:SM-NU-0025",
+          "product:SM-PK-0009",
+          "product:SM-PK-0029",
+          "product:SM-PK-0002",
+          "product:SM-NAM-0001",
+          "product:SM-NAM-0012",
+          "product:SM-NU-0032",
+          "product:SM-NAM-0050"
+        ],
+        "metrics": {
+          "returned": 10,
+          "correct_empty": 0.0
+        }
+      },
+      {
+        "id": "gs-109",
+        "intent": "product_search",
+        "query_style": "co_dau",
+        "author": "human",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-TT-0025"
+          ]
+        },
+        "filters": null,
+        "retrieved": [
+          "product:SM-TT-0025",
+          "product:SM-TT-0010",
+          "product:SM-TT-0015",
+          "product:SM-TT-0020",
+          "product:SM-TT-0035",
+          "product:SM-TT-0005",
+          "product:SM-TT-0021",
+          "product:SM-TT-0030",
+          "product:SM-GIAY-0031",
+          "product:SM-TT-0019"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "precision@1": 1.0,
+          "nrecall@1": 1.0,
+          "hit@5": 1.0,
+          "precision@5": 0.2,
+          "nrecall@5": 1.0,
+          "hit@10": 1.0,
+          "precision@10": 0.1,
+          "nrecall@10": 1.0
+        }
+      },
+      {
+        "id": "gs-110",
+        "intent": "product_search",
+        "query_style": "teencode",
+        "author": "human",
+        "gold": {
+          "type": "no_answer",
+          "keys": []
+        },
+        "filters": null,
+        "retrieved": [
+          "product:SM-PK-0009",
+          "product:SM-TUI-0022",
+          "product:SM-TUI-0028",
+          "product:SM-PK-0023",
+          "product:SM-TUI-0031",
+          "product:SM-PK-0034",
+          "product:SM-TUI-0033",
+          "product:SM-TUI-0008",
+          "product:SM-PK-0018",
+          "product:SM-TUI-0030"
+        ],
+        "metrics": {
+          "returned": 10,
+          "correct_empty": 0.0
+        }
+      },
+      {
+        "id": "gs-112",
+        "intent": "product_search",
+        "query_style": "teencode",
+        "author": "human",
+        "gold": {
+          "type": "no_answer",
+          "keys": []
+        },
+        "filters": null,
+        "retrieved": [
+          "policy:van-chuyen:5",
+          "product:SM-PK-0023",
+          "policy:van-chuyen:2",
+          "product:SM-PK-0018",
+          "product:SM-PK-0033",
+          "product:SM-PK-0020",
+          "product:SM-PK-0030",
+          "policy:bao-hanh:5",
+          "policy:doi-tra:5",
+          "policy:doi-tra:6"
+        ],
+        "metrics": {
+          "returned": 10,
+          "correct_empty": 0.0
+        }
+      },
+      {
+        "id": "gs-113",
+        "intent": "policy_question",
+        "query_style": "khong_dau",
+        "author": "human",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:van-chuyen:2"
+          ]
+        },
+        "filters": null,
+        "retrieved": [
+          "product:SM-TUI-0034",
+          "product:SM-TUI-0022",
+          "product:SM-TUI-0030",
+          "product:SM-TUI-0033",
+          "product:SM-TUI-0009",
+          "product:SM-NAM-0001",
+          "product:SM-TT-0008",
+          "product:SM-NAM-0028",
+          "product:SM-TUI-0023",
+          "product:SM-NAM-0012"
+        ],
+        "metrics": {
+          "first_gold_rank": null,
+          "rr": 0.0,
+          "returned": 10,
+          "hit@1": 0.0,
+          "hit@5": 0.0,
+          "hit@10": 0.0
+        }
+      },
+      {
+        "id": "gs-118",
+        "intent": "policy_question",
+        "query_style": "teencode",
+        "author": "human",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:doi-tra:7"
+          ]
+        },
+        "filters": null,
+        "retrieved": [
+          "product:SM-GIAY-0012",
+          "product:SM-GIAY-0042",
+          "product:SM-TUI-0033",
+          "product:SM-NAM-0028",
+          "product:SM-NAM-0001",
+          "product:SM-GIAY-0030",
+          "product:SM-TT-0008",
+          "product:SM-PK-0002",
+          "product:SM-TUI-0002",
+          "product:SM-TUI-0004"
+        ],
+        "metrics": {
+          "first_gold_rank": null,
+          "rr": 0.0,
+          "returned": 10,
+          "hit@1": 0.0,
+          "hit@5": 0.0,
+          "hit@10": 0.0
+        }
+      },
+      {
+        "id": "gs-119",
+        "intent": "policy_question",
+        "query_style": "khong_dau",
+        "author": "human",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:van-chuyen:3"
+          ]
+        },
+        "filters": null,
+        "retrieved": [
+          "policy:van-chuyen:1",
+          "policy:van-chuyen:3",
+          "policy:bao-hanh:1",
+          "product:SM-PK-0018",
+          "policy:van-chuyen:6",
+          "policy:doi-tra:1",
+          "product:SM-PK-0029",
+          "policy:doi-tra:3",
+          "product:SM-PK-0015",
+          "policy:van-chuyen:5"
+        ],
+        "metrics": {
+          "first_gold_rank": 2,
+          "rr": 0.5,
+          "returned": 10,
+          "hit@1": 0.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-120",
+        "intent": "policy_question",
+        "query_style": "co_dau",
+        "author": "human",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:bao-hanh:5"
+          ]
+        },
+        "filters": null,
+        "retrieved": [
+          "policy:bao-hanh:5",
+          "policy:bao-hanh:6",
+          "policy:van-chuyen:3",
+          "policy:doi-tra:7",
+          "policy:doi-tra:4",
+          "policy:bao-hanh:1",
+          "policy:doi-tra:2",
+          "policy:bao-hanh:2",
+          "policy:doi-tra:6",
+          "policy:van-chuyen:2"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      }
+    ]
+  },
+  "deterministic_sha256": "141245be47c997a6883f950b65464b537689b582d9cf6760d4e4d08f40ee5c77",
+  "measurements": {
+    "latency_ms": {
+      "p50": 127.3,
+      "p95": 138.5,
+      "n": 38
+    },
+    "wall_seconds": 4.8
+  }
+}
