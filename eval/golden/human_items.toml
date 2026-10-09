@@ -1,55 +1,368 @@
-# Human-written golden items. Write CONTENT here; code computes the gold labels.
-#
-#   uv run python -m eval.golden.merge_human_items --dry-run   # check, print strata, write nothing
-#   uv run python -m eval.golden.merge_human_items             # merge into golden.vi.json
-#
-# Per item, write only:
-#   id           "gs-101" onward (gs-001 … gs-064 are the reviewed agent drafts and are never touched)
-#   question     the customer's text, exactly as typed (typos kept on purpose)
-#   intent       product_search | policy_question | order_status | create_ticket | out_of_scope | smalltalk
-#   query_style  co_dau | khong_dau | teencode   (see LABELING.md)
-#   notes        optional
-# plus exactly ONE source, matching the intent:
-#   product_search   [items.expected_filters]  any of: category, kind, keyword, color, material,
-#                    size, price_min, price_max, in_stock. Gold SKUs are computed from the catalog;
-#                    if nothing matches, the item becomes a "no_answer" (no-match) item.
-#   policy_question  policy = { file = "doi-tra" | "van-chuyen" | "bao-hanh", clause = N }
-#   order_status     order = { external_reference = "shopmate-seed-order-NNN", email = "...", phone = "..." }
-#   create_ticket    order = { ... } as above, or no_answer = "reason"
-#                    For order items, write {order_number} in the question where the number goes.
-#                    email/phone: only what the question itself gives (omit both if it gives neither),
-#                    and it must appear literally in the question. The script works out whether the
-#                    email matches the order's owner and sets the expected behavior (answer / ask /
-#                    refuse). v1 verifies by EMAIL ONLY: a question giving only a phone expects
-#                    "ask_for_verification" (the assistant asks for the email).
-#   out_of_scope, smalltalk   no_answer = "reason"
-#
-# Do not write author, status, split or gold labels: the merge script sets them
-# (author = human, status = human_reviewed, split = stratified by intent x query_style).
-#
-# ---- Example 1: product search (gold SKUs computed from the filters) ----
-# [[items]]
-# id = "gs-101"
-# question = "có giày sneaker nam trắng size 40 ko shop"
-# intent = "product_search"
-# query_style = "teencode"
-# [items.expected_filters]
-# kind = "Giày sneaker nam"
-# color = "Trắng"
-# size = "40"
-#
-# ---- Example 2: policy question ----
-# [[items]]
-# id = "gs-102"
-# question = "hang mua ve bi loi thi doi tra trong bao lau"
-# intent = "policy_question"
-# query_style = "khong_dau"
-# policy = { file = "doi-tra", clause = 2 }
-#
-# ---- Example 3: order status with the owner's email (expected behavior: answer) ----
-# [[items]]
-# id = "gs-103"
-# question = "Đơn {order_number} của mình giao chưa? Email đặt hàng là khachhang16@example.com."
-# intent = "order_status"
-# query_style = "co_dau"
-# order = { external_reference = "shopmate-seed-order-020", email = "khachhang16@example.com" }
+# ==============================================================================
+# Human-written golden test items (gs-101 to gs-140)
+# Evaluation benchmark for Vietnamese e-commerce customer assistant
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# Intent: product_search (12 items)
+# ------------------------------------------------------------------------------
+
+[[items]]
+id = "gs-101"
+question = "shop oi co ao polo nam mau xanh navy size L k z"
+intent = "product_search"
+query_style = "teencode"
+[items.expected_filters]
+kind = "Áo polo nam"
+color = "Xanh navy"
+size = "L"
+
+[[items]]
+id = "gs-102"
+question = "tim giup minh vay lien nu mau be chat lieu voan"
+intent = "product_search"
+query_style = "khong_dau"
+[items.expected_filters]
+kind = "Váy liền nữ"
+color = "Be"
+material = "Voan"
+
+[[items]]
+id = "gs-103"
+question = "Shop có chân váy nữ màu đen size M nào dưới 400 nghìn không?"
+intent = "product_search"
+query_style = "co_dau"
+[items.expected_filters]
+kind = "Chân váy nữ"
+color = "Đen"
+size = "M"
+price_max = 400000
+
+[[items]]
+id = "gs-104"
+question = "co quan jean nam denim mau xanh dam size 31 k shop"
+intent = "product_search"
+query_style = "teencode"
+[items.expected_filters]
+kind = "Quần jean nam"
+color = "Xanh đậm"
+material = "Denim"
+size = "31"
+
+[[items]]
+id = "gs-105"
+question = "cho xem tui deo cheo da tong hop mau nau con hang"
+intent = "product_search"
+query_style = "khong_dau"
+[items.expected_filters]
+kind = "Túi đeo chéo"
+color = "Nâu"
+material = "Da tổng hợp"
+in_stock = true
+
+[[items]]
+id = "gs-106"
+question = "Mình cần mua giày sneaker nữ màu trắng size 37 giá từ 300000 đến 700000"
+intent = "product_search"
+query_style = "co_dau"
+[items.expected_filters]
+kind = "Giày sneaker nữ"
+color = "Trắng"
+size = "37"
+price_min = 300000
+price_max = 700000
+
+[[items]]
+id = "gs-107"
+question = "vi da nam mau den chat da bo bn tien vay mik can loai con hang"
+intent = "product_search"
+query_style = "teencode"
+[items.expected_filters]
+kind = "Ví da nam"
+color = "Đen"
+material = "Da bò"
+in_stock = true
+
+[[items]]
+id = "gs-108"
+question = "co ao khoac nu chat lieu tweed mau kem khong"
+intent = "product_search"
+query_style = "khong_dau"
+[items.expected_filters]
+kind = "Áo khoác nữ"
+color = "Kem"
+material = "Tweed"
+
+[[items]]
+id = "gs-109"
+question = "Tìm cho mình giày chạy bộ màu xám size 42 trong danh mục đồ thể thao."
+intent = "product_search"
+query_style = "co_dau"
+[items.expected_filters]
+category = "do-the-thao"
+kind = "Giày chạy bộ"
+color = "Xám"
+size = "42"
+
+[[items]]
+id = "gs-110"
+question = "mu freesize mau vang vai canvas gia tam 100k den 250k co k"
+intent = "product_search"
+query_style = "teencode"
+[items.expected_filters]
+kind = "Mũ"
+color = "Vàng"
+material = "Vải canvas"
+size = "Freesize"
+price_min = 100000
+price_max = 250000
+
+[[items]]
+id = "gs-111"
+question = "shop con quan legging nu thun lanh mau hong size S khong"
+intent = "product_search"
+query_style = "khong_dau"
+[items.expected_filters]
+kind = "Quần legging nữ"
+color = "Hồng"
+material = "Thun lạnh"
+size = "S"
+in_stock = true
+
+[[items]]
+id = "gs-112"
+question = "kinh mat nhua acetate mau do gia duoi 500k co k a"
+intent = "product_search"
+query_style = "teencode"
+[items.expected_filters]
+kind = "Kính mát"
+color = "Đỏ"
+material = "Nhựa acetate"
+price_max = 500000
+
+# ------------------------------------------------------------------------------
+# Intent: policy_question (8 items)
+# ------------------------------------------------------------------------------
+
+[[items]]
+id = "gs-113"
+question = "phi van chuyen giao hang ben shop tinh the nao vay"
+intent = "policy_question"
+query_style = "khong_dau"
+policy = { file = "van-chuyen", clause = 2 }
+
+[[items]]
+id = "gs-114"
+question = "Thời hạn đổi trả hàng là bao nhiêu ngày kể từ lúc nhận được đồ vậy shop?"
+intent = "policy_question"
+query_style = "co_dau"
+policy = { file = "doi-tra", clause = 2 }
+
+[[items]]
+id = "gs-115"
+question = "nhung sp nao k dc doi tra the shop"
+intent = "policy_question"
+query_style = "teencode"
+policy = { file = "doi-tra", clause = 5 }
+
+[[items]]
+id = "gs-116"
+question = "nhan hang co duoc kiem tra truoc khi tra tien cod khong"
+intent = "policy_question"
+query_style = "khong_dau"
+policy = { file = "van-chuyen", clause = 5 }
+
+[[items]]
+id = "gs-117"
+question = "Nếu sản phẩm bị lỗi do người dùng làm rơi rách thì có được bảo hành không?"
+intent = "policy_question"
+query_style = "co_dau"
+policy = { file = "bao-hanh", clause = 3 }
+
+[[items]]
+id = "gs-118"
+question = "lam the nao de gui yeu cau doi tra do vay mn"
+intent = "policy_question"
+query_style = "teencode"
+policy = { file = "doi-tra", clause = 7 }
+
+[[items]]
+id = "gs-119"
+question = "shop mat bao lau de giao hang toi khu vuc cua minh"
+intent = "policy_question"
+query_style = "khong_dau"
+policy = { file = "van-chuyen", clause = 3 }
+
+[[items]]
+id = "gs-120"
+question = "Thời gian xử lý bảo hành mất bao lâu và bên nào chịu phí vận chuyển?"
+intent = "policy_question"
+query_style = "co_dau"
+policy = { file = "bao-hanh", clause = 5 }
+
+# ------------------------------------------------------------------------------
+# Intent: order_status (6 items)
+# ------------------------------------------------------------------------------
+
+# Correct owner email -> expected behavior: answer
+[[items]]
+id = "gs-121"
+question = "Đơn {order_number} của mình đang ở đâu rồi shop? Email đặt hàng là khachhang01@example.com."
+intent = "order_status"
+query_style = "co_dau"
+order = { external_reference = "shopmate-seed-order-006", email = "khachhang01@example.com" }
+
+# Missing verification info -> expected behavior: ask_for_verification
+[[items]]
+id = "gs-122"
+question = "kiem tra tinh trang don {order_number} giup minh voi"
+intent = "order_status"
+query_style = "khong_dau"
+order = { external_reference = "shopmate-seed-order-005" }
+
+# Phone only provided -> expected behavior: ask_for_verification (email required)
+[[items]]
+id = "gs-123"
+question = "check giup mik don {order_number} xem di toi dau r, sdt la 0987654321 nhe"
+intent = "order_status"
+query_style = "teencode"
+order = { external_reference = "shopmate-seed-order-003", phone = "0987654321" }
+
+# Mismatched owner email -> expected behavior: refuse
+[[items]]
+id = "gs-124"
+question = "Mình muốn xem tiến độ giao hàng mã {order_number}, email là khachhang10@example.com."
+intent = "order_status"
+query_style = "co_dau"
+order = { external_reference = "shopmate-seed-order-001", email = "khachhang10@example.com" }
+
+# Correct owner email -> expected behavior: answer
+[[items]]
+id = "gs-125"
+question = "don hang {order_number} da giao chua ban, mail cua minh la khachhang07@example.com"
+intent = "order_status"
+query_style = "khong_dau"
+order = { external_reference = "shopmate-seed-order-002", email = "khachhang07@example.com" }
+
+# Correct owner email -> expected behavior: answer
+[[items]]
+id = "gs-126"
+question = "don {order_number} sao lau giao the shop oi, mail dat hang khachhang04@example.com nha"
+intent = "order_status"
+query_style = "teencode"
+order = { external_reference = "shopmate-seed-order-008", email = "khachhang04@example.com" }
+
+# ------------------------------------------------------------------------------
+# Intent: create_ticket (5 items)
+# ------------------------------------------------------------------------------
+
+# Ticket with order and valid owner email -> expected behavior: answer
+[[items]]
+id = "gs-127"
+question = "minh muon tao khieu nai doi hang bi rach cho don {order_number}, mail la khachhang03@example.com"
+intent = "create_ticket"
+query_style = "khong_dau"
+order = { external_reference = "shopmate-seed-order-007", email = "khachhang03@example.com" }
+
+# Ticket with order and valid owner email -> expected behavior: answer
+[[items]]
+id = "gs-128"
+question = "Hàng nhận được bị sai màu ở đơn {order_number}, mở phiếu hỗ trợ giúp tôi với email khachhang18@example.com."
+intent = "create_ticket"
+query_style = "co_dau"
+order = { external_reference = "shopmate-seed-order-017", email = "khachhang18@example.com" }
+
+# Ticket with order but missing email -> expected behavior: ask_for_verification
+[[items]]
+id = "gs-129"
+question = "mo ticket ho tro cho don {order_number} giup voi, giao thieu do roi"
+intent = "create_ticket"
+query_style = "teencode"
+order = { external_reference = "shopmate-seed-order-004" }
+
+# General ticket not associated with a specific order -> no_answer
+[[items]]
+id = "gs-130"
+question = "nhan vien tu van thai do rat te, minh muon tao phieu khieu nai dich vu chung"
+intent = "create_ticket"
+query_style = "khong_dau"
+no_answer = "yeu cau ho tro khong gan voi don hang cu the"
+
+# Ticket with mismatched email -> expected behavior: refuse
+[[items]]
+id = "gs-131"
+question = "tao ticket khieu nai giup mik don {order_number} nha, mail cua mik la khachhang02@example.com"
+intent = "create_ticket"
+query_style = "teencode"
+order = { external_reference = "shopmate-seed-order-015", email = "khachhang02@example.com" }
+
+# ------------------------------------------------------------------------------
+# Intent: out_of_scope (4 items)
+# ------------------------------------------------------------------------------
+
+[[items]]
+id = "gs-132"
+question = "thoi tiet hom nay o ha noi the nao co mua khong ban"
+intent = "out_of_scope"
+query_style = "khong_dau"
+no_answer = "hoi ve thoi tiet ngoai pham vi cua shop"
+
+[[items]]
+id = "gs-133"
+question = "Bên bạn có đang tuyển dụng vị trí nhân viên kế toán kho không?"
+intent = "out_of_scope"
+query_style = "co_dau"
+no_answer = "hoi ve tuyen dung nhan su"
+
+[[items]]
+id = "gs-134"
+question = "shop co biet cho nao sua may giat electrolux uy tin o hcm k"
+intent = "out_of_scope"
+query_style = "teencode"
+no_answer = "hoi dich vu sua chua dien may ben ngoai"
+
+[[items]]
+id = "gs-135"
+question = "gia vang hom nay tang hay giam vay shop oi"
+intent = "out_of_scope"
+query_style = "khong_dau"
+no_answer = "hoi gia vang thi truong tai chinh"
+
+# ------------------------------------------------------------------------------
+# Intent: smalltalk (5 items)
+# ------------------------------------------------------------------------------
+
+[[items]]
+id = "gs-136"
+question = "chao shop buoi sang, chuc mot ngay tot lanh"
+intent = "smalltalk"
+query_style = "khong_dau"
+no_answer = "chao hoi xa giao"
+
+[[items]]
+id = "gs-137"
+question = "Bạn là người thật hay trí tuệ nhân tạo trả lời tự động thế?"
+intent = "smalltalk"
+query_style = "co_dau"
+no_answer = "hoi ve danh tinh cua tro ly ao"
+
+[[items]]
+id = "gs-138"
+question = "bot de thuong qua ta, rep nhanh ghe lun"
+intent = "smalltalk"
+query_style = "teencode"
+no_answer = "khen ngoi bot xa giao"
+
+[[items]]
+id = "gs-139"
+question = "cam on shop rat nhieu nha minh ro roi"
+intent = "smalltalk"
+query_style = "khong_dau"
+no_answer = "cam on ket thuc hoi thoai"
+
+[[items]]
+id = "gs-140"
+question = "shop oi buon ngu qua noi chuyen vs mik xiu dc k"
+intent = "smalltalk"
+query_style = "teencode"
+no_answer = "tro chuyen phi phiem tan gau"
