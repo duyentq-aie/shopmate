@@ -6,12 +6,14 @@ ShopMate is an AI sales assistant for e-commerce: a retrieval-augmented (RAG) ag
 
 | Path | Purpose |
 |---|---|
-| `app/` | The ShopMate service. So far: data schemas, shop constants and the read-only Saleor client (`app/saleor/readonly_client.py`). |
+| `app/` | The ShopMate service. So far: data schemas, shop constants, the read-only Saleor client (`app/saleor/readonly_client.py`) and baseline retrieval (`app/retrieval/`: bge-m3 embeddings, Qdrant index, dense/hybrid search). |
+| `docker-compose.yml` | ShopMate's own services (Qdrant), separate from Saleor's. |
+| `data/index/manifest.json` | Lineage of the current vector index (model revision, counts, source hashes). |
 | `data/seed/` | Synthetic catalog (`catalog.vi.json`) and test orders (`orders.vi.json`), versioned. |
 | `data/policies/` | Policy documents of the fictional shop (đổi trả, vận chuyển, bảo hành), with numbered clauses. |
 | `eval/golden/` | Golden evaluation set (`golden.vi.json`), its schema, drafting and validation scripts. |
 | `scripts/` | Generators, seeders for Saleor channel `vn`, the drift report and the Phase 1 smoke test. |
-| `tests/` | `uv run pytest`. Saleor is faked; no test needs a running stack or a token. |
+| `tests/` | `uv run pytest`: unit tests, no services. `uv run pytest -m integration`: live Qdrant, model and Saleor. `scripts/test_all.sh` runs both. |
 | `docs/SETUP.md` | How the local environment was set up, Saleor app permissions, seeding commands. |
 | `.env.example` | Configuration template (placeholders only). |
 
