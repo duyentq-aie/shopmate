@@ -59,6 +59,7 @@ from eval.golden.schema import (
 )
 
 HUMAN_ITEMS_PATH = GOLDEN_PATH.parent / "human_items.toml"
+FROZEN_TEST_SPLIT = GOLDEN_PATH.parent / "test_split.sha256"  # present once the test split is frozen
 FIRST_HUMAN_ID = 101
 TEST_FRACTION = 0.3
 # Marginal checks on the test split (warnings; the cells themselves are not checked).
@@ -292,6 +293,11 @@ def main(argv: list[str] | None = None) -> int:
     if args.dry_run:
         print(f"dry run: {args.golden} not modified")
         return 0
+    frozen = args.golden.with_name(FROZEN_TEST_SPLIT.name)
+    if frozen.is_file() and test_split_hash(merged) != frozen.read_text(encoding="utf-8").strip():
+        print(f"REFUSED (nothing written): the test split is frozen ({frozen}) and this merge would change it. "
+              f"Re-freezing is a deliberate decision; see docs/SETUP.md.", file=sys.stderr)
+        return 1
     args.golden.write_bytes(render(merged).encode("utf-8"))
     print(f"merged {len(human)} human items into {args.golden}")
     return 0

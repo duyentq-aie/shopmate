@@ -11,7 +11,15 @@ from app.catalog.schema import load_catalog
 from app.orders.schema import load_orders
 from eval.golden import draft_golden, validate_golden
 from eval.golden.draft_golden import build_drafts, render
-from eval.golden.schema import GoldenItem, GoldenSet, ProductFilters, apply_filters, load_golden, test_split_hash
+from eval.golden.schema import (
+    IDENTITY_BEHAVIOR,
+    GoldenItem,
+    GoldenSet,
+    ProductFilters,
+    apply_filters,
+    load_golden,
+    test_split_hash,
+)
 from eval.golden.sync_order_numbers import sync
 
 
@@ -149,7 +157,8 @@ def test_sync_fills_pending_numbers_and_keeps_human_edits(orders):
 def test_order_drafts_cover_verify_or_refuse():
     sources = [i.gold_source for i in load_golden().items if i.gold_source.type == "order"]
     behaviors = {(s.provided_identity, s.expected_behavior) for s in sources}
-    assert behaviors == {("matching_email", "answer"), ("none", "ask_for_verification"), ("mismatched_email", "refuse")}
+    assert {("matching_email", "answer"), ("none", "ask_for_verification"), ("mismatched_email", "refuse")} <= behaviors
+    assert behaviors <= {*IDENTITY_BEHAVIOR.items()}
     ids = {i.id for i in load_golden().items}
     assert {"gs-061", "gs-062", "gs-063", "gs-064"} <= ids
 

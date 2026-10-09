@@ -1,9 +1,12 @@
-"""merge_human_items: computed gold labels, safety rails, stratified split. Never touches the real files."""
+"""merge_human_items: computed gold labels, safety rails, stratified split. Never touches the real files.
+
+Independent of the real human items: the base golden set is the 64 agent drafts only (human items
+stripped from a temporary copy), and the template is eval/golden/human_items.example.toml.
+"""
 
 from __future__ import annotations
 
 import re
-import shutil
 import tomllib
 
 import pytest
@@ -11,15 +14,21 @@ import pytest
 from app.catalog.schema import load_catalog
 from app.orders.schema import load_orders
 from eval.golden import merge_human_items as m
-from eval.golden.schema import GOLDEN_PATH, apply_filters, load_golden
+from eval.golden.draft_golden import render
+from eval.golden.schema import GOLDEN_PATH, GoldenSet, apply_filters, load_golden
 
-TEMPLATE = m.HUMAN_ITEMS_PATH
+TEMPLATE = GOLDEN_PATH.parent / "human_items.example.toml"
+
+
+def _agent_only() -> GoldenSet:
+    golden = load_golden(GOLDEN_PATH)
+    return golden.model_copy(update={"items": [i for i in golden.items if i.author == "agent_draft"]})
 
 
 @pytest.fixture
 def golden_copy(tmp_path):
     path = tmp_path / "golden.vi.json"
-    shutil.copy(GOLDEN_PATH, path)
+    path.write_bytes(render(_agent_only()).encode("utf-8"))
     return path
 
 
@@ -176,7 +185,7 @@ def test_marginal_checks_replace_cell_warnings(tmp_path, golden_copy, capsys):
 
 
 def test_marginal_thresholds():
-    golden = load_golden()
+    golden = _agent_only()
     lines, warnings = m.marginal_checks(golden)
     rows = {line.split()[0]: line.split() for line in lines if line.startswith("  ")}
     assert rows["product_search"][4] == "6" and rows["policy_question"][4] == "6"
@@ -190,3 +199,13 @@ def test_no_item_may_expect_a_phone_to_match():
 
     from eval.golden.schema import ProvidedIdentity
     assert not any("phone" in v and v != "phone_only" for v in get_args(ProvidedIdentity))
+
+
+def test_merge_refuses_to_change_a_frozen_test_split(tmp_path, golden_copy, capsys):
+    frozen = golden_copy.with_name("test_split.sha256")
+    frozen.write_text("0" * 64 + "\n", encoding="utf-8")  # a split this merge cannot reproduce
+    before = golden_copy.read_bytes()
+    assert _run(tmp_path, golden_copy, _template_examples()) == 1
+    assert "test split is frozen" in capsys.readouterr().err
+    assert golden_copy.read_bytes() == before
+    assert _run(tmp_path, golden_copy, _template_examples(), "--dry-run") == 0  # dry runs stay allowed

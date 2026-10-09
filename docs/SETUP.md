@@ -347,7 +347,7 @@ Schema: `eval/golden/schema.py`. Item fields: `id`, `question`, `intent` (produc
 - **Anti-IDOR (DECISIONS D28, D37):** order data may only be revealed for order number + the owner's email (v1 is email-only; a phone alone → ask for the email). Order gold sources carry `provided_identity` and `expected_behavior`: `matching_email` → `answer`, `none` → `ask_for_verification`, `mismatched_email` → `refuse`. The validator checks the email in the question against the fixture's owner.
 - 64 agent drafts, all `status: draft_needs_human_review`, `author: agent_draft`: 22 product_search (2 deliberate no-match, 1 out-of-stock product), 12 policy_question, 12 order_status (gs-061..064 are the verify-or-refuse cases), 6 create_ticket, 6 out_of_scope, 6 smalltalk; 33 có dấu, 17 không dấu, 14 teencode; 43 dev, 21 test (per intent, the ~30% with the smallest sha256(id)).
 
-Human-written items (DECISIONS D36): write content in `eval/golden/human_items.toml` (template with 3 commented examples; ids from gs-101), then:
+Human-written items (DECISIONS D36): write content in `eval/golden/human_items.toml` (syntax and 3 tested examples in `eval/golden/human_items.example.toml`; ids from gs-101), then:
 
 ```bash
 uv run python -m eval.golden.merge_human_items --dry-run   # validate, print per-stratum counts, write nothing
@@ -366,7 +366,19 @@ uv run python -m eval.golden.sync_order_numbers                       # after se
 uv run python -m eval.golden.validate_golden --require-order-numbers  # after the sync
 ```
 
-**Test-split hash: not recorded yet.** It must be frozen after the human review (and after the order-number sync, which changes test items). Then record the value printed as `test-split sha256` here and pass it as `--expected-test-hash` in later runs.
+**Test split: FROZEN on 2026-10-09.**
+
+```
+4070dc68164dcf573ee0ed884d685050cd77c87c1b833300920eb9484c8eaf90
+```
+
+Recorded in `eval/golden/test_split.sha256`. The final set has 104 items (64 `agent_draft` + 40 `human`, all `human_reviewed`), 71 dev / 33 test. Test-split margins: co_dau 12, khong_dau 9, teencode 12; product_search 10, policy_question 6, order_status 6, create_ticket 4, out_of_scope 3, smalltalk 4 (all thresholds met). Guards:
+
+- `tests/test_frozen_test_split.py` fails if any test item changes, moves in or out of the test split, or the set is re-split;
+- `merge_human_items.py` refuses to write a merge that would change the frozen split (dry runs still work);
+- `uv run python -m eval.golden.validate_golden --require-order-numbers --expected-test-hash 4070dc68164dcf573ee0ed884d685050cd77c87c1b833300920eb9484c8eaf90`.
+
+Changing the test split after this point creates a new evaluation baseline. Do it only deliberately: record why here, then replace the hash in `eval/golden/test_split.sha256`.
 
 ## Offline checks against Saleor's schema
 
