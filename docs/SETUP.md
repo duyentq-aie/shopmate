@@ -475,3 +475,21 @@ The generator pins the model revision itself (it must equal `MODEL_REVISION`), u
 | Available with everything idle | about 4.2 GiB |
 
 `/tmp` in this WSL is a tmpfs, so files written there use RAM. Do not put large venvs or caches there.
+
+---
+
+# Phase 3B: baseline retrieval measurement (dev split only)
+
+Evaluation code reads golden items only through `eval/golden/loader.py:load_split`. `load_split("test")` raises `TestSplitLocked` unless `final_evaluation=True`, and Phase 3B never sets that flag. A test also checks that the eval scripts never import `load_golden`.
+
+```bash
+# 6 runs: modes dense|hybrid x filter settings none|routing|oracle (dev split, retrieval intents)
+for m in dense hybrid; do for f in none routing oracle; do
+  uv run python -m eval.run_retrieval_eval --mode $m --filters $f
+done; done
+uv run python -m eval.compare_retrieval_runs      # paired dense-vs-hybrid and none->routing->oracle
+```
+
+- **Clean tree required.** The runner refuses to start if any tracked file is modified or staged, or if any untracked file exists outside `eval/results/`. New result files in `eval/results/` are allowed, so all 6 runs can follow each other. Every result records the commit with `git_dirty: false`.
+- **No silent overwrite.** An existing result file is not replaced without `--overwrite`. To check determinism, re-run one configuration with `--overwrite` and compare `deterministic_sha256`. Latency lives in the separate `measurements` section, which is not hashed.
+- **Needs:** Qdrant up, the index matching `data/index/manifest.json` (checked at start), and the cached bge-m3 model. Saleor is not needed.
