@@ -1,9 +1,7 @@
 # eval/
 
-Evaluation for ShopMate. This is where the following will live in later phases:
+Evaluation for ShopMate.
 
-- question sets and expected answers grounded in the catalog,
-- scripts that run the assistant against those sets and score retrieval and answer quality,
-- stored results, so changes to prompts, models or retrieval can be compared over time.
+- `golden/` – the golden question set (`golden.vi.json`), its schema, the script that wrote the agent drafts, the validator and the order-number sync. See `docs/SETUP.md`, "Golden set".
 
-Empty for now.
+Later phases add scripts that run the assistant against the set and score retrieval and answers.

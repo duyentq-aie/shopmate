@@ -1,0 +1,4285 @@
+{
+  "schema_version": 1,
+  "synthetic": true,
+  "seed": 20261009,
+  "channel": "vn",
+  "currency": "VND",
+  "categories": [
+    {
+      "slug": "thoi-trang-nam",
+      "name": "Thời trang nam",
+      "sku_prefix": "NAM"
+    },
+    {
+      "slug": "thoi-trang-nu",
+      "name": "Thời trang nữ",
+      "sku_prefix": "NU"
+    },
+    {
+      "slug": "giay-dep",
+      "name": "Giày dép",
+      "sku_prefix": "GIAY"
+    },
+    {
+      "slug": "tui-vi",
+      "name": "Túi ví",
+      "sku_prefix": "TUI"
+    },
+    {
+      "slug": "phu-kien",
+      "name": "Phụ kiện",
+      "sku_prefix": "PK"
+    },
+    {
+      "slug": "do-the-thao",
+      "name": "Đồ thể thao",
+      "sku_prefix": "TT"
+    }
+  ],
+  "products": [
+    {
+      "sku": "SM-GIAY-0001",
+      "slug": "giay-sneaker-nam-de-don-den-sm-giay-0001",
+      "name": "Giày sneaker nam đế độn đen",
+      "category": "giay-dep",
+      "kind": "Giày sneaker nam",
+      "description": "Giày sneaker nam đế độn đen làm từ chất liệu da bò, da thật, bền và lên màu đẹp theo thời gian. Đế êm, chống trơn trượt, đi cả ngày không mỏi chân. Kích cỡ có sẵn: 41, 42, 43, 44. Dùng xi hoặc kem dưỡng da định kỳ để sản phẩm bền đẹp.",
+      "color": "Đen",
+      "material": "Da bò",
+      "sizes": [
+        "41",
+        "42",
+        "43",
+        "44"
+      ],
+      "price": 1049000,
+      "stock": 34
+    },
+    {
+      "sku": "SM-GIAY-0002",
+      "slug": "giay-sneaker-nu-slip-on-trang-sm-giay-0002",
+      "name": "Giày sneaker nữ slip-on trắng",
+      "category": "giay-dep",
+      "kind": "Giày sneaker nữ",
+      "description": "Giày sneaker nữ slip-on trắng làm từ chất liệu vải canvas, dày, bền, chịu lực tốt. Kiểu dáng thời trang, dễ phối với nhiều trang phục. Kích cỡ có sẵn: 35, 36, 37, 38. Dùng xi hoặc kem dưỡng da định kỳ để sản phẩm bền đẹp.",
+      "color": "Trắng",
+      "material": "Vải canvas",
+      "sizes": [
+        "35",
+        "36",
+        "37",
+        "38"
+      ],
+      "price": 559000,
+      "stock": 11
+    },
+    {
+      "sku": "SM-GIAY-0003",
+      "slug": "giay-tay-nam-derby-den-sm-giay-0003",
+      "name": "Giày tây nam derby đen",
+      "category": "giay-dep",
+      "kind": "Giày tây nam",
+      "description": "Giày tây nam derby đen làm từ chất liệu da bò, da thật, bền và lên màu đẹp theo thời gian. Kiểu dáng thời trang, dễ phối với nhiều trang phục. Kích cỡ có sẵn: 41, 42. Bảo quản nơi khô thoáng, nhét giấy vào bên trong để giữ form.",
+      "color": "Đen",
+      "material": "Da bò",
+      "sizes": [
+        "41",
+        "42"
+      ],
+      "price": 1669000,
+      "stock": 35
+    },
+    {
+      "sku": "SM-GIAY-0004",
+      "slug": "giay-cao-got-nu-quai-manh-9cm-trang-sm-giay-0004",
+      "name": "Giày cao gót nữ quai mảnh 9cm trắng",
+      "category": "giay-dep",
+      "kind": "Giày cao gót nữ",
+      "description": "Giày cao gót nữ quai mảnh 9cm trắng làm từ chất liệu da bò, da thật, bền và lên màu đẹp theo thời gian. Kiểu dáng thời trang, dễ phối với nhiều trang phục. Kích cỡ có sẵn: 36, 37, 38, 39. Bảo quản nơi khô thoáng, nhét giấy vào bên trong để giữ form.",
+      "color": "Trắng",
+      "material": "Da bò",
+      "sizes": [
+        "36",
+        "37",
+        "38",
+        "39"
+      ],
+      "price": 579000,
+      "stock": 10
+    },
+    {
+      "sku": "SM-GIAY-0005",
+      "slug": "sandal-quai-hau-den-sm-giay-0005",
+      "name": "Sandal quai hậu đen",
+      "category": "giay-dep",
+      "kind": "Sandal",
+      "description": "Sandal quai hậu đen làm từ chất liệu dù, chống nước nhẹ, cản gió. Kiểu dáng thời trang, dễ phối với nhiều trang phục. Kích cỡ có sẵn: 40, 41, 42, 43. Dùng xi hoặc kem dưỡng da định kỳ để sản phẩm bền đẹp.",
+      "color": "Đen",
+      "material": "Dù",
+      "sizes": [
+        "40",
+        "41",
+        "42",
+        "43"
+      ],
+      "price": 209000,
+      "stock": 16
+    },
+    {
+      "sku": "SM-GIAY-0006",
+      "slug": "dep-quai-ngang-in-logo-trang-sm-giay-0006",
+      "name": "Dép quai ngang in logo trắng",
+      "category": "giay-dep",
+      "kind": "Dép quai ngang",
+      "description": "Dép quai ngang in logo trắng làm từ chất liệu EVA, siêu nhẹ, êm chân. Kiểu dáng thời trang, dễ phối với nhiều trang phục. Kích cỡ có sẵn: 36, 37, 38, 39, 40. Dùng xi hoặc kem dưỡng da định kỳ để sản phẩm bền đẹp.",
+      "color": "Trắng",
+      "material": "EVA",
+      "sizes": [
+        "36",
+        "37",
+        "38",
+        "39",
+        "40"
+      ],
+      "price": 149000,
+      "stock": 41
+    },
+    {
+      "sku": "SM-GIAY-0007",
+      "slug": "giay-sneaker-nam-co-thap-xanh-navy-sm-giay-0007",
+      "name": "Giày sneaker nam cổ thấp xanh navy",
+      "category": "giay-dep",
+      "kind": "Giày sneaker nam",
+      "description": "Giày sneaker nam cổ thấp xanh navy làm từ chất liệu da tổng hợp, bền, dễ lau chùi. Kiểu dáng thời trang, dễ phối với nhiều trang phục. Kích cỡ có sẵn: 39, 40, 41, 42, 43, 44. Bảo quản nơi khô thoáng, nhét giấy vào bên trong để giữ form.",
+      "color": "Xanh navy",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "39",
+        "40",
+        "41",
+        "42",
+        "43",
+        "44"
+      ],
+      "price": 689000,
+      "stock": 0
+    },
+    {
+      "sku": "SM-GIAY-0008",
+      "slug": "giay-sneaker-nu-de-don-den-sm-giay-0008",
+      "name": "Giày sneaker nữ đế độn đen",
+      "category": "giay-dep",
+      "kind": "Giày sneaker nữ",
+      "description": "Giày sneaker nữ đế độn đen làm từ chất liệu vải canvas, dày, bền, chịu lực tốt. Kiểu dáng thời trang, dễ phối với nhiều trang phục. Kích cỡ có sẵn: 35, 36. Bảo quản nơi khô thoáng, nhét giấy vào bên trong để giữ form.",
+      "color": "Đen",
+      "material": "Vải canvas",
+      "sizes": [
+        "35",
+        "36"
+      ],
+      "price": 719000,
+      "stock": 41
+    },
+    {
+      "sku": "SM-GIAY-0009",
+      "slug": "giay-tay-nam-derby-nau-sm-giay-0009",
+      "name": "Giày tây nam derby nâu",
+      "category": "giay-dep",
+      "kind": "Giày tây nam",
+      "description": "Giày tây nam derby nâu làm từ chất liệu da tổng hợp, bền, dễ lau chùi. Kiểu dáng thời trang, dễ phối với nhiều trang phục. Kích cỡ có sẵn: 39, 40, 41, 42, 43. Lau sạch bằng khăn mềm hơi ẩm, tránh ngâm nước.",
+      "color": "Nâu",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "39",
+        "40",
+        "41",
+        "42",
+        "43"
+      ],
+      "price": 899000,
+      "stock": 33
+    },
+    {
+      "sku": "SM-GIAY-0010",
+      "slug": "giay-cao-got-nu-mui-nhon-7cm-do-sm-giay-0010",
+      "name": "Giày cao gót nữ mũi nhọn 7cm đỏ",
+      "category": "giay-dep",
+      "kind": "Giày cao gót nữ",
+      "description": "Giày cao gót nữ mũi nhọn 7cm đỏ làm từ chất liệu da bò, da thật, bền và lên màu đẹp theo thời gian. Phù hợp đi học, đi làm và đi chơi. Kích cỡ có sẵn: 36, 37, 38, 39. Dùng xi hoặc kem dưỡng da định kỳ để sản phẩm bền đẹp.",
+      "color": "Đỏ",
+      "material": "Da bò",
+      "sizes": [
+        "36",
+        "37",
+        "38",
+        "39"
+      ],
+      "price": 599000,
+      "stock": 9
+    },
+    {
+      "sku": "SM-GIAY-0011",
+      "slug": "sandal-quai-hau-trang-sm-giay-0011",
+      "name": "Sandal quai hậu trắng",
+      "category": "giay-dep",
+      "kind": "Sandal",
+      "description": "Sandal quai hậu trắng làm từ chất liệu da tổng hợp, bền, dễ lau chùi. Đế êm, chống trơn trượt, đi cả ngày không mỏi chân. Kích cỡ có sẵn: 36, 37, 38, 39, 40, 41. Lau sạch bằng khăn mềm hơi ẩm, tránh ngâm nước.",
+      "color": "Trắng",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "36",
+        "37",
+        "38",
+        "39",
+        "40",
+        "41"
+      ],
+      "price": 349000,
+      "stock": 21
+    },
+    {
+      "sku": "SM-GIAY-0012",
+      "slug": "dep-quai-ngang-in-logo-xanh-navy-sm-giay-0012",
+      "name": "Dép quai ngang in logo xanh navy",
+      "category": "giay-dep",
+      "kind": "Dép quai ngang",
+      "description": "Dép quai ngang in logo xanh navy làm từ chất liệu cao su, chống trơn trượt, chịu nước. Đế êm, chống trơn trượt, đi cả ngày không mỏi chân. Kích cỡ có sẵn: 37, 38, 39, 40, 41, 42. Dùng xi hoặc kem dưỡng da định kỳ để sản phẩm bền đẹp.",
+      "color": "Xanh navy",
+      "material": "Cao su",
+      "sizes": [
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42"
+      ],
+      "price": 159000,
+      "stock": 14
+    },
+    {
+      "sku": "SM-GIAY-0013",
+      "slug": "giay-sneaker-nam-co-thap-xam-sm-giay-0013",
+      "name": "Giày sneaker nam cổ thấp xám",
+      "category": "giay-dep",
+      "kind": "Giày sneaker nam",
+      "description": "Giày sneaker nam cổ thấp xám làm từ chất liệu vải canvas, dày, bền, chịu lực tốt. Đế êm, chống trơn trượt, đi cả ngày không mỏi chân. Kích cỡ có sẵn: 39, 40, 41. Lau sạch bằng khăn mềm hơi ẩm, tránh ngâm nước.",
+      "color": "Xám",
+      "material": "Vải canvas",
+      "sizes": [
+        "39",
+        "40",
+        "41"
+      ],
+      "price": 619000,
+      "stock": 12
+    },
+    {
+      "sku": "SM-GIAY-0014",
+      "slug": "giay-sneaker-nu-co-thap-den-sm-giay-0014",
+      "name": "Giày sneaker nữ cổ thấp đen",
+      "category": "giay-dep",
+      "kind": "Giày sneaker nữ",
+      "description": "Giày sneaker nữ cổ thấp đen làm từ chất liệu da tổng hợp, bền, dễ lau chùi. Phù hợp đi học, đi làm và đi chơi. Kích cỡ có sẵn: 36, 37, 38, 39. Bảo quản nơi khô thoáng, nhét giấy vào bên trong để giữ form.",
+      "color": "Đen",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "36",
+        "37",
+        "38",
+        "39"
+      ],
+      "price": 819000,
+      "stock": 0
+    },
+    {
+      "sku": "SM-GIAY-0015",
+      "slug": "giay-tay-nam-loafer-nau-sm-giay-0015",
+      "name": "Giày tây nam loafer nâu",
+      "category": "giay-dep",
+      "kind": "Giày tây nam",
+      "description": "Giày tây nam loafer nâu làm từ chất liệu da bò, da thật, bền và lên màu đẹp theo thời gian. Kiểu dáng thời trang, dễ phối với nhiều trang phục. Kích cỡ có sẵn: 43, 44. Bảo quản nơi khô thoáng, nhét giấy vào bên trong để giữ form.",
+      "color": "Nâu",
+      "material": "Da bò",
+      "sizes": [
+        "43",
+        "44"
+      ],
+      "price": 899000,
+      "stock": 28
+    },
+    {
+      "sku": "SM-GIAY-0016",
+      "slug": "giay-cao-got-nu-quai-manh-9cm-do-sm-giay-0016",
+      "name": "Giày cao gót nữ quai mảnh 9cm đỏ",
+      "category": "giay-dep",
+      "kind": "Giày cao gót nữ",
+      "description": "Giày cao gót nữ quai mảnh 9cm đỏ làm từ chất liệu da bò, da thật, bền và lên màu đẹp theo thời gian. Đế êm, chống trơn trượt, đi cả ngày không mỏi chân. Kích cỡ có sẵn: 38, 39. Lau sạch bằng khăn mềm hơi ẩm, tránh ngâm nước.",
+      "color": "Đỏ",
+      "material": "Da bò",
+      "sizes": [
+        "38",
+        "39"
+      ],
+      "price": 869000,
+      "stock": 24
+    },
+    {
+      "sku": "SM-GIAY-0017",
+      "slug": "sandal-de-banh-mi-nau-sm-giay-0017",
+      "name": "Sandal đế bánh mì nâu",
+      "category": "giay-dep",
+      "kind": "Sandal",
+      "description": "Sandal đế bánh mì nâu làm từ chất liệu cao su, chống trơn trượt, chịu nước. Đế êm, chống trơn trượt, đi cả ngày không mỏi chân. Kích cỡ có sẵn: 39, 40, 41, 42, 43. Lau sạch bằng khăn mềm hơi ẩm, tránh ngâm nước.",
+      "color": "Nâu",
+      "material": "Cao su",
+      "sizes": [
+        "39",
+        "40",
+        "41",
+        "42",
+        "43"
+      ],
+      "price": 399000,
+      "stock": 17
+    },
+    {
+      "sku": "SM-GIAY-0018",
+      "slug": "dep-quai-ngang-de-em-den-sm-giay-0018",
+      "name": "Dép quai ngang đế êm đen",
+      "category": "giay-dep",
+      "kind": "Dép quai ngang",
+      "description": "Dép quai ngang đế êm đen làm từ chất liệu cao su, chống trơn trượt, chịu nước. Đế êm, chống trơn trượt, đi cả ngày không mỏi chân. Kích cỡ có sẵn: 39, 40, 41, 42. Dùng xi hoặc kem dưỡng da định kỳ để sản phẩm bền đẹp.",
+      "color": "Đen",
+      "material": "Cao su",
+      "sizes": [
+        "39",
+        "40",
+        "41",
+        "42"
+      ],
+      "price": 169000,
+      "stock": 13
+    },
+    {
+      "sku": "SM-GIAY-0019",
+      "slug": "giay-sneaker-nam-de-don-trang-sm-giay-0019",
+      "name": "Giày sneaker nam đế độn trắng",
+      "category": "giay-dep",
+      "kind": "Giày sneaker nam",
+      "description": "Giày sneaker nam đế độn trắng làm từ chất liệu da bò, da thật, bền và lên màu đẹp theo thời gian. Đế êm, chống trơn trượt, đi cả ngày không mỏi chân. Kích cỡ có sẵn: 39, 40, 41, 42, 43, 44. Lau sạch bằng khăn mềm hơi ẩm, tránh ngâm nước.",
+      "color": "Trắng",
+      "material": "Da bò",
+      "sizes": [
+        "39",
+        "40",
+        "41",
+        "42",
+        "43",
+        "44"
+      ],
+      "price": 1019000,
+      "stock": 7
+    },
+    {
+      "sku": "SM-GIAY-0020",
+      "slug": "giay-sneaker-nu-slip-on-hong-sm-giay-0020",
+      "name": "Giày sneaker nữ slip-on hồng",
+      "category": "giay-dep",
+      "kind": "Giày sneaker nữ",
+      "description": "Giày sneaker nữ slip-on hồng làm từ chất liệu da tổng hợp, bền, dễ lau chùi. Kiểu dáng thời trang, dễ phối với nhiều trang phục. Kích cỡ có sẵn: 35, 36, 37, 38, 39. Dùng xi hoặc kem dưỡng da định kỳ để sản phẩm bền đẹp.",
+      "color": "Hồng",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "35",
+        "36",
+        "37",
+        "38",
+        "39"
+      ],
+      "price": 1179000,
+      "stock": 0
+    },
+    {
+      "sku": "SM-GIAY-0021",
+      "slug": "giay-tay-nam-oxford-den-sm-giay-0021",
+      "name": "Giày tây nam oxford đen",
+      "category": "giay-dep",
+      "kind": "Giày tây nam",
+      "description": "Giày tây nam oxford đen làm từ chất liệu da tổng hợp, bền, dễ lau chùi. Kiểu dáng thời trang, dễ phối với nhiều trang phục. Kích cỡ có sẵn: 39, 40, 41, 42, 43, 44. Dùng xi hoặc kem dưỡng da định kỳ để sản phẩm bền đẹp.",
+      "color": "Đen",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "39",
+        "40",
+        "41",
+        "42",
+        "43",
+        "44"
+      ],
+      "price": 1869000,
+      "stock": 42
+    },
+    {
+      "sku": "SM-GIAY-0022",
+      "slug": "giay-cao-got-nu-quai-manh-9cm-be-sm-giay-0022",
+      "name": "Giày cao gót nữ quai mảnh 9cm be",
+      "category": "giay-dep",
+      "kind": "Giày cao gót nữ",
+      "description": "Giày cao gót nữ quai mảnh 9cm be làm từ chất liệu da tổng hợp, bền, dễ lau chùi. Phù hợp đi học, đi làm và đi chơi. Kích cỡ có sẵn: 35, 36, 37, 38, 39. Bảo quản nơi khô thoáng, nhét giấy vào bên trong để giữ form.",
+      "color": "Be",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "35",
+        "36",
+        "37",
+        "38",
+        "39"
+      ],
+      "price": 509000,
+      "stock": 28
+    },
+    {
+      "sku": "SM-GIAY-0023",
+      "slug": "sandal-quai-cheo-trang-sm-giay-0023",
+      "name": "Sandal quai chéo trắng",
+      "category": "giay-dep",
+      "kind": "Sandal",
+      "description": "Sandal quai chéo trắng làm từ chất liệu cao su, chống trơn trượt, chịu nước. Kiểu dáng thời trang, dễ phối với nhiều trang phục. Kích cỡ có sẵn: 38, 39, 40, 41. Dùng xi hoặc kem dưỡng da định kỳ để sản phẩm bền đẹp.",
+      "color": "Trắng",
+      "material": "Cao su",
+      "sizes": [
+        "38",
+        "39",
+        "40",
+        "41"
+      ],
+      "price": 199000,
+      "stock": 21
+    },
+    {
+      "sku": "SM-GIAY-0024",
+      "slug": "dep-quai-ngang-basic-xam-sm-giay-0024",
+      "name": "Dép quai ngang basic xám",
+      "category": "giay-dep",
+      "kind": "Dép quai ngang",
+      "description": "Dép quai ngang basic xám làm từ chất liệu EVA, siêu nhẹ, êm chân. Phù hợp đi học, đi làm và đi chơi. Kích cỡ có sẵn: 36, 37, 38. Lau sạch bằng khăn mềm hơi ẩm, tránh ngâm nước.",
+      "color": "Xám",
+      "material": "EVA",
+      "sizes": [
+        "36",
+        "37",
+        "38"
+      ],
+      "price": 149000,
+      "stock": 40
+    },
+    {
+      "sku": "SM-GIAY-0025",
+      "slug": "giay-sneaker-nam-co-cao-den-sm-giay-0025",
+      "name": "Giày sneaker nam cổ cao đen",
+      "category": "giay-dep",
+      "kind": "Giày sneaker nam",
+      "description": "Giày sneaker nam cổ cao đen làm từ chất liệu da tổng hợp, bền, dễ lau chùi. Kiểu dáng thời trang, dễ phối với nhiều trang phục. Kích cỡ có sẵn: 40, 41, 42, 43, 44. Bảo quản nơi khô thoáng, nhét giấy vào bên trong để giữ form.",
+      "color": "Đen",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "40",
+        "41",
+        "42",
+        "43",
+        "44"
+      ],
+      "price": 779000,
+      "stock": 19
+    },
+    {
+      "sku": "SM-GIAY-0026",
+      "slug": "giay-sneaker-nu-de-don-be-sm-giay-0026",
+      "name": "Giày sneaker nữ đế độn be",
+      "category": "giay-dep",
+      "kind": "Giày sneaker nữ",
+      "description": "Giày sneaker nữ đế độn be làm từ chất liệu da tổng hợp, bền, dễ lau chùi. Phù hợp đi học, đi làm và đi chơi. Kích cỡ có sẵn: 35, 36. Lau sạch bằng khăn mềm hơi ẩm, tránh ngâm nước.",
+      "color": "Be",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "35",
+        "36"
+      ],
+      "price": 629000,
+      "stock": 17
+    },
+    {
+      "sku": "SM-GIAY-0027",
+      "slug": "giay-tay-nam-monk-strap-den-sm-giay-0027",
+      "name": "Giày tây nam monk strap đen",
+      "category": "giay-dep",
+      "kind": "Giày tây nam",
+      "description": "Giày tây nam monk strap đen làm từ chất liệu da bò, da thật, bền và lên màu đẹp theo thời gian. Phù hợp đi học, đi làm và đi chơi. Kích cỡ có sẵn: 40, 41, 42. Dùng xi hoặc kem dưỡng da định kỳ để sản phẩm bền đẹp.",
+      "color": "Đen",
+      "material": "Da bò",
+      "sizes": [
+        "40",
+        "41",
+        "42"
+      ],
+      "price": 1339000,
+      "stock": 50
+    },
+    {
+      "sku": "SM-GIAY-0028",
+      "slug": "giay-cao-got-nu-de-vuong-5cm-do-sm-giay-0028",
+      "name": "Giày cao gót nữ đế vuông 5cm đỏ",
+      "category": "giay-dep",
+      "kind": "Giày cao gót nữ",
+      "description": "Giày cao gót nữ đế vuông 5cm đỏ làm từ chất liệu da lộn, bề mặt mịn, sang trọng. Kiểu dáng thời trang, dễ phối với nhiều trang phục. Kích cỡ có sẵn: 38, 39. Lau sạch bằng khăn mềm hơi ẩm, tránh ngâm nước.",
+      "color": "Đỏ",
+      "material": "Da lộn",
+      "sizes": [
+        "38",
+        "39"
+      ],
+      "price": 799000,
+      "stock": 22
+    },
+    {
+      "sku": "SM-GIAY-0029",
+      "slug": "sandal-de-banh-mi-trang-sm-giay-0029",
+      "name": "Sandal đế bánh mì trắng",
+      "category": "giay-dep",
+      "kind": "Sandal",
+      "description": "Sandal đế bánh mì trắng làm từ chất liệu dù, chống nước nhẹ, cản gió. Đế êm, chống trơn trượt, đi cả ngày không mỏi chân. Kích cỡ có sẵn: 38, 39, 40, 41. Lau sạch bằng khăn mềm hơi ẩm, tránh ngâm nước.",
+      "color": "Trắng",
+      "material": "Dù",
+      "sizes": [
+        "38",
+        "39",
+        "40",
+        "41"
+      ],
+      "price": 389000,
+      "stock": 0
+    },
+    {
+      "sku": "SM-GIAY-0030",
+      "slug": "dep-quai-ngang-basic-xanh-navy-sm-giay-0030",
+      "name": "Dép quai ngang basic xanh navy",
+      "category": "giay-dep",
+      "kind": "Dép quai ngang",
+      "description": "Dép quai ngang basic xanh navy làm từ chất liệu EVA, siêu nhẹ, êm chân. Đế êm, chống trơn trượt, đi cả ngày không mỏi chân. Kích cỡ có sẵn: 37, 38, 39, 40, 41. Dùng xi hoặc kem dưỡng da định kỳ để sản phẩm bền đẹp.",
+      "color": "Xanh navy",
+      "material": "EVA",
+      "sizes": [
+        "37",
+        "38",
+        "39",
+        "40",
+        "41"
+      ],
+      "price": 189000,
+      "stock": 39
+    },
+    {
+      "sku": "SM-GIAY-0031",
+      "slug": "giay-sneaker-nam-de-don-xam-sm-giay-0031",
+      "name": "Giày sneaker nam đế độn xám",
+      "category": "giay-dep",
+      "kind": "Giày sneaker nam",
+      "description": "Giày sneaker nam đế độn xám làm từ chất liệu da tổng hợp, bền, dễ lau chùi. Phù hợp đi học, đi làm và đi chơi. Kích cỡ có sẵn: 40, 41, 42, 43, 44. Lau sạch bằng khăn mềm hơi ẩm, tránh ngâm nước.",
+      "color": "Xám",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "40",
+        "41",
+        "42",
+        "43",
+        "44"
+      ],
+      "price": 1119000,
+      "stock": 0
+    },
+    {
+      "sku": "SM-GIAY-0032",
+      "slug": "giay-sneaker-nu-co-thap-trang-sm-giay-0032",
+      "name": "Giày sneaker nữ cổ thấp trắng",
+      "category": "giay-dep",
+      "kind": "Giày sneaker nữ",
+      "description": "Giày sneaker nữ cổ thấp trắng làm từ chất liệu da tổng hợp, bền, dễ lau chùi. Đế êm, chống trơn trượt, đi cả ngày không mỏi chân. Kích cỡ có sẵn: 35, 36, 37, 38, 39. Bảo quản nơi khô thoáng, nhét giấy vào bên trong để giữ form.",
+      "color": "Trắng",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "35",
+        "36",
+        "37",
+        "38",
+        "39"
+      ],
+      "price": 999000,
+      "stock": 39
+    },
+    {
+      "sku": "SM-GIAY-0033",
+      "slug": "giay-tay-nam-loafer-den-sm-giay-0033",
+      "name": "Giày tây nam loafer đen",
+      "category": "giay-dep",
+      "kind": "Giày tây nam",
+      "description": "Giày tây nam loafer đen làm từ chất liệu da bò, da thật, bền và lên màu đẹp theo thời gian. Đế êm, chống trơn trượt, đi cả ngày không mỏi chân. Kích cỡ có sẵn: 39, 40, 41, 42. Bảo quản nơi khô thoáng, nhét giấy vào bên trong để giữ form.",
+      "color": "Đen",
+      "material": "Da bò",
+      "sizes": [
+        "39",
+        "40",
+        "41",
+        "42"
+      ],
+      "price": 1839000,
+      "stock": 8
+    },
+    {
+      "sku": "SM-GIAY-0034",
+      "slug": "giay-cao-got-nu-de-vuong-5cm-trang-sm-giay-0034",
+      "name": "Giày cao gót nữ đế vuông 5cm trắng",
+      "category": "giay-dep",
+      "kind": "Giày cao gót nữ",
+      "description": "Giày cao gót nữ đế vuông 5cm trắng làm từ chất liệu da bò, da thật, bền và lên màu đẹp theo thời gian. Đế êm, chống trơn trượt, đi cả ngày không mỏi chân. Kích cỡ có sẵn: 35, 36, 37, 38, 39. Dùng xi hoặc kem dưỡng da định kỳ để sản phẩm bền đẹp.",
+      "color": "Trắng",
+      "material": "Da bò",
+      "sizes": [
+        "35",
+        "36",
+        "37",
+        "38",
+        "39"
+      ],
+      "price": 659000,
+      "stock": 40
+    },
+    {
+      "sku": "SM-GIAY-0035",
+      "slug": "sandal-quai-cheo-be-sm-giay-0035",
+      "name": "Sandal quai chéo be",
+      "category": "giay-dep",
+      "kind": "Sandal",
+      "description": "Sandal quai chéo be làm từ chất liệu cao su, chống trơn trượt, chịu nước. Đế êm, chống trơn trượt, đi cả ngày không mỏi chân. Kích cỡ có sẵn: 36, 37, 38, 39, 40, 41. Bảo quản nơi khô thoáng, nhét giấy vào bên trong để giữ form.",
+      "color": "Be",
+      "material": "Cao su",
+      "sizes": [
+        "36",
+        "37",
+        "38",
+        "39",
+        "40",
+        "41"
+      ],
+      "price": 339000,
+      "stock": 34
+    },
+    {
+      "sku": "SM-GIAY-0036",
+      "slug": "dep-quai-ngang-basic-den-sm-giay-0036",
+      "name": "Dép quai ngang basic đen",
+      "category": "giay-dep",
+      "kind": "Dép quai ngang",
+      "description": "Dép quai ngang basic đen làm từ chất liệu EVA, siêu nhẹ, êm chân. Đế êm, chống trơn trượt, đi cả ngày không mỏi chân. Kích cỡ có sẵn: 37, 38, 39, 40. Bảo quản nơi khô thoáng, nhét giấy vào bên trong để giữ form.",
+      "color": "Đen",
+      "material": "EVA",
+      "sizes": [
+        "37",
+        "38",
+        "39",
+        "40"
+      ],
+      "price": 109000,
+      "stock": 4
+    },
+    {
+      "sku": "SM-GIAY-0037",
+      "slug": "giay-sneaker-nam-de-don-xanh-navy-sm-giay-0037",
+      "name": "Giày sneaker nam đế độn xanh navy",
+      "category": "giay-dep",
+      "kind": "Giày sneaker nam",
+      "description": "Giày sneaker nam đế độn xanh navy làm từ chất liệu da bò, da thật, bền và lên màu đẹp theo thời gian. Kiểu dáng thời trang, dễ phối với nhiều trang phục. Kích cỡ có sẵn: 40, 41, 42, 43, 44. Bảo quản nơi khô thoáng, nhét giấy vào bên trong để giữ form.",
+      "color": "Xanh navy",
+      "material": "Da bò",
+      "sizes": [
+        "40",
+        "41",
+        "42",
+        "43",
+        "44"
+      ],
+      "price": 509000,
+      "stock": 29
+    },
+    {
+      "sku": "SM-GIAY-0038",
+      "slug": "giay-sneaker-nu-de-don-hong-sm-giay-0038",
+      "name": "Giày sneaker nữ đế độn hồng",
+      "category": "giay-dep",
+      "kind": "Giày sneaker nữ",
+      "description": "Giày sneaker nữ đế độn hồng làm từ chất liệu vải canvas, dày, bền, chịu lực tốt. Kiểu dáng thời trang, dễ phối với nhiều trang phục. Kích cỡ có sẵn: 37, 38, 39. Bảo quản nơi khô thoáng, nhét giấy vào bên trong để giữ form.",
+      "color": "Hồng",
+      "material": "Vải canvas",
+      "sizes": [
+        "37",
+        "38",
+        "39"
+      ],
+      "price": 689000,
+      "stock": 18
+    },
+    {
+      "sku": "SM-GIAY-0039",
+      "slug": "giay-tay-nam-oxford-nau-sm-giay-0039",
+      "name": "Giày tây nam oxford nâu",
+      "category": "giay-dep",
+      "kind": "Giày tây nam",
+      "description": "Giày tây nam oxford nâu làm từ chất liệu da tổng hợp, bền, dễ lau chùi. Phù hợp đi học, đi làm và đi chơi. Kích cỡ có sẵn: 41, 42, 43. Dùng xi hoặc kem dưỡng da định kỳ để sản phẩm bền đẹp.",
+      "color": "Nâu",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "41",
+        "42",
+        "43"
+      ],
+      "price": 1499000,
+      "stock": 40
+    },
+    {
+      "sku": "SM-GIAY-0040",
+      "slug": "giay-cao-got-nu-mui-nhon-7cm-be-sm-giay-0040",
+      "name": "Giày cao gót nữ mũi nhọn 7cm be",
+      "category": "giay-dep",
+      "kind": "Giày cao gót nữ",
+      "description": "Giày cao gót nữ mũi nhọn 7cm be làm từ chất liệu da lộn, bề mặt mịn, sang trọng. Kiểu dáng thời trang, dễ phối với nhiều trang phục. Kích cỡ có sẵn: 35, 36, 37, 38, 39. Bảo quản nơi khô thoáng, nhét giấy vào bên trong để giữ form.",
+      "color": "Be",
+      "material": "Da lộn",
+      "sizes": [
+        "35",
+        "36",
+        "37",
+        "38",
+        "39"
+      ],
+      "price": 889000,
+      "stock": 49
+    },
+    {
+      "sku": "SM-GIAY-0041",
+      "slug": "sandal-quai-cheo-nau-sm-giay-0041",
+      "name": "Sandal quai chéo nâu",
+      "category": "giay-dep",
+      "kind": "Sandal",
+      "description": "Sandal quai chéo nâu làm từ chất liệu dù, chống nước nhẹ, cản gió. Đế êm, chống trơn trượt, đi cả ngày không mỏi chân. Kích cỡ có sẵn: 41, 42. Lau sạch bằng khăn mềm hơi ẩm, tránh ngâm nước.",
+      "color": "Nâu",
+      "material": "Dù",
+      "sizes": [
+        "41",
+        "42"
+      ],
+      "price": 269000,
+      "stock": 3
+    },
+    {
+      "sku": "SM-GIAY-0042",
+      "slug": "dep-quai-ngang-de-em-xanh-navy-sm-giay-0042",
+      "name": "Dép quai ngang đế êm xanh navy",
+      "category": "giay-dep",
+      "kind": "Dép quai ngang",
+      "description": "Dép quai ngang đế êm xanh navy làm từ chất liệu EVA, siêu nhẹ, êm chân. Đế êm, chống trơn trượt, đi cả ngày không mỏi chân. Kích cỡ có sẵn: 41, 42, 43. Bảo quản nơi khô thoáng, nhét giấy vào bên trong để giữ form.",
+      "color": "Xanh navy",
+      "material": "EVA",
+      "sizes": [
+        "41",
+        "42",
+        "43"
+      ],
+      "price": 219000,
+      "stock": 37
+    },
+    {
+      "sku": "SM-GIAY-0043",
+      "slug": "giay-sneaker-nam-co-thap-trang-sm-giay-0043",
+      "name": "Giày sneaker nam cổ thấp trắng",
+      "category": "giay-dep",
+      "kind": "Giày sneaker nam",
+      "description": "Giày sneaker nam cổ thấp trắng làm từ chất liệu da tổng hợp, bền, dễ lau chùi. Phù hợp đi học, đi làm và đi chơi. Kích cỡ có sẵn: 39, 40, 41, 42, 43. Lau sạch bằng khăn mềm hơi ẩm, tránh ngâm nước.",
+      "color": "Trắng",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "39",
+        "40",
+        "41",
+        "42",
+        "43"
+      ],
+      "price": 549000,
+      "stock": 0
+    },
+    {
+      "sku": "SM-GIAY-0044",
+      "slug": "giay-sneaker-nu-slip-on-be-sm-giay-0044",
+      "name": "Giày sneaker nữ slip-on be",
+      "category": "giay-dep",
+      "kind": "Giày sneaker nữ",
+      "description": "Giày sneaker nữ slip-on be làm từ chất liệu da tổng hợp, bền, dễ lau chùi. Phù hợp đi học, đi làm và đi chơi. Kích cỡ có sẵn: 38, 39. Dùng xi hoặc kem dưỡng da định kỳ để sản phẩm bền đẹp.",
+      "color": "Be",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "38",
+        "39"
+      ],
+      "price": 909000,
+      "stock": 41
+    },
+    {
+      "sku": "SM-GIAY-0045",
+      "slug": "giay-tay-nam-monk-strap-nau-sm-giay-0045",
+      "name": "Giày tây nam monk strap nâu",
+      "category": "giay-dep",
+      "kind": "Giày tây nam",
+      "description": "Giày tây nam monk strap nâu làm từ chất liệu da tổng hợp, bền, dễ lau chùi. Phù hợp đi học, đi làm và đi chơi. Kích cỡ có sẵn: 39, 40, 41, 42, 43, 44. Lau sạch bằng khăn mềm hơi ẩm, tránh ngâm nước.",
+      "color": "Nâu",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "39",
+        "40",
+        "41",
+        "42",
+        "43",
+        "44"
+      ],
+      "price": 1619000,
+      "stock": 26
+    },
+    {
+      "sku": "SM-NAM-0001",
+      "slug": "ao-thun-nam-co-tim-xanh-navy-sm-nam-0001",
+      "name": "Áo thun nam cổ tim xanh navy",
+      "category": "thoi-trang-nam",
+      "kind": "Áo thun nam",
+      "description": "Áo thun nam cổ tim xanh navy làm từ chất liệu cotton, mềm mại, thấm hút mồ hôi tốt. Phù hợp đi làm, đi chơi hay dạo phố cuối tuần. Kích cỡ có sẵn: S, M, L, XL. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Xanh navy",
+      "material": "Cotton",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "price": 289000,
+      "stock": 15
+    },
+    {
+      "sku": "SM-NAM-0002",
+      "slug": "ao-so-mi-nam-tay-dai-cong-so-den-sm-nam-0002",
+      "name": "Áo sơ mi nam tay dài công sở đen",
+      "category": "thoi-trang-nam",
+      "kind": "Áo sơ mi nam",
+      "description": "Áo sơ mi nam tay dài công sở đen làm từ chất liệu kate, đứng form, ít nhăn, dễ ủi. Thiết kế đơn giản, dễ phối với quần jean hoặc quần kaki. Kích cỡ có sẵn: M, L, XL, XXL. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Đen",
+      "material": "Kate",
+      "sizes": [
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price": 369000,
+      "stock": 25
+    },
+    {
+      "sku": "SM-NAM-0003",
+      "slug": "ao-polo-nam-phoi-vien-trang-sm-nam-0003",
+      "name": "Áo polo nam phối viền trắng",
+      "category": "thoi-trang-nam",
+      "kind": "Áo polo nam",
+      "description": "Áo polo nam phối viền trắng làm từ chất liệu cotton, mềm mại, thấm hút mồ hôi tốt. Phù hợp đi làm, đi chơi hay dạo phố cuối tuần. Kích cỡ có sẵn: S, M, L, XL, XXL. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Trắng",
+      "material": "Cotton",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price": 329000,
+      "stock": 13
+    },
+    {
+      "sku": "SM-NAM-0004",
+      "slug": "quan-jean-nam-rach-goi-den-sm-nam-0004",
+      "name": "Quần jean nam rách gối đen",
+      "category": "thoi-trang-nam",
+      "kind": "Quần jean nam",
+      "description": "Quần jean nam rách gối đen làm từ chất liệu denim, bền chắc, càng mặc càng đẹp. Phù hợp đi làm, đi chơi hay dạo phố cuối tuần. Kích cỡ có sẵn: 30, 31, 32, 33. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Đen",
+      "material": "Denim",
+      "sizes": [
+        "30",
+        "31",
+        "32",
+        "33"
+      ],
+      "price": 479000,
+      "stock": 6
+    },
+    {
+      "sku": "SM-NAM-0005",
+      "slug": "quan-kaki-nam-tui-hop-den-sm-nam-0005",
+      "name": "Quần kaki nam túi hộp đen",
+      "category": "thoi-trang-nam",
+      "kind": "Quần kaki nam",
+      "description": "Quần kaki nam túi hộp đen làm từ chất liệu kaki pha spandex, đứng dáng mà vẫn co giãn nhẹ. Thiết kế đơn giản, dễ phối với quần jean hoặc quần kaki. Kích cỡ có sẵn: 29, 30, 31, 32, 33, 34. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Đen",
+      "material": "Kaki pha spandex",
+      "sizes": [
+        "29",
+        "30",
+        "31",
+        "32",
+        "33",
+        "34"
+      ],
+      "price": 419000,
+      "stock": 41
+    },
+    {
+      "sku": "SM-NAM-0006",
+      "slug": "quan-short-nam-kaki-xam-sm-nam-0006",
+      "name": "Quần short nam kaki xám",
+      "category": "thoi-trang-nam",
+      "kind": "Quần short nam",
+      "description": "Quần short nam kaki xám làm từ chất liệu kaki, dày dặn, đứng dáng. Form dáng chuẩn người Việt, mặc thoải mái cả ngày. Kích cỡ có sẵn: XL, XXL. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Xám",
+      "material": "Kaki",
+      "sizes": [
+        "XL",
+        "XXL"
+      ],
+      "price": 269000,
+      "stock": 28
+    },
+    {
+      "sku": "SM-NAM-0007",
+      "slug": "ao-khoac-nam-gio-hai-lop-den-sm-nam-0007",
+      "name": "Áo khoác nam gió hai lớp đen",
+      "category": "thoi-trang-nam",
+      "kind": "Áo khoác nam",
+      "description": "Áo khoác nam gió hai lớp đen làm từ chất liệu denim, bền chắc, càng mặc càng đẹp. Thiết kế đơn giản, dễ phối với quần jean hoặc quần kaki. Kích cỡ có sẵn: S, M, L, XL. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Đen",
+      "material": "Denim",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "price": 829000,
+      "stock": 12
+    },
+    {
+      "sku": "SM-NAM-0008",
+      "slug": "ao-thun-nam-oversize-be-sm-nam-0008",
+      "name": "Áo thun nam oversize be",
+      "category": "thoi-trang-nam",
+      "kind": "Áo thun nam",
+      "description": "Áo thun nam oversize be làm từ chất liệu cotton, mềm mại, thấm hút mồ hôi tốt. Thiết kế đơn giản, dễ phối với quần jean hoặc quần kaki. Kích cỡ có sẵn: XL, XXL. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Be",
+      "material": "Cotton",
+      "sizes": [
+        "XL",
+        "XXL"
+      ],
+      "price": 179000,
+      "stock": 13
+    },
+    {
+      "sku": "SM-NAM-0009",
+      "slug": "ao-so-mi-nam-ke-soc-hong-sm-nam-0009",
+      "name": "Áo sơ mi nam kẻ sọc hồng",
+      "category": "thoi-trang-nam",
+      "kind": "Áo sơ mi nam",
+      "description": "Áo sơ mi nam kẻ sọc hồng làm từ chất liệu cotton, mềm mại, thấm hút mồ hôi tốt. Form dáng chuẩn người Việt, mặc thoải mái cả ngày. Kích cỡ có sẵn: M, L. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Hồng",
+      "material": "Cotton",
+      "sizes": [
+        "M",
+        "L"
+      ],
+      "price": 319000,
+      "stock": 24
+    },
+    {
+      "sku": "SM-NAM-0010",
+      "slug": "ao-polo-nam-basic-trang-sm-nam-0010",
+      "name": "Áo polo nam basic trắng",
+      "category": "thoi-trang-nam",
+      "kind": "Áo polo nam",
+      "description": "Áo polo nam basic trắng làm từ chất liệu thun lạnh, mát, ít nhăn, co giãn nhẹ. Phù hợp đi làm, đi chơi hay dạo phố cuối tuần. Kích cỡ có sẵn: M, L, XL, XXL. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Trắng",
+      "material": "Thun lạnh",
+      "sizes": [
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price": 259000,
+      "stock": 15
+    },
+    {
+      "sku": "SM-NAM-0011",
+      "slug": "quan-jean-nam-rach-goi-xam-sm-nam-0011",
+      "name": "Quần jean nam rách gối xám",
+      "category": "thoi-trang-nam",
+      "kind": "Quần jean nam",
+      "description": "Quần jean nam rách gối xám làm từ chất liệu denim, bền chắc, càng mặc càng đẹp. Form dáng chuẩn người Việt, mặc thoải mái cả ngày. Kích cỡ có sẵn: 29, 30, 31, 32, 33. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Xám",
+      "material": "Denim",
+      "sizes": [
+        "29",
+        "30",
+        "31",
+        "32",
+        "33"
+      ],
+      "price": 389000,
+      "stock": 3
+    },
+    {
+      "sku": "SM-NAM-0012",
+      "slug": "quan-kaki-nam-tui-hop-xanh-navy-sm-nam-0012",
+      "name": "Quần kaki nam túi hộp xanh navy",
+      "category": "thoi-trang-nam",
+      "kind": "Quần kaki nam",
+      "description": "Quần kaki nam túi hộp xanh navy làm từ chất liệu kaki pha spandex, đứng dáng mà vẫn co giãn nhẹ. Form dáng chuẩn người Việt, mặc thoải mái cả ngày. Kích cỡ có sẵn: 30, 31, 32. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Xanh navy",
+      "material": "Kaki pha spandex",
+      "sizes": [
+        "30",
+        "31",
+        "32"
+      ],
+      "price": 309000,
+      "stock": 10
+    },
+    {
+      "sku": "SM-NAM-0013",
+      "slug": "quan-short-nam-di-bien-xanh-reu-sm-nam-0013",
+      "name": "Quần short nam đi biển xanh rêu",
+      "category": "thoi-trang-nam",
+      "kind": "Quần short nam",
+      "description": "Quần short nam đi biển xanh rêu làm từ chất liệu kaki, dày dặn, đứng dáng. Form dáng chuẩn người Việt, mặc thoải mái cả ngày. Kích cỡ có sẵn: M, L, XL, XXL. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Xanh rêu",
+      "material": "Kaki",
+      "sizes": [
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price": 209000,
+      "stock": 33
+    },
+    {
+      "sku": "SM-NAM-0014",
+      "slug": "ao-khoac-nam-jean-xanh-reu-sm-nam-0014",
+      "name": "Áo khoác nam jean xanh rêu",
+      "category": "thoi-trang-nam",
+      "kind": "Áo khoác nam",
+      "description": "Áo khoác nam jean xanh rêu làm từ chất liệu polyester, nhẹ, nhanh khô, bền màu. Thiết kế đơn giản, dễ phối với quần jean hoặc quần kaki. Kích cỡ có sẵn: S, M. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Xanh rêu",
+      "material": "Polyester",
+      "sizes": [
+        "S",
+        "M"
+      ],
+      "price": 479000,
+      "stock": 45
+    },
+    {
+      "sku": "SM-NAM-0015",
+      "slug": "ao-thun-nam-in-chu-xanh-navy-sm-nam-0015",
+      "name": "Áo thun nam in chữ xanh navy",
+      "category": "thoi-trang-nam",
+      "kind": "Áo thun nam",
+      "description": "Áo thun nam in chữ xanh navy làm từ chất liệu cotton pha spandex, co giãn bốn chiều, giữ form tốt. Thiết kế đơn giản, dễ phối với quần jean hoặc quần kaki. Kích cỡ có sẵn: S, M, L, XL, XXL. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Xanh navy",
+      "material": "Cotton pha spandex",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price": 289000,
+      "stock": 46
+    },
+    {
+      "sku": "SM-NAM-0016",
+      "slug": "ao-so-mi-nam-oxford-xanh-duong-sm-nam-0016",
+      "name": "Áo sơ mi nam oxford xanh dương",
+      "category": "thoi-trang-nam",
+      "kind": "Áo sơ mi nam",
+      "description": "Áo sơ mi nam oxford xanh dương làm từ chất liệu cotton, mềm mại, thấm hút mồ hôi tốt. Form dáng chuẩn người Việt, mặc thoải mái cả ngày. Kích cỡ có sẵn: XL, XXL. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Xanh dương",
+      "material": "Cotton",
+      "sizes": [
+        "XL",
+        "XXL"
+      ],
+      "price": 439000,
+      "stock": 50
+    },
+    {
+      "sku": "SM-NAM-0017",
+      "slug": "ao-polo-nam-the-thao-trang-sm-nam-0017",
+      "name": "Áo polo nam thể thao trắng",
+      "category": "thoi-trang-nam",
+      "kind": "Áo polo nam",
+      "description": "Áo polo nam thể thao trắng làm từ chất liệu thun lạnh, mát, ít nhăn, co giãn nhẹ. Thiết kế đơn giản, dễ phối với quần jean hoặc quần kaki. Kích cỡ có sẵn: S, M, L, XL. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Trắng",
+      "material": "Thun lạnh",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "price": 389000,
+      "stock": 11
+    },
+    {
+      "sku": "SM-NAM-0018",
+      "slug": "quan-jean-nam-ong-dung-xanh-dam-sm-nam-0018",
+      "name": "Quần jean nam ống đứng xanh đậm",
+      "category": "thoi-trang-nam",
+      "kind": "Quần jean nam",
+      "description": "Quần jean nam ống đứng xanh đậm làm từ chất liệu denim, bền chắc, càng mặc càng đẹp. Thiết kế đơn giản, dễ phối với quần jean hoặc quần kaki. Kích cỡ có sẵn: 29, 30, 31, 32, 33, 34. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Xanh đậm",
+      "material": "Denim",
+      "sizes": [
+        "29",
+        "30",
+        "31",
+        "32",
+        "33",
+        "34"
+      ],
+      "price": 559000,
+      "stock": 33
+    },
+    {
+      "sku": "SM-NAM-0019",
+      "slug": "quan-kaki-nam-slim-fit-nau-sm-nam-0019",
+      "name": "Quần kaki nam slim fit nâu",
+      "category": "thoi-trang-nam",
+      "kind": "Quần kaki nam",
+      "description": "Quần kaki nam slim fit nâu làm từ chất liệu kaki, dày dặn, đứng dáng. Thiết kế đơn giản, dễ phối với quần jean hoặc quần kaki. Kích cỡ có sẵn: 29, 30. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Nâu",
+      "material": "Kaki",
+      "sizes": [
+        "29",
+        "30"
+      ],
+      "price": 489000,
+      "stock": 0
+    },
+    {
+      "sku": "SM-NAM-0020",
+      "slug": "quan-short-nam-the-thao-xam-sm-nam-0020",
+      "name": "Quần short nam thể thao xám",
+      "category": "thoi-trang-nam",
+      "kind": "Quần short nam",
+      "description": "Quần short nam thể thao xám làm từ chất liệu kaki, dày dặn, đứng dáng. Phù hợp đi làm, đi chơi hay dạo phố cuối tuần. Kích cỡ có sẵn: XL, XXL. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Xám",
+      "material": "Kaki",
+      "sizes": [
+        "XL",
+        "XXL"
+      ],
+      "price": 279000,
+      "stock": 0
+    },
+    {
+      "sku": "SM-NAM-0021",
+      "slug": "ao-khoac-nam-ni-co-mu-xam-sm-nam-0021",
+      "name": "Áo khoác nam nỉ có mũ xám",
+      "category": "thoi-trang-nam",
+      "kind": "Áo khoác nam",
+      "description": "Áo khoác nam nỉ có mũ xám làm từ chất liệu denim, bền chắc, càng mặc càng đẹp. Phù hợp đi làm, đi chơi hay dạo phố cuối tuần. Kích cỡ có sẵn: S, M, L. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Xám",
+      "material": "Denim",
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "price": 539000,
+      "stock": 1
+    },
+    {
+      "sku": "SM-NAM-0022",
+      "slug": "ao-thun-nam-co-tron-basic-xanh-navy-sm-nam-0022",
+      "name": "Áo thun nam cổ tròn basic xanh navy",
+      "category": "thoi-trang-nam",
+      "kind": "Áo thun nam",
+      "description": "Áo thun nam cổ tròn basic xanh navy làm từ chất liệu cotton pha spandex, co giãn bốn chiều, giữ form tốt. Form dáng chuẩn người Việt, mặc thoải mái cả ngày. Kích cỡ có sẵn: M, L. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Xanh navy",
+      "material": "Cotton pha spandex",
+      "sizes": [
+        "M",
+        "L"
+      ],
+      "price": 209000,
+      "stock": 8
+    },
+    {
+      "sku": "SM-NAM-0023",
+      "slug": "ao-so-mi-nam-ke-soc-xanh-duong-sm-nam-0023",
+      "name": "Áo sơ mi nam kẻ sọc xanh dương",
+      "category": "thoi-trang-nam",
+      "kind": "Áo sơ mi nam",
+      "description": "Áo sơ mi nam kẻ sọc xanh dương làm từ chất liệu kate, đứng form, ít nhăn, dễ ủi. Form dáng chuẩn người Việt, mặc thoải mái cả ngày. Kích cỡ có sẵn: S, M, L, XL, XXL. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Xanh dương",
+      "material": "Kate",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price": 279000,
+      "stock": 22
+    },
+    {
+      "sku": "SM-NAM-0024",
+      "slug": "ao-polo-nam-basic-do-do-sm-nam-0024",
+      "name": "Áo polo nam basic đỏ đô",
+      "category": "thoi-trang-nam",
+      "kind": "Áo polo nam",
+      "description": "Áo polo nam basic đỏ đô làm từ chất liệu cotton cá sấu, dày dặn, bề mặt vải thoáng khí. Thiết kế đơn giản, dễ phối với quần jean hoặc quần kaki. Kích cỡ có sẵn: S, M, L. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Đỏ đô",
+      "material": "Cotton cá sấu",
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "price": 329000,
+      "stock": 16
+    },
+    {
+      "sku": "SM-NAM-0025",
+      "slug": "quan-jean-nam-ong-dung-xam-sm-nam-0025",
+      "name": "Quần jean nam ống đứng xám",
+      "category": "thoi-trang-nam",
+      "kind": "Quần jean nam",
+      "description": "Quần jean nam ống đứng xám làm từ chất liệu denim, bền chắc, càng mặc càng đẹp. Phù hợp đi làm, đi chơi hay dạo phố cuối tuần. Kích cỡ có sẵn: 28, 29, 30, 31, 32, 33. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Xám",
+      "material": "Denim",
+      "sizes": [
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33"
+      ],
+      "price": 539000,
+      "stock": 49
+    },
+    {
+      "sku": "SM-NAM-0026",
+      "slug": "quan-kaki-nam-slim-fit-den-sm-nam-0026",
+      "name": "Quần kaki nam slim fit đen",
+      "category": "thoi-trang-nam",
+      "kind": "Quần kaki nam",
+      "description": "Quần kaki nam slim fit đen làm từ chất liệu kaki pha spandex, đứng dáng mà vẫn co giãn nhẹ. Thiết kế đơn giản, dễ phối với quần jean hoặc quần kaki. Kích cỡ có sẵn: 28, 29, 30, 31, 32, 33, 34. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Đen",
+      "material": "Kaki pha spandex",
+      "sizes": [
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33",
+        "34"
+      ],
+      "price": 469000,
+      "stock": 11
+    },
+    {
+      "sku": "SM-NAM-0027",
+      "slug": "quan-short-nam-the-thao-xanh-reu-sm-nam-0027",
+      "name": "Quần short nam thể thao xanh rêu",
+      "category": "thoi-trang-nam",
+      "kind": "Quần short nam",
+      "description": "Quần short nam thể thao xanh rêu làm từ chất liệu kaki, dày dặn, đứng dáng. Thiết kế đơn giản, dễ phối với quần jean hoặc quần kaki. Kích cỡ có sẵn: S, M, L, XL, XXL. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Xanh rêu",
+      "material": "Kaki",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price": 259000,
+      "stock": 27
+    },
+    {
+      "sku": "SM-NAM-0028",
+      "slug": "ao-khoac-nam-jean-xanh-navy-sm-nam-0028",
+      "name": "Áo khoác nam jean xanh navy",
+      "category": "thoi-trang-nam",
+      "kind": "Áo khoác nam",
+      "description": "Áo khoác nam jean xanh navy làm từ chất liệu dù, chống nước nhẹ, cản gió. Phù hợp đi làm, đi chơi hay dạo phố cuối tuần. Kích cỡ có sẵn: M, L, XL, XXL. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Xanh navy",
+      "material": "Dù",
+      "sizes": [
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price": 709000,
+      "stock": 39
+    },
+    {
+      "sku": "SM-NAM-0029",
+      "slug": "ao-thun-nam-ke-ngang-xanh-reu-sm-nam-0029",
+      "name": "Áo thun nam kẻ ngang xanh rêu",
+      "category": "thoi-trang-nam",
+      "kind": "Áo thun nam",
+      "description": "Áo thun nam kẻ ngang xanh rêu làm từ chất liệu cotton, mềm mại, thấm hút mồ hôi tốt. Form dáng chuẩn người Việt, mặc thoải mái cả ngày. Kích cỡ có sẵn: L, XL. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Xanh rêu",
+      "material": "Cotton",
+      "sizes": [
+        "L",
+        "XL"
+      ],
+      "price": 249000,
+      "stock": 34
+    },
+    {
+      "sku": "SM-NAM-0030",
+      "slug": "ao-so-mi-nam-tay-ngan-kem-sm-nam-0030",
+      "name": "Áo sơ mi nam tay ngắn kem",
+      "category": "thoi-trang-nam",
+      "kind": "Áo sơ mi nam",
+      "description": "Áo sơ mi nam tay ngắn kem làm từ chất liệu cotton, mềm mại, thấm hút mồ hôi tốt. Phù hợp đi làm, đi chơi hay dạo phố cuối tuần. Kích cỡ có sẵn: M, L, XL, XXL. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Kem",
+      "material": "Cotton",
+      "sizes": [
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price": 369000,
+      "stock": 33
+    },
+    {
+      "sku": "SM-NAM-0031",
+      "slug": "ao-polo-nam-phoi-vien-den-sm-nam-0031",
+      "name": "Áo polo nam phối viền đen",
+      "category": "thoi-trang-nam",
+      "kind": "Áo polo nam",
+      "description": "Áo polo nam phối viền đen làm từ chất liệu cotton, mềm mại, thấm hút mồ hôi tốt. Phù hợp đi làm, đi chơi hay dạo phố cuối tuần. Kích cỡ có sẵn: M, L. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Đen",
+      "material": "Cotton",
+      "sizes": [
+        "M",
+        "L"
+      ],
+      "price": 309000,
+      "stock": 38
+    },
+    {
+      "sku": "SM-NAM-0032",
+      "slug": "quan-jean-nam-slim-fit-xanh-nhat-sm-nam-0032",
+      "name": "Quần jean nam slim fit xanh nhạt",
+      "category": "thoi-trang-nam",
+      "kind": "Quần jean nam",
+      "description": "Quần jean nam slim fit xanh nhạt làm từ chất liệu denim, bền chắc, càng mặc càng đẹp. Thiết kế đơn giản, dễ phối với quần jean hoặc quần kaki. Kích cỡ có sẵn: 28, 29, 30, 31. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Xanh nhạt",
+      "material": "Denim",
+      "sizes": [
+        "28",
+        "29",
+        "30",
+        "31"
+      ],
+      "price": 459000,
+      "stock": 38
+    },
+    {
+      "sku": "SM-NAM-0033",
+      "slug": "quan-kaki-nam-slim-fit-xanh-navy-sm-nam-0033",
+      "name": "Quần kaki nam slim fit xanh navy",
+      "category": "thoi-trang-nam",
+      "kind": "Quần kaki nam",
+      "description": "Quần kaki nam slim fit xanh navy làm từ chất liệu kaki pha spandex, đứng dáng mà vẫn co giãn nhẹ. Thiết kế đơn giản, dễ phối với quần jean hoặc quần kaki. Kích cỡ có sẵn: 31, 32. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Xanh navy",
+      "material": "Kaki pha spandex",
+      "sizes": [
+        "31",
+        "32"
+      ],
+      "price": 479000,
+      "stock": 0
+    },
+    {
+      "sku": "SM-NAM-0034",
+      "slug": "quan-short-nam-the-thao-be-sm-nam-0034",
+      "name": "Quần short nam thể thao be",
+      "category": "thoi-trang-nam",
+      "kind": "Quần short nam",
+      "description": "Quần short nam thể thao be làm từ chất liệu cotton, mềm mại, thấm hút mồ hôi tốt. Phù hợp đi làm, đi chơi hay dạo phố cuối tuần. Kích cỡ có sẵn: M, L, XL. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Be",
+      "material": "Cotton",
+      "sizes": [
+        "M",
+        "L",
+        "XL"
+      ],
+      "price": 219000,
+      "stock": 19
+    },
+    {
+      "sku": "SM-NAM-0035",
+      "slug": "ao-khoac-nam-bomber-xanh-reu-sm-nam-0035",
+      "name": "Áo khoác nam bomber xanh rêu",
+      "category": "thoi-trang-nam",
+      "kind": "Áo khoác nam",
+      "description": "Áo khoác nam bomber xanh rêu làm từ chất liệu polyester, nhẹ, nhanh khô, bền màu. Form dáng chuẩn người Việt, mặc thoải mái cả ngày. Kích cỡ có sẵn: M, L, XL, XXL. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Xanh rêu",
+      "material": "Polyester",
+      "sizes": [
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price": 749000,
+      "stock": 1
+    },
+    {
+      "sku": "SM-NAM-0036",
+      "slug": "ao-thun-nam-co-tron-basic-xanh-reu-sm-nam-0036",
+      "name": "Áo thun nam cổ tròn basic xanh rêu",
+      "category": "thoi-trang-nam",
+      "kind": "Áo thun nam",
+      "description": "Áo thun nam cổ tròn basic xanh rêu làm từ chất liệu cotton pha spandex, co giãn bốn chiều, giữ form tốt. Thiết kế đơn giản, dễ phối với quần jean hoặc quần kaki. Kích cỡ có sẵn: L, XL. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Xanh rêu",
+      "material": "Cotton pha spandex",
+      "sizes": [
+        "L",
+        "XL"
+      ],
+      "price": 239000,
+      "stock": 49
+    },
+    {
+      "sku": "SM-NAM-0037",
+      "slug": "ao-so-mi-nam-tay-dai-cong-so-kem-sm-nam-0037",
+      "name": "Áo sơ mi nam tay dài công sở kem",
+      "category": "thoi-trang-nam",
+      "kind": "Áo sơ mi nam",
+      "description": "Áo sơ mi nam tay dài công sở kem làm từ chất liệu kate, đứng form, ít nhăn, dễ ủi. Thiết kế đơn giản, dễ phối với quần jean hoặc quần kaki. Kích cỡ có sẵn: S, M, L, XL, XXL. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Kem",
+      "material": "Kate",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price": 389000,
+      "stock": 43
+    },
+    {
+      "sku": "SM-NAM-0038",
+      "slug": "ao-polo-nam-the-thao-xam-sm-nam-0038",
+      "name": "Áo polo nam thể thao xám",
+      "category": "thoi-trang-nam",
+      "kind": "Áo polo nam",
+      "description": "Áo polo nam thể thao xám làm từ chất liệu cotton cá sấu, dày dặn, bề mặt vải thoáng khí. Thiết kế đơn giản, dễ phối với quần jean hoặc quần kaki. Kích cỡ có sẵn: S, M, L. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Xám",
+      "material": "Cotton cá sấu",
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "price": 209000,
+      "stock": 14
+    },
+    {
+      "sku": "SM-NAM-0039",
+      "slug": "quan-jean-nam-slim-fit-xanh-dam-sm-nam-0039",
+      "name": "Quần jean nam slim fit xanh đậm",
+      "category": "thoi-trang-nam",
+      "kind": "Quần jean nam",
+      "description": "Quần jean nam slim fit xanh đậm làm từ chất liệu denim, bền chắc, càng mặc càng đẹp. Thiết kế đơn giản, dễ phối với quần jean hoặc quần kaki. Kích cỡ có sẵn: 33, 34. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Xanh đậm",
+      "material": "Denim",
+      "sizes": [
+        "33",
+        "34"
+      ],
+      "price": 419000,
+      "stock": 38
+    },
+    {
+      "sku": "SM-NAM-0040",
+      "slug": "quan-kaki-nam-tui-hop-xam-sm-nam-0040",
+      "name": "Quần kaki nam túi hộp xám",
+      "category": "thoi-trang-nam",
+      "kind": "Quần kaki nam",
+      "description": "Quần kaki nam túi hộp xám làm từ chất liệu kaki, dày dặn, đứng dáng. Form dáng chuẩn người Việt, mặc thoải mái cả ngày. Kích cỡ có sẵn: 29, 30, 31, 32, 33, 34. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Xám",
+      "material": "Kaki",
+      "sizes": [
+        "29",
+        "30",
+        "31",
+        "32",
+        "33",
+        "34"
+      ],
+      "price": 399000,
+      "stock": 36
+    },
+    {
+      "sku": "SM-NAM-0041",
+      "slug": "quan-short-nam-kaki-xanh-reu-sm-nam-0041",
+      "name": "Quần short nam kaki xanh rêu",
+      "category": "thoi-trang-nam",
+      "kind": "Quần short nam",
+      "description": "Quần short nam kaki xanh rêu làm từ chất liệu cotton, mềm mại, thấm hút mồ hôi tốt. Form dáng chuẩn người Việt, mặc thoải mái cả ngày. Kích cỡ có sẵn: S, M, L, XL. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Xanh rêu",
+      "material": "Cotton",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "price": 209000,
+      "stock": 7
+    },
+    {
+      "sku": "SM-NAM-0042",
+      "slug": "ao-khoac-nam-ni-co-mu-xanh-navy-sm-nam-0042",
+      "name": "Áo khoác nam nỉ có mũ xanh navy",
+      "category": "thoi-trang-nam",
+      "kind": "Áo khoác nam",
+      "description": "Áo khoác nam nỉ có mũ xanh navy làm từ chất liệu polyester, nhẹ, nhanh khô, bền màu. Form dáng chuẩn người Việt, mặc thoải mái cả ngày. Kích cỡ có sẵn: S, M, L, XL. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Xanh navy",
+      "material": "Polyester",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "price": 439000,
+      "stock": 24
+    },
+    {
+      "sku": "SM-NAM-0043",
+      "slug": "ao-thun-nam-ke-ngang-be-sm-nam-0043",
+      "name": "Áo thun nam kẻ ngang be",
+      "category": "thoi-trang-nam",
+      "kind": "Áo thun nam",
+      "description": "Áo thun nam kẻ ngang be làm từ chất liệu cotton, mềm mại, thấm hút mồ hôi tốt. Form dáng chuẩn người Việt, mặc thoải mái cả ngày. Kích cỡ có sẵn: L, XL. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Be",
+      "material": "Cotton",
+      "sizes": [
+        "L",
+        "XL"
+      ],
+      "price": 159000,
+      "stock": 9
+    },
+    {
+      "sku": "SM-NAM-0044",
+      "slug": "ao-so-mi-nam-tay-dai-cong-so-xanh-duong-sm-nam-0044",
+      "name": "Áo sơ mi nam tay dài công sở xanh dương",
+      "category": "thoi-trang-nam",
+      "kind": "Áo sơ mi nam",
+      "description": "Áo sơ mi nam tay dài công sở xanh dương làm từ chất liệu bamboo, kháng khuẩn tự nhiên, mềm mịn. Phù hợp đi làm, đi chơi hay dạo phố cuối tuần. Kích cỡ có sẵn: S, M, L, XL, XXL. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Xanh dương",
+      "material": "Bamboo",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price": 489000,
+      "stock": 0
+    },
+    {
+      "sku": "SM-NAM-0045",
+      "slug": "ao-polo-nam-basic-xanh-navy-sm-nam-0045",
+      "name": "Áo polo nam basic xanh navy",
+      "category": "thoi-trang-nam",
+      "kind": "Áo polo nam",
+      "description": "Áo polo nam basic xanh navy làm từ chất liệu cotton, mềm mại, thấm hút mồ hôi tốt. Form dáng chuẩn người Việt, mặc thoải mái cả ngày. Kích cỡ có sẵn: S, M. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Xanh navy",
+      "material": "Cotton",
+      "sizes": [
+        "S",
+        "M"
+      ],
+      "price": 229000,
+      "stock": 40
+    },
+    {
+      "sku": "SM-NAM-0046",
+      "slug": "quan-jean-nam-baggy-xam-sm-nam-0046",
+      "name": "Quần jean nam baggy xám",
+      "category": "thoi-trang-nam",
+      "kind": "Quần jean nam",
+      "description": "Quần jean nam baggy xám làm từ chất liệu denim, bền chắc, càng mặc càng đẹp. Thiết kế đơn giản, dễ phối với quần jean hoặc quần kaki. Kích cỡ có sẵn: 28, 29, 30, 31, 32, 33, 34. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Xám",
+      "material": "Denim",
+      "sizes": [
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33",
+        "34"
+      ],
+      "price": 489000,
+      "stock": 27
+    },
+    {
+      "sku": "SM-NAM-0047",
+      "slug": "quan-kaki-nam-ong-dung-be-sm-nam-0047",
+      "name": "Quần kaki nam ống đứng be",
+      "category": "thoi-trang-nam",
+      "kind": "Quần kaki nam",
+      "description": "Quần kaki nam ống đứng be làm từ chất liệu kaki pha spandex, đứng dáng mà vẫn co giãn nhẹ. Thiết kế đơn giản, dễ phối với quần jean hoặc quần kaki. Kích cỡ có sẵn: 28, 29, 30, 31, 32, 33, 34. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Be",
+      "material": "Kaki pha spandex",
+      "sizes": [
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33",
+        "34"
+      ],
+      "price": 389000,
+      "stock": 20
+    },
+    {
+      "sku": "SM-NAM-0048",
+      "slug": "quan-short-nam-kaki-den-sm-nam-0048",
+      "name": "Quần short nam kaki đen",
+      "category": "thoi-trang-nam",
+      "kind": "Quần short nam",
+      "description": "Quần short nam kaki đen làm từ chất liệu polyester, nhẹ, nhanh khô, bền màu. Thiết kế đơn giản, dễ phối với quần jean hoặc quần kaki. Kích cỡ có sẵn: S, M, L, XL, XXL. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Đen",
+      "material": "Polyester",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price": 249000,
+      "stock": 37
+    },
+    {
+      "sku": "SM-NAM-0049",
+      "slug": "ao-khoac-nam-gio-hai-lop-xanh-reu-sm-nam-0049",
+      "name": "Áo khoác nam gió hai lớp xanh rêu",
+      "category": "thoi-trang-nam",
+      "kind": "Áo khoác nam",
+      "description": "Áo khoác nam gió hai lớp xanh rêu làm từ chất liệu nỉ, ấm áp, mềm mại. Thiết kế đơn giản, dễ phối với quần jean hoặc quần kaki. Kích cỡ có sẵn: L, XL, XXL. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Xanh rêu",
+      "material": "Nỉ",
+      "sizes": [
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price": 719000,
+      "stock": 25
+    },
+    {
+      "sku": "SM-NAM-0050",
+      "slug": "ao-thun-nam-co-tron-basic-xam-sm-nam-0050",
+      "name": "Áo thun nam cổ tròn basic xám",
+      "category": "thoi-trang-nam",
+      "kind": "Áo thun nam",
+      "description": "Áo thun nam cổ tròn basic xám làm từ chất liệu cotton pha spandex, co giãn bốn chiều, giữ form tốt. Form dáng chuẩn người Việt, mặc thoải mái cả ngày. Kích cỡ có sẵn: M, L, XL. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Xám",
+      "material": "Cotton pha spandex",
+      "sizes": [
+        "M",
+        "L",
+        "XL"
+      ],
+      "price": 219000,
+      "stock": 12
+    },
+    {
+      "sku": "SM-NU-0001",
+      "slug": "ao-thun-nu-oversize-vang-sm-nu-0001",
+      "name": "Áo thun nữ oversize vàng",
+      "category": "thoi-trang-nu",
+      "kind": "Áo thun nữ",
+      "description": "Áo thun nữ oversize vàng làm từ chất liệu cotton, mềm mại, thấm hút mồ hôi tốt. Thiết kế nữ tính, tôn dáng, dễ phối cùng nhiều phụ kiện. Kích cỡ có sẵn: XL, XXL. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Vàng",
+      "material": "Cotton",
+      "sizes": [
+        "XL",
+        "XXL"
+      ],
+      "price": 189000,
+      "stock": 10
+    },
+    {
+      "sku": "SM-NU-0002",
+      "slug": "ao-so-mi-nu-co-no-hong-sm-nu-0002",
+      "name": "Áo sơ mi nữ cổ nơ hồng",
+      "category": "thoi-trang-nu",
+      "kind": "Áo sơ mi nữ",
+      "description": "Áo sơ mi nữ cổ nơ hồng làm từ chất liệu cotton, mềm mại, thấm hút mồ hôi tốt. Thiết kế nữ tính, tôn dáng, dễ phối cùng nhiều phụ kiện. Kích cỡ có sẵn: S, M, L, XL, XXL. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Hồng",
+      "material": "Cotton",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price": 399000,
+      "stock": 0
+    },
+    {
+      "sku": "SM-NU-0003",
+      "slug": "vay-lien-nu-cong-so-xanh-duong-sm-nu-0003",
+      "name": "Váy liền nữ công sở xanh dương",
+      "category": "thoi-trang-nu",
+      "kind": "Váy liền nữ",
+      "description": "Váy liền nữ công sở xanh dương làm từ chất liệu linen, nhẹ, thoáng mát cho ngày hè. Thiết kế nữ tính, tôn dáng, dễ phối cùng nhiều phụ kiện. Kích cỡ có sẵn: S, M, L. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Xanh dương",
+      "material": "Linen",
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "price": 389000,
+      "stock": 33
+    },
+    {
+      "sku": "SM-NU-0004",
+      "slug": "chan-vay-nu-chu-a-hong-sm-nu-0004",
+      "name": "Chân váy nữ chữ A hồng",
+      "category": "thoi-trang-nu",
+      "kind": "Chân váy nữ",
+      "description": "Chân váy nữ chữ A hồng làm từ chất liệu denim, bền chắc, càng mặc càng đẹp. Thiết kế nữ tính, tôn dáng, dễ phối cùng nhiều phụ kiện. Kích cỡ có sẵn: XL, XXL. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Hồng",
+      "material": "Denim",
+      "sizes": [
+        "XL",
+        "XXL"
+      ],
+      "price": 399000,
+      "stock": 7
+    },
+    {
+      "sku": "SM-NU-0005",
+      "slug": "quan-jean-nu-ong-suong-xanh-nhat-sm-nu-0005",
+      "name": "Quần jean nữ ống suông xanh nhạt",
+      "category": "thoi-trang-nu",
+      "kind": "Quần jean nữ",
+      "description": "Quần jean nữ ống suông xanh nhạt làm từ chất liệu denim, bền chắc, càng mặc càng đẹp. Kiểu dáng trẻ trung, phù hợp nhiều vóc dáng. Kích cỡ có sẵn: 28, 29. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Xanh nhạt",
+      "material": "Denim",
+      "sizes": [
+        "28",
+        "29"
+      ],
+      "price": 419000,
+      "stock": 27
+    },
+    {
+      "sku": "SM-NU-0006",
+      "slug": "ao-khoac-nu-gio-chong-nang-hong-sm-nu-0006",
+      "name": "Áo khoác nữ gió chống nắng hồng",
+      "category": "thoi-trang-nu",
+      "kind": "Áo khoác nữ",
+      "description": "Áo khoác nữ gió chống nắng hồng làm từ chất liệu len, giữ ấm tốt, mềm tay. Kiểu dáng trẻ trung, phù hợp nhiều vóc dáng. Kích cỡ có sẵn: S, M, L, XL. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Hồng",
+      "material": "Len",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "price": 419000,
+      "stock": 10
+    },
+    {
+      "sku": "SM-NU-0007",
+      "slug": "ao-len-nu-co-tim-hong-sm-nu-0007",
+      "name": "Áo len nữ cổ tim hồng",
+      "category": "thoi-trang-nu",
+      "kind": "Áo len nữ",
+      "description": "Áo len nữ cổ tim hồng làm từ chất liệu len, giữ ấm tốt, mềm tay. Phù hợp đi làm, đi tiệc nhẹ hoặc dạo phố. Kích cỡ có sẵn: XL, XXL. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Hồng",
+      "material": "Len",
+      "sizes": [
+        "XL",
+        "XXL"
+      ],
+      "price": 329000,
+      "stock": 13
+    },
+    {
+      "sku": "SM-NU-0008",
+      "slug": "ao-thun-nu-oversize-hong-sm-nu-0008",
+      "name": "Áo thun nữ oversize hồng",
+      "category": "thoi-trang-nu",
+      "kind": "Áo thun nữ",
+      "description": "Áo thun nữ oversize hồng làm từ chất liệu thun lạnh, mát, ít nhăn, co giãn nhẹ. Kiểu dáng trẻ trung, phù hợp nhiều vóc dáng. Kích cỡ có sẵn: S, M. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Hồng",
+      "material": "Thun lạnh",
+      "sizes": [
+        "S",
+        "M"
+      ],
+      "price": 229000,
+      "stock": 18
+    },
+    {
+      "sku": "SM-NU-0009",
+      "slug": "ao-so-mi-nu-tay-bong-kem-sm-nu-0009",
+      "name": "Áo sơ mi nữ tay bồng kem",
+      "category": "thoi-trang-nu",
+      "kind": "Áo sơ mi nữ",
+      "description": "Áo sơ mi nữ tay bồng kem làm từ chất liệu lụa, mềm rủ, bóng nhẹ sang trọng. Thiết kế nữ tính, tôn dáng, dễ phối cùng nhiều phụ kiện. Kích cỡ có sẵn: S, M, L. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Kem",
+      "material": "Lụa",
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "price": 329000,
+      "stock": 22
+    },
+    {
+      "sku": "SM-NU-0010",
+      "slug": "vay-lien-nu-hoa-nhi-hong-sm-nu-0010",
+      "name": "Váy liền nữ hoa nhí hồng",
+      "category": "thoi-trang-nu",
+      "kind": "Váy liền nữ",
+      "description": "Váy liền nữ hoa nhí hồng làm từ chất liệu cotton, mềm mại, thấm hút mồ hôi tốt. Phù hợp đi làm, đi tiệc nhẹ hoặc dạo phố. Kích cỡ có sẵn: S, M, L, XL. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Hồng",
+      "material": "Cotton",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "price": 369000,
+      "stock": 1
+    },
+    {
+      "sku": "SM-NU-0011",
+      "slug": "chan-vay-nu-chu-a-den-sm-nu-0011",
+      "name": "Chân váy nữ chữ A đen",
+      "category": "thoi-trang-nu",
+      "kind": "Chân váy nữ",
+      "description": "Chân váy nữ chữ A đen làm từ chất liệu voan, mỏng nhẹ, bay bổng. Phù hợp đi làm, đi tiệc nhẹ hoặc dạo phố. Kích cỡ có sẵn: M, L, XL. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Đen",
+      "material": "Voan",
+      "sizes": [
+        "M",
+        "L",
+        "XL"
+      ],
+      "price": 249000,
+      "stock": 41
+    },
+    {
+      "sku": "SM-NU-0012",
+      "slug": "quan-jean-nu-baggy-trang-sm-nu-0012",
+      "name": "Quần jean nữ baggy trắng",
+      "category": "thoi-trang-nu",
+      "kind": "Quần jean nữ",
+      "description": "Quần jean nữ baggy trắng làm từ chất liệu denim, bền chắc, càng mặc càng đẹp. Kiểu dáng trẻ trung, phù hợp nhiều vóc dáng. Kích cỡ có sẵn: 28, 29, 30, 31, 32. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Trắng",
+      "material": "Denim",
+      "sizes": [
+        "28",
+        "29",
+        "30",
+        "31",
+        "32"
+      ],
+      "price": 409000,
+      "stock": 35
+    },
+    {
+      "sku": "SM-NU-0013",
+      "slug": "ao-khoac-nu-gio-chong-nang-trang-sm-nu-0013",
+      "name": "Áo khoác nữ gió chống nắng trắng",
+      "category": "thoi-trang-nu",
+      "kind": "Áo khoác nữ",
+      "description": "Áo khoác nữ gió chống nắng trắng làm từ chất liệu len, giữ ấm tốt, mềm tay. Phù hợp đi làm, đi tiệc nhẹ hoặc dạo phố. Kích cỡ có sẵn: S, M, L, XL. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Trắng",
+      "material": "Len",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "price": 309000,
+      "stock": 26
+    },
+    {
+      "sku": "SM-NU-0014",
+      "slug": "ao-len-nu-co-lo-nau-sm-nu-0014",
+      "name": "Áo len nữ cổ lọ nâu",
+      "category": "thoi-trang-nu",
+      "kind": "Áo len nữ",
+      "description": "Áo len nữ cổ lọ nâu làm từ chất liệu len, giữ ấm tốt, mềm tay. Phù hợp đi làm, đi tiệc nhẹ hoặc dạo phố. Kích cỡ có sẵn: S, M, L, XL. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Nâu",
+      "material": "Len",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "price": 439000,
+      "stock": 7
+    },
+    {
+      "sku": "SM-NU-0015",
+      "slug": "ao-thun-nu-co-tron-basic-xanh-duong-sm-nu-0015",
+      "name": "Áo thun nữ cổ tròn basic xanh dương",
+      "category": "thoi-trang-nu",
+      "kind": "Áo thun nữ",
+      "description": "Áo thun nữ cổ tròn basic xanh dương làm từ chất liệu thun lạnh, mát, ít nhăn, co giãn nhẹ. Phù hợp đi làm, đi tiệc nhẹ hoặc dạo phố. Kích cỡ có sẵn: S, M, L, XL, XXL. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Xanh dương",
+      "material": "Thun lạnh",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price": 199000,
+      "stock": 5
+    },
+    {
+      "sku": "SM-NU-0016",
+      "slug": "ao-so-mi-nu-cong-so-kem-sm-nu-0016",
+      "name": "Áo sơ mi nữ công sở kem",
+      "category": "thoi-trang-nu",
+      "kind": "Áo sơ mi nữ",
+      "description": "Áo sơ mi nữ công sở kem làm từ chất liệu lụa, mềm rủ, bóng nhẹ sang trọng. Kiểu dáng trẻ trung, phù hợp nhiều vóc dáng. Kích cỡ có sẵn: L, XL, XXL. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Kem",
+      "material": "Lụa",
+      "sizes": [
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price": 259000,
+      "stock": 17
+    },
+    {
+      "sku": "SM-NU-0017",
+      "slug": "vay-lien-nu-cong-so-do-sm-nu-0017",
+      "name": "Váy liền nữ công sở đỏ",
+      "category": "thoi-trang-nu",
+      "kind": "Váy liền nữ",
+      "description": "Váy liền nữ công sở đỏ làm từ chất liệu linen, nhẹ, thoáng mát cho ngày hè. Phù hợp đi làm, đi tiệc nhẹ hoặc dạo phố. Kích cỡ có sẵn: XL, XXL. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Đỏ",
+      "material": "Linen",
+      "sizes": [
+        "XL",
+        "XXL"
+      ],
+      "price": 509000,
+      "stock": 22
+    },
+    {
+      "sku": "SM-NU-0018",
+      "slug": "chan-vay-nu-chu-a-trang-sm-nu-0018",
+      "name": "Chân váy nữ chữ A trắng",
+      "category": "thoi-trang-nu",
+      "kind": "Chân váy nữ",
+      "description": "Chân váy nữ chữ A trắng làm từ chất liệu denim, bền chắc, càng mặc càng đẹp. Phù hợp đi làm, đi tiệc nhẹ hoặc dạo phố. Kích cỡ có sẵn: M, L, XL, XXL. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Trắng",
+      "material": "Denim",
+      "sizes": [
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price": 319000,
+      "stock": 9
+    },
+    {
+      "sku": "SM-NU-0019",
+      "slug": "quan-jean-nu-baggy-xanh-dam-sm-nu-0019",
+      "name": "Quần jean nữ baggy xanh đậm",
+      "category": "thoi-trang-nu",
+      "kind": "Quần jean nữ",
+      "description": "Quần jean nữ baggy xanh đậm làm từ chất liệu denim, bền chắc, càng mặc càng đẹp. Phù hợp đi làm, đi tiệc nhẹ hoặc dạo phố. Kích cỡ có sẵn: 28, 29, 30, 31, 32. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Xanh đậm",
+      "material": "Denim",
+      "sizes": [
+        "28",
+        "29",
+        "30",
+        "31",
+        "32"
+      ],
+      "price": 529000,
+      "stock": 24
+    },
+    {
+      "sku": "SM-NU-0020",
+      "slug": "ao-khoac-nu-blazer-den-sm-nu-0020",
+      "name": "Áo khoác nữ blazer đen",
+      "category": "thoi-trang-nu",
+      "kind": "Áo khoác nữ",
+      "description": "Áo khoác nữ blazer đen làm từ chất liệu len, giữ ấm tốt, mềm tay. Kiểu dáng trẻ trung, phù hợp nhiều vóc dáng. Kích cỡ có sẵn: S, M, L, XL. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Đen",
+      "material": "Len",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "price": 319000,
+      "stock": 19
+    },
+    {
+      "sku": "SM-NU-0021",
+      "slug": "ao-len-nu-co-lo-kem-sm-nu-0021",
+      "name": "Áo len nữ cổ lọ kem",
+      "category": "thoi-trang-nu",
+      "kind": "Áo len nữ",
+      "description": "Áo len nữ cổ lọ kem làm từ chất liệu len pha cotton, ấm vừa phải, không gây ngứa. Phù hợp đi làm, đi tiệc nhẹ hoặc dạo phố. Kích cỡ có sẵn: S, M, L, XL. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Kem",
+      "material": "Len pha cotton",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "price": 459000,
+      "stock": 0
+    },
+    {
+      "sku": "SM-NU-0022",
+      "slug": "ao-thun-nu-croptop-vang-sm-nu-0022",
+      "name": "Áo thun nữ croptop vàng",
+      "category": "thoi-trang-nu",
+      "kind": "Áo thun nữ",
+      "description": "Áo thun nữ croptop vàng làm từ chất liệu thun lạnh, mát, ít nhăn, co giãn nhẹ. Phù hợp đi làm, đi tiệc nhẹ hoặc dạo phố. Kích cỡ có sẵn: S, M, L, XL, XXL. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Vàng",
+      "material": "Thun lạnh",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price": 219000,
+      "stock": 23
+    },
+    {
+      "sku": "SM-NU-0023",
+      "slug": "ao-so-mi-nu-dang-rong-hong-sm-nu-0023",
+      "name": "Áo sơ mi nữ dáng rộng hồng",
+      "category": "thoi-trang-nu",
+      "kind": "Áo sơ mi nữ",
+      "description": "Áo sơ mi nữ dáng rộng hồng làm từ chất liệu voan, mỏng nhẹ, bay bổng. Kiểu dáng trẻ trung, phù hợp nhiều vóc dáng. Kích cỡ có sẵn: XL, XXL. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Hồng",
+      "material": "Voan",
+      "sizes": [
+        "XL",
+        "XXL"
+      ],
+      "price": 279000,
+      "stock": 46
+    },
+    {
+      "sku": "SM-NU-0024",
+      "slug": "vay-lien-nu-maxi-di-bien-trang-sm-nu-0024",
+      "name": "Váy liền nữ maxi đi biển trắng",
+      "category": "thoi-trang-nu",
+      "kind": "Váy liền nữ",
+      "description": "Váy liền nữ maxi đi biển trắng làm từ chất liệu linen, nhẹ, thoáng mát cho ngày hè. Phù hợp đi làm, đi tiệc nhẹ hoặc dạo phố. Kích cỡ có sẵn: M, L. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Trắng",
+      "material": "Linen",
+      "sizes": [
+        "M",
+        "L"
+      ],
+      "price": 699000,
+      "stock": 2
+    },
+    {
+      "sku": "SM-NU-0025",
+      "slug": "chan-vay-nu-xep-ly-hong-sm-nu-0025",
+      "name": "Chân váy nữ xếp ly hồng",
+      "category": "thoi-trang-nu",
+      "kind": "Chân váy nữ",
+      "description": "Chân váy nữ xếp ly hồng làm từ chất liệu tweed, dệt sợi đan xen, sang trọng. Kiểu dáng trẻ trung, phù hợp nhiều vóc dáng. Kích cỡ có sẵn: L, XL. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Hồng",
+      "material": "Tweed",
+      "sizes": [
+        "L",
+        "XL"
+      ],
+      "price": 289000,
+      "stock": 24
+    },
+    {
+      "sku": "SM-NU-0026",
+      "slug": "quan-jean-nu-skinny-den-sm-nu-0026",
+      "name": "Quần jean nữ skinny đen",
+      "category": "thoi-trang-nu",
+      "kind": "Quần jean nữ",
+      "description": "Quần jean nữ skinny đen làm từ chất liệu denim, bền chắc, càng mặc càng đẹp. Phù hợp đi làm, đi tiệc nhẹ hoặc dạo phố. Kích cỡ có sẵn: 31, 32. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Đen",
+      "material": "Denim",
+      "sizes": [
+        "31",
+        "32"
+      ],
+      "price": 369000,
+      "stock": 38
+    },
+    {
+      "sku": "SM-NU-0027",
+      "slug": "ao-khoac-nu-jean-be-sm-nu-0027",
+      "name": "Áo khoác nữ jean be",
+      "category": "thoi-trang-nu",
+      "kind": "Áo khoác nữ",
+      "description": "Áo khoác nữ jean be làm từ chất liệu dù, chống nước nhẹ, cản gió. Kiểu dáng trẻ trung, phù hợp nhiều vóc dáng. Kích cỡ có sẵn: S, M, L, XL. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Be",
+      "material": "Dù",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "price": 669000,
+      "stock": 33
+    },
+    {
+      "sku": "SM-NU-0028",
+      "slug": "ao-len-nu-det-kim-xam-sm-nu-0028",
+      "name": "Áo len nữ dệt kim xám",
+      "category": "thoi-trang-nu",
+      "kind": "Áo len nữ",
+      "description": "Áo len nữ dệt kim xám làm từ chất liệu len, giữ ấm tốt, mềm tay. Thiết kế nữ tính, tôn dáng, dễ phối cùng nhiều phụ kiện. Kích cỡ có sẵn: XL, XXL. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Xám",
+      "material": "Len",
+      "sizes": [
+        "XL",
+        "XXL"
+      ],
+      "price": 319000,
+      "stock": 27
+    },
+    {
+      "sku": "SM-NU-0029",
+      "slug": "ao-thun-nu-oversize-trang-sm-nu-0029",
+      "name": "Áo thun nữ oversize trắng",
+      "category": "thoi-trang-nu",
+      "kind": "Áo thun nữ",
+      "description": "Áo thun nữ oversize trắng làm từ chất liệu thun lạnh, mát, ít nhăn, co giãn nhẹ. Phù hợp đi làm, đi tiệc nhẹ hoặc dạo phố. Kích cỡ có sẵn: M, L, XL. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Trắng",
+      "material": "Thun lạnh",
+      "sizes": [
+        "M",
+        "L",
+        "XL"
+      ],
+      "price": 149000,
+      "stock": 44
+    },
+    {
+      "sku": "SM-NU-0030",
+      "slug": "ao-so-mi-nu-cong-so-xanh-duong-sm-nu-0030",
+      "name": "Áo sơ mi nữ công sở xanh dương",
+      "category": "thoi-trang-nu",
+      "kind": "Áo sơ mi nữ",
+      "description": "Áo sơ mi nữ công sở xanh dương làm từ chất liệu lụa, mềm rủ, bóng nhẹ sang trọng. Phù hợp đi làm, đi tiệc nhẹ hoặc dạo phố. Kích cỡ có sẵn: XL, XXL. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Xanh dương",
+      "material": "Lụa",
+      "sizes": [
+        "XL",
+        "XXL"
+      ],
+      "price": 309000,
+      "stock": 2
+    },
+    {
+      "sku": "SM-NU-0031",
+      "slug": "vay-lien-nu-maxi-di-bien-vang-sm-nu-0031",
+      "name": "Váy liền nữ maxi đi biển vàng",
+      "category": "thoi-trang-nu",
+      "kind": "Váy liền nữ",
+      "description": "Váy liền nữ maxi đi biển vàng làm từ chất liệu cotton, mềm mại, thấm hút mồ hôi tốt. Phù hợp đi làm, đi tiệc nhẹ hoặc dạo phố. Kích cỡ có sẵn: M, L, XL, XXL. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Vàng",
+      "material": "Cotton",
+      "sizes": [
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price": 529000,
+      "stock": 49
+    },
+    {
+      "sku": "SM-NU-0032",
+      "slug": "chan-vay-nu-but-chi-den-sm-nu-0032",
+      "name": "Chân váy nữ bút chì đen",
+      "category": "thoi-trang-nu",
+      "kind": "Chân váy nữ",
+      "description": "Chân váy nữ bút chì đen làm từ chất liệu tweed, dệt sợi đan xen, sang trọng. Thiết kế nữ tính, tôn dáng, dễ phối cùng nhiều phụ kiện. Kích cỡ có sẵn: L, XL, XXL. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Đen",
+      "material": "Tweed",
+      "sizes": [
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price": 379000,
+      "stock": 41
+    },
+    {
+      "sku": "SM-NU-0033",
+      "slug": "quan-jean-nu-ong-loe-xanh-nhat-sm-nu-0033",
+      "name": "Quần jean nữ ống loe xanh nhạt",
+      "category": "thoi-trang-nu",
+      "kind": "Quần jean nữ",
+      "description": "Quần jean nữ ống loe xanh nhạt làm từ chất liệu denim, bền chắc, càng mặc càng đẹp. Thiết kế nữ tính, tôn dáng, dễ phối cùng nhiều phụ kiện. Kích cỡ có sẵn: 28, 29, 30, 31, 32. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Xanh nhạt",
+      "material": "Denim",
+      "sizes": [
+        "28",
+        "29",
+        "30",
+        "31",
+        "32"
+      ],
+      "price": 329000,
+      "stock": 38
+    },
+    {
+      "sku": "SM-NU-0034",
+      "slug": "ao-khoac-nu-gio-chong-nang-be-sm-nu-0034",
+      "name": "Áo khoác nữ gió chống nắng be",
+      "category": "thoi-trang-nu",
+      "kind": "Áo khoác nữ",
+      "description": "Áo khoác nữ gió chống nắng be làm từ chất liệu len, giữ ấm tốt, mềm tay. Kiểu dáng trẻ trung, phù hợp nhiều vóc dáng. Kích cỡ có sẵn: L, XL. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Be",
+      "material": "Len",
+      "sizes": [
+        "L",
+        "XL"
+      ],
+      "price": 379000,
+      "stock": 4
+    },
+    {
+      "sku": "SM-NU-0035",
+      "slug": "ao-len-nu-det-kim-hong-sm-nu-0035",
+      "name": "Áo len nữ dệt kim hồng",
+      "category": "thoi-trang-nu",
+      "kind": "Áo len nữ",
+      "description": "Áo len nữ dệt kim hồng làm từ chất liệu len, giữ ấm tốt, mềm tay. Thiết kế nữ tính, tôn dáng, dễ phối cùng nhiều phụ kiện. Kích cỡ có sẵn: S, M, L. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Hồng",
+      "material": "Len",
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "price": 459000,
+      "stock": 9
+    },
+    {
+      "sku": "SM-NU-0036",
+      "slug": "ao-thun-nu-croptop-be-sm-nu-0036",
+      "name": "Áo thun nữ croptop be",
+      "category": "thoi-trang-nu",
+      "kind": "Áo thun nữ",
+      "description": "Áo thun nữ croptop be làm từ chất liệu thun lạnh, mát, ít nhăn, co giãn nhẹ. Thiết kế nữ tính, tôn dáng, dễ phối cùng nhiều phụ kiện. Kích cỡ có sẵn: M, L, XL. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Be",
+      "material": "Thun lạnh",
+      "sizes": [
+        "M",
+        "L",
+        "XL"
+      ],
+      "price": 209000,
+      "stock": 36
+    },
+    {
+      "sku": "SM-NU-0037",
+      "slug": "ao-so-mi-nu-cong-so-den-sm-nu-0037",
+      "name": "Áo sơ mi nữ công sở đen",
+      "category": "thoi-trang-nu",
+      "kind": "Áo sơ mi nữ",
+      "description": "Áo sơ mi nữ công sở đen làm từ chất liệu lụa, mềm rủ, bóng nhẹ sang trọng. Thiết kế nữ tính, tôn dáng, dễ phối cùng nhiều phụ kiện. Kích cỡ có sẵn: S, M, L, XL, XXL. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Đen",
+      "material": "Lụa",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price": 359000,
+      "stock": 29
+    },
+    {
+      "sku": "SM-NU-0038",
+      "slug": "vay-lien-nu-hoa-nhi-den-sm-nu-0038",
+      "name": "Váy liền nữ hoa nhí đen",
+      "category": "thoi-trang-nu",
+      "kind": "Váy liền nữ",
+      "description": "Váy liền nữ hoa nhí đen làm từ chất liệu lụa, mềm rủ, bóng nhẹ sang trọng. Phù hợp đi làm, đi tiệc nhẹ hoặc dạo phố. Kích cỡ có sẵn: S, M, L, XL, XXL. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Đen",
+      "material": "Lụa",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price": 669000,
+      "stock": 0
+    },
+    {
+      "sku": "SM-NU-0039",
+      "slug": "chan-vay-nu-chu-a-xanh-navy-sm-nu-0039",
+      "name": "Chân váy nữ chữ A xanh navy",
+      "category": "thoi-trang-nu",
+      "kind": "Chân váy nữ",
+      "description": "Chân váy nữ chữ A xanh navy làm từ chất liệu kaki, dày dặn, đứng dáng. Kiểu dáng trẻ trung, phù hợp nhiều vóc dáng. Kích cỡ có sẵn: S, M, L, XL, XXL. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Xanh navy",
+      "material": "Kaki",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price": 259000,
+      "stock": 4
+    },
+    {
+      "sku": "SM-NU-0040",
+      "slug": "quan-jean-nu-ong-loe-trang-sm-nu-0040",
+      "name": "Quần jean nữ ống loe trắng",
+      "category": "thoi-trang-nu",
+      "kind": "Quần jean nữ",
+      "description": "Quần jean nữ ống loe trắng làm từ chất liệu denim, bền chắc, càng mặc càng đẹp. Kiểu dáng trẻ trung, phù hợp nhiều vóc dáng. Kích cỡ có sẵn: 29, 30, 31, 32. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Trắng",
+      "material": "Denim",
+      "sizes": [
+        "29",
+        "30",
+        "31",
+        "32"
+      ],
+      "price": 449000,
+      "stock": 7
+    },
+    {
+      "sku": "SM-NU-0041",
+      "slug": "ao-khoac-nu-blazer-be-sm-nu-0041",
+      "name": "Áo khoác nữ blazer be",
+      "category": "thoi-trang-nu",
+      "kind": "Áo khoác nữ",
+      "description": "Áo khoác nữ blazer be làm từ chất liệu dù, chống nước nhẹ, cản gió. Phù hợp đi làm, đi tiệc nhẹ hoặc dạo phố. Kích cỡ có sẵn: L, XL, XXL. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Be",
+      "material": "Dù",
+      "sizes": [
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price": 379000,
+      "stock": 19
+    },
+    {
+      "sku": "SM-NU-0042",
+      "slug": "ao-len-nu-det-kim-be-sm-nu-0042",
+      "name": "Áo len nữ dệt kim be",
+      "category": "thoi-trang-nu",
+      "kind": "Áo len nữ",
+      "description": "Áo len nữ dệt kim be làm từ chất liệu len pha cotton, ấm vừa phải, không gây ngứa. Thiết kế nữ tính, tôn dáng, dễ phối cùng nhiều phụ kiện. Kích cỡ có sẵn: S, M, L, XL. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Be",
+      "material": "Len pha cotton",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "price": 399000,
+      "stock": 0
+    },
+    {
+      "sku": "SM-NU-0043",
+      "slug": "ao-thun-nu-in-hinh-hong-sm-nu-0043",
+      "name": "Áo thun nữ in hình hồng",
+      "category": "thoi-trang-nu",
+      "kind": "Áo thun nữ",
+      "description": "Áo thun nữ in hình hồng làm từ chất liệu thun lạnh, mát, ít nhăn, co giãn nhẹ. Phù hợp đi làm, đi tiệc nhẹ hoặc dạo phố. Kích cỡ có sẵn: XL, XXL. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Hồng",
+      "material": "Thun lạnh",
+      "sizes": [
+        "XL",
+        "XXL"
+      ],
+      "price": 279000,
+      "stock": 29
+    },
+    {
+      "sku": "SM-NU-0044",
+      "slug": "ao-so-mi-nu-co-no-kem-sm-nu-0044",
+      "name": "Áo sơ mi nữ cổ nơ kem",
+      "category": "thoi-trang-nu",
+      "kind": "Áo sơ mi nữ",
+      "description": "Áo sơ mi nữ cổ nơ kem làm từ chất liệu cotton, mềm mại, thấm hút mồ hôi tốt. Kiểu dáng trẻ trung, phù hợp nhiều vóc dáng. Kích cỡ có sẵn: L, XL, XXL. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Kem",
+      "material": "Cotton",
+      "sizes": [
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price": 369000,
+      "stock": 33
+    },
+    {
+      "sku": "SM-NU-0045",
+      "slug": "vay-lien-nu-maxi-di-bien-hong-sm-nu-0045",
+      "name": "Váy liền nữ maxi đi biển hồng",
+      "category": "thoi-trang-nu",
+      "kind": "Váy liền nữ",
+      "description": "Váy liền nữ maxi đi biển hồng làm từ chất liệu voan, mỏng nhẹ, bay bổng. Kiểu dáng trẻ trung, phù hợp nhiều vóc dáng. Kích cỡ có sẵn: S, M, L, XL, XXL. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Hồng",
+      "material": "Voan",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price": 639000,
+      "stock": 19
+    },
+    {
+      "sku": "SM-NU-0046",
+      "slug": "chan-vay-nu-jean-trang-sm-nu-0046",
+      "name": "Chân váy nữ jean trắng",
+      "category": "thoi-trang-nu",
+      "kind": "Chân váy nữ",
+      "description": "Chân váy nữ jean trắng làm từ chất liệu tweed, dệt sợi đan xen, sang trọng. Phù hợp đi làm, đi tiệc nhẹ hoặc dạo phố. Kích cỡ có sẵn: M, L. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Trắng",
+      "material": "Tweed",
+      "sizes": [
+        "M",
+        "L"
+      ],
+      "price": 269000,
+      "stock": 33
+    },
+    {
+      "sku": "SM-NU-0047",
+      "slug": "quan-jean-nu-baggy-xanh-nhat-sm-nu-0047",
+      "name": "Quần jean nữ baggy xanh nhạt",
+      "category": "thoi-trang-nu",
+      "kind": "Quần jean nữ",
+      "description": "Quần jean nữ baggy xanh nhạt làm từ chất liệu denim, bền chắc, càng mặc càng đẹp. Kiểu dáng trẻ trung, phù hợp nhiều vóc dáng. Kích cỡ có sẵn: 29, 30. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Xanh nhạt",
+      "material": "Denim",
+      "sizes": [
+        "29",
+        "30"
+      ],
+      "price": 399000,
+      "stock": 18
+    },
+    {
+      "sku": "SM-NU-0048",
+      "slug": "ao-khoac-nu-blazer-trang-sm-nu-0048",
+      "name": "Áo khoác nữ blazer trắng",
+      "category": "thoi-trang-nu",
+      "kind": "Áo khoác nữ",
+      "description": "Áo khoác nữ blazer trắng làm từ chất liệu len, giữ ấm tốt, mềm tay. Kiểu dáng trẻ trung, phù hợp nhiều vóc dáng. Kích cỡ có sẵn: XL, XXL. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Trắng",
+      "material": "Len",
+      "sizes": [
+        "XL",
+        "XXL"
+      ],
+      "price": 779000,
+      "stock": 19
+    },
+    {
+      "sku": "SM-NU-0049",
+      "slug": "ao-len-nu-co-tim-nau-sm-nu-0049",
+      "name": "Áo len nữ cổ tim nâu",
+      "category": "thoi-trang-nu",
+      "kind": "Áo len nữ",
+      "description": "Áo len nữ cổ tim nâu làm từ chất liệu len, giữ ấm tốt, mềm tay. Phù hợp đi làm, đi tiệc nhẹ hoặc dạo phố. Kích cỡ có sẵn: S, M, L, XL. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Nâu",
+      "material": "Len",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "price": 359000,
+      "stock": 18
+    },
+    {
+      "sku": "SM-NU-0050",
+      "slug": "ao-thun-nu-co-tron-basic-vang-sm-nu-0050",
+      "name": "Áo thun nữ cổ tròn basic vàng",
+      "category": "thoi-trang-nu",
+      "kind": "Áo thun nữ",
+      "description": "Áo thun nữ cổ tròn basic vàng làm từ chất liệu thun lạnh, mát, ít nhăn, co giãn nhẹ. Phù hợp đi làm, đi tiệc nhẹ hoặc dạo phố. Kích cỡ có sẵn: S, M, L, XL, XXL. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Vàng",
+      "material": "Thun lạnh",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price": 279000,
+      "stock": 6
+    },
+    {
+      "sku": "SM-PK-0001",
+      "slug": "that-lung-nam-ban-nho-den-sm-pk-0001",
+      "name": "Thắt lưng nam bản nhỏ đen",
+      "category": "phu-kien",
+      "kind": "Thắt lưng nam",
+      "description": "Thắt lưng nam bản nhỏ đen làm từ chất liệu da bò, da thật, bền và lên màu đẹp theo thời gian. Thiết kế tối giản, hợp với nhiều phong cách. Kích cỡ có sẵn: Freesize. Bảo quản nơi khô ráo, tránh va đập mạnh.",
+      "color": "Đen",
+      "material": "Da bò",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 419000,
+      "stock": 21
+    },
+    {
+      "sku": "SM-PK-0002",
+      "slug": "mu-luoi-trai-theu-chu-xanh-navy-sm-pk-0002",
+      "name": "Mũ lưỡi trai thêu chữ xanh navy",
+      "category": "phu-kien",
+      "kind": "Mũ",
+      "description": "Mũ lưỡi trai thêu chữ xanh navy làm từ chất liệu kaki, dày dặn, đứng dáng. Thiết kế tối giản, hợp với nhiều phong cách. Kích cỡ có sẵn: Freesize. Bảo quản nơi khô ráo, tránh va đập mạnh.",
+      "color": "Xanh navy",
+      "material": "Kaki",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 109000,
+      "stock": 38
+    },
+    {
+      "sku": "SM-PK-0003",
+      "slug": "kinh-mat-phi-cong-vang-sm-pk-0003",
+      "name": "Kính mát phi công vàng",
+      "category": "phu-kien",
+      "kind": "Kính mát",
+      "description": "Kính mát phi công vàng làm từ chất liệu nhựa acetate, nhẹ, bền màu, ôm mặt. Thiết kế tối giản, hợp với nhiều phong cách. Kích cỡ có sẵn: Freesize. Vệ sinh nhẹ nhàng bằng khăn mềm sau khi sử dụng.",
+      "color": "Vàng",
+      "material": "Nhựa acetate",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 399000,
+      "stock": 49
+    },
+    {
+      "sku": "SM-PK-0004",
+      "slug": "khan-choang-caro-xam-sm-pk-0004",
+      "name": "Khăn choàng caro xám",
+      "category": "phu-kien",
+      "kind": "Khăn choàng",
+      "description": "Khăn choàng caro xám làm từ chất liệu lụa, mềm rủ, bóng nhẹ sang trọng. Thiết kế tối giản, hợp với nhiều phong cách. Kích cỡ có sẵn: Freesize. Bảo quản nơi khô ráo, tránh va đập mạnh.",
+      "color": "Xám",
+      "material": "Lụa",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 149000,
+      "stock": 40
+    },
+    {
+      "sku": "SM-PK-0005",
+      "slug": "tat-co-cao-set-3-doi-den-sm-pk-0005",
+      "name": "Tất cổ cao set 3 đôi đen",
+      "category": "phu-kien",
+      "kind": "Tất",
+      "description": "Tất cổ cao set 3 đôi đen làm từ chất liệu cotton, mềm mại, thấm hút mồ hôi tốt. Món quà tặng ý nghĩa cho bạn bè và người thân. Kích cỡ có sẵn: Freesize. Bảo quản nơi khô ráo, tránh va đập mạnh.",
+      "color": "Đen",
+      "material": "Cotton",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 129000,
+      "stock": 19
+    },
+    {
+      "sku": "SM-PK-0006",
+      "slug": "that-lung-nam-khoa-tron-den-sm-pk-0006",
+      "name": "Thắt lưng nam khóa trơn đen",
+      "category": "phu-kien",
+      "kind": "Thắt lưng nam",
+      "description": "Thắt lưng nam khóa trơn đen làm từ chất liệu da tổng hợp, bền, dễ lau chùi. Điểm nhấn nhỏ giúp bộ trang phục thêm nổi bật. Kích cỡ có sẵn: Freesize. Bảo quản nơi khô ráo, tránh va đập mạnh.",
+      "color": "Đen",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 289000,
+      "stock": 0
+    },
+    {
+      "sku": "SM-PK-0007",
+      "slug": "mu-noi-beret-trang-sm-pk-0007",
+      "name": "Mũ nồi beret trắng",
+      "category": "phu-kien",
+      "kind": "Mũ",
+      "description": "Mũ nồi beret trắng làm từ chất liệu polyester, nhẹ, nhanh khô, bền màu. Điểm nhấn nhỏ giúp bộ trang phục thêm nổi bật. Kích cỡ có sẵn: Freesize. Bảo quản nơi khô ráo, tránh va đập mạnh.",
+      "color": "Trắng",
+      "material": "Polyester",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 229000,
+      "stock": 11
+    },
+    {
+      "sku": "SM-PK-0008",
+      "slug": "kinh-mat-phi-cong-den-sm-pk-0008",
+      "name": "Kính mát phi công đen",
+      "category": "phu-kien",
+      "kind": "Kính mát",
+      "description": "Kính mát phi công đen làm từ chất liệu nhựa acetate, nhẹ, bền màu, ôm mặt. Món quà tặng ý nghĩa cho bạn bè và người thân. Kích cỡ có sẵn: Freesize. Vệ sinh nhẹ nhàng bằng khăn mềm sau khi sử dụng.",
+      "color": "Đen",
+      "material": "Nhựa acetate",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 209000,
+      "stock": 0
+    },
+    {
+      "sku": "SM-PK-0009",
+      "slug": "khan-choang-tron-kem-sm-pk-0009",
+      "name": "Khăn choàng trơn kem",
+      "category": "phu-kien",
+      "kind": "Khăn choàng",
+      "description": "Khăn choàng trơn kem làm từ chất liệu cotton, mềm mại, thấm hút mồ hôi tốt. Món quà tặng ý nghĩa cho bạn bè và người thân. Kích cỡ có sẵn: Freesize. Bảo quản nơi khô ráo, tránh va đập mạnh.",
+      "color": "Kem",
+      "material": "Cotton",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 299000,
+      "stock": 29
+    },
+    {
+      "sku": "SM-PK-0010",
+      "slug": "tat-luoi-set-5-doi-be-sm-pk-0010",
+      "name": "Tất lười set 5 đôi be",
+      "category": "phu-kien",
+      "kind": "Tất",
+      "description": "Tất lười set 5 đôi be làm từ chất liệu cotton, mềm mại, thấm hút mồ hôi tốt. Thiết kế tối giản, hợp với nhiều phong cách. Kích cỡ có sẵn: Freesize. Vệ sinh nhẹ nhàng bằng khăn mềm sau khi sử dụng.",
+      "color": "Be",
+      "material": "Cotton",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 129000,
+      "stock": 32
+    },
+    {
+      "sku": "SM-PK-0011",
+      "slug": "that-lung-nam-khoa-tu-dong-nau-sm-pk-0011",
+      "name": "Thắt lưng nam khóa tự động nâu",
+      "category": "phu-kien",
+      "kind": "Thắt lưng nam",
+      "description": "Thắt lưng nam khóa tự động nâu làm từ chất liệu da tổng hợp, bền, dễ lau chùi. Thiết kế tối giản, hợp với nhiều phong cách. Kích cỡ có sẵn: Freesize. Vệ sinh nhẹ nhàng bằng khăn mềm sau khi sử dụng.",
+      "color": "Nâu",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 589000,
+      "stock": 27
+    },
+    {
+      "sku": "SM-PK-0012",
+      "slug": "mu-luoi-trai-theu-chu-be-sm-pk-0012",
+      "name": "Mũ lưỡi trai thêu chữ be",
+      "category": "phu-kien",
+      "kind": "Mũ",
+      "description": "Mũ lưỡi trai thêu chữ be làm từ chất liệu polyester, nhẹ, nhanh khô, bền màu. Điểm nhấn nhỏ giúp bộ trang phục thêm nổi bật. Kích cỡ có sẵn: Freesize. Vệ sinh nhẹ nhàng bằng khăn mềm sau khi sử dụng.",
+      "color": "Be",
+      "material": "Polyester",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 139000,
+      "stock": 31
+    },
+    {
+      "sku": "SM-PK-0013",
+      "slug": "kinh-mat-phi-cong-nau-sm-pk-0013",
+      "name": "Kính mát phi công nâu",
+      "category": "phu-kien",
+      "kind": "Kính mát",
+      "description": "Kính mát phi công nâu làm từ chất liệu kim loại, mảnh, chắc chắn, không gỉ. Món quà tặng ý nghĩa cho bạn bè và người thân. Kích cỡ có sẵn: Freesize. Vệ sinh nhẹ nhàng bằng khăn mềm sau khi sử dụng.",
+      "color": "Nâu",
+      "material": "Kim loại",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 309000,
+      "stock": 39
+    },
+    {
+      "sku": "SM-PK-0014",
+      "slug": "khan-choang-caro-be-sm-pk-0014",
+      "name": "Khăn choàng caro be",
+      "category": "phu-kien",
+      "kind": "Khăn choàng",
+      "description": "Khăn choàng caro be làm từ chất liệu cotton, mềm mại, thấm hút mồ hôi tốt. Thiết kế tối giản, hợp với nhiều phong cách. Kích cỡ có sẵn: Freesize. Bảo quản nơi khô ráo, tránh va đập mạnh.",
+      "color": "Be",
+      "material": "Cotton",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 269000,
+      "stock": 48
+    },
+    {
+      "sku": "SM-PK-0015",
+      "slug": "tat-co-ngan-set-5-doi-xam-sm-pk-0015",
+      "name": "Tất cổ ngắn set 5 đôi xám",
+      "category": "phu-kien",
+      "kind": "Tất",
+      "description": "Tất cổ ngắn set 5 đôi xám làm từ chất liệu cotton pha spandex, co giãn bốn chiều, giữ form tốt. Điểm nhấn nhỏ giúp bộ trang phục thêm nổi bật. Kích cỡ có sẵn: Freesize. Vệ sinh nhẹ nhàng bằng khăn mềm sau khi sử dụng.",
+      "color": "Xám",
+      "material": "Cotton pha spandex",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 69000,
+      "stock": 9
+    },
+    {
+      "sku": "SM-PK-0016",
+      "slug": "that-lung-nam-ban-to-den-sm-pk-0016",
+      "name": "Thắt lưng nam bản to đen",
+      "category": "phu-kien",
+      "kind": "Thắt lưng nam",
+      "description": "Thắt lưng nam bản to đen làm từ chất liệu da bò, da thật, bền và lên màu đẹp theo thời gian. Thiết kế tối giản, hợp với nhiều phong cách. Kích cỡ có sẵn: Freesize. Bảo quản nơi khô ráo, tránh va đập mạnh.",
+      "color": "Đen",
+      "material": "Da bò",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 239000,
+      "stock": 25
+    },
+    {
+      "sku": "SM-PK-0017",
+      "slug": "mu-luoi-trai-theu-chu-hong-sm-pk-0017",
+      "name": "Mũ lưỡi trai thêu chữ hồng",
+      "category": "phu-kien",
+      "kind": "Mũ",
+      "description": "Mũ lưỡi trai thêu chữ hồng làm từ chất liệu kaki, dày dặn, đứng dáng. Thiết kế tối giản, hợp với nhiều phong cách. Kích cỡ có sẵn: Freesize. Vệ sinh nhẹ nhàng bằng khăn mềm sau khi sử dụng.",
+      "color": "Hồng",
+      "material": "Kaki",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 239000,
+      "stock": 49
+    },
+    {
+      "sku": "SM-PK-0018",
+      "slug": "kinh-mat-gong-vuong-bac-sm-pk-0018",
+      "name": "Kính mát gọng vuông bạc",
+      "category": "phu-kien",
+      "kind": "Kính mát",
+      "description": "Kính mát gọng vuông bạc làm từ chất liệu nhựa acetate, nhẹ, bền màu, ôm mặt. Thiết kế tối giản, hợp với nhiều phong cách. Kích cỡ có sẵn: Freesize. Bảo quản nơi khô ráo, tránh va đập mạnh.",
+      "color": "Bạc",
+      "material": "Nhựa acetate",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 319000,
+      "stock": 50
+    },
+    {
+      "sku": "SM-PK-0019",
+      "slug": "khan-choang-tron-be-sm-pk-0019",
+      "name": "Khăn choàng trơn be",
+      "category": "phu-kien",
+      "kind": "Khăn choàng",
+      "description": "Khăn choàng trơn be làm từ chất liệu cotton, mềm mại, thấm hút mồ hôi tốt. Món quà tặng ý nghĩa cho bạn bè và người thân. Kích cỡ có sẵn: Freesize. Vệ sinh nhẹ nhàng bằng khăn mềm sau khi sử dụng.",
+      "color": "Be",
+      "material": "Cotton",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 229000,
+      "stock": 0
+    },
+    {
+      "sku": "SM-PK-0020",
+      "slug": "tat-co-ngan-set-5-doi-be-sm-pk-0020",
+      "name": "Tất cổ ngắn set 5 đôi be",
+      "category": "phu-kien",
+      "kind": "Tất",
+      "description": "Tất cổ ngắn set 5 đôi be làm từ chất liệu cotton, mềm mại, thấm hút mồ hôi tốt. Món quà tặng ý nghĩa cho bạn bè và người thân. Kích cỡ có sẵn: Freesize. Bảo quản nơi khô ráo, tránh va đập mạnh.",
+      "color": "Be",
+      "material": "Cotton",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 149000,
+      "stock": 17
+    },
+    {
+      "sku": "SM-PK-0021",
+      "slug": "that-lung-nam-ban-to-nau-sm-pk-0021",
+      "name": "Thắt lưng nam bản to nâu",
+      "category": "phu-kien",
+      "kind": "Thắt lưng nam",
+      "description": "Thắt lưng nam bản to nâu làm từ chất liệu da tổng hợp, bền, dễ lau chùi. Thiết kế tối giản, hợp với nhiều phong cách. Kích cỡ có sẵn: Freesize. Vệ sinh nhẹ nhàng bằng khăn mềm sau khi sử dụng.",
+      "color": "Nâu",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 299000,
+      "stock": 17
+    },
+    {
+      "sku": "SM-PK-0022",
+      "slug": "mu-luoi-trai-basic-be-sm-pk-0022",
+      "name": "Mũ lưỡi trai basic be",
+      "category": "phu-kien",
+      "kind": "Mũ",
+      "description": "Mũ lưỡi trai basic be làm từ chất liệu polyester, nhẹ, nhanh khô, bền màu. Món quà tặng ý nghĩa cho bạn bè và người thân. Kích cỡ có sẵn: Freesize. Bảo quản nơi khô ráo, tránh va đập mạnh.",
+      "color": "Be",
+      "material": "Polyester",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 209000,
+      "stock": 49
+    },
+    {
+      "sku": "SM-PK-0023",
+      "slug": "kinh-mat-gong-tron-bac-sm-pk-0023",
+      "name": "Kính mát gọng tròn bạc",
+      "category": "phu-kien",
+      "kind": "Kính mát",
+      "description": "Kính mát gọng tròn bạc làm từ chất liệu nhựa acetate, nhẹ, bền màu, ôm mặt. Món quà tặng ý nghĩa cho bạn bè và người thân. Kích cỡ có sẵn: Freesize. Vệ sinh nhẹ nhàng bằng khăn mềm sau khi sử dụng.",
+      "color": "Bạc",
+      "material": "Nhựa acetate",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 199000,
+      "stock": 36
+    },
+    {
+      "sku": "SM-PK-0024",
+      "slug": "khan-choang-caro-xanh-navy-sm-pk-0024",
+      "name": "Khăn choàng caro xanh navy",
+      "category": "phu-kien",
+      "kind": "Khăn choàng",
+      "description": "Khăn choàng caro xanh navy làm từ chất liệu cotton, mềm mại, thấm hút mồ hôi tốt. Thiết kế tối giản, hợp với nhiều phong cách. Kích cỡ có sẵn: Freesize. Vệ sinh nhẹ nhàng bằng khăn mềm sau khi sử dụng.",
+      "color": "Xanh navy",
+      "material": "Cotton",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 159000,
+      "stock": 0
+    },
+    {
+      "sku": "SM-PK-0025",
+      "slug": "tat-luoi-set-5-doi-trang-sm-pk-0025",
+      "name": "Tất lười set 5 đôi trắng",
+      "category": "phu-kien",
+      "kind": "Tất",
+      "description": "Tất lười set 5 đôi trắng làm từ chất liệu cotton pha spandex, co giãn bốn chiều, giữ form tốt. Điểm nhấn nhỏ giúp bộ trang phục thêm nổi bật. Kích cỡ có sẵn: Freesize. Bảo quản nơi khô ráo, tránh va đập mạnh.",
+      "color": "Trắng",
+      "material": "Cotton pha spandex",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 69000,
+      "stock": 4
+    },
+    {
+      "sku": "SM-PK-0026",
+      "slug": "that-lung-nam-ban-nho-nau-sm-pk-0026",
+      "name": "Thắt lưng nam bản nhỏ nâu",
+      "category": "phu-kien",
+      "kind": "Thắt lưng nam",
+      "description": "Thắt lưng nam bản nhỏ nâu làm từ chất liệu da tổng hợp, bền, dễ lau chùi. Món quà tặng ý nghĩa cho bạn bè và người thân. Kích cỡ có sẵn: Freesize. Vệ sinh nhẹ nhàng bằng khăn mềm sau khi sử dụng.",
+      "color": "Nâu",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 479000,
+      "stock": 38
+    },
+    {
+      "sku": "SM-PK-0027",
+      "slug": "mu-bucket-trang-sm-pk-0027",
+      "name": "Mũ bucket trắng",
+      "category": "phu-kien",
+      "kind": "Mũ",
+      "description": "Mũ bucket trắng làm từ chất liệu kaki, dày dặn, đứng dáng. Điểm nhấn nhỏ giúp bộ trang phục thêm nổi bật. Kích cỡ có sẵn: Freesize. Vệ sinh nhẹ nhàng bằng khăn mềm sau khi sử dụng.",
+      "color": "Trắng",
+      "material": "Kaki",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 159000,
+      "stock": 42
+    },
+    {
+      "sku": "SM-PK-0028",
+      "slug": "kinh-mat-gong-vuong-vang-sm-pk-0028",
+      "name": "Kính mát gọng vuông vàng",
+      "category": "phu-kien",
+      "kind": "Kính mát",
+      "description": "Kính mát gọng vuông vàng làm từ chất liệu nhựa acetate, nhẹ, bền màu, ôm mặt. Điểm nhấn nhỏ giúp bộ trang phục thêm nổi bật. Kích cỡ có sẵn: Freesize. Vệ sinh nhẹ nhàng bằng khăn mềm sau khi sử dụng.",
+      "color": "Vàng",
+      "material": "Nhựa acetate",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 299000,
+      "stock": 39
+    },
+    {
+      "sku": "SM-PK-0029",
+      "slug": "khan-choang-hoa-tiet-xam-sm-pk-0029",
+      "name": "Khăn choàng họa tiết xám",
+      "category": "phu-kien",
+      "kind": "Khăn choàng",
+      "description": "Khăn choàng họa tiết xám làm từ chất liệu cotton, mềm mại, thấm hút mồ hôi tốt. Món quà tặng ý nghĩa cho bạn bè và người thân. Kích cỡ có sẵn: Freesize. Bảo quản nơi khô ráo, tránh va đập mạnh.",
+      "color": "Xám",
+      "material": "Cotton",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 199000,
+      "stock": 43
+    },
+    {
+      "sku": "SM-PK-0030",
+      "slug": "tat-co-ngan-set-5-doi-den-sm-pk-0030",
+      "name": "Tất cổ ngắn set 5 đôi đen",
+      "category": "phu-kien",
+      "kind": "Tất",
+      "description": "Tất cổ ngắn set 5 đôi đen làm từ chất liệu cotton, mềm mại, thấm hút mồ hôi tốt. Thiết kế tối giản, hợp với nhiều phong cách. Kích cỡ có sẵn: Freesize. Bảo quản nơi khô ráo, tránh va đập mạnh.",
+      "color": "Đen",
+      "material": "Cotton",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 69000,
+      "stock": 32
+    },
+    {
+      "sku": "SM-PK-0031",
+      "slug": "that-lung-nam-khoa-tron-nau-sm-pk-0031",
+      "name": "Thắt lưng nam khóa trơn nâu",
+      "category": "phu-kien",
+      "kind": "Thắt lưng nam",
+      "description": "Thắt lưng nam khóa trơn nâu làm từ chất liệu da tổng hợp, bền, dễ lau chùi. Thiết kế tối giản, hợp với nhiều phong cách. Kích cỡ có sẵn: Freesize. Vệ sinh nhẹ nhàng bằng khăn mềm sau khi sử dụng.",
+      "color": "Nâu",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 519000,
+      "stock": 26
+    },
+    {
+      "sku": "SM-PK-0032",
+      "slug": "mu-noi-beret-den-sm-pk-0032",
+      "name": "Mũ nồi beret đen",
+      "category": "phu-kien",
+      "kind": "Mũ",
+      "description": "Mũ nồi beret đen làm từ chất liệu kaki, dày dặn, đứng dáng. Thiết kế tối giản, hợp với nhiều phong cách. Kích cỡ có sẵn: Freesize. Bảo quản nơi khô ráo, tránh va đập mạnh.",
+      "color": "Đen",
+      "material": "Kaki",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 149000,
+      "stock": 29
+    },
+    {
+      "sku": "SM-PK-0033",
+      "slug": "kinh-mat-phi-cong-bac-sm-pk-0033",
+      "name": "Kính mát phi công bạc",
+      "category": "phu-kien",
+      "kind": "Kính mát",
+      "description": "Kính mát phi công bạc làm từ chất liệu nhựa acetate, nhẹ, bền màu, ôm mặt. Điểm nhấn nhỏ giúp bộ trang phục thêm nổi bật. Kích cỡ có sẵn: Freesize. Vệ sinh nhẹ nhàng bằng khăn mềm sau khi sử dụng.",
+      "color": "Bạc",
+      "material": "Nhựa acetate",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 569000,
+      "stock": 16
+    },
+    {
+      "sku": "SM-PK-0034",
+      "slug": "khan-choang-hoa-tiet-kem-sm-pk-0034",
+      "name": "Khăn choàng họa tiết kem",
+      "category": "phu-kien",
+      "kind": "Khăn choàng",
+      "description": "Khăn choàng họa tiết kem làm từ chất liệu cotton, mềm mại, thấm hút mồ hôi tốt. Điểm nhấn nhỏ giúp bộ trang phục thêm nổi bật. Kích cỡ có sẵn: Freesize. Vệ sinh nhẹ nhàng bằng khăn mềm sau khi sử dụng.",
+      "color": "Kem",
+      "material": "Cotton",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 279000,
+      "stock": 0
+    },
+    {
+      "sku": "SM-PK-0035",
+      "slug": "tat-luoi-set-5-doi-xam-sm-pk-0035",
+      "name": "Tất lười set 5 đôi xám",
+      "category": "phu-kien",
+      "kind": "Tất",
+      "description": "Tất lười set 5 đôi xám làm từ chất liệu cotton, mềm mại, thấm hút mồ hôi tốt. Điểm nhấn nhỏ giúp bộ trang phục thêm nổi bật. Kích cỡ có sẵn: Freesize. Vệ sinh nhẹ nhàng bằng khăn mềm sau khi sử dụng.",
+      "color": "Xám",
+      "material": "Cotton",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 89000,
+      "stock": 19
+    },
+    {
+      "sku": "SM-TT-0001",
+      "slug": "ao-the-thao-nam-tap-gym-trang-sm-tt-0001",
+      "name": "Áo thể thao nam tập gym trắng",
+      "category": "do-the-thao",
+      "kind": "Áo thể thao nam",
+      "description": "Áo thể thao nam tập gym trắng làm từ chất liệu thun lạnh, mát, ít nhăn, co giãn nhẹ. Co giãn tốt, thoáng khí, phù hợp tập gym, chạy bộ và yoga. Kích cỡ có sẵn: M, L, XL, XXL. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Trắng",
+      "material": "Thun lạnh",
+      "sizes": [
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price": 279000,
+      "stock": 34
+    },
+    {
+      "sku": "SM-TT-0002",
+      "slug": "ao-bra-the-thao-nu-nang-do-vua-xam-sm-tt-0002",
+      "name": "Áo bra thể thao nữ nâng đỡ vừa xám",
+      "category": "do-the-thao",
+      "kind": "Áo bra thể thao nữ",
+      "description": "Áo bra thể thao nữ nâng đỡ vừa xám làm từ chất liệu polyester, nhẹ, nhanh khô, bền màu. Khô nhanh, thấm hút mồ hôi, vận động thoải mái. Kích cỡ có sẵn: S, M, L, XL. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Xám",
+      "material": "Polyester",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "price": 229000,
+      "stock": 31
+    },
+    {
+      "sku": "SM-TT-0003",
+      "slug": "quan-legging-nu-co-tui-xam-sm-tt-0003",
+      "name": "Quần legging nữ có túi xám",
+      "category": "do-the-thao",
+      "kind": "Quần legging nữ",
+      "description": "Quần legging nữ có túi xám làm từ chất liệu polyester pha spandex, ôm vừa vặn, co giãn tốt. Khô nhanh, thấm hút mồ hôi, vận động thoải mái. Kích cỡ có sẵn: S, M, L, XL. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Xám",
+      "material": "Polyester pha spandex",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "price": 349000,
+      "stock": 37
+    },
+    {
+      "sku": "SM-TT-0004",
+      "slug": "quan-short-the-thao-tap-gym-den-sm-tt-0004",
+      "name": "Quần short thể thao tập gym đen",
+      "category": "do-the-thao",
+      "kind": "Quần short thể thao",
+      "description": "Quần short thể thao tập gym đen làm từ chất liệu vải lưới, thoáng khí tối đa. Khô nhanh, thấm hút mồ hôi, vận động thoải mái. Kích cỡ có sẵn: S, M, L, XL. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Đen",
+      "material": "Vải lưới",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "price": 139000,
+      "stock": 44
+    },
+    {
+      "sku": "SM-TT-0005",
+      "slug": "giay-chay-bo-dem-em-trang-sm-tt-0005",
+      "name": "Giày chạy bộ đệm êm trắng",
+      "category": "do-the-thao",
+      "kind": "Giày chạy bộ",
+      "description": "Giày chạy bộ đệm êm trắng làm từ chất liệu da tổng hợp, bền, dễ lau chùi. Thiết kế năng động cho người yêu thể thao. Kích cỡ có sẵn: 39, 40, 41, 42. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Trắng",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "39",
+        "40",
+        "41",
+        "42"
+      ],
+      "price": 1819000,
+      "stock": 39
+    },
+    {
+      "sku": "SM-TT-0006",
+      "slug": "ao-the-thao-nam-ba-lo-trang-sm-tt-0006",
+      "name": "Áo thể thao nam ba lỗ trắng",
+      "category": "do-the-thao",
+      "kind": "Áo thể thao nam",
+      "description": "Áo thể thao nam ba lỗ trắng làm từ chất liệu thun lạnh, mát, ít nhăn, co giãn nhẹ. Khô nhanh, thấm hút mồ hôi, vận động thoải mái. Kích cỡ có sẵn: S, M, L, XL. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Trắng",
+      "material": "Thun lạnh",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "price": 239000,
+      "stock": 30
+    },
+    {
+      "sku": "SM-TT-0007",
+      "slug": "ao-bra-the-thao-nu-day-cheo-lung-hong-sm-tt-0007",
+      "name": "Áo bra thể thao nữ dây chéo lưng hồng",
+      "category": "do-the-thao",
+      "kind": "Áo bra thể thao nữ",
+      "description": "Áo bra thể thao nữ dây chéo lưng hồng làm từ chất liệu polyester, nhẹ, nhanh khô, bền màu. Co giãn tốt, thoáng khí, phù hợp tập gym, chạy bộ và yoga. Kích cỡ có sẵn: S, M, L, XL. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Hồng",
+      "material": "Polyester",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "price": 319000,
+      "stock": 35
+    },
+    {
+      "sku": "SM-TT-0008",
+      "slug": "quan-legging-nu-co-tui-xanh-navy-sm-tt-0008",
+      "name": "Quần legging nữ có túi xanh navy",
+      "category": "do-the-thao",
+      "kind": "Quần legging nữ",
+      "description": "Quần legging nữ có túi xanh navy làm từ chất liệu thun lạnh, mát, ít nhăn, co giãn nhẹ. Co giãn tốt, thoáng khí, phù hợp tập gym, chạy bộ và yoga. Kích cỡ có sẵn: L, XL. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Xanh navy",
+      "material": "Thun lạnh",
+      "sizes": [
+        "L",
+        "XL"
+      ],
+      "price": 289000,
+      "stock": 42
+    },
+    {
+      "sku": "SM-TT-0009",
+      "slug": "quan-short-the-thao-tap-gym-xanh-navy-sm-tt-0009",
+      "name": "Quần short thể thao tập gym xanh navy",
+      "category": "do-the-thao",
+      "kind": "Quần short thể thao",
+      "description": "Quần short thể thao tập gym xanh navy làm từ chất liệu polyester, nhẹ, nhanh khô, bền màu. Co giãn tốt, thoáng khí, phù hợp tập gym, chạy bộ và yoga. Kích cỡ có sẵn: S, M. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Xanh navy",
+      "material": "Polyester",
+      "sizes": [
+        "S",
+        "M"
+      ],
+      "price": 279000,
+      "stock": 45
+    },
+    {
+      "sku": "SM-TT-0010",
+      "slug": "giay-chay-bo-chong-truot-den-sm-tt-0010",
+      "name": "Giày chạy bộ chống trượt đen",
+      "category": "do-the-thao",
+      "kind": "Giày chạy bộ",
+      "description": "Giày chạy bộ chống trượt đen làm từ chất liệu vải lưới, thoáng khí tối đa. Co giãn tốt, thoáng khí, phù hợp tập gym, chạy bộ và yoga. Kích cỡ có sẵn: 36, 37, 38, 39, 40, 41, 42, 43. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Đen",
+      "material": "Vải lưới",
+      "sizes": [
+        "36",
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "43"
+      ],
+      "price": 909000,
+      "stock": 39
+    },
+    {
+      "sku": "SM-TT-0011",
+      "slug": "ao-the-thao-nam-tap-gym-do-sm-tt-0011",
+      "name": "Áo thể thao nam tập gym đỏ",
+      "category": "do-the-thao",
+      "kind": "Áo thể thao nam",
+      "description": "Áo thể thao nam tập gym đỏ làm từ chất liệu polyester, nhẹ, nhanh khô, bền màu. Thiết kế năng động cho người yêu thể thao. Kích cỡ có sẵn: S, M, L, XL, XXL. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Đỏ",
+      "material": "Polyester",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price": 329000,
+      "stock": 12
+    },
+    {
+      "sku": "SM-TT-0012",
+      "slug": "ao-bra-the-thao-nu-nang-do-vua-den-sm-tt-0012",
+      "name": "Áo bra thể thao nữ nâng đỡ vừa đen",
+      "category": "do-the-thao",
+      "kind": "Áo bra thể thao nữ",
+      "description": "Áo bra thể thao nữ nâng đỡ vừa đen làm từ chất liệu polyester, nhẹ, nhanh khô, bền màu. Co giãn tốt, thoáng khí, phù hợp tập gym, chạy bộ và yoga. Kích cỡ có sẵn: L, XL. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Đen",
+      "material": "Polyester",
+      "sizes": [
+        "L",
+        "XL"
+      ],
+      "price": 329000,
+      "stock": 37
+    },
+    {
+      "sku": "SM-TT-0013",
+      "slug": "quan-legging-nu-lung-cao-tim-sm-tt-0013",
+      "name": "Quần legging nữ lưng cao tím",
+      "category": "do-the-thao",
+      "kind": "Quần legging nữ",
+      "description": "Quần legging nữ lưng cao tím làm từ chất liệu polyester pha spandex, ôm vừa vặn, co giãn tốt. Thiết kế năng động cho người yêu thể thao. Kích cỡ có sẵn: L, XL, XXL. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Tím",
+      "material": "Polyester pha spandex",
+      "sizes": [
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price": 339000,
+      "stock": 29
+    },
+    {
+      "sku": "SM-TT-0014",
+      "slug": "quan-short-the-thao-hai-lop-xanh-navy-sm-tt-0014",
+      "name": "Quần short thể thao hai lớp xanh navy",
+      "category": "do-the-thao",
+      "kind": "Quần short thể thao",
+      "description": "Quần short thể thao hai lớp xanh navy làm từ chất liệu polyester, nhẹ, nhanh khô, bền màu. Khô nhanh, thấm hút mồ hôi, vận động thoải mái. Kích cỡ có sẵn: S, M, L, XL. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Xanh navy",
+      "material": "Polyester",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "price": 159000,
+      "stock": 18
+    },
+    {
+      "sku": "SM-TT-0015",
+      "slug": "giay-chay-bo-sieu-nhe-den-sm-tt-0015",
+      "name": "Giày chạy bộ siêu nhẹ đen",
+      "category": "do-the-thao",
+      "kind": "Giày chạy bộ",
+      "description": "Giày chạy bộ siêu nhẹ đen làm từ chất liệu da tổng hợp, bền, dễ lau chùi. Thiết kế năng động cho người yêu thể thao. Kích cỡ có sẵn: 38, 39, 40, 41, 42, 43. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Đen",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "43"
+      ],
+      "price": 1129000,
+      "stock": 8
+    },
+    {
+      "sku": "SM-TT-0016",
+      "slug": "ao-the-thao-nam-ba-lo-xam-sm-tt-0016",
+      "name": "Áo thể thao nam ba lỗ xám",
+      "category": "do-the-thao",
+      "kind": "Áo thể thao nam",
+      "description": "Áo thể thao nam ba lỗ xám làm từ chất liệu vải lưới, thoáng khí tối đa. Co giãn tốt, thoáng khí, phù hợp tập gym, chạy bộ và yoga. Kích cỡ có sẵn: S, M, L. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Xám",
+      "material": "Vải lưới",
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "price": 309000,
+      "stock": 36
+    },
+    {
+      "sku": "SM-TT-0017",
+      "slug": "ao-bra-the-thao-nu-day-cheo-lung-trang-sm-tt-0017",
+      "name": "Áo bra thể thao nữ dây chéo lưng trắng",
+      "category": "do-the-thao",
+      "kind": "Áo bra thể thao nữ",
+      "description": "Áo bra thể thao nữ dây chéo lưng trắng làm từ chất liệu thun lạnh, mát, ít nhăn, co giãn nhẹ. Thiết kế năng động cho người yêu thể thao. Kích cỡ có sẵn: M, L. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Trắng",
+      "material": "Thun lạnh",
+      "sizes": [
+        "M",
+        "L"
+      ],
+      "price": 259000,
+      "stock": 2
+    },
+    {
+      "sku": "SM-TT-0018",
+      "slug": "quan-legging-nu-lung-cao-xanh-navy-sm-tt-0018",
+      "name": "Quần legging nữ lưng cao xanh navy",
+      "category": "do-the-thao",
+      "kind": "Quần legging nữ",
+      "description": "Quần legging nữ lưng cao xanh navy làm từ chất liệu polyester pha spandex, ôm vừa vặn, co giãn tốt. Khô nhanh, thấm hút mồ hôi, vận động thoải mái. Kích cỡ có sẵn: S, M, L, XL, XXL. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Xanh navy",
+      "material": "Polyester pha spandex",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price": 399000,
+      "stock": 9
+    },
+    {
+      "sku": "SM-TT-0019",
+      "slug": "quan-short-the-thao-hai-lop-xam-sm-tt-0019",
+      "name": "Quần short thể thao hai lớp xám",
+      "category": "do-the-thao",
+      "kind": "Quần short thể thao",
+      "description": "Quần short thể thao hai lớp xám làm từ chất liệu polyester, nhẹ, nhanh khô, bền màu. Co giãn tốt, thoáng khí, phù hợp tập gym, chạy bộ và yoga. Kích cỡ có sẵn: XL, XXL. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Xám",
+      "material": "Polyester",
+      "sizes": [
+        "XL",
+        "XXL"
+      ],
+      "price": 179000,
+      "stock": 23
+    },
+    {
+      "sku": "SM-TT-0020",
+      "slug": "giay-chay-bo-dem-em-cam-sm-tt-0020",
+      "name": "Giày chạy bộ đệm êm cam",
+      "category": "do-the-thao",
+      "kind": "Giày chạy bộ",
+      "description": "Giày chạy bộ đệm êm cam làm từ chất liệu da tổng hợp, bền, dễ lau chùi. Co giãn tốt, thoáng khí, phù hợp tập gym, chạy bộ và yoga. Kích cỡ có sẵn: 36, 37, 38, 39, 40, 41, 42, 43. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Cam",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "36",
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "43"
+      ],
+      "price": 769000,
+      "stock": 42
+    },
+    {
+      "sku": "SM-TT-0021",
+      "slug": "ao-the-thao-nam-chay-bo-den-sm-tt-0021",
+      "name": "Áo thể thao nam chạy bộ đen",
+      "category": "do-the-thao",
+      "kind": "Áo thể thao nam",
+      "description": "Áo thể thao nam chạy bộ đen làm từ chất liệu vải lưới, thoáng khí tối đa. Thiết kế năng động cho người yêu thể thao. Kích cỡ có sẵn: S, M, L, XL, XXL. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Đen",
+      "material": "Vải lưới",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price": 309000,
+      "stock": 42
+    },
+    {
+      "sku": "SM-TT-0022",
+      "slug": "ao-bra-the-thao-nu-day-cheo-lung-xam-sm-tt-0022",
+      "name": "Áo bra thể thao nữ dây chéo lưng xám",
+      "category": "do-the-thao",
+      "kind": "Áo bra thể thao nữ",
+      "description": "Áo bra thể thao nữ dây chéo lưng xám làm từ chất liệu thun lạnh, mát, ít nhăn, co giãn nhẹ. Co giãn tốt, thoáng khí, phù hợp tập gym, chạy bộ và yoga. Kích cỡ có sẵn: S, M, L, XL. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Xám",
+      "material": "Thun lạnh",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "price": 349000,
+      "stock": 50
+    },
+    {
+      "sku": "SM-TT-0023",
+      "slug": "quan-legging-nu-lung-tim-sm-tt-0023",
+      "name": "Quần legging nữ lửng tím",
+      "category": "do-the-thao",
+      "kind": "Quần legging nữ",
+      "description": "Quần legging nữ lửng tím làm từ chất liệu thun lạnh, mát, ít nhăn, co giãn nhẹ. Khô nhanh, thấm hút mồ hôi, vận động thoải mái. Kích cỡ có sẵn: M, L, XL. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Tím",
+      "material": "Thun lạnh",
+      "sizes": [
+        "M",
+        "L",
+        "XL"
+      ],
+      "price": 229000,
+      "stock": 48
+    },
+    {
+      "sku": "SM-TT-0024",
+      "slug": "quan-short-the-thao-tap-gym-xam-sm-tt-0024",
+      "name": "Quần short thể thao tập gym xám",
+      "category": "do-the-thao",
+      "kind": "Quần short thể thao",
+      "description": "Quần short thể thao tập gym xám làm từ chất liệu vải lưới, thoáng khí tối đa. Thiết kế năng động cho người yêu thể thao. Kích cỡ có sẵn: S, M. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Xám",
+      "material": "Vải lưới",
+      "sizes": [
+        "S",
+        "M"
+      ],
+      "price": 279000,
+      "stock": 0
+    },
+    {
+      "sku": "SM-TT-0025",
+      "slug": "giay-chay-bo-sieu-nhe-xam-sm-tt-0025",
+      "name": "Giày chạy bộ siêu nhẹ xám",
+      "category": "do-the-thao",
+      "kind": "Giày chạy bộ",
+      "description": "Giày chạy bộ siêu nhẹ xám làm từ chất liệu vải lưới, thoáng khí tối đa. Co giãn tốt, thoáng khí, phù hợp tập gym, chạy bộ và yoga. Kích cỡ có sẵn: 37, 38, 39, 40, 41, 42. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Xám",
+      "material": "Vải lưới",
+      "sizes": [
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42"
+      ],
+      "price": 1019000,
+      "stock": 42
+    },
+    {
+      "sku": "SM-TT-0026",
+      "slug": "ao-the-thao-nam-tap-gym-xam-sm-tt-0026",
+      "name": "Áo thể thao nam tập gym xám",
+      "category": "do-the-thao",
+      "kind": "Áo thể thao nam",
+      "description": "Áo thể thao nam tập gym xám làm từ chất liệu vải lưới, thoáng khí tối đa. Khô nhanh, thấm hút mồ hôi, vận động thoải mái. Kích cỡ có sẵn: L, XL. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Xám",
+      "material": "Vải lưới",
+      "sizes": [
+        "L",
+        "XL"
+      ],
+      "price": 189000,
+      "stock": 0
+    },
+    {
+      "sku": "SM-TT-0027",
+      "slug": "ao-bra-the-thao-nu-nang-do-cao-tim-sm-tt-0027",
+      "name": "Áo bra thể thao nữ nâng đỡ cao tím",
+      "category": "do-the-thao",
+      "kind": "Áo bra thể thao nữ",
+      "description": "Áo bra thể thao nữ nâng đỡ cao tím làm từ chất liệu thun lạnh, mát, ít nhăn, co giãn nhẹ. Khô nhanh, thấm hút mồ hôi, vận động thoải mái. Kích cỡ có sẵn: S, M, L, XL. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Tím",
+      "material": "Thun lạnh",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "price": 309000,
+      "stock": 18
+    },
+    {
+      "sku": "SM-TT-0028",
+      "slug": "quan-legging-nu-lung-xanh-navy-sm-tt-0028",
+      "name": "Quần legging nữ lửng xanh navy",
+      "category": "do-the-thao",
+      "kind": "Quần legging nữ",
+      "description": "Quần legging nữ lửng xanh navy làm từ chất liệu thun lạnh, mát, ít nhăn, co giãn nhẹ. Co giãn tốt, thoáng khí, phù hợp tập gym, chạy bộ và yoga. Kích cỡ có sẵn: S, M. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Xanh navy",
+      "material": "Thun lạnh",
+      "sizes": [
+        "S",
+        "M"
+      ],
+      "price": 259000,
+      "stock": 28
+    },
+    {
+      "sku": "SM-TT-0029",
+      "slug": "quan-short-the-thao-hai-lop-xanh-duong-sm-tt-0029",
+      "name": "Quần short thể thao hai lớp xanh dương",
+      "category": "do-the-thao",
+      "kind": "Quần short thể thao",
+      "description": "Quần short thể thao hai lớp xanh dương làm từ chất liệu vải lưới, thoáng khí tối đa. Co giãn tốt, thoáng khí, phù hợp tập gym, chạy bộ và yoga. Kích cỡ có sẵn: S, M, L, XL, XXL. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Xanh dương",
+      "material": "Vải lưới",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price": 169000,
+      "stock": 0
+    },
+    {
+      "sku": "SM-TT-0030",
+      "slug": "giay-chay-bo-chong-truot-trang-sm-tt-0030",
+      "name": "Giày chạy bộ chống trượt trắng",
+      "category": "do-the-thao",
+      "kind": "Giày chạy bộ",
+      "description": "Giày chạy bộ chống trượt trắng làm từ chất liệu da tổng hợp, bền, dễ lau chùi. Co giãn tốt, thoáng khí, phù hợp tập gym, chạy bộ và yoga. Kích cỡ có sẵn: 41, 42. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Trắng",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "41",
+        "42"
+      ],
+      "price": 939000,
+      "stock": 40
+    },
+    {
+      "sku": "SM-TT-0031",
+      "slug": "ao-the-thao-nam-ba-lo-den-sm-tt-0031",
+      "name": "Áo thể thao nam ba lỗ đen",
+      "category": "do-the-thao",
+      "kind": "Áo thể thao nam",
+      "description": "Áo thể thao nam ba lỗ đen làm từ chất liệu vải lưới, thoáng khí tối đa. Thiết kế năng động cho người yêu thể thao. Kích cỡ có sẵn: S, M, L, XL, XXL. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Đen",
+      "material": "Vải lưới",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price": 289000,
+      "stock": 28
+    },
+    {
+      "sku": "SM-TT-0032",
+      "slug": "ao-bra-the-thao-nu-nang-do-vua-trang-sm-tt-0032",
+      "name": "Áo bra thể thao nữ nâng đỡ vừa trắng",
+      "category": "do-the-thao",
+      "kind": "Áo bra thể thao nữ",
+      "description": "Áo bra thể thao nữ nâng đỡ vừa trắng làm từ chất liệu thun lạnh, mát, ít nhăn, co giãn nhẹ. Thiết kế năng động cho người yêu thể thao. Kích cỡ có sẵn: S, M, L, XL. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Trắng",
+      "material": "Thun lạnh",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "price": 349000,
+      "stock": 4
+    },
+    {
+      "sku": "SM-TT-0033",
+      "slug": "quan-legging-nu-co-tui-tim-sm-tt-0033",
+      "name": "Quần legging nữ có túi tím",
+      "category": "do-the-thao",
+      "kind": "Quần legging nữ",
+      "description": "Quần legging nữ có túi tím làm từ chất liệu polyester pha spandex, ôm vừa vặn, co giãn tốt. Co giãn tốt, thoáng khí, phù hợp tập gym, chạy bộ và yoga. Kích cỡ có sẵn: S, M, L. Có thể giặt máy ở chế độ nhẹ, không dùng chất tẩy mạnh.",
+      "color": "Tím",
+      "material": "Polyester pha spandex",
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "price": 279000,
+      "stock": 36
+    },
+    {
+      "sku": "SM-TT-0034",
+      "slug": "quan-short-the-thao-tap-gym-xanh-duong-sm-tt-0034",
+      "name": "Quần short thể thao tập gym xanh dương",
+      "category": "do-the-thao",
+      "kind": "Quần short thể thao",
+      "description": "Quần short thể thao tập gym xanh dương làm từ chất liệu vải lưới, thoáng khí tối đa. Khô nhanh, thấm hút mồ hôi, vận động thoải mái. Kích cỡ có sẵn: M, L. Ủi ở nhiệt độ trung bình, tránh phơi trực tiếp dưới nắng gắt.",
+      "color": "Xanh dương",
+      "material": "Vải lưới",
+      "sizes": [
+        "M",
+        "L"
+      ],
+      "price": 249000,
+      "stock": 6
+    },
+    {
+      "sku": "SM-TT-0035",
+      "slug": "giay-chay-bo-dem-em-den-sm-tt-0035",
+      "name": "Giày chạy bộ đệm êm đen",
+      "category": "do-the-thao",
+      "kind": "Giày chạy bộ",
+      "description": "Giày chạy bộ đệm êm đen làm từ chất liệu da tổng hợp, bền, dễ lau chùi. Co giãn tốt, thoáng khí, phù hợp tập gym, chạy bộ và yoga. Kích cỡ có sẵn: 36, 37, 38, 39, 40. Nên giặt ở nhiệt độ dưới 30 độ C và lộn trái khi phơi để giữ màu.",
+      "color": "Đen",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "36",
+        "37",
+        "38",
+        "39",
+        "40"
+      ],
+      "price": 1249000,
+      "stock": 0
+    },
+    {
+      "sku": "SM-TUI-0001",
+      "slug": "tui-xach-nu-tote-den-sm-tui-0001",
+      "name": "Túi xách nữ tote đen",
+      "category": "tui-vi",
+      "kind": "Túi xách nữ",
+      "description": "Túi xách nữ tote đen làm từ chất liệu vải canvas, dày, bền, chịu lực tốt. Thiết kế gọn nhẹ, phù hợp đi làm và đi chơi. Kích cỡ có sẵn: Freesize. Bảo quản nơi khô thoáng, nhét giấy vào bên trong để giữ form.",
+      "color": "Đen",
+      "material": "Vải canvas",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 869000,
+      "stock": 1
+    },
+    {
+      "sku": "SM-TUI-0002",
+      "slug": "tui-deo-cheo-mini-nau-sm-tui-0002",
+      "name": "Túi đeo chéo mini nâu",
+      "category": "tui-vi",
+      "kind": "Túi đeo chéo",
+      "description": "Túi đeo chéo mini nâu làm từ chất liệu dù, chống nước nhẹ, cản gió. Nhiều ngăn tiện lợi, đựng vừa điện thoại, ví và đồ cá nhân. Kích cỡ có sẵn: Freesize. Lau sạch bằng khăn mềm hơi ẩm, tránh ngâm nước.",
+      "color": "Nâu",
+      "material": "Dù",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 409000,
+      "stock": 44
+    },
+    {
+      "sku": "SM-TUI-0003",
+      "slug": "balo-laptop-15-6-inch-be-sm-tui-0003",
+      "name": "Balo laptop 15.6 inch be",
+      "category": "tui-vi",
+      "kind": "Balo",
+      "description": "Balo laptop 15.6 inch be làm từ chất liệu polyester, nhẹ, nhanh khô, bền màu. Nhiều ngăn tiện lợi, đựng vừa điện thoại, ví và đồ cá nhân. Kích cỡ có sẵn: Freesize. Dùng xi hoặc kem dưỡng da định kỳ để sản phẩm bền đẹp.",
+      "color": "Be",
+      "material": "Polyester",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 349000,
+      "stock": 20
+    },
+    {
+      "sku": "SM-TUI-0004",
+      "slug": "vi-da-nam-dang-ngang-co-khoa-nau-sm-tui-0004",
+      "name": "Ví da nam dáng ngang có khóa nâu",
+      "category": "tui-vi",
+      "kind": "Ví da nam",
+      "description": "Ví da nam dáng ngang có khóa nâu làm từ chất liệu da bò, da thật, bền và lên màu đẹp theo thời gian. Thiết kế gọn nhẹ, phù hợp đi làm và đi chơi. Kích cỡ có sẵn: Freesize. Lau sạch bằng khăn mềm hơi ẩm, tránh ngâm nước.",
+      "color": "Nâu",
+      "material": "Da bò",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 479000,
+      "stock": 0
+    },
+    {
+      "sku": "SM-TUI-0005",
+      "slug": "vi-nu-dai-co-khoa-keo-hong-sm-tui-0005",
+      "name": "Ví nữ dài có khóa kéo hồng",
+      "category": "tui-vi",
+      "kind": "Ví nữ",
+      "description": "Ví nữ dài có khóa kéo hồng làm từ chất liệu da tổng hợp, bền, dễ lau chùi. Nhiều ngăn tiện lợi, đựng vừa điện thoại, ví và đồ cá nhân. Kích cỡ có sẵn: Freesize. Bảo quản nơi khô thoáng, nhét giấy vào bên trong để giữ form.",
+      "color": "Hồng",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 399000,
+      "stock": 6
+    },
+    {
+      "sku": "SM-TUI-0006",
+      "slug": "tui-xach-nu-mini-hong-sm-tui-0006",
+      "name": "Túi xách nữ mini hồng",
+      "category": "tui-vi",
+      "kind": "Túi xách nữ",
+      "description": "Túi xách nữ mini hồng làm từ chất liệu da bò, da thật, bền và lên màu đẹp theo thời gian. Khóa kéo chắc chắn, đường may tỉ mỉ. Kích cỡ có sẵn: Freesize. Dùng xi hoặc kem dưỡng da định kỳ để sản phẩm bền đẹp.",
+      "color": "Hồng",
+      "material": "Da bò",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 909000,
+      "stock": 23
+    },
+    {
+      "sku": "SM-TUI-0007",
+      "slug": "tui-deo-cheo-hop-xam-sm-tui-0007",
+      "name": "Túi đeo chéo hộp xám",
+      "category": "tui-vi",
+      "kind": "Túi đeo chéo",
+      "description": "Túi đeo chéo hộp xám làm từ chất liệu da tổng hợp, bền, dễ lau chùi. Khóa kéo chắc chắn, đường may tỉ mỉ. Kích cỡ có sẵn: Freesize. Bảo quản nơi khô thoáng, nhét giấy vào bên trong để giữ form.",
+      "color": "Xám",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 639000,
+      "stock": 39
+    },
+    {
+      "sku": "SM-TUI-0008",
+      "slug": "balo-du-lich-den-sm-tui-0008",
+      "name": "Balo du lịch đen",
+      "category": "tui-vi",
+      "kind": "Balo",
+      "description": "Balo du lịch đen làm từ chất liệu vải canvas, dày, bền, chịu lực tốt. Thiết kế gọn nhẹ, phù hợp đi làm và đi chơi. Kích cỡ có sẵn: Freesize. Dùng xi hoặc kem dưỡng da định kỳ để sản phẩm bền đẹp.",
+      "color": "Đen",
+      "material": "Vải canvas",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 379000,
+      "stock": 1
+    },
+    {
+      "sku": "SM-TUI-0009",
+      "slug": "vi-da-nam-dang-dung-den-sm-tui-0009",
+      "name": "Ví da nam dáng đứng đen",
+      "category": "tui-vi",
+      "kind": "Ví da nam",
+      "description": "Ví da nam dáng đứng đen làm từ chất liệu da bò, da thật, bền và lên màu đẹp theo thời gian. Khóa kéo chắc chắn, đường may tỉ mỉ. Kích cỡ có sẵn: Freesize. Lau sạch bằng khăn mềm hơi ẩm, tránh ngâm nước.",
+      "color": "Đen",
+      "material": "Da bò",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 379000,
+      "stock": 34
+    },
+    {
+      "sku": "SM-TUI-0010",
+      "slug": "vi-nu-dai-co-khoa-keo-den-sm-tui-0010",
+      "name": "Ví nữ dài có khóa kéo đen",
+      "category": "tui-vi",
+      "kind": "Ví nữ",
+      "description": "Ví nữ dài có khóa kéo đen làm từ chất liệu da bò, da thật, bền và lên màu đẹp theo thời gian. Thiết kế gọn nhẹ, phù hợp đi làm và đi chơi. Kích cỡ có sẵn: Freesize. Lau sạch bằng khăn mềm hơi ẩm, tránh ngâm nước.",
+      "color": "Đen",
+      "material": "Da bò",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 539000,
+      "stock": 11
+    },
+    {
+      "sku": "SM-TUI-0011",
+      "slug": "tui-xach-nu-cong-so-den-sm-tui-0011",
+      "name": "Túi xách nữ công sở đen",
+      "category": "tui-vi",
+      "kind": "Túi xách nữ",
+      "description": "Túi xách nữ công sở đen làm từ chất liệu da tổng hợp, bền, dễ lau chùi. Khóa kéo chắc chắn, đường may tỉ mỉ. Kích cỡ có sẵn: Freesize. Lau sạch bằng khăn mềm hơi ẩm, tránh ngâm nước.",
+      "color": "Đen",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 799000,
+      "stock": 32
+    },
+    {
+      "sku": "SM-TUI-0012",
+      "slug": "tui-deo-cheo-mini-xam-sm-tui-0012",
+      "name": "Túi đeo chéo mini xám",
+      "category": "tui-vi",
+      "kind": "Túi đeo chéo",
+      "description": "Túi đeo chéo mini xám làm từ chất liệu dù, chống nước nhẹ, cản gió. Thiết kế gọn nhẹ, phù hợp đi làm và đi chơi. Kích cỡ có sẵn: Freesize. Dùng xi hoặc kem dưỡng da định kỳ để sản phẩm bền đẹp.",
+      "color": "Xám",
+      "material": "Dù",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 659000,
+      "stock": 49
+    },
+    {
+      "sku": "SM-TUI-0013",
+      "slug": "balo-laptop-15-6-inch-xam-sm-tui-0013",
+      "name": "Balo laptop 15.6 inch xám",
+      "category": "tui-vi",
+      "kind": "Balo",
+      "description": "Balo laptop 15.6 inch xám làm từ chất liệu polyester, nhẹ, nhanh khô, bền màu. Nhiều ngăn tiện lợi, đựng vừa điện thoại, ví và đồ cá nhân. Kích cỡ có sẵn: Freesize. Lau sạch bằng khăn mềm hơi ẩm, tránh ngâm nước.",
+      "color": "Xám",
+      "material": "Polyester",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 499000,
+      "stock": 31
+    },
+    {
+      "sku": "SM-TUI-0014",
+      "slug": "vi-da-nam-gap-doi-den-sm-tui-0014",
+      "name": "Ví da nam gập đôi đen",
+      "category": "tui-vi",
+      "kind": "Ví da nam",
+      "description": "Ví da nam gập đôi đen làm từ chất liệu da tổng hợp, bền, dễ lau chùi. Thiết kế gọn nhẹ, phù hợp đi làm và đi chơi. Kích cỡ có sẵn: Freesize. Dùng xi hoặc kem dưỡng da định kỳ để sản phẩm bền đẹp.",
+      "color": "Đen",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 489000,
+      "stock": 28
+    },
+    {
+      "sku": "SM-TUI-0015",
+      "slug": "vi-nu-dai-co-khoa-keo-trang-sm-tui-0015",
+      "name": "Ví nữ dài có khóa kéo trắng",
+      "category": "tui-vi",
+      "kind": "Ví nữ",
+      "description": "Ví nữ dài có khóa kéo trắng làm từ chất liệu da tổng hợp, bền, dễ lau chùi. Nhiều ngăn tiện lợi, đựng vừa điện thoại, ví và đồ cá nhân. Kích cỡ có sẵn: Freesize. Lau sạch bằng khăn mềm hơi ẩm, tránh ngâm nước.",
+      "color": "Trắng",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 249000,
+      "stock": 18
+    },
+    {
+      "sku": "SM-TUI-0016",
+      "slug": "tui-xach-nu-kep-nach-trang-sm-tui-0016",
+      "name": "Túi xách nữ kẹp nách trắng",
+      "category": "tui-vi",
+      "kind": "Túi xách nữ",
+      "description": "Túi xách nữ kẹp nách trắng làm từ chất liệu da tổng hợp, bền, dễ lau chùi. Thiết kế gọn nhẹ, phù hợp đi làm và đi chơi. Kích cỡ có sẵn: Freesize. Lau sạch bằng khăn mềm hơi ẩm, tránh ngâm nước.",
+      "color": "Trắng",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 479000,
+      "stock": 6
+    },
+    {
+      "sku": "SM-TUI-0017",
+      "slug": "tui-deo-cheo-bao-tu-xam-sm-tui-0017",
+      "name": "Túi đeo chéo bao tử xám",
+      "category": "tui-vi",
+      "kind": "Túi đeo chéo",
+      "description": "Túi đeo chéo bao tử xám làm từ chất liệu vải canvas, dày, bền, chịu lực tốt. Thiết kế gọn nhẹ, phù hợp đi làm và đi chơi. Kích cỡ có sẵn: Freesize. Dùng xi hoặc kem dưỡng da định kỳ để sản phẩm bền đẹp.",
+      "color": "Xám",
+      "material": "Vải canvas",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 579000,
+      "stock": 21
+    },
+    {
+      "sku": "SM-TUI-0018",
+      "slug": "balo-laptop-15-6-inch-xanh-navy-sm-tui-0018",
+      "name": "Balo laptop 15.6 inch xanh navy",
+      "category": "tui-vi",
+      "kind": "Balo",
+      "description": "Balo laptop 15.6 inch xanh navy làm từ chất liệu vải canvas, dày, bền, chịu lực tốt. Khóa kéo chắc chắn, đường may tỉ mỉ. Kích cỡ có sẵn: Freesize. Dùng xi hoặc kem dưỡng da định kỳ để sản phẩm bền đẹp.",
+      "color": "Xanh navy",
+      "material": "Vải canvas",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 639000,
+      "stock": 32
+    },
+    {
+      "sku": "SM-TUI-0019",
+      "slug": "vi-da-nam-dang-dung-nau-sm-tui-0019",
+      "name": "Ví da nam dáng đứng nâu",
+      "category": "tui-vi",
+      "kind": "Ví da nam",
+      "description": "Ví da nam dáng đứng nâu làm từ chất liệu da bò, da thật, bền và lên màu đẹp theo thời gian. Thiết kế gọn nhẹ, phù hợp đi làm và đi chơi. Kích cỡ có sẵn: Freesize. Bảo quản nơi khô thoáng, nhét giấy vào bên trong để giữ form.",
+      "color": "Nâu",
+      "material": "Da bò",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 459000,
+      "stock": 25
+    },
+    {
+      "sku": "SM-TUI-0020",
+      "slug": "vi-nu-dai-co-khoa-keo-be-sm-tui-0020",
+      "name": "Ví nữ dài có khóa kéo be",
+      "category": "tui-vi",
+      "kind": "Ví nữ",
+      "description": "Ví nữ dài có khóa kéo be làm từ chất liệu da tổng hợp, bền, dễ lau chùi. Khóa kéo chắc chắn, đường may tỉ mỉ. Kích cỡ có sẵn: Freesize. Dùng xi hoặc kem dưỡng da định kỳ để sản phẩm bền đẹp.",
+      "color": "Be",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 489000,
+      "stock": 48
+    },
+    {
+      "sku": "SM-TUI-0021",
+      "slug": "tui-xach-nu-tote-trang-sm-tui-0021",
+      "name": "Túi xách nữ tote trắng",
+      "category": "tui-vi",
+      "kind": "Túi xách nữ",
+      "description": "Túi xách nữ tote trắng làm từ chất liệu da tổng hợp, bền, dễ lau chùi. Thiết kế gọn nhẹ, phù hợp đi làm và đi chơi. Kích cỡ có sẵn: Freesize. Dùng xi hoặc kem dưỡng da định kỳ để sản phẩm bền đẹp.",
+      "color": "Trắng",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 739000,
+      "stock": 26
+    },
+    {
+      "sku": "SM-TUI-0022",
+      "slug": "tui-deo-cheo-mini-be-sm-tui-0022",
+      "name": "Túi đeo chéo mini be",
+      "category": "tui-vi",
+      "kind": "Túi đeo chéo",
+      "description": "Túi đeo chéo mini be làm từ chất liệu vải canvas, dày, bền, chịu lực tốt. Khóa kéo chắc chắn, đường may tỉ mỉ. Kích cỡ có sẵn: Freesize. Bảo quản nơi khô thoáng, nhét giấy vào bên trong để giữ form.",
+      "color": "Be",
+      "material": "Vải canvas",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 389000,
+      "stock": 1
+    },
+    {
+      "sku": "SM-TUI-0023",
+      "slug": "balo-du-lich-xanh-navy-sm-tui-0023",
+      "name": "Balo du lịch xanh navy",
+      "category": "tui-vi",
+      "kind": "Balo",
+      "description": "Balo du lịch xanh navy làm từ chất liệu polyester, nhẹ, nhanh khô, bền màu. Nhiều ngăn tiện lợi, đựng vừa điện thoại, ví và đồ cá nhân. Kích cỡ có sẵn: Freesize. Lau sạch bằng khăn mềm hơi ẩm, tránh ngâm nước.",
+      "color": "Xanh navy",
+      "material": "Polyester",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 399000,
+      "stock": 24
+    },
+    {
+      "sku": "SM-TUI-0024",
+      "slug": "vi-da-nam-mong-nau-sm-tui-0024",
+      "name": "Ví da nam mỏng nâu",
+      "category": "tui-vi",
+      "kind": "Ví da nam",
+      "description": "Ví da nam mỏng nâu làm từ chất liệu da bò, da thật, bền và lên màu đẹp theo thời gian. Nhiều ngăn tiện lợi, đựng vừa điện thoại, ví và đồ cá nhân. Kích cỡ có sẵn: Freesize. Lau sạch bằng khăn mềm hơi ẩm, tránh ngâm nước.",
+      "color": "Nâu",
+      "material": "Da bò",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 429000,
+      "stock": 43
+    },
+    {
+      "sku": "SM-TUI-0025",
+      "slug": "vi-nu-mini-gap-ba-hong-sm-tui-0025",
+      "name": "Ví nữ mini gập ba hồng",
+      "category": "tui-vi",
+      "kind": "Ví nữ",
+      "description": "Ví nữ mini gập ba hồng làm từ chất liệu da tổng hợp, bền, dễ lau chùi. Nhiều ngăn tiện lợi, đựng vừa điện thoại, ví và đồ cá nhân. Kích cỡ có sẵn: Freesize. Lau sạch bằng khăn mềm hơi ẩm, tránh ngâm nước.",
+      "color": "Hồng",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 409000,
+      "stock": 27
+    },
+    {
+      "sku": "SM-TUI-0026",
+      "slug": "tui-xach-nu-tote-nau-sm-tui-0026",
+      "name": "Túi xách nữ tote nâu",
+      "category": "tui-vi",
+      "kind": "Túi xách nữ",
+      "description": "Túi xách nữ tote nâu làm từ chất liệu da bò, da thật, bền và lên màu đẹp theo thời gian. Khóa kéo chắc chắn, đường may tỉ mỉ. Kích cỡ có sẵn: Freesize. Bảo quản nơi khô thoáng, nhét giấy vào bên trong để giữ form.",
+      "color": "Nâu",
+      "material": "Da bò",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 839000,
+      "stock": 45
+    },
+    {
+      "sku": "SM-TUI-0027",
+      "slug": "tui-deo-cheo-hop-den-sm-tui-0027",
+      "name": "Túi đeo chéo hộp đen",
+      "category": "tui-vi",
+      "kind": "Túi đeo chéo",
+      "description": "Túi đeo chéo hộp đen làm từ chất liệu vải canvas, dày, bền, chịu lực tốt. Khóa kéo chắc chắn, đường may tỉ mỉ. Kích cỡ có sẵn: Freesize. Bảo quản nơi khô thoáng, nhét giấy vào bên trong để giữ form.",
+      "color": "Đen",
+      "material": "Vải canvas",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 369000,
+      "stock": 26
+    },
+    {
+      "sku": "SM-TUI-0028",
+      "slug": "balo-mini-den-sm-tui-0028",
+      "name": "Balo mini đen",
+      "category": "tui-vi",
+      "kind": "Balo",
+      "description": "Balo mini đen làm từ chất liệu dù, chống nước nhẹ, cản gió. Khóa kéo chắc chắn, đường may tỉ mỉ. Kích cỡ có sẵn: Freesize. Bảo quản nơi khô thoáng, nhét giấy vào bên trong để giữ form.",
+      "color": "Đen",
+      "material": "Dù",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 989000,
+      "stock": 37
+    },
+    {
+      "sku": "SM-TUI-0029",
+      "slug": "vi-da-nam-kep-tien-nau-sm-tui-0029",
+      "name": "Ví da nam kẹp tiền nâu",
+      "category": "tui-vi",
+      "kind": "Ví da nam",
+      "description": "Ví da nam kẹp tiền nâu làm từ chất liệu da tổng hợp, bền, dễ lau chùi. Nhiều ngăn tiện lợi, đựng vừa điện thoại, ví và đồ cá nhân. Kích cỡ có sẵn: Freesize. Dùng xi hoặc kem dưỡng da định kỳ để sản phẩm bền đẹp.",
+      "color": "Nâu",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 669000,
+      "stock": 31
+    },
+    {
+      "sku": "SM-TUI-0030",
+      "slug": "vi-nu-cam-tay-be-sm-tui-0030",
+      "name": "Ví nữ cầm tay be",
+      "category": "tui-vi",
+      "kind": "Ví nữ",
+      "description": "Ví nữ cầm tay be làm từ chất liệu da bò, da thật, bền và lên màu đẹp theo thời gian. Nhiều ngăn tiện lợi, đựng vừa điện thoại, ví và đồ cá nhân. Kích cỡ có sẵn: Freesize. Dùng xi hoặc kem dưỡng da định kỳ để sản phẩm bền đẹp.",
+      "color": "Be",
+      "material": "Da bò",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 539000,
+      "stock": 18
+    },
+    {
+      "sku": "SM-TUI-0031",
+      "slug": "tui-xach-nu-mini-den-sm-tui-0031",
+      "name": "Túi xách nữ mini đen",
+      "category": "tui-vi",
+      "kind": "Túi xách nữ",
+      "description": "Túi xách nữ mini đen làm từ chất liệu vải canvas, dày, bền, chịu lực tốt. Khóa kéo chắc chắn, đường may tỉ mỉ. Kích cỡ có sẵn: Freesize. Bảo quản nơi khô thoáng, nhét giấy vào bên trong để giữ form.",
+      "color": "Đen",
+      "material": "Vải canvas",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 589000,
+      "stock": 13
+    },
+    {
+      "sku": "SM-TUI-0032",
+      "slug": "tui-deo-cheo-hop-nau-sm-tui-0032",
+      "name": "Túi đeo chéo hộp nâu",
+      "category": "tui-vi",
+      "kind": "Túi đeo chéo",
+      "description": "Túi đeo chéo hộp nâu làm từ chất liệu dù, chống nước nhẹ, cản gió. Khóa kéo chắc chắn, đường may tỉ mỉ. Kích cỡ có sẵn: Freesize. Bảo quản nơi khô thoáng, nhét giấy vào bên trong để giữ form.",
+      "color": "Nâu",
+      "material": "Dù",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 369000,
+      "stock": 42
+    },
+    {
+      "sku": "SM-TUI-0033",
+      "slug": "balo-mini-xanh-navy-sm-tui-0033",
+      "name": "Balo mini xanh navy",
+      "category": "tui-vi",
+      "kind": "Balo",
+      "description": "Balo mini xanh navy làm từ chất liệu vải canvas, dày, bền, chịu lực tốt. Thiết kế gọn nhẹ, phù hợp đi làm và đi chơi. Kích cỡ có sẵn: Freesize. Dùng xi hoặc kem dưỡng da định kỳ để sản phẩm bền đẹp.",
+      "color": "Xanh navy",
+      "material": "Vải canvas",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 969000,
+      "stock": 2
+    },
+    {
+      "sku": "SM-TUI-0034",
+      "slug": "vi-da-nam-kep-tien-den-sm-tui-0034",
+      "name": "Ví da nam kẹp tiền đen",
+      "category": "tui-vi",
+      "kind": "Ví da nam",
+      "description": "Ví da nam kẹp tiền đen làm từ chất liệu da bò, da thật, bền và lên màu đẹp theo thời gian. Nhiều ngăn tiện lợi, đựng vừa điện thoại, ví và đồ cá nhân. Kích cỡ có sẵn: Freesize. Dùng xi hoặc kem dưỡng da định kỳ để sản phẩm bền đẹp.",
+      "color": "Đen",
+      "material": "Da bò",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 679000,
+      "stock": 0
+    },
+    {
+      "sku": "SM-TUI-0035",
+      "slug": "vi-nu-cam-tay-den-sm-tui-0035",
+      "name": "Ví nữ cầm tay đen",
+      "category": "tui-vi",
+      "kind": "Ví nữ",
+      "description": "Ví nữ cầm tay đen làm từ chất liệu da tổng hợp, bền, dễ lau chùi. Nhiều ngăn tiện lợi, đựng vừa điện thoại, ví và đồ cá nhân. Kích cỡ có sẵn: Freesize. Bảo quản nơi khô thoáng, nhét giấy vào bên trong để giữ form.",
+      "color": "Đen",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "Freesize"
+      ],
+      "price": 239000,
+      "stock": 36
+    }
+  ]
+}

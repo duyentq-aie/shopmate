@@ -3,8 +3,11 @@
 .env.*
 !.env.example
 
-# Local data (catalogs, embeddings, eval runs, exports)
-data/
+# Local data (embeddings, eval runs, exports). The synthetic seed catalog,
+# seed orders and policy documents are versioned on purpose.
+data/*
+!data/seed/
+!data/policies/
 
 # Qdrant local storage
 qdrant_storage/

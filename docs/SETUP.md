@@ -114,7 +114,7 @@ SALEOR_STAFF_EMAIL=admin@example.com SALEOR_STAFF_PASSWORD=<local dev password> 
   python3 scripts/check_saleor.py
 ```
 
-Credentials go through the environment only; nothing is written to a file. Exit codes: 0 ok, 1 a check failed, 2 missing credentials. Output after the test order:
+Credentials go through the environment only; nothing is written to a file. Exit codes: 0 ok, 1 a check failed, 2 missing credentials. Output after the test order (Phase 1 version of the script; see "Smoke test since Phase 2" below for the current command):
 
 ```
 shop name      : Saleor e-commerce
@@ -124,6 +124,17 @@ order count    : 21  (all channels)
 latest order   : #23 created 2026-10-09T05:29:52.377076+00:00 by shopmate-test@example.com in default-channel
 OK: all checks passed
 ```
+
+### Smoke test since Phase 2
+
+The script now runs inside the uv environment, reads `SALEOR_RUNTIME_TOKEN` from the environment or `.env`, and falls back to `SALEOR_STAFF_EMAIL`/`SALEOR_STAFF_PASSWORD` from **environment variables only**. All counts are scoped to `SALEOR_CHANNEL` (`.env` sets `vn`; use `SALEOR_CHANNEL=default-channel` for the demo channel). Requests sent with the runtime token pass the same read-only parse check as the service client.
+
+```bash
+cd ~/shopmate-workspace/shopmate
+uv run python -m scripts.check_saleor --wait 60
+```
+
+**"Container started" is not "API ready".** Right after `docker compose up -d` the API container is up but Saleor may still be booting: connections are refused or reset mid-response (`ConnectionResetError` raised from `getresponse`). The script reports this as `FAIL: Saleor API not reachable or still starting (...)` with exit 1. `--wait SECONDS` retries `{ shop { name } }` with exponential backoff (0.5 s doubling to 5 s) until the API answers or the time is up.
 
 ## Daily use
 
@@ -192,3 +203,170 @@ To make checkout work end to end, the Dummy Payment App (id `saleor.io.dummy-pay
 - **Python version.** The system Python is 3.14.4. AI libraries such as PyTorch and sentence-transformers may not support 3.14 yet. Plan: install `uv` and use a project-local Python 3.12 (no sudo). Not done in Phase 1.
 - **`python` command.** Only `python3` exists. Phase 1 scripts use `python3` and the standard library only, so no pip is needed. A project-local virtual environment from `uv` will provide `python`.
 - **Authentication for the service.** From Phase 2 on, the ShopMate service must authenticate with a **Saleor App token scoped to the minimum permissions it needs (read products, read orders), never the admin account.** `SALEOR_STAFF_EMAIL` and `SALEOR_STAFF_PASSWORD` exist for Phase 1 only. Caveat, to verify when creating the app: Saleor has no read-only permission scopes (reading orders needs `MANAGE_ORDERS`, which also allows writes), so "read-only" has to be enforced in ShopMate's own tool layer by exposing only read queries.
+
+---
+
+# Phase 2: data foundation
+
+Status on 2026-10-09 (evening): both apps exist with the permissions below (checked with `query { app { name permissions { code } } }`), and channel `vn`, the catalog and the test orders are seeded and verified. The "not yet executed" notes below are kept for history; the results are in "Seeding results".
+
+## Python environment
+
+| Item | Value |
+|---|---|
+| uv | 0.12.22, already in `~/.local/bin` (no sudo) |
+| Python | 3.12.15, installed by `uv python install 3.12` into `~/.local/share/uv/python`; pinned by `.python-version` and `requires-python = ">=3.12,<3.13"` |
+| Runtime dependencies | `httpx`, `pydantic`, `graphql-core` (locked in `uv.lock`) |
+| Dev dependency group | `pytest` |
+
+```bash
+cd ~/shopmate-workspace/shopmate
+uv sync
+uv run python --version   # Python 3.12.15
+uv run pytest
+```
+
+The project is not an installable package (`[tool.uv] package = false`); entry points run from the repo root as modules, e.g. `uv run python -m scripts.seed_channel`.
+
+## Saleor apps and permissions (least privilege)
+
+Verified against `PermissionEnum` of Saleor 3.23 (24 values, read by introspection): **Saleor has no read-only permission for orders.** The only order permissions are `MANAGE_ORDERS` (read *and* write: cancel, fulfill, refund, edit drafts) and `MANAGE_ORDERS_IMPORT` (`orderBulkCreate` only). Reading orders therefore requires a permission that can also modify them. This is a real trade-off: read-only for the runtime is enforced in ShopMate's own client (next section), not by Saleor.
+
+Create both apps in the Dashboard: Extensions (called Apps in older dashboards), Add extension, Provide details manually. Then Create token on the app page and paste it into `shopmate/.env`. Never commit it.
+
+| App | `.env` variable | Permissions | Why |
+|---|---|---|---|
+| `shopmate-seeder` (local only) | `SALEOR_SEEDER_TOKEN` | `MANAGE_CHANNELS` | create channel `vn`, link its warehouse |
+| | | `MANAGE_PRODUCTS` | warehouse, categories, products, stock; read exact stock for the drift report |
+| | | `MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES` | attributes màu sắc / kích cỡ / chất liệu, the product type |
+| | | `MANAGE_SHIPPING` | shipping zone VN and shipping methods |
+| | | `MANAGE_ORDERS_IMPORT` | create test orders with `orderBulkCreate` (narrower than `MANAGE_ORDERS`; source: `order_bulk_create.py` requires only this) |
+| `shopmate-runtime` (the AI service) | `SALEOR_RUNTIME_TOKEN` | `MANAGE_ORDERS` only | order lookup. Products are read with public channel-scoped queries (published products only), so the runtime gets **no** catalog permission and cannot modify catalog data |
+
+Consequences of the split:
+
+- The seeder cannot read orders (no `MANAGE_ORDERS`). Order seeding is idempotent through `orderBulkCreate` itself (a duplicate `externalReference` is rejected with code `UNIQUE`), and order numbers are read back with the read-only runtime client.
+- The runtime cannot see exact stock: `stocks` needs `MANAGE_PRODUCTS`, and the public `quantityAvailable` is capped at 50 per checkout (`limit_quantity_per_checkout`). The synthetic catalog keeps stock ≤ 50 so `quantityAvailable` equals the real stock. `report_vn.py` reads stock with the seeder token.
+- *Not yet executed:* that these permission sets are sufficient is derived from Saleor's source and schema. If a call fails with `PermissionDenied`, add only the permission named in the error and record it here.
+
+## Read-only runtime client
+
+`app/saleor/readonly_client.py` is the only Saleor client the service may use.
+
+1. **Primary guard: the allowlist.** Callers, including any future LLM tool, choose an operation **name** from `ALLOWED_OPERATIONS` and pass variables that are validated by that operation's pydantic model (extra keys forbidden). There is no method that accepts GraphQL text, so a caller can never supply a mutation. Allowed operations: `ChannelBySlug`, `ProductsInChannel`, `VariantBySku`, `OrderByNumber`, `OrderByExternalReference`, `OrdersInChannel`.
+2. **Second layer: parsing.** Every allowlisted document is parsed with graphql-core at import and again just before sending. Anything that is not exactly one named `query` operation (plus fragments) is rejected: mutations, subscriptions, multi-operation documents, anonymous or misnamed queries, unparseable text.
+
+`tests/test_readonly_client.py` proves that an allowlisted query is sent, and that a mutation, a subscription, a multi-operation document, an unknown operation name, raw GraphQL passed as a name and invalid variables are all rejected **before any network call** (fake transport records zero requests).
+
+## Seeding channel `vn` (*written, not yet executed*)
+
+Run in this order, from `shopmate/`, after both tokens are in `.env`:
+
+```bash
+uv run python -m scripts.seed_channel   # channel vn (VND, VN), warehouse shopmate-vn-hcm, zone "ShopMate – Việt Nam", 2 shipping methods
+uv run python -m scripts.seed_catalog   # 250 products from data/seed/catalog.vi.json
+uv run python -m scripts.seed_orders    # 30 orders from data/seed/orders.vi.json, records order numbers
+uv run python -m scripts.report_vn      # counts in channel vn + drift check, exit 0 = no drift
+```
+
+Every seeder is idempotent and can be re-run. What each one owns, and how it recognises it:
+
+| Object | Key | Re-run behaviour |
+|---|---|---|
+| Channel `vn` | slug `vn` | skipped if it exists; **error** (never changed) if currency/country differ |
+| Warehouse | slug `shopmate-vn-hcm` | skipped; re-linked to `vn` if unlinked |
+| Shipping zone | name `ShopMate – Việt Nam` | skipped; re-linked to channel/warehouse if needed |
+| Shipping methods | name in that zone | skipped; **error** if the `vn` price differs (no silent price change) |
+| Attributes `mau-sac`, `kich-co` (MULTISELECT), `chat-lieu` | slug + externalReference `shopmate-attribute-*` | skipped; error if an attribute with that slug is not ShopMate's |
+| Product type `shopmate-thoi-trang` | slug | skipped; missing attributes assigned |
+| Categories | slug + externalReference `shopmate-category-*` | skipped; error if the slug belongs to something else |
+| Products | `externalReference` = SKU | created if missing, **skipped (not updated)** if present |
+| Orders | `externalReference` = `shopmate-seed-order-NNN` | created if missing, never recreated or modified |
+
+`default-channel`, `channel-pln` and the demo data are never read for writing or changed.
+
+Shipping configuration (single source `app/shop.py`, quoted in `data/policies/van-chuyen.md`, checked by `tests/test_policies.py`): "Giao hàng tiêu chuẩn" 30.000đ for orders below 500.000đ (maximum order price 499.999đ), "Miễn phí vận chuyển" 0đ from 500.000đ, delivery 1–5 days.
+
+Orders are created with `stockUpdatePolicy: SKIP`, so they do not change catalog stock, and with `taxRate 0` and explicit prices.
+
+### Seeding results (Saleor 3.23.40)
+
+| Step | Run 1 | Run 2 (idempotency) |
+|---|---|---|
+| `seed_channel` | warehouse, channel `vn` (VND, VN), zone, 2 shipping methods created | nothing to do (after the D34 fix) |
+| `seed_catalog` | 250 created | 0 created, 250 already existed |
+| `report_vn --catalog-only` | products in channel vn: 250 | products in channel vn: 250 |
+| `seed_orders` | 30 created, numbers #84–#113 recorded (third attempt, see D31–D33) | 0 created, 30 already existed |
+| `report_vn` | products in vn: 250, orders in vn: 30, no drift | |
+
+Counts per channel with the runtime token (`check_saleor.py`): `vn` 250 products / 30 orders; `default-channel` 29 / 8 (latest still #23); `channel-pln` 29 / 13. The demo channels together still hold the 21 orders of Phase 1.
+
+Saleor behaviours found while seeding (details in DECISIONS D31–D34):
+
+- `orderBulkCreate` cannot look up variants by `variantSku` (a cache-key bug in 3.23.40). The seeder uses `variantExternalReference`, which `seed_catalog.py` sets to the SKU.
+- `orderBulkCreate` needs `ShippingMethod:<pk>` ids (zones return `ShippingMethodType:<pk>`) and a tax class for shipping and for each line. The seeder references the existing "No taxes" class, read only.
+- Rejected bulk-create rows still consume order numbers.
+- An unset `minimumOrderPrice` reads back as 0.
+
+### Drift report
+
+`scripts/report_vn.py` scopes every count to channel `vn` (demo data makes global counts meaningless) and compares Saleor with the seed files:
+
+- catalog: missing and extra products; per SKU the name, category, price (VND), stock, màu sắc, chất liệu, kích cỡ, published in `vn`;
+- orders, matched by externalReference (never by count or number): missing orders, status, recorded number, line SKUs and quantities. A line whose product was deleted is a **warning**, not a failure.
+
+Exit codes: 0 no drift, 1 drift, 2 configuration error. `--catalog-only` skips the order part.
+
+### Reset (destructive)
+
+```bash
+uv run python -m scripts.seed_catalog --reset-vn
+```
+
+Deletes only products that have the ShopMate product type, an SKU-shaped externalReference and a listing in `vn`. It asks for the confirmation phrase `xoa-san-pham-vn` (or `--confirm xoa-san-pham-vn` when not interactive). **Orders are never deleted:** they are append-only fixtures, and Saleor cannot delete non-draft orders through the API anyway. Ask before running this.
+
+## Product images
+
+Not seeded. Products have no media. Fine for the API and the assistant; storefront product pages show placeholders. Not planned before a later phase.
+
+## Data files
+
+| File | Produced by | Notes |
+|---|---|---|
+| `data/seed/catalog.vi.json` | `scripts/generate_catalog.py`, seed 20261009 | 250 products, 6 categories, 25 with stock 0, prices 69.000đ–1.869.000đ. Byte-identical on every run (`tests/test_catalog_determinism.py`, also across `PYTHONHASHSEED` values) |
+| `data/seed/orders.vi.json` | `scripts/generate_orders.py`, seed 20261010; numbers by `scripts/seed_orders.py` | 30 orders: 10 FULFILLED, 9 UNFULFILLED, 4 PARTIALLY_FULFILLED, 4 CANCELED, 3 UNCONFIRMED; 20 customers `khachhangNN@example.com`; numbers `pending` until seeded |
+| `data/policies/*.md` | written by hand | đổi trả (7 clauses), vận chuyển (6), bảo hành (6), headed `## Điều N. …` |
+| `eval/golden/golden.vi.json` | `eval/golden/draft_golden.py` (refuses to overwrite) | 64 agent drafts, see below |
+
+## Golden set
+
+Schema: `eval/golden/schema.py`. Item fields: `id`, `question`, `intent` (product_search, policy_question, order_status, create_ticket, out_of_scope, smalltalk), `query_style` (co_dau, khong_dau, teencode), `expected_filters` (product_search only: category, kind, keyword, color, material, size, price_min, price_max, in_stock), `gold_source` (`skus` | `policy_clause` | `order` | `no_answer`), `split` (dev/test), `status`, `author`, `notes`.
+
+- Gold SKU lists of filtered product searches are computed from the catalog by `apply_filters`; the validator recomputes them, so labels cannot drift from the data.
+- Order questions use the literal placeholder `{order_number}`; the gold source names the fixture by external reference. `order_number` stays `pending` until step H.
+- **Anti-IDOR (DECISIONS D28):** order data may only be revealed for order number + the owner's email (or phone). Order gold sources carry `provided_identity` and `expected_behavior`: `matching_email` → `answer`, `none` → `ask_for_verification`, `mismatched_email` → `refuse`. The validator checks the email in the question against the fixture's owner.
+- 64 agent drafts, all `status: draft_needs_human_review`, `author: agent_draft`: 22 product_search (2 deliberate no-match, 1 out-of-stock product), 12 policy_question, 12 order_status (gs-061..064 are the verify-or-refuse cases), 6 create_ticket, 6 out_of_scope, 6 smalltalk; 33 có dấu, 17 không dấu, 14 teencode; 43 dev, 21 test (per intent, the ~30% with the smallest sha256(id)).
+
+Review helper (read only, never writes): `uv run python -m eval.golden.check_query_style` flags items whose `query_style` label likely disagrees with the text (abbreviation tokens such as ko, k, dc, đc, sp, j, ship → teencode; no diacritics → khong_dau). The owner decides every label.
+
+Review labels: reviewed items get `status: "human_reviewed"`. The 64 drafts keep `author: "agent_draft"`; `author: "human"` is only for items the owner writes.
+
+```bash
+uv run python -m eval.golden.validate_golden                          # now: pending order numbers allowed
+uv run python -m eval.golden.sync_order_numbers                       # after seed_orders.py
+uv run python -m eval.golden.validate_golden --require-order-numbers  # after the sync
+```
+
+**Test-split hash: not recorded yet.** It must be frozen after the human review (and after the order-number sync, which changes test items). Then record the value printed as `test-split sha256` here and pass it as `--expected-test-hash` in later runs.
+
+## Offline checks against Saleor's schema
+
+Every runtime and seeder GraphQL document is validated against Saleor's SDL by `tests/test_documents_against_schema.py`, with no live Saleor. The SDL is a versioned fixture: `tests/fixtures/saleor-schema-3.23.40.graphql`, unmodified from image `ghcr.io/saleor/saleor:3.23` (version label 3.23.40), with Saleor's BSD-3-Clause license in `tests/fixtures/SALEOR-LICENSE`. The tests never skip; a missing fixture fails. When the Saleor image changes, refresh the fixture and rename it after the new version:
+
+```bash
+docker inspect saleor-platform-api-1 --format '{{index .Config.Labels "org.opencontainers.image.version"}}'
+docker cp saleor-platform-api-1:/app/saleor/graphql/schema.graphql /tmp/saleor.graphql
+SALEOR_SCHEMA_SDL=/tmp/saleor.graphql uv run pytest tests/test_documents_against_schema.py   # try before replacing
+```
+
+Schema validation does not check permissions or Saleor's business rules.

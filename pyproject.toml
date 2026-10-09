@@ -1,0 +1,25 @@
+[project]
+name = "shopmate"
+version = "0.1.0"
+description = "AI sales assistant for a Vietnamese online shop, running next to Saleor."
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "graphql-core>=3.3.0",
+    "httpx>=0.28.1",
+    "pydantic>=2.14.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
+
+[tool.uv]
+# Not an installable package: entry points run from the repo root as modules,
+# e.g. `uv run python -m scripts.generate_catalog`.
+package = false
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

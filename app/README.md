@@ -1,11 +1,11 @@
 # app/
 
-The ShopMate service itself. This is where the following will live, starting in Phase 2:
+The ShopMate service. Phase 2 contains only its data foundation:
 
-- the catalog ingestion and retrieval (RAG) pipeline,
-- the agent and its tools (product search, order lookup),
-- the HTTP API that the storefront or other clients call.
+- `catalog/schema.py`, `orders/schema.py` – pydantic schemas of the seed files in `data/seed/`;
+- `policies.py` – access to the numbered clauses of `data/policies/`;
+- `shop.py` – shop constants (currency, shipping fee, free-shipping threshold) shared by the seeders, the policies and tests;
+- `saleor/readonly_client.py` – the only Saleor client the service may use: allowlisted, parsed, read-only queries (see `docs/SETUP.md`);
+- `config.py` – settings from the environment or `.env`.
 
-The service reads Saleor data only through the GraphQL API, authenticating with a Saleor App token scoped to the minimum permissions it needs (read products, read orders). It never uses a staff account.
-
-Empty for now.
+Retrieval, the agent and the HTTP API come in later phases. The service reads Saleor only through the read-only client with the `shopmate-runtime` app token; it never uses a staff account or the seeder token.

@@ -1,0 +1,1327 @@
+{
+  "schema_version": 1,
+  "synthetic": true,
+  "seed": 20261010,
+  "channel": "vn",
+  "currency": "VND",
+  "orders": [
+    {
+      "external_reference": "shopmate-seed-order-001",
+      "number": "84",
+      "status": "PARTIALLY_FULFILLED",
+      "created_at": "2026-08-02T06:59:43+07:00",
+      "customer": {
+        "first_name": "Nam",
+        "last_name": "Vũ",
+        "email": "khachhang02@example.com"
+      },
+      "shipping_address": {
+        "street": "130 Trần Hưng Đạo",
+        "city_area": "Quận Hải Châu",
+        "city": "Đà Nẵng",
+        "country_area": "Đà Nẵng",
+        "country": "VN"
+      },
+      "lines": [
+        {
+          "sku": "SM-NAM-0049",
+          "product_name": "Áo khoác nam gió hai lớp xanh rêu",
+          "quantity": 1,
+          "unit_price": 719000
+        },
+        {
+          "sku": "SM-GIAY-0006",
+          "product_name": "Dép quai ngang in logo trắng",
+          "quantity": 2,
+          "unit_price": 149000
+        },
+        {
+          "sku": "SM-TT-0004",
+          "product_name": "Quần short thể thao tập gym đen",
+          "quantity": 3,
+          "unit_price": 139000
+        }
+      ],
+      "fulfillments": [
+        {
+          "tracking_code": "SMVN570207730",
+          "lines": [
+            {
+              "line_index": 0,
+              "quantity": 1
+            }
+          ]
+        }
+      ],
+      "shipping_method": "Miễn phí vận chuyển",
+      "shipping_price": 0,
+      "subtotal": 1434000,
+      "total": 1434000
+    },
+    {
+      "external_reference": "shopmate-seed-order-002",
+      "number": "85",
+      "status": "PARTIALLY_FULFILLED",
+      "created_at": "2026-08-06T02:09:20+07:00",
+      "customer": {
+        "first_name": "Bình",
+        "last_name": "Bùi",
+        "email": "khachhang07@example.com"
+      },
+      "shipping_address": {
+        "street": "198 Trần Hưng Đạo",
+        "city_area": "Quận Cầu Giấy",
+        "city": "Hà Nội",
+        "country_area": "Hà Nội",
+        "country": "VN"
+      },
+      "lines": [
+        {
+          "sku": "SM-NAM-0017",
+          "product_name": "Áo polo nam thể thao trắng",
+          "quantity": 2,
+          "unit_price": 389000
+        },
+        {
+          "sku": "SM-NAM-0036",
+          "product_name": "Áo thun nam cổ tròn basic xanh rêu",
+          "quantity": 2,
+          "unit_price": 239000
+        }
+      ],
+      "fulfillments": [
+        {
+          "tracking_code": "SMVN979241643",
+          "lines": [
+            {
+              "line_index": 0,
+              "quantity": 2
+            }
+          ]
+        }
+      ],
+      "shipping_method": "Miễn phí vận chuyển",
+      "shipping_price": 0,
+      "subtotal": 1256000,
+      "total": 1256000
+    },
+    {
+      "external_reference": "shopmate-seed-order-003",
+      "number": "86",
+      "status": "FULFILLED",
+      "created_at": "2026-08-12T05:36:28+07:00",
+      "customer": {
+        "first_name": "An",
+        "last_name": "Bùi",
+        "email": "khachhang12@example.com"
+      },
+      "shipping_address": {
+        "street": "249 Điện Biên Phủ",
+        "city_area": "Quận Đống Đa",
+        "city": "Hà Nội",
+        "country_area": "Hà Nội",
+        "country": "VN"
+      },
+      "lines": [
+        {
+          "sku": "SM-NAM-0023",
+          "product_name": "Áo sơ mi nam kẻ sọc xanh dương",
+          "quantity": 2,
+          "unit_price": 279000
+        },
+        {
+          "sku": "SM-TUI-0007",
+          "product_name": "Túi đeo chéo hộp xám",
+          "quantity": 2,
+          "unit_price": 639000
+        }
+      ],
+      "fulfillments": [
+        {
+          "tracking_code": "SMVN152640252",
+          "lines": [
+            {
+              "line_index": 0,
+              "quantity": 2
+            },
+            {
+              "line_index": 1,
+              "quantity": 2
+            }
+          ]
+        }
+      ],
+      "shipping_method": "Miễn phí vận chuyển",
+      "shipping_price": 0,
+      "subtotal": 1836000,
+      "total": 1836000
+    },
+    {
+      "external_reference": "shopmate-seed-order-004",
+      "number": "87",
+      "status": "CANCELED",
+      "created_at": "2026-08-12T21:14:23+07:00",
+      "customer": {
+        "first_name": "Nam",
+        "last_name": "Bùi",
+        "email": "khachhang04@example.com"
+      },
+      "shipping_address": {
+        "street": "88 Hai Bà Trưng",
+        "city_area": "Quận Cầu Giấy",
+        "city": "Hà Nội",
+        "country_area": "Hà Nội",
+        "country": "VN"
+      },
+      "lines": [
+        {
+          "sku": "SM-TT-0013",
+          "product_name": "Quần legging nữ lưng cao tím",
+          "quantity": 2,
+          "unit_price": 339000
+        }
+      ],
+      "fulfillments": [],
+      "shipping_method": "Miễn phí vận chuyển",
+      "shipping_price": 0,
+      "subtotal": 678000,
+      "total": 678000
+    },
+    {
+      "external_reference": "shopmate-seed-order-005",
+      "number": "88",
+      "status": "UNFULFILLED",
+      "created_at": "2026-08-15T08:09:14+07:00",
+      "customer": {
+        "first_name": "Nam",
+        "last_name": "Hoàng",
+        "email": "khachhang10@example.com"
+      },
+      "shipping_address": {
+        "street": "214 Điện Biên Phủ",
+        "city_area": "Quận Lê Chân",
+        "city": "Hải Phòng",
+        "country_area": "Hải Phòng",
+        "country": "VN"
+      },
+      "lines": [
+        {
+          "sku": "SM-GIAY-0008",
+          "product_name": "Giày sneaker nữ đế độn đen",
+          "quantity": 1,
+          "unit_price": 719000
+        },
+        {
+          "sku": "SM-NU-0037",
+          "product_name": "Áo sơ mi nữ công sở đen",
+          "quantity": 3,
+          "unit_price": 359000
+        }
+      ],
+      "fulfillments": [],
+      "shipping_method": "Miễn phí vận chuyển",
+      "shipping_price": 0,
+      "subtotal": 1796000,
+      "total": 1796000
+    },
+    {
+      "external_reference": "shopmate-seed-order-006",
+      "number": "89",
+      "status": "FULFILLED",
+      "created_at": "2026-08-19T07:05:59+07:00",
+      "customer": {
+        "first_name": "Lan",
+        "last_name": "Nguyễn",
+        "email": "khachhang01@example.com"
+      },
+      "shipping_address": {
+        "street": "132 Nguyễn Huệ",
+        "city_area": "Quận Đống Đa",
+        "city": "Hà Nội",
+        "country_area": "Hà Nội",
+        "country": "VN"
+      },
+      "lines": [
+        {
+          "sku": "SM-NAM-0050",
+          "product_name": "Áo thun nam cổ tròn basic xám",
+          "quantity": 1,
+          "unit_price": 219000
+        },
+        {
+          "sku": "SM-TUI-0022",
+          "product_name": "Túi đeo chéo mini be",
+          "quantity": 1,
+          "unit_price": 389000
+        },
+        {
+          "sku": "SM-NU-0023",
+          "product_name": "Áo sơ mi nữ dáng rộng hồng",
+          "quantity": 1,
+          "unit_price": 279000
+        }
+      ],
+      "fulfillments": [
+        {
+          "tracking_code": "SMVN552280045",
+          "lines": [
+            {
+              "line_index": 0,
+              "quantity": 1
+            },
+            {
+              "line_index": 1,
+              "quantity": 1
+            },
+            {
+              "line_index": 2,
+              "quantity": 1
+            }
+          ]
+        }
+      ],
+      "shipping_method": "Miễn phí vận chuyển",
+      "shipping_price": 0,
+      "subtotal": 887000,
+      "total": 887000
+    },
+    {
+      "external_reference": "shopmate-seed-order-007",
+      "number": "90",
+      "status": "UNCONFIRMED",
+      "created_at": "2026-08-20T04:11:41+07:00",
+      "customer": {
+        "first_name": "Phúc",
+        "last_name": "Bùi",
+        "email": "khachhang03@example.com"
+      },
+      "shipping_address": {
+        "street": "2 Điện Biên Phủ",
+        "city_area": "Quận Bình Thạnh",
+        "city": "Hồ Chí Minh",
+        "country_area": "Thành phố Hồ Chí Minh",
+        "country": "VN"
+      },
+      "lines": [
+        {
+          "sku": "SM-NAM-0020",
+          "product_name": "Quần short nam thể thao xám",
+          "quantity": 2,
+          "unit_price": 279000
+        },
+        {
+          "sku": "SM-PK-0010",
+          "product_name": "Tất lười set 5 đôi be",
+          "quantity": 3,
+          "unit_price": 129000
+        },
+        {
+          "sku": "SM-NU-0003",
+          "product_name": "Váy liền nữ công sở xanh dương",
+          "quantity": 1,
+          "unit_price": 389000
+        }
+      ],
+      "fulfillments": [],
+      "shipping_method": "Miễn phí vận chuyển",
+      "shipping_price": 0,
+      "subtotal": 1334000,
+      "total": 1334000
+    },
+    {
+      "external_reference": "shopmate-seed-order-008",
+      "number": "91",
+      "status": "UNFULFILLED",
+      "created_at": "2026-08-20T20:44:52+07:00",
+      "customer": {
+        "first_name": "Nam",
+        "last_name": "Bùi",
+        "email": "khachhang04@example.com"
+      },
+      "shipping_address": {
+        "street": "88 Hai Bà Trưng",
+        "city_area": "Quận Cầu Giấy",
+        "city": "Hà Nội",
+        "country_area": "Hà Nội",
+        "country": "VN"
+      },
+      "lines": [
+        {
+          "sku": "SM-TT-0032",
+          "product_name": "Áo bra thể thao nữ nâng đỡ vừa trắng",
+          "quantity": 3,
+          "unit_price": 349000
+        },
+        {
+          "sku": "SM-PK-0015",
+          "product_name": "Tất cổ ngắn set 5 đôi xám",
+          "quantity": 3,
+          "unit_price": 69000
+        },
+        {
+          "sku": "SM-TUI-0021",
+          "product_name": "Túi xách nữ tote trắng",
+          "quantity": 3,
+          "unit_price": 739000
+        }
+      ],
+      "fulfillments": [],
+      "shipping_method": "Miễn phí vận chuyển",
+      "shipping_price": 0,
+      "subtotal": 3471000,
+      "total": 3471000
+    },
+    {
+      "external_reference": "shopmate-seed-order-009",
+      "number": "92",
+      "status": "FULFILLED",
+      "created_at": "2026-08-23T11:28:25+07:00",
+      "customer": {
+        "first_name": "Lan",
+        "last_name": "Nguyễn",
+        "email": "khachhang01@example.com"
+      },
+      "shipping_address": {
+        "street": "132 Nguyễn Huệ",
+        "city_area": "Quận Đống Đa",
+        "city": "Hà Nội",
+        "country_area": "Hà Nội",
+        "country": "VN"
+      },
+      "lines": [
+        {
+          "sku": "SM-TUI-0030",
+          "product_name": "Ví nữ cầm tay be",
+          "quantity": 1,
+          "unit_price": 539000
+        },
+        {
+          "sku": "SM-GIAY-0011",
+          "product_name": "Sandal quai hậu trắng",
+          "quantity": 1,
+          "unit_price": 349000
+        },
+        {
+          "sku": "SM-NU-0046",
+          "product_name": "Chân váy nữ jean trắng",
+          "quantity": 2,
+          "unit_price": 269000
+        }
+      ],
+      "fulfillments": [
+        {
+          "tracking_code": "SMVN687145564",
+          "lines": [
+            {
+              "line_index": 0,
+              "quantity": 1
+            },
+            {
+              "line_index": 1,
+              "quantity": 1
+            },
+            {
+              "line_index": 2,
+              "quantity": 2
+            }
+          ]
+        }
+      ],
+      "shipping_method": "Miễn phí vận chuyển",
+      "shipping_price": 0,
+      "subtotal": 1426000,
+      "total": 1426000
+    },
+    {
+      "external_reference": "shopmate-seed-order-010",
+      "number": "93",
+      "status": "UNFULFILLED",
+      "created_at": "2026-08-24T04:44:10+07:00",
+      "customer": {
+        "first_name": "Phúc",
+        "last_name": "Bùi",
+        "email": "khachhang03@example.com"
+      },
+      "shipping_address": {
+        "street": "2 Điện Biên Phủ",
+        "city_area": "Quận Bình Thạnh",
+        "city": "Hồ Chí Minh",
+        "country_area": "Thành phố Hồ Chí Minh",
+        "country": "VN"
+      },
+      "lines": [
+        {
+          "sku": "SM-TUI-0033",
+          "product_name": "Balo mini xanh navy",
+          "quantity": 3,
+          "unit_price": 969000
+        },
+        {
+          "sku": "SM-NU-0031",
+          "product_name": "Váy liền nữ maxi đi biển vàng",
+          "quantity": 1,
+          "unit_price": 529000
+        },
+        {
+          "sku": "SM-NU-0004",
+          "product_name": "Chân váy nữ chữ A hồng",
+          "quantity": 2,
+          "unit_price": 399000
+        }
+      ],
+      "fulfillments": [],
+      "shipping_method": "Miễn phí vận chuyển",
+      "shipping_price": 0,
+      "subtotal": 4234000,
+      "total": 4234000
+    },
+    {
+      "external_reference": "shopmate-seed-order-011",
+      "number": "94",
+      "status": "UNFULFILLED",
+      "created_at": "2026-08-30T05:33:05+07:00",
+      "customer": {
+        "first_name": "Vy",
+        "last_name": "Đặng",
+        "email": "khachhang11@example.com"
+      },
+      "shipping_address": {
+        "street": "221 Lê Lợi",
+        "city_area": "Thành phố Thủ Đức",
+        "city": "Hồ Chí Minh",
+        "country_area": "Thành phố Hồ Chí Minh",
+        "country": "VN"
+      },
+      "lines": [
+        {
+          "sku": "SM-GIAY-0022",
+          "product_name": "Giày cao gót nữ quai mảnh 9cm be",
+          "quantity": 1,
+          "unit_price": 509000
+        },
+        {
+          "sku": "SM-TUI-0035",
+          "product_name": "Ví nữ cầm tay đen",
+          "quantity": 3,
+          "unit_price": 239000
+        }
+      ],
+      "fulfillments": [],
+      "shipping_method": "Miễn phí vận chuyển",
+      "shipping_price": 0,
+      "subtotal": 1226000,
+      "total": 1226000
+    },
+    {
+      "external_reference": "shopmate-seed-order-012",
+      "number": "95",
+      "status": "FULFILLED",
+      "created_at": "2026-09-01T01:38:12+07:00",
+      "customer": {
+        "first_name": "Giang",
+        "last_name": "Ngô",
+        "email": "khachhang19@example.com"
+      },
+      "shipping_address": {
+        "street": "270 Lê Lợi",
+        "city_area": "Thành phố Thủ Đức",
+        "city": "Hồ Chí Minh",
+        "country_area": "Thành phố Hồ Chí Minh",
+        "country": "VN"
+      },
+      "lines": [
+        {
+          "sku": "SM-NAM-0025",
+          "product_name": "Quần jean nam ống đứng xám",
+          "quantity": 1,
+          "unit_price": 539000
+        },
+        {
+          "sku": "SM-GIAY-0039",
+          "product_name": "Giày tây nam oxford nâu",
+          "quantity": 1,
+          "unit_price": 1499000
+        }
+      ],
+      "fulfillments": [
+        {
+          "tracking_code": "SMVN876297792",
+          "lines": [
+            {
+              "line_index": 0,
+              "quantity": 1
+            },
+            {
+              "line_index": 1,
+              "quantity": 1
+            }
+          ]
+        }
+      ],
+      "shipping_method": "Miễn phí vận chuyển",
+      "shipping_price": 0,
+      "subtotal": 2038000,
+      "total": 2038000
+    },
+    {
+      "external_reference": "shopmate-seed-order-013",
+      "number": "96",
+      "status": "UNFULFILLED",
+      "created_at": "2026-09-03T17:52:09+07:00",
+      "customer": {
+        "first_name": "Lan",
+        "last_name": "Hoàng",
+        "email": "khachhang18@example.com"
+      },
+      "shipping_address": {
+        "street": "21 Nguyễn Trãi",
+        "city_area": "Quận Bình Thạnh",
+        "city": "Hồ Chí Minh",
+        "country_area": "Thành phố Hồ Chí Minh",
+        "country": "VN"
+      },
+      "lines": [
+        {
+          "sku": "SM-NAM-0011",
+          "product_name": "Quần jean nam rách gối xám",
+          "quantity": 1,
+          "unit_price": 389000
+        }
+      ],
+      "fulfillments": [],
+      "shipping_method": "Giao hàng tiêu chuẩn",
+      "shipping_price": 30000,
+      "subtotal": 389000,
+      "total": 419000
+    },
+    {
+      "external_reference": "shopmate-seed-order-014",
+      "number": "97",
+      "status": "FULFILLED",
+      "created_at": "2026-09-04T12:00:41+07:00",
+      "customer": {
+        "first_name": "Nam",
+        "last_name": "Hoàng",
+        "email": "khachhang10@example.com"
+      },
+      "shipping_address": {
+        "street": "214 Điện Biên Phủ",
+        "city_area": "Quận Lê Chân",
+        "city": "Hải Phòng",
+        "country_area": "Hải Phòng",
+        "country": "VN"
+      },
+      "lines": [
+        {
+          "sku": "SM-GIAY-0028",
+          "product_name": "Giày cao gót nữ đế vuông 5cm đỏ",
+          "quantity": 1,
+          "unit_price": 799000
+        },
+        {
+          "sku": "SM-PK-0032",
+          "product_name": "Mũ nồi beret đen",
+          "quantity": 1,
+          "unit_price": 149000
+        },
+        {
+          "sku": "SM-TUI-0023",
+          "product_name": "Balo du lịch xanh navy",
+          "quantity": 2,
+          "unit_price": 399000
+        }
+      ],
+      "fulfillments": [
+        {
+          "tracking_code": "SMVN335495432",
+          "lines": [
+            {
+              "line_index": 0,
+              "quantity": 1
+            },
+            {
+              "line_index": 1,
+              "quantity": 1
+            },
+            {
+              "line_index": 2,
+              "quantity": 2
+            }
+          ]
+        }
+      ],
+      "shipping_method": "Miễn phí vận chuyển",
+      "shipping_price": 0,
+      "subtotal": 1746000,
+      "total": 1746000
+    },
+    {
+      "external_reference": "shopmate-seed-order-015",
+      "number": "98",
+      "status": "CANCELED",
+      "created_at": "2026-09-06T16:58:09+07:00",
+      "customer": {
+        "first_name": "Bình",
+        "last_name": "Bùi",
+        "email": "khachhang07@example.com"
+      },
+      "shipping_address": {
+        "street": "198 Trần Hưng Đạo",
+        "city_area": "Quận Cầu Giấy",
+        "city": "Hà Nội",
+        "country_area": "Hà Nội",
+        "country": "VN"
+      },
+      "lines": [
+        {
+          "sku": "SM-NU-0040",
+          "product_name": "Quần jean nữ ống loe trắng",
+          "quantity": 1,
+          "unit_price": 449000
+        },
+        {
+          "sku": "SM-NAM-0006",
+          "product_name": "Quần short nam kaki xám",
+          "quantity": 2,
+          "unit_price": 269000
+        },
+        {
+          "sku": "SM-TUI-0026",
+          "product_name": "Túi xách nữ tote nâu",
+          "quantity": 2,
+          "unit_price": 839000
+        }
+      ],
+      "fulfillments": [],
+      "shipping_method": "Miễn phí vận chuyển",
+      "shipping_price": 0,
+      "subtotal": 2665000,
+      "total": 2665000
+    },
+    {
+      "external_reference": "shopmate-seed-order-016",
+      "number": "99",
+      "status": "FULFILLED",
+      "created_at": "2026-09-07T01:01:07+07:00",
+      "customer": {
+        "first_name": "Vy",
+        "last_name": "Đặng",
+        "email": "khachhang11@example.com"
+      },
+      "shipping_address": {
+        "street": "221 Lê Lợi",
+        "city_area": "Thành phố Thủ Đức",
+        "city": "Hồ Chí Minh",
+        "country_area": "Thành phố Hồ Chí Minh",
+        "country": "VN"
+      },
+      "lines": [
+        {
+          "sku": "SM-NU-0049",
+          "product_name": "Áo len nữ cổ tim nâu",
+          "quantity": 3,
+          "unit_price": 359000
+        }
+      ],
+      "fulfillments": [
+        {
+          "tracking_code": "SMVN371149149",
+          "lines": [
+            {
+              "line_index": 0,
+              "quantity": 3
+            }
+          ]
+        }
+      ],
+      "shipping_method": "Miễn phí vận chuyển",
+      "shipping_price": 0,
+      "subtotal": 1077000,
+      "total": 1077000
+    },
+    {
+      "external_reference": "shopmate-seed-order-017",
+      "number": "100",
+      "status": "UNCONFIRMED",
+      "created_at": "2026-09-09T05:01:37+07:00",
+      "customer": {
+        "first_name": "Lan",
+        "last_name": "Hoàng",
+        "email": "khachhang18@example.com"
+      },
+      "shipping_address": {
+        "street": "21 Nguyễn Trãi",
+        "city_area": "Quận Bình Thạnh",
+        "city": "Hồ Chí Minh",
+        "country_area": "Thành phố Hồ Chí Minh",
+        "country": "VN"
+      },
+      "lines": [
+        {
+          "sku": "SM-NAM-0019",
+          "product_name": "Quần kaki nam slim fit nâu",
+          "quantity": 1,
+          "unit_price": 489000
+        }
+      ],
+      "fulfillments": [],
+      "shipping_method": "Giao hàng tiêu chuẩn",
+      "shipping_price": 30000,
+      "subtotal": 489000,
+      "total": 519000
+    },
+    {
+      "external_reference": "shopmate-seed-order-018",
+      "number": "101",
+      "status": "UNFULFILLED",
+      "created_at": "2026-09-09T16:54:59+07:00",
+      "customer": {
+        "first_name": "Lan",
+        "last_name": "Nguyễn",
+        "email": "khachhang01@example.com"
+      },
+      "shipping_address": {
+        "street": "132 Nguyễn Huệ",
+        "city_area": "Quận Đống Đa",
+        "city": "Hà Nội",
+        "country_area": "Hà Nội",
+        "country": "VN"
+      },
+      "lines": [
+        {
+          "sku": "SM-NAM-0016",
+          "product_name": "Áo sơ mi nam oxford xanh dương",
+          "quantity": 1,
+          "unit_price": 439000
+        }
+      ],
+      "fulfillments": [],
+      "shipping_method": "Giao hàng tiêu chuẩn",
+      "shipping_price": 30000,
+      "subtotal": 439000,
+      "total": 469000
+    },
+    {
+      "external_reference": "shopmate-seed-order-019",
+      "number": "102",
+      "status": "PARTIALLY_FULFILLED",
+      "created_at": "2026-09-10T09:33:46+07:00",
+      "customer": {
+        "first_name": "Bình",
+        "last_name": "Bùi",
+        "email": "khachhang07@example.com"
+      },
+      "shipping_address": {
+        "street": "198 Trần Hưng Đạo",
+        "city_area": "Quận Cầu Giấy",
+        "city": "Hà Nội",
+        "country_area": "Hà Nội",
+        "country": "VN"
+      },
+      "lines": [
+        {
+          "sku": "SM-GIAY-0008",
+          "product_name": "Giày sneaker nữ đế độn đen",
+          "quantity": 2,
+          "unit_price": 719000
+        },
+        {
+          "sku": "SM-TT-0030",
+          "product_name": "Giày chạy bộ chống trượt trắng",
+          "quantity": 2,
+          "unit_price": 939000
+        },
+        {
+          "sku": "SM-NU-0041",
+          "product_name": "Áo khoác nữ blazer be",
+          "quantity": 2,
+          "unit_price": 379000
+        }
+      ],
+      "fulfillments": [
+        {
+          "tracking_code": "SMVN785267981",
+          "lines": [
+            {
+              "line_index": 0,
+              "quantity": 2
+            }
+          ]
+        }
+      ],
+      "shipping_method": "Miễn phí vận chuyển",
+      "shipping_price": 0,
+      "subtotal": 4074000,
+      "total": 4074000
+    },
+    {
+      "external_reference": "shopmate-seed-order-020",
+      "number": "103",
+      "status": "FULFILLED",
+      "created_at": "2026-09-10T17:42:00+07:00",
+      "customer": {
+        "first_name": "Ngọc",
+        "last_name": "Phạm",
+        "email": "khachhang16@example.com"
+      },
+      "shipping_address": {
+        "street": "40 Lý Thường Kiệt",
+        "city_area": "Quận Cầu Giấy",
+        "city": "Hà Nội",
+        "country_area": "Hà Nội",
+        "country": "VN"
+      },
+      "lines": [
+        {
+          "sku": "SM-TUI-0025",
+          "product_name": "Ví nữ mini gập ba hồng",
+          "quantity": 2,
+          "unit_price": 409000
+        },
+        {
+          "sku": "SM-NAM-0024",
+          "product_name": "Áo polo nam basic đỏ đô",
+          "quantity": 1,
+          "unit_price": 329000
+        },
+        {
+          "sku": "SM-NU-0013",
+          "product_name": "Áo khoác nữ gió chống nắng trắng",
+          "quantity": 1,
+          "unit_price": 309000
+        }
+      ],
+      "fulfillments": [
+        {
+          "tracking_code": "SMVN294486895",
+          "lines": [
+            {
+              "line_index": 0,
+              "quantity": 2
+            },
+            {
+              "line_index": 1,
+              "quantity": 1
+            },
+            {
+              "line_index": 2,
+              "quantity": 1
+            }
+          ]
+        }
+      ],
+      "shipping_method": "Miễn phí vận chuyển",
+      "shipping_price": 0,
+      "subtotal": 1456000,
+      "total": 1456000
+    },
+    {
+      "external_reference": "shopmate-seed-order-021",
+      "number": "104",
+      "status": "FULFILLED",
+      "created_at": "2026-09-13T20:40:28+07:00",
+      "customer": {
+        "first_name": "Châu",
+        "last_name": "Hoàng",
+        "email": "khachhang06@example.com"
+      },
+      "shipping_address": {
+        "street": "164 Phan Đình Phùng",
+        "city_area": "Quận 1",
+        "city": "Hồ Chí Minh",
+        "country_area": "Thành phố Hồ Chí Minh",
+        "country": "VN"
+      },
+      "lines": [
+        {
+          "sku": "SM-TT-0023",
+          "product_name": "Quần legging nữ lửng tím",
+          "quantity": 2,
+          "unit_price": 229000
+        }
+      ],
+      "fulfillments": [
+        {
+          "tracking_code": "SMVN409681478",
+          "lines": [
+            {
+              "line_index": 0,
+              "quantity": 2
+            }
+          ]
+        }
+      ],
+      "shipping_method": "Giao hàng tiêu chuẩn",
+      "shipping_price": 30000,
+      "subtotal": 458000,
+      "total": 488000
+    },
+    {
+      "external_reference": "shopmate-seed-order-022",
+      "number": "105",
+      "status": "FULFILLED",
+      "created_at": "2026-09-14T10:08:54+07:00",
+      "customer": {
+        "first_name": "Bình",
+        "last_name": "Đỗ",
+        "email": "khachhang20@example.com"
+      },
+      "shipping_address": {
+        "street": "96 Hai Bà Trưng",
+        "city_area": "Quận Lê Chân",
+        "city": "Hải Phòng",
+        "country_area": "Hải Phòng",
+        "country": "VN"
+      },
+      "lines": [
+        {
+          "sku": "SM-NAM-0003",
+          "product_name": "Áo polo nam phối viền trắng",
+          "quantity": 1,
+          "unit_price": 329000
+        },
+        {
+          "sku": "SM-TT-0021",
+          "product_name": "Áo thể thao nam chạy bộ đen",
+          "quantity": 2,
+          "unit_price": 309000
+        }
+      ],
+      "fulfillments": [
+        {
+          "tracking_code": "SMVN592274566",
+          "lines": [
+            {
+              "line_index": 0,
+              "quantity": 1
+            },
+            {
+              "line_index": 1,
+              "quantity": 2
+            }
+          ]
+        }
+      ],
+      "shipping_method": "Miễn phí vận chuyển",
+      "shipping_price": 0,
+      "subtotal": 947000,
+      "total": 947000
+    },
+    {
+      "external_reference": "shopmate-seed-order-023",
+      "number": "106",
+      "status": "CANCELED",
+      "created_at": "2026-09-14T11:28:03+07:00",
+      "customer": {
+        "first_name": "Châu",
+        "last_name": "Hoàng",
+        "email": "khachhang06@example.com"
+      },
+      "shipping_address": {
+        "street": "164 Phan Đình Phùng",
+        "city_area": "Quận 1",
+        "city": "Hồ Chí Minh",
+        "country_area": "Thành phố Hồ Chí Minh",
+        "country": "VN"
+      },
+      "lines": [
+        {
+          "sku": "SM-NU-0018",
+          "product_name": "Chân váy nữ chữ A trắng",
+          "quantity": 2,
+          "unit_price": 319000
+        },
+        {
+          "sku": "SM-PK-0022",
+          "product_name": "Mũ lưỡi trai basic be",
+          "quantity": 2,
+          "unit_price": 209000
+        },
+        {
+          "sku": "SM-TUI-0001",
+          "product_name": "Túi xách nữ tote đen",
+          "quantity": 2,
+          "unit_price": 869000
+        }
+      ],
+      "fulfillments": [],
+      "shipping_method": "Miễn phí vận chuyển",
+      "shipping_price": 0,
+      "subtotal": 2794000,
+      "total": 2794000
+    },
+    {
+      "external_reference": "shopmate-seed-order-024",
+      "number": "107",
+      "status": "UNFULFILLED",
+      "created_at": "2026-09-17T10:12:15+07:00",
+      "customer": {
+        "first_name": "Minh",
+        "last_name": "Hoàng",
+        "email": "khachhang05@example.com"
+      },
+      "shipping_address": {
+        "street": "56 Lê Lợi",
+        "city_area": "Quận Đống Đa",
+        "city": "Hà Nội",
+        "country_area": "Hà Nội",
+        "country": "VN"
+      },
+      "lines": [
+        {
+          "sku": "SM-NAM-0036",
+          "product_name": "Áo thun nam cổ tròn basic xanh rêu",
+          "quantity": 1,
+          "unit_price": 239000
+        },
+        {
+          "sku": "SM-NU-0022",
+          "product_name": "Áo thun nữ croptop vàng",
+          "quantity": 2,
+          "unit_price": 219000
+        }
+      ],
+      "fulfillments": [],
+      "shipping_method": "Miễn phí vận chuyển",
+      "shipping_price": 0,
+      "subtotal": 677000,
+      "total": 677000
+    },
+    {
+      "external_reference": "shopmate-seed-order-025",
+      "number": "108",
+      "status": "UNCONFIRMED",
+      "created_at": "2026-09-19T08:26:54+07:00",
+      "customer": {
+        "first_name": "Lan",
+        "last_name": "Nguyễn",
+        "email": "khachhang01@example.com"
+      },
+      "shipping_address": {
+        "street": "132 Nguyễn Huệ",
+        "city_area": "Quận Đống Đa",
+        "city": "Hà Nội",
+        "country_area": "Hà Nội",
+        "country": "VN"
+      },
+      "lines": [
+        {
+          "sku": "SM-NAM-0044",
+          "product_name": "Áo sơ mi nam tay dài công sở xanh dương",
+          "quantity": 2,
+          "unit_price": 489000
+        },
+        {
+          "sku": "SM-NAM-0006",
+          "product_name": "Quần short nam kaki xám",
+          "quantity": 3,
+          "unit_price": 269000
+        },
+        {
+          "sku": "SM-NU-0030",
+          "product_name": "Áo sơ mi nữ công sở xanh dương",
+          "quantity": 1,
+          "unit_price": 309000
+        }
+      ],
+      "fulfillments": [],
+      "shipping_method": "Miễn phí vận chuyển",
+      "shipping_price": 0,
+      "subtotal": 2094000,
+      "total": 2094000
+    },
+    {
+      "external_reference": "shopmate-seed-order-026",
+      "number": "109",
+      "status": "PARTIALLY_FULFILLED",
+      "created_at": "2026-09-20T13:59:20+07:00",
+      "customer": {
+        "first_name": "Linh",
+        "last_name": "Nguyễn",
+        "email": "khachhang17@example.com"
+      },
+      "shipping_address": {
+        "street": "16 Điện Biên Phủ",
+        "city_area": "Quận Cầu Giấy",
+        "city": "Hà Nội",
+        "country_area": "Hà Nội",
+        "country": "VN"
+      },
+      "lines": [
+        {
+          "sku": "SM-NAM-0013",
+          "product_name": "Quần short nam đi biển xanh rêu",
+          "quantity": 2,
+          "unit_price": 209000
+        },
+        {
+          "sku": "SM-NU-0018",
+          "product_name": "Chân váy nữ chữ A trắng",
+          "quantity": 3,
+          "unit_price": 319000
+        }
+      ],
+      "fulfillments": [
+        {
+          "tracking_code": "SMVN423589596",
+          "lines": [
+            {
+              "line_index": 0,
+              "quantity": 2
+            }
+          ]
+        }
+      ],
+      "shipping_method": "Miễn phí vận chuyển",
+      "shipping_price": 0,
+      "subtotal": 1375000,
+      "total": 1375000
+    },
+    {
+      "external_reference": "shopmate-seed-order-027",
+      "number": "110",
+      "status": "UNFULFILLED",
+      "created_at": "2026-09-21T12:22:29+07:00",
+      "customer": {
+        "first_name": "Lan",
+        "last_name": "Nguyễn",
+        "email": "khachhang01@example.com"
+      },
+      "shipping_address": {
+        "street": "132 Nguyễn Huệ",
+        "city_area": "Quận Đống Đa",
+        "city": "Hà Nội",
+        "country_area": "Hà Nội",
+        "country": "VN"
+      },
+      "lines": [
+        {
+          "sku": "SM-NAM-0038",
+          "product_name": "Áo polo nam thể thao xám",
+          "quantity": 3,
+          "unit_price": 209000
+        },
+        {
+          "sku": "SM-NAM-0017",
+          "product_name": "Áo polo nam thể thao trắng",
+          "quantity": 1,
+          "unit_price": 389000
+        }
+      ],
+      "fulfillments": [],
+      "shipping_method": "Miễn phí vận chuyển",
+      "shipping_price": 0,
+      "subtotal": 1016000,
+      "total": 1016000
+    },
+    {
+      "external_reference": "shopmate-seed-order-028",
+      "number": "111",
+      "status": "CANCELED",
+      "created_at": "2026-09-24T11:30:26+07:00",
+      "customer": {
+        "first_name": "Hà",
+        "last_name": "Nguyễn",
+        "email": "khachhang13@example.com"
+      },
+      "shipping_address": {
+        "street": "272 Lê Lợi",
+        "city_area": "Quận Cầu Giấy",
+        "city": "Hà Nội",
+        "country_area": "Hà Nội",
+        "country": "VN"
+      },
+      "lines": [
+        {
+          "sku": "SM-TUI-0026",
+          "product_name": "Túi xách nữ tote nâu",
+          "quantity": 2,
+          "unit_price": 839000
+        },
+        {
+          "sku": "SM-NU-0002",
+          "product_name": "Áo sơ mi nữ cổ nơ hồng",
+          "quantity": 2,
+          "unit_price": 399000
+        }
+      ],
+      "fulfillments": [],
+      "shipping_method": "Miễn phí vận chuyển",
+      "shipping_price": 0,
+      "subtotal": 2476000,
+      "total": 2476000
+    },
+    {
+      "external_reference": "shopmate-seed-order-029",
+      "number": "112",
+      "status": "FULFILLED",
+      "created_at": "2026-09-24T12:11:50+07:00",
+      "customer": {
+        "first_name": "Ngọc",
+        "last_name": "Phạm",
+        "email": "khachhang16@example.com"
+      },
+      "shipping_address": {
+        "street": "40 Lý Thường Kiệt",
+        "city_area": "Quận Cầu Giấy",
+        "city": "Hà Nội",
+        "country_area": "Hà Nội",
+        "country": "VN"
+      },
+      "lines": [
+        {
+          "sku": "SM-GIAY-0016",
+          "product_name": "Giày cao gót nữ quai mảnh 9cm đỏ",
+          "quantity": 1,
+          "unit_price": 869000
+        }
+      ],
+      "fulfillments": [
+        {
+          "tracking_code": "SMVN377865721",
+          "lines": [
+            {
+              "line_index": 0,
+              "quantity": 1
+            }
+          ]
+        }
+      ],
+      "shipping_method": "Miễn phí vận chuyển",
+      "shipping_price": 0,
+      "subtotal": 869000,
+      "total": 869000
+    },
+    {
+      "external_reference": "shopmate-seed-order-030",
+      "number": "113",
+      "status": "UNFULFILLED",
+      "created_at": "2026-09-26T06:06:30+07:00",
+      "customer": {
+        "first_name": "An",
+        "last_name": "Bùi",
+        "email": "khachhang12@example.com"
+      },
+      "shipping_address": {
+        "street": "249 Điện Biên Phủ",
+        "city_area": "Quận Đống Đa",
+        "city": "Hà Nội",
+        "country_area": "Hà Nội",
+        "country": "VN"
+      },
+      "lines": [
+        {
+          "sku": "SM-TUI-0031",
+          "product_name": "Túi xách nữ mini đen",
+          "quantity": 3,
+          "unit_price": 589000
+        }
+      ],
+      "fulfillments": [],
+      "shipping_method": "Miễn phí vận chuyển",
+      "shipping_price": 0,
+      "subtotal": 1767000,
+      "total": 1767000
+    }
+  ]
+}
