@@ -432,7 +432,7 @@ The manifest (`data/index/manifest.json`, committed) was byte-identical after th
 
 ```bash
 uv run pytest                  # unit tests: fast, no services (158)
-uv run pytest -m integration   # live: Qdrant + cached model + built index + Saleor (9, about 30 s, about 2.1 GiB)
+uv run pytest -m integration   # live: Qdrant + cached model + built index + Saleor (15, about 1.5 min, about 2.1 GiB)
 ./scripts/test_all.sh          # both; fails if either fails
 ```
 

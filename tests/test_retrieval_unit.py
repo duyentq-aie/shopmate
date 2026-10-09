@@ -5,6 +5,7 @@ from __future__ import annotations
 import dataclasses
 import json
 import random
+import types
 
 import pytest
 from qdrant_client import QdrantClient
@@ -189,3 +190,48 @@ def test_search_input_validation(client):
     with pytest.raises(ValueError):
         SearchFilters(keyword="xếp ly")  # not a filter (DECISIONS R14); unknown fields are rejected, not ignored
     assert SearchFilters().to_qdrant() is None
+
+
+def test_dense_ties_are_broken_by_stable_key_after_over_fetching(client):
+    """12 identical documents tie exactly in dense; with k=3 the result must be the 3 smallest SKUs,
+    in order, every time. That needs over-fetching: sorting only Qdrant's arbitrary top 3 would not
+    guarantee which tied documents are in the list (DECISIONS R16)."""
+    docs = [Document(f"product:SM-NAM-{n:04d}", "áo giống hệt nhau",
+                     {"doc_type": "product", "sku": f"SM-NAM-{n:04d}"}) for n in (9, 3, 11, 1, 7, 5, 12, 2, 10, 4, 8, 6)]
+    _index(client, docs)
+    retriever = Retriever(client, FakeEmbedder(), collection="test")
+    runs = {tuple(h.key for h in retriever.search("áo giống hệt nhau", k=3, mode="dense")) for _ in range(10)}
+    assert runs == {("product:SM-NAM-0001", "product:SM-NAM-0002", "product:SM-NAM-0003")}
+
+
+@pytest.mark.parametrize("mode", ["dense", "hybrid"])
+def test_fused_ties_are_sorted_after_over_fetching(mode):
+    """Fake Qdrant that returns tied points in a different random order on every call (like the
+    real RRF ties). The retriever must ask for fetch_limit(k) points and return a stable order."""
+    from qdrant_client import models
+
+    from app.retrieval.search import fetch_limit, stable_key
+
+    class ShufflingClient:
+        def __init__(self):
+            self.rng = random.Random(1)
+            self.limits = []
+
+        def query_points(self, collection, limit, **kwargs):
+            self.limits.append(limit)
+            points = [models.ScoredPoint(id=n, version=0, score=0.5 if n < 20 else 0.1,
+                                         payload={"doc_type": "product", "sku": f"SM-NAM-{n:04d}", "key": f"product:SM-NAM-{n:04d}"})
+                      for n in range(40)]
+            # Like Qdrant: highest scores first, but tied points in an arbitrary order on every call.
+            self.rng.shuffle(points)
+            points.sort(key=lambda p: -p.score)  # stable sort keeps the random order within ties
+            return types.SimpleNamespace(points=points[:limit])  # the retriever only reads .points
+
+    client = ShufflingClient()
+    retriever = Retriever(client, FakeEmbedder(), collection="test")
+    runs = {tuple(h.key for h in retriever.search("x", k=5, mode=mode)) for _ in range(10)}
+    assert runs == {tuple(f"product:SM-NAM-{n:04d}" for n in range(5))}
+    assert set(client.limits) == {fetch_limit(5)} == {30}
+    assert fetch_limit(10) == 30 and fetch_limit(20) == 60
+    assert stable_key({"doc_type": "policy", "file": "doi-tra", "clause": 2}, "x") < \
+        stable_key({"doc_type": "policy", "file": "doi-tra", "clause": 10}, "x")

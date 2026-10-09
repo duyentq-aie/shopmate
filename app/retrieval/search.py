@@ -8,6 +8,14 @@ Filters are translated to a Qdrant filter and applied INSIDE Qdrant, on every pr
 on the final query, so a result can never violate them. There is deliberately no `keyword`
 filter: free-text name matching is the retrieval model's job, not a hard filter (DECISIONS R14).
 
+Deterministic order (Phase 3A bug fix, DECISIONS R16): RRF scores depend only on ranks, so ties
+are common, and Qdrant returns tied points in an arbitrary order that changes between calls. The
+retriever therefore over-fetches `fetch_limit(k)` fused results, sorts them client-side by
+(score desc, stable key asc) and truncates to k. Over-fetching matters: sorting only the top k
+cannot fix WHICH of two tied points made it into the list. The stable key is the SKU for products
+and "file:clause" for policies. This is a fix, not a ranking choice; smarter tie-breaking (e.g.
+preferring the higher dense score) is a Phase 4 candidate.
+
 Deliberately a baseline: no query rewriting, no Vietnamese normalisation, no reranker, no LLM.
 Those come later as measured experiments.
 """
@@ -25,6 +33,20 @@ from app.retrieval.store import COLLECTION, DENSE, SPARSE
 
 Mode = Literal["dense", "hybrid"]
 PREFETCH_LIMIT = 50  # candidates per branch before RRF; part of the baseline definition
+MIN_FETCH = 30  # fused results fetched before the deterministic sort
+
+
+def fetch_limit(k: int) -> int:
+    return max(3 * k, MIN_FETCH)
+
+
+def stable_key(payload: dict, fallback: str) -> str:
+    """Tie-break key: SKU for products, "file:clause" for policies (clause zero-padded so 2 < 10)."""
+    if payload.get("doc_type") == "product" and payload.get("sku"):
+        return f"product:{payload['sku']}"
+    if payload.get("doc_type") == "policy" and payload.get("file") is not None:
+        return f"policy:{payload['file']}:{int(payload.get('clause', 0)):04d}"
+    return fallback
 HIDDEN_PAYLOAD = ("text", "text_sha256", "payload_sha256", "embedding_fingerprint")
 
 
@@ -96,7 +118,7 @@ class Retriever:
 
         if mode == "dense":
             result = self.client.query_points(self.collection, query=embedding.dense, using=DENSE,
-                                              query_filter=flt, limit=k, with_payload=True)
+                                              query_filter=flt, limit=fetch_limit(k), with_payload=True)
         elif mode == "hybrid":
             prefetch = [models.Prefetch(query=embedding.dense, using=DENSE, filter=flt, limit=PREFETCH_LIMIT)]
             if embedding.sparse:
@@ -105,12 +127,14 @@ class Retriever:
                 prefetch.append(models.Prefetch(query=sparse, using=SPARSE, filter=flt, limit=PREFETCH_LIMIT))
             result = self.client.query_points(self.collection, prefetch=prefetch,
                                               query=models.FusionQuery(fusion=models.Fusion.RRF),
-                                              query_filter=flt, limit=k, with_payload=True)
+                                              query_filter=flt, limit=fetch_limit(k), with_payload=True)
         else:
             raise ValueError(f"unknown mode {mode!r}")
 
+        ordered = sorted(result.points,
+                         key=lambda p: (-p.score, stable_key(p.payload or {}, str(p.id))))[:k]
         hits = []
-        for point in result.points:
+        for point in ordered:
             payload = dict(point.payload or {})
             text = payload.get("text", "")
             for field in HIDDEN_PAYLOAD:
