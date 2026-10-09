@@ -25,6 +25,15 @@ def orders():
     return load_orders()
 
 
+def _with_pending_numbers(golden: GoldenSet) -> GoldenSet:
+    """The golden set as it was before sync_order_numbers ran, independent of the file's state."""
+    data = golden.model_dump(mode="json")
+    for item in data["items"]:
+        if item["gold_source"]["type"] == "order":
+            item["gold_source"]["order_number"] = "pending"
+    return GoldenSet.model_validate(data)
+
+
 def _replace_item(golden: GoldenSet, item_id: str, **changes) -> GoldenSet:
     data = golden.model_dump(mode="json")
     for item in data["items"]:
@@ -40,9 +49,7 @@ def test_committed_golden_set_passes_validator(catalog, orders):
 
 
 def test_strict_mode_rejects_pending_order_numbers(catalog, orders):
-    golden = load_golden()
-    if all(i.gold_source.type != "order" or i.gold_source.order_number != "pending" for i in golden.items):
-        pytest.skip("order numbers already recorded")
+    golden = _with_pending_numbers(load_golden())
     problems = validate_golden.check(golden, catalog, orders, require_order_numbers=True)
     assert problems and all("pending" in p for p in problems)
 
@@ -124,7 +131,7 @@ def test_test_split_hash_tracks_only_test_items():
 
 
 def test_sync_fills_pending_numbers_and_keeps_human_edits(orders):
-    golden = load_golden()
+    golden = _with_pending_numbers(load_golden())
     order_item = next(i for i in golden.items if i.gold_source.type == "order")
     edited = _replace_item(golden, order_item.id, notes="human note", status="human_reviewed")
     numbered = orders.model_copy(update={"orders": [o.model_copy(update={"number": str(500 + n)})
@@ -180,3 +187,11 @@ def test_force_never_overwrites_reviewed_items(tmp_path):
     before = out.read_bytes()
     assert draft_golden.main(["--out", str(out), "--force"]) == 1
     assert out.read_bytes() == before
+
+
+def test_committed_golden_set_passes_strict_mode_once_numbers_are_recorded(catalog, orders):
+    golden = load_golden()
+    if all(i.gold_source.type != "order" or i.gold_source.order_number != "pending" for i in golden.items):
+        assert validate_golden.check(golden, catalog, orders, require_order_numbers=True) == []
+    else:
+        assert any(o.number == "pending" for o in orders.orders), "orders are seeded; run sync_order_numbers"

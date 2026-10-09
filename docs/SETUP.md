@@ -344,8 +344,17 @@ Schema: `eval/golden/schema.py`. Item fields: `id`, `question`, `intent` (produc
 
 - Gold SKU lists of filtered product searches are computed from the catalog by `apply_filters`; the validator recomputes them, so labels cannot drift from the data.
 - Order questions use the literal placeholder `{order_number}`; the gold source names the fixture by external reference. `order_number` stays `pending` until step H.
-- **Anti-IDOR (DECISIONS D28):** order data may only be revealed for order number + the owner's email (or phone). Order gold sources carry `provided_identity` and `expected_behavior`: `matching_email` → `answer`, `none` → `ask_for_verification`, `mismatched_email` → `refuse`. The validator checks the email in the question against the fixture's owner.
+- **Anti-IDOR (DECISIONS D28, D37):** order data may only be revealed for order number + the owner's email (v1 is email-only; a phone alone → ask for the email). Order gold sources carry `provided_identity` and `expected_behavior`: `matching_email` → `answer`, `none` → `ask_for_verification`, `mismatched_email` → `refuse`. The validator checks the email in the question against the fixture's owner.
 - 64 agent drafts, all `status: draft_needs_human_review`, `author: agent_draft`: 22 product_search (2 deliberate no-match, 1 out-of-stock product), 12 policy_question, 12 order_status (gs-061..064 are the verify-or-refuse cases), 6 create_ticket, 6 out_of_scope, 6 smalltalk; 33 có dấu, 17 không dấu, 14 teencode; 43 dev, 21 test (per intent, the ~30% with the smallest sha256(id)).
+
+Human-written items (DECISIONS D36): write content in `eval/golden/human_items.toml` (template with 3 commented examples; ids from gs-101), then:
+
+```bash
+uv run python -m eval.golden.merge_human_items --dry-run   # validate, print per-stratum counts, write nothing
+uv run python -m eval.golden.merge_human_items             # compute gold labels, merge, re-split all items
+```
+
+The script computes gold SKUs, order numbers and expected order behavior, sets `author: human` / `status: human_reviewed`, never changes gs-001…gs-064 except their `split`, and re-splits all items stratified by intent × query_style (~70/30). It prints the cell table for information and warns when a margin of the test split is low: each query_style ≥ 8 test items, product_search and policy_question ≥ 6, other intents ≥ 2 (D37). Order verification is email-only in v1: a question giving only a phone expects `ask_for_verification`. The TOML is the source of truth for human items: edit them there, not in `golden.vi.json`.
 
 Review helper (read only, never writes): `uv run python -m eval.golden.check_query_style` flags items whose `query_style` label likely disagrees with the text (abbreviation tokens such as ko, k, dc, đc, sp, j, ship → teencode; no diacritics → khong_dau). The owner decides every label.
 
@@ -370,3 +379,66 @@ SALEOR_SCHEMA_SDL=/tmp/saleor.graphql uv run pytest tests/test_documents_against
 ```
 
 Schema validation does not check permissions or Saleor's business rules.
+
+---
+
+# Phase 3A: retrieval infrastructure
+
+Decisions: `docs/DECISIONS-phase3a.md`. Baseline only; no evaluation has been run.
+
+## Qdrant
+
+```bash
+cd ~/shopmate-workspace/shopmate
+docker compose up -d qdrant        # shopmate's own compose file; never Saleor's
+curl -s http://127.0.0.1:6333/readyz
+```
+
+Image `qdrant/qdrant:v1.19.1` (pinned), REST on `127.0.0.1:6333` only, storage `./data/qdrant` (git-ignored), memory limit 1 GiB. `docker compose stop qdrant` keeps the data; never `down --volumes` casually.
+
+## Embedding model
+
+`BAAI/bge-m3` at revision `5617a9f61b028005a4858fdac845db406aefb181`, run on CPU with torch from PyTorch's CPU index. The first use downloads missing files into `~/.cache/huggingface` (about 2.2 GB); later loads read the cache only.
+
+## Build the index
+
+```bash
+uv run python -m scripts.build_index            # drift check, documents, embed changed ones, manifest
+uv run python -m scripts.build_index --rebuild  # drop and recreate the shopmate_vn collection
+```
+
+Needs Saleor running (seeder token for the drift check, runtime token for products) and Qdrant. Results on 2026-10-09:
+
+| Run | Embedded | Skipped | Time | Peak RSS |
+|---|---|---|---|---|
+| first | 269 (250 products + 19 policy clauses) | 0 | 101.8 s (96.0 s embedding) | 2.16 GiB |
+| second | 0 | 269 | 1.6 s (model not loaded) | 0.10 GiB |
+
+The manifest (`data/index/manifest.json`, committed) was byte-identical after the second run.
+
+## Tests
+
+```bash
+uv run pytest                  # unit tests: fast, no services (158)
+uv run pytest -m integration   # live: Qdrant + cached model + built index + Saleor (7, about 30 s, about 2.1 GiB)
+./scripts/test_all.sh          # both; fails if either fails
+```
+
+Phase 3A counts as done only when both are green. The integration suite covers: parity with FlagEmbedding (tolerances in DECISIONS R3), manifest = live index, re-index unchanged, smoke queries in both modes, and the filter property test (200 random filter combinations × dense/hybrid, checked against the catalog file).
+
+To regenerate the parity fixture (only when the model revision changes), use a separate venv with FlagEmbedding, never the project venv:
+
+```bash
+~/.cache/shopmate-bench/venv/bin/python tests/fixtures/generate_bge_m3_reference.py
+```
+
+## Memory on this machine (2026-10-09, WSL 7.6 GiB)
+
+| Component | RAM |
+|---|---|
+| Saleor stack (7 containers) | about 2.0–2.7 GiB (the worker varies 1.4–2.0 GiB) |
+| Qdrant (269 points) | about 80–92 MiB |
+| bge-m3 during indexing / integration tests | peak 2.16–2.19 GiB, about 0.7 GiB at rest after load |
+| Available with everything idle | about 4.2 GiB |
+
+`/tmp` in this WSL is a tmpfs, so files written there use RAM. Do not put large venvs or caches there.

@@ -12,15 +12,23 @@ from eval.golden.check_query_style import main, suggest
 @pytest.mark.parametrize(
     "question, expected",
     [
+        # rule 3: diacritics, no abbreviations
         ("Shop có áo sơ mi nam màu xanh dương không?", "co_dau"),
-        ("tim giay sneaker nu size 37", "khong_dau"),
+        ("giày bong keo thì bảo hành bao lâu shop", "co_dau"),
+        ("phi ship nhiêu vậy shop", "co_dau"),  # "ship" is a loanword; one typo ("phi") is not khong_dau
+        ("Mình cần váy liền dưới 400k", "co_dau"),  # price "400k" is not the abbreviation "k"
+        ("Đơn {order_number}, email khachhang10@example.com", "co_dau"),
+        # rule 2: diacritics + a chat abbreviation
         ("Shop ơi, có sơ mi nam màu xanh dương ko?", "teencode"),
         ("dc kiểm hàng trc khi nhận k shop", "teencode"),
         ("đơn trên 500k có free ship hk ạ", "teencode"),
+        ("shop check giúp e đơn {order_number} với ạ", "teencode"),  # "e" (em)
+        ("ao thun nam XXL còn hàng ko shop", "teencode"),  # one missing diacritic does not make it khong_dau
+        # rule 1 is checked first: mostly without diacritics, even with abbreviations
+        ("tim giay sneaker nu size 37", "khong_dau"),
+        ("tui deo cheo duoi 400k co ko shop", "khong_dau"),
+        ("cam on shop nhìu nha", "khong_dau"),
         ("kiem tra don {order_number} giup minh, email khachhang01@example.com", "khong_dau"),
-        ("Đơn {order_number}, email khachhang10@example.com", "co_dau"),
-        ("Mình cần váy liền dưới 400k", "co_dau"),  # price "400k" is not the token "k"
-        ("cam on shop nhìu nha", "teencode"),
     ],
 )
 def test_suggestions(question, expected):

@@ -1,0 +1,59 @@
+{
+  "collection": "shopmate_vn",
+  "embedding": {
+    "model_id": "BAAI/bge-m3",
+    "revision": "5617a9f61b028005a4858fdac845db406aefb181",
+    "dense_dim": 1024,
+    "dense_pooling": "cls",
+    "dense_normalized": true,
+    "max_length": 512,
+    "sparse_activation": "relu",
+    "sparse_pooling": "max_per_token_id",
+    "sparse_drop_special_tokens": true,
+    "dtype": "float32",
+    "fingerprint": "53b494c7da7e1203"
+  },
+  "vectors": {
+    "dense": {
+      "size": 1024,
+      "distance": "Cosine"
+    },
+    "sparse": {
+      "modifier": "none"
+    }
+  },
+  "documents": {
+    "product": 250,
+    "policy": 19,
+    "total": 269
+  },
+  "sources": {
+    "catalog": {
+      "path": "data/seed/catalog.vi.json",
+      "sha256": "89f81491d1ca9e44422bd5f87b86f003b32048f4070b61b531525c5e6339b866"
+    },
+    "policies": {
+      "doi-tra": {
+        "path": "data/policies/doi-tra.md",
+        "sha256": "10ccf96c63d240a9af2c8aa96e1823db13c8ebaf06dfe8b1c8dca0364e0056df"
+      },
+      "van-chuyen": {
+        "path": "data/policies/van-chuyen.md",
+        "sha256": "4144c945e58bdc973190c0ec4dcb0a28c58deeec5a186104b31c1fa45b010d84"
+      },
+      "bao-hanh": {
+        "path": "data/policies/bao-hanh.md",
+        "sha256": "780b2a8a6c217534e3dbbedf8d827873cafb5f0799b5086e14499fb5961ba3f0"
+      }
+    },
+    "products_from": "Saleor channel vn via read-only runtime client (ProductsInChannel)",
+    "drift_check": "passed"
+  },
+  "versions": {
+    "qdrant_server": "1.19.1",
+    "qdrant_client": "1.19.1",
+    "torch": "2.14.1+cpu",
+    "transformers": "5.19.0"
+  },
+  "built_at": "2026-10-09T13:58:02+00:00"
+}

@@ -1,0 +1,17 @@
+# ShopMate's own services. Separate from saleor-platform's compose file on purpose.
+#   docker compose up -d qdrant      # start
+#   docker compose stop qdrant       # stop, keeps data
+# Storage lives in ./data/qdrant (git-ignored). Never use `down --volumes` casually.
+name: shopmate
+
+services:
+  qdrant:
+    image: qdrant/qdrant:v1.19.1  # pinned; released 2026-09-03
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:6333:6333"  # REST, localhost only
+    volumes:
+      - ./data/qdrant:/qdrant/storage
+    environment:
+      QDRANT__TELEMETRY_DISABLED: "true"
+    mem_limit: 1g

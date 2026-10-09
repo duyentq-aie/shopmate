@@ -8,6 +8,9 @@ dependencies = [
     "graphql-core>=3.3.0",
     "httpx>=0.28.1",
     "pydantic>=2.14.0",
+    "qdrant-client>=1.19.1,<1.20",
+    "torch>=2.14,<2.15",
+    "transformers>=5.19,<6",
 ]
 
 [dependency-groups]
@@ -23,3 +26,16 @@ package = false
 [tool.pytest.ini_options]
 pythonpath = ["."]
 testpaths = ["tests"]
+# `uv run pytest` = fast unit tests, no services. `uv run pytest -m integration` = needs the
+# running Qdrant and the cached bge-m3 model. scripts/test_all.sh runs both.
+addopts = "-m 'not integration'"
+markers = ["integration: needs the running Qdrant (docker compose) and the cached bge-m3 model"]
+
+# torch comes from PyTorch's CPU-only index (no CUDA wheels, ~200 MB instead of GBs).
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
