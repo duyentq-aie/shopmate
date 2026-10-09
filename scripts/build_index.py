@@ -54,8 +54,9 @@ def main(argv: list[str] | None = None) -> int:
         return 1
     print("drift check: Saleor channel vn matches data/seed/catalog.vi.json")
 
+    kinds = {p.sku: p.kind for p in load_catalog().products}  # kind is a catalog field, not in Saleor
     with ReadOnlySaleorClient(api_url(), require_setting("SALEOR_RUNTIME_TOKEN")) as runtime:
-        products = fetch_product_documents(runtime)
+        products = fetch_product_documents(runtime, kinds)
     policies = policy_documents()
     documents = products + policies
     print(f"documents: {len(products)} products, {len(policies)} policy clauses")
@@ -69,7 +70,8 @@ def main(argv: list[str] | None = None) -> int:
     embed_started = time.monotonic()
     stats = index_documents(client, documents, config, embedder_factory=lambda: BgeM3Embedder(config))
     embed_seconds = time.monotonic() - embed_started
-    print(f"index: {stats.embedded} embedded, {stats.skipped} unchanged (skipped), {stats.deleted} deleted "
+    print(f"index: {stats.embedded} embedded, {stats.payload_updated} payload-only updates, "
+          f"{stats.skipped} unchanged (skipped), {stats.deleted} deleted "
           f"in {embed_seconds:.1f}s")
 
     counts = count_by_doc_type(client)
@@ -78,7 +80,7 @@ def main(argv: list[str] | None = None) -> int:
         print(f"ERROR: collection counts {counts} != documents {expected}", file=sys.stderr)
         return 1
     manifest = build_manifest(config, counts, client.info().version, drift_check="passed")
-    changed = bool(stats.embedded or stats.deleted or created)
+    changed = bool(stats.embedded or stats.payload_updated or stats.deleted or created)
     written = write_manifest(manifest, force=changed)
     print(f"manifest: {'written' if written else 'unchanged'} ({counts['total']} points: "
           f"{counts['product']} products, {counts['policy']} policy clauses)")

@@ -4,9 +4,9 @@
 - "sparse": bge-m3 lexical weights (sparse vector, no IDF modifier: the weights are learned).
 Payload indexes exist for every field retrieval filters on.
 
-Each point's payload carries `content_sha256` and `embedding_fingerprint`; together they are the
-skip key of the indexer, so a change of text, payload, model revision or embedding settings
-forces re-embedding.
+Each point's payload carries `text_sha256` and `embedding_fingerprint` (the re-embedding key:
+a change of text, model revision or embedding settings forces re-embedding) and `payload_sha256`
+(a payload-only change is written without re-embedding).
 """
 
 from __future__ import annotations
@@ -25,6 +25,7 @@ PAYLOAD_INDEXES: dict[str, models.PayloadSchemaType] = {
     "doc_type": models.PayloadSchemaType.KEYWORD,
     "sku": models.PayloadSchemaType.KEYWORD,
     "category": models.PayloadSchemaType.KEYWORD,
+    "kind": models.PayloadSchemaType.KEYWORD,
     "color": models.PayloadSchemaType.KEYWORD,
     "material": models.PayloadSchemaType.KEYWORD,
     "sizes": models.PayloadSchemaType.KEYWORD,
@@ -68,6 +69,10 @@ def ensure_collection(client: QdrantClient, config: EmbeddingConfig, collection:
         if (dense is None or dense.size != config.dense_dim or dense.distance != models.Distance.COSINE
                 or SPARSE not in (params.sparse_vectors or {})):
             raise CollectionMismatch(f"collection {collection!r} has a different vector layout; rebuild it")
+        present = set((client.get_collection(collection).payload_schema or {}).keys())
+        for field, schema in PAYLOAD_INDEXES.items():
+            if field not in present:  # e.g. a filter field added later
+                client.create_payload_index(collection, field_name=field, field_schema=schema)
         return False
     client.create_collection(
         collection,
@@ -79,16 +84,17 @@ def ensure_collection(client: QdrantClient, config: EmbeddingConfig, collection:
     return True
 
 
-def existing_index_keys(client: QdrantClient, collection: str = COLLECTION) -> dict[str, tuple[str, str]]:
-    """point id -> (content_sha256, embedding_fingerprint) for every point."""
+def existing_index_keys(client: QdrantClient, collection: str = COLLECTION) -> dict[str, tuple[str, str, str]]:
+    """point id -> (text_sha256, embedding_fingerprint, payload_sha256) for every point."""
     keys: dict[str, tuple[str, str]] = {}
     offset = None
     while True:
         points, offset = client.scroll(collection, limit=256, offset=offset, with_vectors=False,
-                                       with_payload=["content_sha256", "embedding_fingerprint"])
+                                       with_payload=["text_sha256", "embedding_fingerprint", "payload_sha256"])
         for point in points:
             payload = point.payload or {}
-            keys[str(point.id)] = (payload.get("content_sha256", ""), payload.get("embedding_fingerprint", ""))
+            keys[str(point.id)] = (payload.get("text_sha256", ""), payload.get("embedding_fingerprint", ""),
+                                   payload.get("payload_sha256", ""))
         if offset is None:
             return keys
 

@@ -398,7 +398,7 @@ Image `qdrant/qdrant:v1.19.1` (pinned), REST on `127.0.0.1:6333` only, storage `
 
 ## Embedding model
 
-`BAAI/bge-m3` at revision `5617a9f61b028005a4858fdac845db406aefb181`, run on CPU with torch from PyTorch's CPU index. The first use downloads missing files into `~/.cache/huggingface` (about 2.2 GB); later loads read the cache only.
+`BAAI/bge-m3` at revision `5617a9f61b028005a4858fdac845db406aefb181`, run on CPU with torch from PyTorch's CPU index. Filterable payload: doc_type, sku, category, kind, color, material, sizes, price_vnd, in_stock, file, clause. `keyword` is not a filter (DECISIONS R14). The first use downloads missing files into `~/.cache/huggingface` (about 2.2 GB); later loads read the cache only.
 
 ## Build the index
 
@@ -420,17 +420,38 @@ The manifest (`data/index/manifest.json`, committed) was byte-identical after th
 
 ```bash
 uv run pytest                  # unit tests: fast, no services (158)
-uv run pytest -m integration   # live: Qdrant + cached model + built index + Saleor (7, about 30 s, about 2.1 GiB)
+uv run pytest -m integration   # live: Qdrant + cached model + built index + Saleor (9, about 30 s, about 2.1 GiB)
 ./scripts/test_all.sh          # both; fails if either fails
 ```
 
-Phase 3A counts as done only when both are green. The integration suite covers: parity with FlagEmbedding (tolerances in DECISIONS R3), manifest = live index, re-index unchanged, smoke queries in both modes, and the filter property test (200 random filter combinations × dense/hybrid, checked against the catalog file).
+Phase 3A counts as done only when both are green.
 
-To regenerate the parity fixture (only when the model revision changes), use a separate venv with FlagEmbedding, never the project venv:
+`test_all.sh` exits non-zero and prints `FAIL` for whichever suite fails. This was verified on 2026-10-09 by injecting one failing test from outside the repo, without editing any file: `PYTEST_ADDOPTS="tests /path/outside/forced_test_dir" ./scripts/test_all.sh`. With a failing unit test it printed `unit tests: FAIL (1)`, `integration tests: PASS`, exit 1. With a failing `@pytest.mark.integration` test it printed `unit tests: PASS`, `integration tests: FAIL (1)`, exit 1. The real suites still ran in full (159 + 9). The temporary tests were deleted afterwards; a clean run exits 0. The integration suite covers: parity with FlagEmbedding (tolerances in DECISIONS R3), manifest = live index, re-index unchanged, smoke queries in both modes, and the filter property test (200 random filter combinations × dense/hybrid, checked against the catalog file).
+
+### Bench venv (FlagEmbedding reference), kept outside the project
+
+`~/.cache/shopmate-bench/venv` holds FlagEmbedding, which is deliberately not a project dependency. It is only needed to regenerate `tests/fixtures/bge_m3_reference.json` (for example after changing `MODEL_REVISION` in `app/retrieval/embedder.py`). Keep it. If it is lost, rebuild it with the versions the committed fixture was made with (also recorded inside the fixture under `versions`):
 
 ```bash
-~/.cache/shopmate-bench/venv/bin/python tests/fixtures/generate_bge_m3_reference.py
+B=~/.cache/shopmate-bench          # on disk; NOT /tmp (tmpfs, uses RAM)
+mkdir -p $B && cd $B
+uv venv --python 3.12 venv
+VIRTUAL_ENV=$B/venv uv pip install --index-url https://download.pytorch.org/whl/cpu "torch==2.14.1"
+VIRTUAL_ENV=$B/venv uv pip install "FlagEmbedding==1.4.2" "transformers==5.19.0" huggingface_hub psutil
+$B/venv/bin/python -c "import torch, FlagEmbedding; print(torch.__version__)"   # expect 2.14.1+cpu
 ```
+
+Install torch from the CPU index **first**: otherwise the resolver pulls the CUDA build and triton (several GB).
+
+Regenerate the fixture from the repo root, then run the parity test:
+
+```bash
+cd ~/shopmate-workspace/shopmate
+~/.cache/shopmate-bench/venv/bin/python tests/fixtures/generate_bge_m3_reference.py
+uv run pytest -m integration tests/test_embedder_parity.py
+```
+
+The generator pins the model revision itself (it must equal `MODEL_REVISION`), uses `use_fp16=False` on CPU, and writes the library versions into the fixture. If you change the FlagEmbedding version, record it in `docs/DECISIONS-phase3a.md` (R3) together with the measured parity.
 
 ## Memory on this machine (2026-10-09, WSL 7.6 GiB)
 

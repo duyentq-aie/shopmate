@@ -18,7 +18,7 @@ from app.catalog.schema import CATALOG_PATH
 from app.config import REPO_ROOT
 from app.policies import POLICY_DOCUMENTS, policy_path
 from app.retrieval.embedder import EmbeddingConfig
-from app.retrieval.store import COLLECTION, vector_config
+from app.retrieval.store import COLLECTION, PAYLOAD_INDEXES, vector_config
 
 MANIFEST_PATH = REPO_ROOT / "data" / "index" / "manifest.json"
 TIMESTAMP_FIELDS = ("built_at",)
@@ -34,6 +34,7 @@ def build_manifest(config: EmbeddingConfig, counts: dict[str, int], qdrant_serve
         "collection": collection,
         "embedding": {**asdict(config), "fingerprint": config.fingerprint()},
         "vectors": vector_config(config),
+        "filterable_payload": sorted(PAYLOAD_INDEXES),
         "documents": counts,
         "sources": {
             "catalog": {"path": str(CATALOG_PATH.relative_to(REPO_ROOT)), "sha256": file_sha256(CATALOG_PATH)},

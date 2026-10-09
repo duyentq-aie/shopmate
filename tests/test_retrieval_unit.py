@@ -20,6 +20,7 @@ from tests.fake_embedder import FAKE_CONFIG, FakeEmbedder
 pytestmark = pytest.mark.filterwarnings("ignore:Payload indexes have no effect in the local Qdrant")
 
 COLORS, MATERIALS, CATEGORIES = ["Đen", "Trắng", "Xám"], ["Cotton", "Da bò"], ["thoi-trang-nam", "giay-dep"]
+KINDS = ["Áo thun nam", "Giày sneaker nam", "Ví da nam"]
 SIZE_POOL = ["S", "M", "L", "39", "40", "41"]
 
 
@@ -29,7 +30,7 @@ def _documents(n: int = 40) -> list[Document]:
     for i in range(n):
         sku = f"SM-NAM-{i:04d}"
         payload = {"doc_type": "product", "sku": sku, "name": f"sản phẩm {i}", "category": rng.choice(CATEGORIES),
-                   "price_vnd": rng.randrange(100, 1000) * 1000, "color": rng.choice(COLORS),
+                   "kind": rng.choice(KINDS), "price_vnd": rng.randrange(100, 1000) * 1000, "color": rng.choice(COLORS),
                    "material": rng.choice(MATERIALS), "sizes": sorted(rng.sample(SIZE_POOL, 2)), "in_stock": rng.random() > 0.2}
         docs.append(Document(f"product:{sku}", f"áo {payload['color']} {payload['material']} số {i}", payload))
     for clause in (1, 2, 3):
@@ -86,6 +87,22 @@ def test_embedding_settings_are_part_of_the_skip_key(change):
     assert dataclasses.replace(FAKE_CONFIG, **change).fingerprint() != FAKE_CONFIG.fingerprint()
 
 
+def test_payload_only_change_updates_payload_without_loading_the_model(client):
+    docs = _documents()
+    _index(client, docs)
+    changed = [dataclasses.replace(docs[0], payload={**docs[0].payload, "kind": "Áo polo nam"})] + docs[1:]
+
+    def must_not_load():
+        raise AssertionError("model loaded for a payload-only change")
+
+    stats = index_documents(client, changed, FAKE_CONFIG, embedder_factory=must_not_load, collection="test")
+    assert (stats.embedded, stats.payload_updated, stats.skipped) == (0, 1, len(docs) - 1)
+    point = client.retrieve("test", [docs[0].point_id], with_payload=True)[0]
+    assert point.payload["kind"] == "Áo polo nam" and point.payload["payload_sha256"] == changed[0].payload_sha256
+    again = index_documents(client, changed, FAKE_CONFIG, embedder_factory=must_not_load, collection="test")
+    assert (again.payload_updated, again.skipped) == (0, len(docs))
+
+
 def test_vanished_documents_are_deleted(client):
     docs = _documents()
     _index(client, docs)
@@ -119,6 +136,7 @@ def _satisfies(payload: dict, f: SearchFilters) -> bool:
     checks = [
         f.doc_type is None or payload.get("doc_type") == f.doc_type,
         f.category is None or payload.get("category") == f.category,
+        f.kind is None or payload.get("kind") == f.kind,
         f.color is None or payload.get("color") == f.color,
         f.material is None or payload.get("material") == f.material,
         f.size is None or f.size in payload.get("sizes", []),
@@ -140,6 +158,7 @@ def test_filters_are_enforced_inside_qdrant(client, mode):
     for _ in range(60):
         f = SearchFilters(
             doc_type="product",
+            kind=rng.choice([None, *KINDS]),
             color=rng.choice([None, *COLORS]),
             material=rng.choice([None, *MATERIALS]),
             size=rng.choice([None, *SIZE_POOL]),
@@ -156,7 +175,7 @@ def test_policy_filters_and_hidden_payload(client):
     _index(client, _documents())
     hits = Retriever(client, FakeEmbedder(), collection="test").search("phí ship", {"doc_type": "policy", "clause": 2}, k=5)
     assert [h.key for h in hits] == ["policy:van-chuyen:2"]
-    assert "content_sha256" not in hits[0].payload and hits[0].text
+    assert not {"text_sha256", "payload_sha256", "embedding_fingerprint"} & set(hits[0].payload) and hits[0].text
 
 
 def test_search_input_validation(client):
@@ -168,5 +187,5 @@ def test_search_input_validation(client):
     with pytest.raises(ValueError):
         SearchFilters(price_min=500, price_max=100)
     with pytest.raises(ValueError):
-        SearchFilters(kind="Áo")  # unknown filter fields are rejected, not ignored
+        SearchFilters(keyword="xếp ly")  # not a filter (DECISIONS R14); unknown fields are rejected, not ignored
     assert SearchFilters().to_qdrant() is None

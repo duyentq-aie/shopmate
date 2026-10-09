@@ -22,6 +22,19 @@
       "modifier": "none"
     }
   },
+  "filterable_payload": [
+    "category",
+    "clause",
+    "color",
+    "doc_type",
+    "file",
+    "in_stock",
+    "kind",
+    "material",
+    "price_vnd",
+    "sizes",
+    "sku"
+  ],
   "documents": {
     "product": 250,
     "policy": 19,
@@ -55,5 +68,5 @@
     "torch": "2.14.1+cpu",
     "transformers": "5.19.0"
   },
-  "built_at": "2026-10-09T13:58:02+00:00"
+  "built_at": "2026-10-09T14:26:42+00:00"
 }

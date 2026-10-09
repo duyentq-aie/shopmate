@@ -1,8 +1,12 @@
 """Documents to index: one per product (channel `vn`, via the read-only runtime client) and
 one per policy clause ("Điều n").
 
-Each document has a deterministic point id (uuid5) and a content hash. The text is what gets
-embedded; the payload is what Qdrant filters on and what retrieval returns.
+Each document has a deterministic point id (uuid5), a hash of its text (what gets embedded) and a
+hash of its payload (what Qdrant filters on and retrieval returns). The two are separate so a
+payload-only change updates the payload without re-embedding.
+
+`kind` (e.g. "Áo sơ mi nam") is not stored in Saleor; it comes from data/seed/catalog.vi.json,
+joined by SKU. build_index.py only runs after the Saleor-vs-catalog drift check passed.
 """
 
 from __future__ import annotations
@@ -31,8 +35,12 @@ class Document:
         return str(uuid.uuid5(POINT_NAMESPACE, self.key))
 
     @property
-    def content_sha256(self) -> str:
-        canonical = json.dumps({"text": self.text, "payload": self.payload}, ensure_ascii=False, sort_keys=True)
+    def text_sha256(self) -> str:
+        return hashlib.sha256(self.text.encode("utf-8")).hexdigest()
+
+    @property
+    def payload_sha256(self) -> str:
+        canonical = json.dumps(self.payload, ensure_ascii=False, sort_keys=True)
         return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 
 
@@ -46,8 +54,9 @@ def editorjs_to_text(description: str | None) -> str:
     return "\n".join(b.get("data", {}).get("text", "") for b in blocks if b.get("data", {}).get("text"))
 
 
-def product_document(node: dict) -> Document:
-    """Build a document from one ProductsInChannel node (read-only runtime client)."""
+def product_document(node: dict, kind: str | None) -> Document:
+    """Build a document from one ProductsInChannel node (read-only runtime client) and the
+    product's catalog kind."""
     variants = node.get("variants") or []
     if len(variants) != 1:
         raise ValueError(f"{node.get('name')!r}: expected exactly one variant, got {len(variants)}")
@@ -76,6 +85,7 @@ def product_document(node: dict) -> Document:
         "sku": variant["sku"],
         "name": node["name"],
         "category": category["slug"],
+        "kind": kind,
         "price_vnd": int(round(float(price["amount"]))),
         "color": color,
         "material": material,
@@ -85,12 +95,17 @@ def product_document(node: dict) -> Document:
     return Document(key=f"product:{variant['sku']}", text=text, payload=payload)
 
 
-def fetch_product_documents(runtime_client, channel: str = "vn") -> list[Document]:
-    """All products of `channel`, through the read-only client's allowlisted query."""
+def fetch_product_documents(runtime_client, kinds: dict[str, str], channel: str = "vn") -> list[Document]:
+    """All products of `channel`, through the read-only client's allowlisted query.
+    `kinds` maps SKU -> catalog kind; a product missing from it is an error (catalog drift)."""
     documents, after = [], None
     while True:
         conn = runtime_client.execute("ProductsInChannel", {"channel": channel, "first": 100, "after": after})["products"]
-        documents.extend(product_document(edge["node"]) for edge in conn["edges"])
+        for edge in conn["edges"]:
+            sku = edge["node"]["variants"][0]["sku"] if edge["node"].get("variants") else None
+            if sku not in kinds:
+                raise ValueError(f"product {sku!r} in Saleor is not in the catalog file")
+            documents.append(product_document(edge["node"], kinds[sku]))
         if not conn["pageInfo"]["hasNextPage"]:
             break
         after = conn["pageInfo"]["endCursor"]

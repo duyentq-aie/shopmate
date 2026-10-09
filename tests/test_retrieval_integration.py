@@ -26,6 +26,8 @@ from app.policies import policy_path
 
 pytestmark = pytest.mark.integration
 
+FILTER_ON_PROBABILITY = 0.2  # 156/200 combinations match (1056 hits, 10 with a kind filter); the 44 empty ones test "no false hits". Every kind is also covered by test_kind_filter_for_every_catalog_kind.
+
 SMOKE_QUERIES = [
     "áo thun nam màu đen",
     "giay chay bo size 42",
@@ -64,6 +66,8 @@ def test_manifest_matches_the_actual_index(client):
     assert manifest["embedding"]["fingerprint"] == config.fingerprint()
     assert manifest["embedding"]["revision"] == config.revision
     assert manifest["documents"] == count_by_doc_type(client)
+    assert "kind" in manifest["filterable_payload"] and "keyword" not in manifest["filterable_payload"]
+    assert "kind" in (client.get_collection(COLLECTION).payload_schema or {})
     assert manifest["documents"]["product"] == len(load_catalog().products)
     assert manifest["documents"]["policy"] == sum(len(clauses(d)) for d in POLICY_DOCUMENTS)
     params = client.get_collection(COLLECTION).config.params
@@ -83,15 +87,16 @@ def test_manifest_matches_the_actual_index(client):
 
 
 def test_reindexing_leaves_point_counts_unchanged(client):
+    kinds = {p.sku: p.kind for p in load_catalog().products}
     with ReadOnlySaleorClient(api_url(), require_setting("SALEOR_RUNTIME_TOKEN")) as runtime:
-        documents = fetch_product_documents(runtime) + policy_documents()
+        documents = fetch_product_documents(runtime, kinds) + policy_documents()
     before = count_by_doc_type(client)
 
     def must_not_load():
         raise AssertionError("re-index tried to load the model: some document changed")
 
     stats = index_documents(client, documents, EmbeddingConfig(), embedder_factory=must_not_load)
-    assert (stats.embedded, stats.deleted, stats.skipped) == (0, 0, len(documents))
+    assert (stats.embedded, stats.payload_updated, stats.deleted, stats.skipped) == (0, 0, 0, len(documents))
     assert count_by_doc_type(client) == before
 
 
@@ -106,7 +111,7 @@ def test_smoke_queries_return_results(retriever, mode):
 
 
 def _catalog_view() -> dict[str, dict]:
-    return {p.sku: {"doc_type": "product", "category": p.category, "color": p.color, "material": p.material,
+    return {p.sku: {"doc_type": "product", "category": p.category, "kind": p.kind, "color": p.color, "material": p.material,
                     "sizes": p.sizes, "price_vnd": p.price, "in_stock": p.stock > 0} for p in load_catalog().products}
 
 
@@ -126,6 +131,7 @@ def _satisfies(truth: dict, f: SearchFilters) -> bool:
     return all([
         f.doc_type is None or truth["doc_type"] == f.doc_type,
         f.category is None or truth.get("category") == f.category,
+        f.kind is None or truth.get("kind") == f.kind,
         f.color is None or truth.get("color") == f.color,
         f.material is None or truth.get("material") == f.material,
         f.size is None or f.size in truth.get("sizes", []),
@@ -143,8 +149,8 @@ def _random_filters(rng: random.Random) -> SearchFilters:
         file = rng.choice(POLICY_DOCUMENTS)
         return SearchFilters(doc_type="policy", file=file,
                              clause=rng.choice([None, *clauses(file)]))
-    def pick(values):  # each filter field is on with probability 0.3, so many combinations still match
-        return rng.choice(values) if rng.random() < 0.3 else None
+    def pick(values):  # each filter field is on with FILTER_ON_PROBABILITY, so most combinations still match
+        return rng.choice(values) if rng.random() < FILTER_ON_PROBABILITY else None
 
     low = pick([100_000, 200_000, 300_000, 500_000])
     high = pick([300_000, 500_000, 800_000, 1_500_000])
@@ -153,6 +159,7 @@ def _random_filters(rng: random.Random) -> SearchFilters:
     return SearchFilters(
         doc_type=pick(["product"]),
         category=pick(sorted({p.category for p in catalog.products})),
+        kind=pick(sorted({p.kind for p in catalog.products})),
         color=pick(sorted({p.color for p in catalog.products})),
         material=pick(sorted({p.material for p in catalog.products})),
         size=pick(["S", "M", "XL", "30", "38", "41", "Freesize"]),
@@ -165,7 +172,7 @@ def _random_filters(rng: random.Random) -> SearchFilters:
 @pytest.mark.parametrize("mode", ["dense", "hybrid"])
 def test_every_result_satisfies_random_filters(retriever, mode):
     rng = random.Random(20261009)
-    checked = non_empty = 0
+    checked = non_empty = kind_non_empty = 0
     for i in range(200):
         f = _random_filters(rng)
         query = SMOKE_QUERIES[i % len(SMOKE_QUERIES)]
@@ -176,5 +183,19 @@ def test_every_result_satisfies_random_filters(retriever, mode):
         assert len(hits) == min(10, expected), (mode, f, len(hits), expected)  # nothing matching is lost
         checked += len(hits)
         non_empty += bool(hits)
+        kind_non_empty += bool(hits) and f.kind is not None
     # The property is only meaningful if most combinations actually return results.
-    assert non_empty >= 100 and checked >= 1000, (non_empty, checked)
+    assert non_empty >= 100 and checked >= 1000 and kind_non_empty >= 10, (non_empty, checked, kind_non_empty)
+
+
+@pytest.mark.parametrize("mode", ["dense", "hybrid"])
+def test_kind_filter_for_every_catalog_kind(retriever, mode):
+    """Every kind in the catalog: all hits have that kind (per the catalog file) and none is lost."""
+    catalog = _catalog_view()
+    kinds = sorted({v["kind"] for v in catalog.values()})
+    assert len(kinds) >= 30
+    for i, kind in enumerate(kinds):
+        f = SearchFilters(kind=kind)
+        hits = retriever.search(SMOKE_QUERIES[i % len(SMOKE_QUERIES)], f, k=10, mode=mode)
+        assert all(_truth(h).get("kind") == kind for h in hits), (mode, kind)
+        assert len(hits) == min(10, sum(v["kind"] == kind for v in catalog.values())), (mode, kind)

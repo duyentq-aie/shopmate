@@ -28,33 +28,35 @@ def _node(**overrides) -> dict:
 
 
 def test_product_document_payload_and_text():
-    doc = product_document(_node())
+    doc = product_document(_node(), "Áo thun nam")
     assert doc.key == "product:SM-NAM-0001"
     assert doc.payload == {
         "doc_type": "product", "sku": "SM-NAM-0001", "name": "Áo thun nam cổ tròn basic đen",
-        "category": "thoi-trang-nam", "price_vnd": 199000, "color": "Đen", "material": "Cotton",
+        "category": "thoi-trang-nam", "kind": "Áo thun nam", "price_vnd": 199000, "color": "Đen", "material": "Cotton",
         "sizes": ["M", "L", "XL"], "in_stock": False,
     }
     assert "Mô tả ngắn." in doc.text and "Thời trang nam" in doc.text and "Kích cỡ: M, L, XL" in doc.text
 
 
-def test_point_id_and_hash_are_deterministic_and_order_insensitive():
-    a = product_document(_node())
+def test_point_id_and_hashes_are_deterministic_and_order_insensitive():
+    a = product_document(_node(), "Áo thun nam")
     shuffled = _node(attributes=list(reversed(_node()["attributes"])))
-    b = product_document(shuffled)
-    assert a.point_id == b.point_id and a.content_sha256 == b.content_sha256
+    b = product_document(shuffled, "Áo thun nam")
+    assert (a.point_id, a.text_sha256, a.payload_sha256) == (b.point_id, b.text_sha256, b.payload_sha256)
     assert a.point_id == Document("product:SM-NAM-0001", "x", {}).point_id  # id depends on the key only
-    changed = product_document(_node(name="Tên khác"))
-    assert changed.point_id == a.point_id and changed.content_sha256 != a.content_sha256
+    renamed = product_document(_node(name="Tên khác"), "Áo thun nam")
+    assert renamed.point_id == a.point_id and renamed.text_sha256 != a.text_sha256
+    other_kind = product_document(_node(), "Áo polo nam")  # payload-only change
+    assert other_kind.text_sha256 == a.text_sha256 and other_kind.payload_sha256 != a.payload_sha256
 
 
 def test_product_document_rejects_unexpected_shapes():
     with pytest.raises(ValueError, match="one variant"):
-        product_document(_node(variants=[]))
+        product_document(_node(variants=[]), None)
     bad = _node()
     bad["variants"][0]["pricing"]["price"]["gross"]["currency"] = "USD"
     with pytest.raises(ValueError, match="VND"):
-        product_document(bad)
+        product_document(bad, None)
 
 
 def test_editorjs_to_text():

@@ -5,7 +5,8 @@ search(query, filters, k, mode):
 - mode "hybrid": dense and sparse candidates (PREFETCH_LIMIT each) fused with Reciprocal Rank
   Fusion inside Qdrant (Query API, FusionQuery RRF).
 Filters are translated to a Qdrant filter and applied INSIDE Qdrant, on every prefetch branch and
-on the final query, so a result can never violate them.
+on the final query, so a result can never violate them. There is deliberately no `keyword`
+filter: free-text name matching is the retrieval model's job, not a hard filter (DECISIONS R14).
 
 Deliberately a baseline: no query rewriting, no Vietnamese normalisation, no reranker, no LLM.
 Those come later as measured experiments.
@@ -24,7 +25,7 @@ from app.retrieval.store import COLLECTION, DENSE, SPARSE
 
 Mode = Literal["dense", "hybrid"]
 PREFETCH_LIMIT = 50  # candidates per branch before RRF; part of the baseline definition
-HIDDEN_PAYLOAD = ("text", "content_sha256", "embedding_fingerprint")
+HIDDEN_PAYLOAD = ("text", "text_sha256", "payload_sha256", "embedding_fingerprint")
 
 
 class SearchFilters(BaseModel):
@@ -34,6 +35,7 @@ class SearchFilters(BaseModel):
 
     doc_type: Literal["product", "policy"] | None = None
     category: str | None = None
+    kind: str | None = None  # catalog product kind, e.g. "Áo sơ mi nam"
     color: str | None = None
     material: str | None = None
     size: str | None = None  # the product's available sizes include this one
@@ -55,7 +57,7 @@ class SearchFilters(BaseModel):
         def match(key: str, value) -> None:
             must.append(models.FieldCondition(key=key, match=models.MatchValue(value=value)))
 
-        for key in ("doc_type", "category", "color", "material", "in_stock", "file", "clause"):
+        for key in ("doc_type", "category", "kind", "color", "material", "in_stock", "file", "clause"):
             value = getattr(self, key)
             if value is not None:
                 match(key, value)
