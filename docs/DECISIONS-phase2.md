@@ -126,3 +126,15 @@ Seen on the second `seed_channel` run, which compared against `None` and stopped
 
 **D35. The golden order-number sync is deferred; the golden file is not touched.**
 The owner is reviewing `golden.vi.json` and asked that the agent not edit it. `eval/golden/sync_order_numbers.py` (which only fills `gold_source.order_number`) and the strict validator run after the owner has fixed the review labels. `eval/golden/check_query_style.py` is a read-only helper for that review: it suggests `query_style` labels and never writes.
+
+**D36. Human-item workflow: TOML input, computed labels, stratified re-split.**
+- Input: `eval/golden/human_items.toml`. The owner chose TOML over YAML: Python 3.12 reads it with the standard `tomllib`, so no PyYAML dependency. It supports comments for the template.
+- `eval/golden/merge_human_items.py` computes all gold labels (SKUs via `apply_filters`, order number/status from `orders.vi.json`, identity → expected behavior), sets `author: human` and `status: human_reviewed`, and validates the merged set in strict mode before writing. `--dry-run` writes nothing.
+- The TOML is the source of truth for human items: every merge regenerates them from it (idempotent). Editing a human item directly in `golden.vi.json` is overwritten by the next merge. Removing one from the TOML makes the merge refuse instead of deleting it.
+- Agent-drafted items (gs-001…gs-064) are never modified except `split`; the script checks this and aborts otherwise.
+- Phone handling: superseded by D37 (v1 is email-only).
+- Split: stratified by intent × query_style over all items, sha256(id) ranking, `floor(0.3·n + 0.5)` test items per stratum (half-up, avoiding Python's banker's rounding). Allowed because no system has run on the test split. The test hash is printed, not frozen. Per-cell warnings were replaced by marginal checks (D37).
+
+**D37. Order verification is email-only in v1; split checks are on the margins.**
+- Email only: orders carry no phone numbers (D12) and are append-only fixtures, so a phone could never match. Labelling phone questions "refuse" would make that metric impossible to fail. A question that gives only a phone number therefore expects `ask_for_verification` (the assistant asks for the email), with `provided_identity: phone_only`. If a question gives both, the email decides. Phones are still recognised in questions (validator regex, `phone` field in the TOML), but the schema has no value that lets an item expect a phone to match. This narrows D28 for v1; LABELING.md says the same.
+- Split checks (owner's decision): the stratified split by intent × query_style stays, for balance. Instead of warning per cell (a cell needs ≥ 9 items for 3 test items, which ~100 items over 18 cells cannot meet), `merge_human_items.py` checks the margins of the test split: each query_style ≥ 8 test items; product_search and policy_question ≥ 6 each; every other intent ≥ 2. The cell table is printed for information only. A failed check is a warning; it does not block the merge.

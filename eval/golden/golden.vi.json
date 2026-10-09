@@ -1,0 +1,1083 @@
+{
+  "schema_version": 1,
+  "description": "ShopMate golden set (Vietnamese). Items 'agent_draft' need human review; humans add the remaining items. Catalog and orders are synthetic.",
+  "items": [
+    {
+      "id": "gs-001",
+      "question": "Shop ơi, có sơ mi nam màu xanh dương ko?",
+      "intent": "product_search",
+      "query_style": "teencode",
+      "expected_filters": {
+        "kind": "Áo sơ mi nam",
+        "color": "Xanh dương"
+      },
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-NAM-0016",
+          "SM-NAM-0023",
+          "SM-NAM-0044"
+        ]
+      },
+      "split": "test",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-002",
+      "question": "tim sneaker nu size 37 shop oi",
+      "intent": "product_search",
+      "query_style": "khong_dau",
+      "expected_filters": {
+        "kind": "Giày sneaker nữ",
+        "size": "37"
+      },
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-GIAY-0002",
+          "SM-GIAY-0014",
+          "SM-GIAY-0020",
+          "SM-GIAY-0032",
+          "SM-GIAY-0038"
+        ]
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-003",
+      "question": "jean nam màu đen còn ko shop?",
+      "intent": "product_search",
+      "query_style": "teencode",
+      "expected_filters": {
+        "kind": "Quần jean nam",
+        "color": "Đen"
+      },
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-NAM-0004"
+        ]
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-004",
+      "question": "Có váy liền nào dưới 400k ko shop?",
+      "intent": "product_search",
+      "query_style": "teencode",
+      "expected_filters": {
+        "kind": "Váy liền nữ",
+        "price_max": 400000
+      },
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-NU-0003",
+          "SM-NU-0010"
+        ]
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-005",
+      "question": "shop có túi da bò cho nữ ko ạ",
+      "intent": "product_search",
+      "query_style": "teencode",
+      "expected_filters": {
+        "kind": "Túi xách nữ",
+        "material": "Da bò"
+      },
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-TUI-0006",
+          "SM-TUI-0026"
+        ]
+      },
+      "split": "test",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-006",
+      "question": "ao thun nam XXL còn hàng ko shop",
+      "intent": "product_search",
+      "query_style": "teencode",
+      "expected_filters": {
+        "kind": "Áo thun nam",
+        "size": "XXL",
+        "in_stock": true
+      },
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-NAM-0008",
+          "SM-NAM-0015"
+        ]
+      },
+      "split": "test",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-007",
+      "question": "shop ơi giày chạy bộ size 42 còn ko",
+      "intent": "product_search",
+      "query_style": "teencode",
+      "expected_filters": {
+        "kind": "Giày chạy bộ",
+        "size": "42"
+      },
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-TT-0005",
+          "SM-TT-0010",
+          "SM-TT-0015",
+          "SM-TT-0020",
+          "SM-TT-0025",
+          "SM-TT-0030"
+        ]
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-008",
+      "question": "Có balo đen nào đẹp ko shop?",
+      "intent": "product_search",
+      "query_style": "teencode",
+      "expected_filters": {
+        "kind": "Balo",
+        "color": "Đen"
+      },
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-TUI-0008",
+          "SM-TUI-0028"
+        ]
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-009",
+      "question": "ví da nam dưới 500k có mẫu nào ko",
+      "intent": "product_search",
+      "query_style": "teencode",
+      "expected_filters": {
+        "kind": "Ví da nam",
+        "price_max": 500000
+      },
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-TUI-0004",
+          "SM-TUI-0009",
+          "SM-TUI-0014",
+          "SM-TUI-0019",
+          "SM-TUI-0024"
+        ]
+      },
+      "split": "test",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-010",
+      "question": "chan vay xep ly co mau nao vay shop",
+      "intent": "product_search",
+      "query_style": "khong_dau",
+      "expected_filters": {
+        "kind": "Chân váy nữ",
+        "keyword": "xếp ly"
+      },
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-NU-0025"
+        ]
+      },
+      "split": "test",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-011",
+      "question": "dép quai ngang trắng bn tiền vậy shop",
+      "intent": "product_search",
+      "query_style": "teencode",
+      "expected_filters": {
+        "kind": "Dép quai ngang",
+        "color": "Trắng"
+      },
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-GIAY-0006"
+        ]
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-012",
+      "question": "áo khoác len nữ còn mẫu nào ko shop?",
+      "intent": "product_search",
+      "query_style": "teencode",
+      "expected_filters": {
+        "kind": "Áo khoác nữ",
+        "material": "Len"
+      },
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-NU-0006",
+          "SM-NU-0013",
+          "SM-NU-0020",
+          "SM-NU-0034",
+          "SM-NU-0048"
+        ]
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-013",
+      "question": "Cho mình xem kính mát gọng kim loại với",
+      "intent": "product_search",
+      "query_style": "co_dau",
+      "expected_filters": {
+        "kind": "Kính mát",
+        "material": "Kim loại"
+      },
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-PK-0013"
+        ]
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-014",
+      "question": "quan kaki nam mau be size 32 con ko",
+      "intent": "product_search",
+      "query_style": "khong_dau",
+      "expected_filters": {
+        "kind": "Quần kaki nam",
+        "color": "Be",
+        "size": "32"
+      },
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-NAM-0047"
+        ]
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-015",
+      "question": "shop có áo tập gym nam ko ạ",
+      "intent": "product_search",
+      "query_style": "teencode",
+      "expected_filters": {
+        "kind": "Áo thể thao nam",
+        "keyword": "tập gym"
+      },
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-TT-0001",
+          "SM-TT-0011",
+          "SM-TT-0026"
+        ]
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-016",
+      "question": "Có giày tây nam màu nâu size 41 ko shop?",
+      "intent": "product_search",
+      "query_style": "teencode",
+      "expected_filters": {
+        "kind": "Giày tây nam",
+        "color": "Nâu",
+        "size": "41"
+      },
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-GIAY-0009",
+          "SM-GIAY-0039",
+          "SM-GIAY-0045"
+        ]
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-017",
+      "question": "shop có mũ bucket ko nhỉ",
+      "intent": "product_search",
+      "query_style": "teencode",
+      "expected_filters": {
+        "kind": "Mũ",
+        "keyword": "bucket"
+      },
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-PK-0027"
+        ]
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-018",
+      "question": "tui deo cheo duoi 400k co ko shop",
+      "intent": "product_search",
+      "query_style": "khong_dau",
+      "expected_filters": {
+        "kind": "Túi đeo chéo",
+        "price_max": 400000
+      },
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-TUI-0022",
+          "SM-TUI-0027",
+          "SM-TUI-0032"
+        ]
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-019",
+      "question": "bra thể thao hồng size M còn hàng k shop",
+      "intent": "product_search",
+      "query_style": "teencode",
+      "expected_filters": {
+        "kind": "Áo bra thể thao nữ",
+        "color": "Hồng",
+        "size": "M",
+        "in_stock": true
+      },
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-TT-0007"
+        ]
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-020",
+      "question": "shop có giày cao gót xanh lá ko?",
+      "intent": "product_search",
+      "query_style": "teencode",
+      "expected_filters": {
+        "kind": "Giày cao gót nữ",
+        "color": "Xanh lá"
+      },
+      "gold_source": {
+        "type": "no_answer",
+        "reason": "Không có sản phẩm nào khớp bộ lọc."
+      },
+      "split": "test",
+      "status": "human_reviewed",
+      "author": "agent_draft",
+      "notes": "Không có sản phẩm khớp; câu trả lời đúng phải nói là không có, không bịa sản phẩm."
+    },
+    {
+      "id": "gs-021",
+      "question": "ao len nu do size XXL co ko shop",
+      "intent": "product_search",
+      "query_style": "khong_dau",
+      "expected_filters": {
+        "kind": "Áo len nữ",
+        "color": "Đỏ",
+        "size": "XXL"
+      },
+      "gold_source": {
+        "type": "no_answer",
+        "reason": "Không có sản phẩm nào khớp bộ lọc."
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft",
+      "notes": "Không có sản phẩm khớp; câu trả lời đúng phải nói là không có."
+    },
+    {
+      "id": "gs-022",
+      "question": "Áo sơ mi nữ cổ nơ màu hồng còn ko shop?",
+      "intent": "product_search",
+      "query_style": "teencode",
+      "expected_filters": {
+        "keyword": "Áo sơ mi nữ cổ nơ hồng"
+      },
+      "gold_source": {
+        "type": "skus",
+        "skus": [
+          "SM-NU-0002"
+        ]
+      },
+      "split": "test",
+      "status": "human_reviewed",
+      "author": "agent_draft",
+      "notes": "Sản phẩm này hết hàng (tồn kho 0): câu trả lời đúng phải nói là hết hàng."
+    },
+    {
+      "id": "gs-023",
+      "question": "Shop ơi đổi size trong mấy ngày vậy?",
+      "intent": "policy_question",
+      "query_style": "co_dau",
+      "gold_source": {
+        "type": "policy_clause",
+        "document": "doi-tra",
+        "clause": 2
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-024",
+      "question": "phi ship nhiêu vậy shop",
+      "intent": "policy_question",
+      "query_style": "co_dau",
+      "gold_source": {
+        "type": "policy_clause",
+        "document": "van-chuyen",
+        "clause": 2
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-025",
+      "question": "đơn trên 500k có free ship ko shop?",
+      "intent": "policy_question",
+      "query_style": "teencode",
+      "gold_source": {
+        "type": "policy_clause",
+        "document": "van-chuyen",
+        "clause": 2
+      },
+      "split": "test",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-026",
+      "question": "Đồ sale 50% thì có đổi trả được ko?",
+      "intent": "policy_question",
+      "query_style": "teencode",
+      "gold_source": {
+        "type": "policy_clause",
+        "document": "doi-tra",
+        "clause": 5
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-027",
+      "question": "Hoàn tiền thì khoảng bao lâu mới nhận được vậy shop?",
+      "intent": "policy_question",
+      "query_style": "co_dau",
+      "gold_source": {
+        "type": "policy_clause",
+        "document": "doi-tra",
+        "clause": 6
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-028",
+      "question": "giày bong keo thì bảo hành bao lâu shop",
+      "intent": "policy_question",
+      "query_style": "co_dau",
+      "gold_source": {
+        "type": "policy_clause",
+        "document": "bao-hanh",
+        "clause": 1
+      },
+      "split": "test",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-029",
+      "question": "Gửi hàng ra Hà Nội thì mấy ngày tới?",
+      "intent": "policy_question",
+      "query_style": "co_dau",
+      "gold_source": {
+        "type": "policy_clause",
+        "document": "van-chuyen",
+        "clause": 3
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-030",
+      "question": "shop cho kiểm hàng trước khi nhận ko",
+      "intent": "policy_question",
+      "query_style": "teencode",
+      "gold_source": {
+        "type": "policy_clause",
+        "document": "van-chuyen",
+        "clause": 5
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-031",
+      "question": "Túi da bò bên mình bảo hành bao lâu ạ?",
+      "intent": "policy_question",
+      "query_style": "co_dau",
+      "gold_source": {
+        "type": "policy_clause",
+        "document": "bao-hanh",
+        "clause": 1
+      },
+      "split": "test",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-032",
+      "question": "do da bi moc vi de am thi co duoc bao hanh ko shop",
+      "intent": "policy_question",
+      "query_style": "khong_dau",
+      "gold_source": {
+        "type": "policy_clause",
+        "document": "bao-hanh",
+        "clause": 3
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-033",
+      "question": "Đổi size có tốn phí gì ko shop?",
+      "intent": "policy_question",
+      "query_style": "teencode",
+      "gold_source": {
+        "type": "policy_clause",
+        "document": "doi-tra",
+        "clause": 4
+      },
+      "split": "test",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-034",
+      "question": "Shop có ship hàng ra nước ngoài ko ạ?",
+      "intent": "policy_question",
+      "query_style": "teencode",
+      "gold_source": {
+        "type": "policy_clause",
+        "document": "van-chuyen",
+        "clause": 1
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-035",
+      "question": "Shop kiểm tra giúp mình đơn {order_number} với, email đặt hàng là khachhang10@example.com.",
+      "intent": "order_status",
+      "query_style": "co_dau",
+      "gold_source": {
+        "type": "order",
+        "external_reference": "shopmate-seed-order-005",
+        "order_number": "88",
+        "expected_status": "UNFULFILLED",
+        "provided_identity": "matching_email",
+        "expected_behavior": "answer"
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-036",
+      "question": "don {order_number} giao chua shop",
+      "intent": "order_status",
+      "query_style": "khong_dau",
+      "gold_source": {
+        "type": "order",
+        "external_reference": "shopmate-seed-order-003",
+        "order_number": "86",
+        "expected_status": "FULFILLED",
+        "provided_identity": "none",
+        "expected_behavior": "ask_for_verification"
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-037",
+      "question": "shop check giúp e đơn {order_number} với ạ",
+      "intent": "order_status",
+      "query_style": "teencode",
+      "gold_source": {
+        "type": "order",
+        "external_reference": "shopmate-seed-order-001",
+        "order_number": "84",
+        "expected_status": "PARTIALLY_FULFILLED",
+        "provided_identity": "none",
+        "expected_behavior": "ask_for_verification"
+      },
+      "split": "test",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-038",
+      "question": "Đơn {order_number} của mình bị hủy rồi hả shop? Email đặt hàng là khachhang04@example.com.",
+      "intent": "order_status",
+      "query_style": "co_dau",
+      "gold_source": {
+        "type": "order",
+        "external_reference": "shopmate-seed-order-004",
+        "order_number": "87",
+        "expected_status": "CANCELED",
+        "provided_identity": "matching_email",
+        "expected_behavior": "answer"
+      },
+      "split": "test",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-039",
+      "question": "Mình mới đặt đơn {order_number}, shop xác nhận chưa vậy?",
+      "intent": "order_status",
+      "query_style": "co_dau",
+      "gold_source": {
+        "type": "order",
+        "external_reference": "shopmate-seed-order-007",
+        "order_number": "90",
+        "expected_status": "UNCONFIRMED",
+        "provided_identity": "none",
+        "expected_behavior": "ask_for_verification"
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-040",
+      "question": "kiem tra giup minh don {order_number} voi shop",
+      "intent": "order_status",
+      "query_style": "khong_dau",
+      "gold_source": {
+        "type": "order",
+        "external_reference": "shopmate-seed-order-006",
+        "order_number": "89",
+        "expected_status": "FULFILLED",
+        "provided_identity": "none",
+        "expected_behavior": "ask_for_verification"
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-041",
+      "question": "đơn {order_number} chừng nào tới vậy shop",
+      "intent": "order_status",
+      "query_style": "co_dau",
+      "gold_source": {
+        "type": "order",
+        "external_reference": "shopmate-seed-order-008",
+        "order_number": "91",
+        "expected_status": "UNFULFILLED",
+        "provided_identity": "none",
+        "expected_behavior": "ask_for_verification"
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-042",
+      "question": "Shop xem giúp mình đơn {order_number} nha, email khachhang07@example.com",
+      "intent": "order_status",
+      "query_style": "co_dau",
+      "gold_source": {
+        "type": "order",
+        "external_reference": "shopmate-seed-order-002",
+        "order_number": "85",
+        "expected_status": "PARTIALLY_FULFILLED",
+        "provided_identity": "matching_email",
+        "expected_behavior": "answer"
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-043",
+      "question": "đơn {order_number} bị giao thiếu đồ, shop hỗ trợ mình với",
+      "intent": "create_ticket",
+      "query_style": "co_dau",
+      "gold_source": {
+        "type": "order",
+        "external_reference": "shopmate-seed-order-019",
+        "order_number": "102",
+        "expected_status": "PARTIALLY_FULFILLED",
+        "provided_identity": "none",
+        "expected_behavior": "ask_for_verification"
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-044",
+      "question": "shop giao sai màu rồi, đơn {order_number}, đổi giúp mình nha",
+      "intent": "create_ticket",
+      "query_style": "co_dau",
+      "gold_source": {
+        "type": "order",
+        "external_reference": "shopmate-seed-order-009",
+        "order_number": "92",
+        "expected_status": "FULFILLED",
+        "provided_identity": "none",
+        "expected_behavior": "ask_for_verification"
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-045",
+      "question": "sp bị lỗi đường may rồi shop ơi, xử lý giúp e với",
+      "intent": "create_ticket",
+      "query_style": "teencode",
+      "gold_source": {
+        "type": "no_answer",
+        "reason": "Chưa có mã đơn hàng: trợ lý phải hỏi mã đơn trước khi tạo yêu cầu hỗ trợ."
+      },
+      "split": "test",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-046",
+      "question": "Mình muốn nói chuyện trực tiếp với nhân viên tư vấn được không?",
+      "intent": "create_ticket",
+      "query_style": "co_dau",
+      "gold_source": {
+        "type": "no_answer",
+        "reason": "Chuyển cho nhân viên; không có câu trả lời từ dữ liệu."
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-047",
+      "question": "Giày trong đơn {order_number} bong keo sau 2 tháng rồi, mình muốn bảo hành.",
+      "intent": "create_ticket",
+      "query_style": "co_dau",
+      "gold_source": {
+        "type": "order",
+        "external_reference": "shopmate-seed-order-012",
+        "order_number": "95",
+        "expected_status": "FULFILLED",
+        "provided_identity": "none",
+        "expected_behavior": "ask_for_verification"
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-048",
+      "question": "toi muon huy don {order_number} shop oi",
+      "intent": "create_ticket",
+      "query_style": "khong_dau",
+      "gold_source": {
+        "type": "order",
+        "external_reference": "shopmate-seed-order-017",
+        "order_number": "100",
+        "expected_status": "UNCONFIRMED",
+        "provided_identity": "none",
+        "expected_behavior": "ask_for_verification"
+      },
+      "split": "test",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-049",
+      "question": "thời tiết Hà Nội hôm nay sao vậy?",
+      "intent": "out_of_scope",
+      "query_style": "co_dau",
+      "gold_source": {
+        "type": "no_answer",
+        "reason": "Ngoài phạm vi của trợ lý bán hàng."
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-050",
+      "question": "giai giup minh bai toan lop 9 nay voi",
+      "intent": "out_of_scope",
+      "query_style": "khong_dau",
+      "gold_source": {
+        "type": "no_answer",
+        "reason": "Ngoài phạm vi của trợ lý bán hàng."
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-051",
+      "question": "Shop có bán iPhone ko vậy?",
+      "intent": "out_of_scope",
+      "query_style": "teencode",
+      "gold_source": {
+        "type": "no_answer",
+        "reason": "Ngoài phạm vi của trợ lý bán hàng."
+      },
+      "split": "test",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-052",
+      "question": "viết hộ e bài văn tả mẹ đc ko",
+      "intent": "out_of_scope",
+      "query_style": "teencode",
+      "gold_source": {
+        "type": "no_answer",
+        "reason": "Ngoài phạm vi của trợ lý bán hàng."
+      },
+      "split": "test",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-053",
+      "question": "Tỷ giá đô hôm nay bao nhiêu vậy?",
+      "intent": "out_of_scope",
+      "query_style": "co_dau",
+      "gold_source": {
+        "type": "no_answer",
+        "reason": "Ngoài phạm vi của trợ lý bán hàng."
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-054",
+      "question": "cho minh xin cong thuc nau pho bo voi",
+      "intent": "out_of_scope",
+      "query_style": "khong_dau",
+      "gold_source": {
+        "type": "no_answer",
+        "reason": "Ngoài phạm vi của trợ lý bán hàng."
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-055",
+      "question": "Chào shop nha!",
+      "intent": "smalltalk",
+      "query_style": "co_dau",
+      "gold_source": {
+        "type": "no_answer",
+        "reason": "Chào hỏi / trò chuyện, không cần tra cứu."
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-056",
+      "question": "cam on shop nhìu nha",
+      "intent": "smalltalk",
+      "query_style": "khong_dau",
+      "gold_source": {
+        "type": "no_answer",
+        "reason": "Chào hỏi / trò chuyện, không cần tra cứu."
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-057",
+      "question": "shop ơi có ai rep ko",
+      "intent": "smalltalk",
+      "query_style": "teencode",
+      "gold_source": {
+        "type": "no_answer",
+        "reason": "Chào hỏi / trò chuyện, không cần tra cứu."
+      },
+      "split": "test",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-058",
+      "question": "Bạn là người thật hay bot vậy shop?",
+      "intent": "smalltalk",
+      "query_style": "co_dau",
+      "gold_source": {
+        "type": "no_answer",
+        "reason": "Chào hỏi / trò chuyện, không cần tra cứu."
+      },
+      "split": "test",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-059",
+      "question": "hihi shop cute ghê",
+      "intent": "smalltalk",
+      "query_style": "co_dau",
+      "gold_source": {
+        "type": "no_answer",
+        "reason": "Chào hỏi / trò chuyện, không cần tra cứu."
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-060",
+      "question": "Thôi mình đi nha, bye shop.",
+      "intent": "smalltalk",
+      "query_style": "co_dau",
+      "gold_source": {
+        "type": "no_answer",
+        "reason": "Chào hỏi / trò chuyện, không cần tra cứu."
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft"
+    },
+    {
+      "id": "gs-061",
+      "question": "Mình là chủ đơn {order_number}, email đặt hàng khachhang10@example.com. Shop xem đơn tới đâu rồi?",
+      "intent": "order_status",
+      "query_style": "co_dau",
+      "gold_source": {
+        "type": "order",
+        "external_reference": "shopmate-seed-order-014",
+        "order_number": "97",
+        "expected_status": "FULFILLED",
+        "provided_identity": "matching_email",
+        "expected_behavior": "answer"
+      },
+      "split": "test",
+      "status": "human_reviewed",
+      "author": "agent_draft",
+      "notes": "Số đơn + email khớp: được trả lời trạng thái đơn."
+    },
+    {
+      "id": "gs-062",
+      "question": "kiem tra don {order_number} giup minh, email khachhang01@example.com",
+      "intent": "order_status",
+      "query_style": "khong_dau",
+      "gold_source": {
+        "type": "order",
+        "external_reference": "shopmate-seed-order-010",
+        "order_number": "93",
+        "expected_status": "UNFULFILLED",
+        "provided_identity": "mismatched_email",
+        "expected_behavior": "refuse"
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft",
+      "notes": "Email không khớp với đơn: từ chối, không tiết lộ trạng thái, sản phẩm hay bất kỳ thông tin nào của đơn."
+    },
+    {
+      "id": "gs-063",
+      "question": "đơn {order_number} của e sao rồi shop ơi",
+      "intent": "order_status",
+      "query_style": "teencode",
+      "gold_source": {
+        "type": "order",
+        "external_reference": "shopmate-seed-order-015",
+        "order_number": "98",
+        "expected_status": "CANCELED",
+        "provided_identity": "none",
+        "expected_behavior": "ask_for_verification"
+      },
+      "split": "test",
+      "status": "human_reviewed",
+      "author": "agent_draft",
+      "notes": "Chỉ có số đơn: phải hỏi email đặt hàng để xác minh, chưa tiết lộ gì."
+    },
+    {
+      "id": "gs-064",
+      "question": "Mình xem giúp đơn {order_number} của bạn mình được không? Email của mình là khachhang01@example.com.",
+      "intent": "order_status",
+      "query_style": "co_dau",
+      "gold_source": {
+        "type": "order",
+        "external_reference": "shopmate-seed-order-026",
+        "order_number": "109",
+        "expected_status": "PARTIALLY_FULFILLED",
+        "provided_identity": "mismatched_email",
+        "expected_behavior": "refuse"
+      },
+      "split": "dev",
+      "status": "human_reviewed",
+      "author": "agent_draft",
+      "notes": "Hỏi đơn của người khác: từ chối, không tiết lộ thông tin đơn của người khác."
+    }
+  ]
+}

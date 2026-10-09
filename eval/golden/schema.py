@@ -41,12 +41,15 @@ ReviewStatus = Literal["draft_needs_human_review", "human_reviewed"]
 Author = Literal["agent_draft", "human"]
 PolicyDocument = Literal["doi-tra", "van-chuyen", "bao-hanh"]
 OrderStatus = Literal["UNCONFIRMED", "UNFULFILLED", "PARTIALLY_FULFILLED", "FULFILLED", "CANCELED"]
-# Fixtures carry no phone numbers (D12), so drafts only use email as the second factor.
-ProvidedIdentity = Literal["none", "matching_email", "mismatched_email"]
+# v1 verification is EMAIL ONLY (D37). Orders carry no phone numbers and are append-only, so a
+# phone could never match; a phone-only question is treated like "no identity": ask for the email.
+# Phones are still recognised in questions (validate_golden.PHONE), but no item expects one to match.
+ProvidedIdentity = Literal["none", "matching_email", "mismatched_email", "phone_only"]
 ExpectedBehavior = Literal["answer", "ask_for_verification", "refuse"]
 IDENTITY_BEHAVIOR: dict[str, str] = {
     "matching_email": "answer",  # number + the owner's email: the only case that reveals anything
     "none": "ask_for_verification",  # number only: ask for the email, reveal nothing yet
+    "phone_only": "ask_for_verification",  # number + a phone: v1 cannot verify phones, ask for the email
     "mismatched_email": "refuse",  # number + someone else's email: refuse, reveal nothing
 }
 

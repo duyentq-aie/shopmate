@@ -1,10 +1,18 @@
 """READ-ONLY helper: flag golden items whose query_style label may disagree with the text.
 
-Heuristics (suggestions only; a human makes the final call on every item):
-- contains teencode / abbreviation tokens (ko, k, dc, đc, sp, j, ship, ...) -> teencode
-- otherwise, no Vietnamese diacritics at all                                 -> khong_dau
-- otherwise                                                                    -> co_dau
-The {order_number} placeholder, email addresses and prices like "400k" are ignored.
+Implements eval/golden/LABELING.md, rules applied in order (first match wins):
+1. khong_dau - most words that need a Vietnamese diacritic are written without one
+               (even if the question also has abbreviations);
+2. teencode  - otherwise, contains a chat abbreviation (ko, k, dc/đc, sp, j, bn, mn, nhìu, e, ...);
+3. co_dau    - otherwise.
+Not counted as words: loanwords (ship, freeship, size, sale, cute, COD, ...), prices like
+400k, the {order_number} placeholder, emails. A few missing diacritics or typos do not
+make a question khong_dau.
+
+Approximation for rule 1 (there is no dictionary here): an accented word needed its
+diacritic; an unaccented word is counted as "missing a diacritic" unless it is in
+CORRECT_WITHOUT_DIACRITICS (common words that are spelled right without marks).
+Rule 1 holds when missing > accented. Suggestions only: a human decides every label.
 
 The file is read as raw JSON (it does not need to pass the schema) and is never written.
 
@@ -23,13 +31,21 @@ from pathlib import Path
 
 from eval.golden.schema import GOLDEN_PATH
 
-TEENCODE_TOKENS = {
-    # the owner's examples
-    "ko", "k", "dc", "đc", "sp", "j", "ship",
-    # other common abbreviations in Vietnamese chat
-    "hk", "hok", "khg", "kh", "z", "vs", "bn", "trc", "r", "e", "a", "ib", "ok", "oke", "h",
-    "mn", "ad", "nhiu", "nhìu", "lun", "thik", "cx", "nx", "ntn", "sz",
+# LABELING.md list, plus a few equally unambiguous chat forms.
+ABBREVIATIONS = {
+    "ko", "k", "dc", "đc", "sp", "j", "bn", "mn", "nhìu", "e",
+    "hk", "hok", "nhiu", "vs", "trc", "cx", "nx", "ntn", "r", "z",
 }
+LOANWORDS = {
+    "ship", "freeship", "size", "sale", "cute", "cod", "free", "shop", "check", "email",
+    "jean", "gym", "sneaker", "polo", "kaki", "croptop", "oversize", "bucket", "laptop", "inch",
+    "logo", "iphone", "ok", "hihi", "s", "m", "l", "xl", "xxl",
+}
+# Spelled correctly without diacritics, so an unaccented occurrence is not "missing" one.
+CORRECT_WITHOUT_DIACRITICS = {
+    "nam", "xanh", "thun", "bao", "keo", "bong", "sau", "hai", "ba", "mua", "cho", "nha",
+    "em", "anh", "hay",
+}  # deliberately small: words like giay/tim/con/la in shop questions usually lack a diacritic
 # Placeholder, emails and prices such as "400k" (the "k" there means nghìn, not "không").
 _IGNORED = re.compile(r"\{order_number\}|[a-z0-9.]+@example\.com|\b\d+k\b", re.IGNORECASE)
 _WORD = re.compile(r"[^\W\d_]+", re.UNICODE)
@@ -42,15 +58,19 @@ def has_vietnamese_diacritics(text: str) -> bool:
 
 
 def suggest(question: str) -> tuple[str, str]:
-    """Return (suggested label, reason)."""
-    text = _IGNORED.sub(" ", question)
-    tokens = [t.lower() for t in _WORD.findall(text)]
-    hits = sorted({t for t in tokens if t in TEENCODE_TOKENS})
-    if hits:
-        return "teencode", f"abbreviation tokens: {', '.join(hits)}"
-    if tokens and not has_vietnamese_diacritics(text):
-        return "khong_dau", "no Vietnamese diacritics"
-    return "co_dau", "has diacritics, no abbreviation tokens"
+    """Return (suggested label, reason) following LABELING.md's rule order."""
+    words = [w.lower() for w in _WORD.findall(_IGNORED.sub(" ", question))]
+    abbreviations = sorted({w for w in words if w in ABBREVIATIONS})
+    vietnamese = [w for w in words if w not in ABBREVIATIONS and w not in LOANWORDS]
+    accented = [w for w in vietnamese if has_vietnamese_diacritics(w)]
+    missing = [w for w in vietnamese if not has_vietnamese_diacritics(w) and w not in CORRECT_WITHOUT_DIACRITICS]
+
+    if missing and len(missing) > len(accented):
+        return "khong_dau", f"rule 1: {len(missing)} words missing diacritics vs {len(accented)} accented ({', '.join(missing)})"
+    if abbreviations:
+        return "teencode", f"rule 2: abbreviations {', '.join(abbreviations)}"
+    note = f"; few missing diacritics/typos ({', '.join(missing)}) do not count" if missing else ""
+    return "co_dau", f"rule 3: diacritics, no abbreviations{note}"
 
 
 def main(argv: list[str] | None = None) -> int:

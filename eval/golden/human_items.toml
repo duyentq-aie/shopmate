@@ -1,0 +1,55 @@
+# Human-written golden items. Write CONTENT here; code computes the gold labels.
+#
+#   uv run python -m eval.golden.merge_human_items --dry-run   # check, print strata, write nothing
+#   uv run python -m eval.golden.merge_human_items             # merge into golden.vi.json
+#
+# Per item, write only:
+#   id           "gs-101" onward (gs-001 … gs-064 are the reviewed agent drafts and are never touched)
+#   question     the customer's text, exactly as typed (typos kept on purpose)
+#   intent       product_search | policy_question | order_status | create_ticket | out_of_scope | smalltalk
+#   query_style  co_dau | khong_dau | teencode   (see LABELING.md)
+#   notes        optional
+# plus exactly ONE source, matching the intent:
+#   product_search   [items.expected_filters]  any of: category, kind, keyword, color, material,
+#                    size, price_min, price_max, in_stock. Gold SKUs are computed from the catalog;
+#                    if nothing matches, the item becomes a "no_answer" (no-match) item.
+#   policy_question  policy = { file = "doi-tra" | "van-chuyen" | "bao-hanh", clause = N }
+#   order_status     order = { external_reference = "shopmate-seed-order-NNN", email = "...", phone = "..." }
+#   create_ticket    order = { ... } as above, or no_answer = "reason"
+#                    For order items, write {order_number} in the question where the number goes.
+#                    email/phone: only what the question itself gives (omit both if it gives neither),
+#                    and it must appear literally in the question. The script works out whether the
+#                    email matches the order's owner and sets the expected behavior (answer / ask /
+#                    refuse). v1 verifies by EMAIL ONLY: a question giving only a phone expects
+#                    "ask_for_verification" (the assistant asks for the email).
+#   out_of_scope, smalltalk   no_answer = "reason"
+#
+# Do not write author, status, split or gold labels: the merge script sets them
+# (author = human, status = human_reviewed, split = stratified by intent x query_style).
+#
+# ---- Example 1: product search (gold SKUs computed from the filters) ----
+# [[items]]
+# id = "gs-101"
+# question = "có giày sneaker nam trắng size 40 ko shop"
+# intent = "product_search"
+# query_style = "teencode"
+# [items.expected_filters]
+# kind = "Giày sneaker nam"
+# color = "Trắng"
+# size = "40"
+#
+# ---- Example 2: policy question ----
+# [[items]]
+# id = "gs-102"
+# question = "hang mua ve bi loi thi doi tra trong bao lau"
+# intent = "policy_question"
+# query_style = "khong_dau"
+# policy = { file = "doi-tra", clause = 2 }
+#
+# ---- Example 3: order status with the owner's email (expected behavior: answer) ----
+# [[items]]
+# id = "gs-103"
+# question = "Đơn {order_number} của mình giao chưa? Email đặt hàng là khachhang16@example.com."
+# intent = "order_status"
+# query_style = "co_dau"
+# order = { external_reference = "shopmate-seed-order-020", email = "khachhang16@example.com" }

@@ -39,6 +39,7 @@ from eval.golden.schema import GOLDEN_PATH, GoldenSet, apply_filters, load_golde
 
 TEST_FRACTION_RANGE = (0.25, 0.35)
 EMAIL = re.compile(r"[a-z0-9.]+@example\.com")
+PHONE = re.compile(r"(?:\+84|0)\d{9,10}\b")
 
 
 def check(golden: GoldenSet, catalog: Catalog, orders: OrderFixtures, require_order_numbers: bool) -> list[str]:
@@ -71,15 +72,17 @@ def check(golden: GoldenSet, catalog: Catalog, orders: OrderFixtures, require_or
             if fixture.status != source.expected_status:
                 problems.append(f"{item.id}: expected_status {source.expected_status} != fixture {fixture.status}")
             emails = set(EMAIL.findall(item.question))
+            phones = set(PHONE.findall(item.question))
             owner = fixture.customer.email
             identity_ok = {
                 "matching_email": owner in emails,
                 "mismatched_email": bool(emails) and owner not in emails,
-                "none": not emails,
+                "phone_only": bool(phones) and not emails,  # v1 is email-only (D37)
+                "none": not emails and not phones,
             }[source.provided_identity]
             if not identity_ok:
-                problems.append(f"{item.id}: question emails {sorted(emails)} do not fit provided_identity "
-                                f"{source.provided_identity} (owner {owner})")
+                problems.append(f"{item.id}: question emails {sorted(emails)} / phones {sorted(phones)} do not fit "
+                                f"provided_identity {source.provided_identity} (owner {owner})")
             if source.order_number == PENDING:
                 if require_order_numbers:
                     problems.append(f"{item.id}: order number still pending ({source.external_reference})")
