@@ -99,6 +99,14 @@ def existing_index_keys(client: QdrantClient, collection: str = COLLECTION) -> d
             return keys
 
 
+def fingerprint_counts(client: QdrantClient, collection: str = COLLECTION) -> dict[str, int]:
+    """embedding_fingerprint -> number of points carrying it (a missing fingerprint counts as "")."""
+    counts: dict[str, int] = {}
+    for _text_sha, fingerprint, _payload_sha in existing_index_keys(client, collection).values():
+        counts[fingerprint] = counts.get(fingerprint, 0) + 1
+    return counts
+
+
 def count_by_doc_type(client: QdrantClient, collection: str = COLLECTION) -> dict[str, int]:
     counts = {}
     for doc_type in ("product", "policy"):

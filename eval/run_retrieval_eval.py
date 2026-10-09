@@ -65,6 +65,29 @@ class DirtyWorkingTree(Exception):
     pass
 
 
+def index_problems(client, manifest: dict, query_config: EmbeddingConfig, collection: str | None = None) -> list[str]:
+    """Why the live index cannot be trusted to be the one the manifest describes ([] if it can).
+
+    Point counts alone can match while contents differ (e.g. a re-index with another model revision
+    keeps 269 points), so every point's embedding fingerprint must equal the manifest's, and the
+    manifest's must equal the embedder used for queries.
+    """
+    from app.retrieval.store import COLLECTION, count_by_doc_type, fingerprint_counts
+
+    collection = collection or COLLECTION
+    problems = []
+    counts = count_by_doc_type(client, collection)
+    if counts != manifest["documents"]:
+        problems.append(f"point counts {counts} != manifest {manifest['documents']}")
+    expected = manifest["embedding"]["fingerprint"]
+    if expected != query_config.fingerprint():
+        problems.append(f"manifest fingerprint {expected} != query embedder {query_config.fingerprint()}")
+    wrong = {fp: n for fp, n in fingerprint_counts(client, collection).items() if fp != expected}
+    if wrong:
+        problems.append(f"points with another embedding fingerprint than the manifest ({expected}): {wrong}")
+    return problems
+
+
 # --- provenance --------------------------------------------------------------------------
 
 
@@ -255,11 +278,13 @@ def main(argv: list[str] | None = None) -> int:
 
     from app.retrieval.embedder import BgeM3Embedder
     from app.retrieval.search import Retriever
-    from app.retrieval.store import connect, count_by_doc_type
+    from app.retrieval.store import connect
 
     client = connect()
-    if count_by_doc_type(client) != load_manifest()["documents"]:
-        print("REFUSED: the live index does not match data/index/manifest.json", file=sys.stderr)
+    problems = index_problems(client, load_manifest(), EmbeddingConfig())
+    if problems:
+        print("REFUSED: the live index does not match data/index/manifest.json:\n  " + "\n  ".join(problems),
+              file=sys.stderr)
         return 1
     items = [i for i in load_split("dev") if i.intent in RETRIEVAL_INTENTS]
     retriever = Retriever(client, BgeM3Embedder())

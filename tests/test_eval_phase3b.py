@@ -223,3 +223,57 @@ def test_comparison_of_two_fake_runs():
     diff = cmp.compare({"items": a}, {"items": b})
     assert diff["product_search"]["hit@5"]["mean_diff"] == 1.0
     assert diff["product_search"]["hit@5"]["n_pairs"] == 1
+
+
+# --- the live index must be the one the manifest describes --------------------------------------
+
+
+@pytest.mark.filterwarnings("ignore:Payload indexes have no effect in the local Qdrant")
+def test_index_check_catches_a_same_count_index_with_other_fingerprints():
+    import dataclasses
+
+    from qdrant_client import QdrantClient
+
+    from app.retrieval.indexer import index_documents
+    from app.retrieval.store import ensure_collection
+    from tests.fake_embedder import FAKE_CONFIG, FakeEmbedder
+    from tests.test_retrieval_unit import _documents
+
+    client = QdrantClient(":memory:")
+    ensure_collection(client, FAKE_CONFIG, collection="t")
+    docs = _documents()
+    index_documents(client, docs, FAKE_CONFIG, embedder_factory=lambda: FakeEmbedder(), collection="t")
+    manifest = {"documents": {"product": 40, "policy": 3, "total": 43},
+                "embedding": {"fingerprint": FAKE_CONFIG.fingerprint()}}
+    assert run.index_problems(client, manifest, FAKE_CONFIG, collection="t") == []
+
+    # Same 43 points, re-embedded with another model revision: counts still match.
+    other = dataclasses.replace(FAKE_CONFIG, revision="fake-2")
+    index_documents(client, docs, other, embedder_factory=lambda: FakeEmbedder(other), collection="t")
+    problems = run.index_problems(client, manifest, FAKE_CONFIG, collection="t")
+    assert len(problems) == 1 and "another embedding fingerprint" in problems[0] and "43" in problems[0]
+
+    # Manifest updated but the query embedder is still the old config.
+    manifest_other = {**manifest, "embedding": {"fingerprint": other.fingerprint()}}
+    problems = run.index_problems(client, manifest_other, FAKE_CONFIG, collection="t")
+    assert len(problems) == 1 and "query embedder" in problems[0]
+
+
+@pytest.mark.filterwarnings("ignore:Payload indexes have no effect in the local Qdrant")
+def test_index_check_catches_a_single_stale_point():
+    from qdrant_client import QdrantClient
+
+    from app.retrieval.indexer import index_documents
+    from app.retrieval.store import ensure_collection
+    from tests.fake_embedder import FAKE_CONFIG, FakeEmbedder
+    from tests.test_retrieval_unit import _documents
+
+    client = QdrantClient(":memory:")
+    ensure_collection(client, FAKE_CONFIG, collection="t")
+    docs = _documents()
+    index_documents(client, docs, FAKE_CONFIG, embedder_factory=lambda: FakeEmbedder(), collection="t")
+    client.set_payload("t", payload={"embedding_fingerprint": "stale"}, points=[docs[0].point_id])
+    manifest = {"documents": {"product": 40, "policy": 3, "total": 43},
+                "embedding": {"fingerprint": FAKE_CONFIG.fingerprint()}}
+    assert run.index_problems(client, manifest, FAKE_CONFIG, collection="t") == [
+        f"points with another embedding fingerprint than the manifest ({FAKE_CONFIG.fingerprint()}): {{'stale': 1}}"]
