@@ -12,7 +12,9 @@ text of the indexed documents. Produces comparison-exp1.json with:
   nothing);
 - co_dau_worsened: every co_dau item whose first-gold rank got worse, with the documents that newly
   outrank gold and which query words matched them ONLY through folding (the "phi" / "phi công" kind);
-- oracle_policy: oracle filters for policy_question only (product oracle is a tautology, Phase 3B).
+- oracle_policy: oracle filters for policy_question only (product oracle is a tautology, Phase 3B);
+- ablation_dense (only if the exploratory `dense` run on the perturbation set exists): separates "adding the
+  folded branch" from "removing bge-m3 sparse"; labelled EXPLORATORY and it changes nothing that decides.
 
 Usage (from the repo root; Qdrant running, for the document texts):
     uv run python -m eval.compare_exp1 --results-dir eval/results/phase4-exp1
@@ -104,8 +106,17 @@ def _check_comparable(runs: dict) -> None:
     for key in keys:
         prov = runs[key]["deterministic"]["provenance"]
         for field in SHARED_PROVENANCE:
-            if prov[field] != first[field]:
+            if field != "dev_split_sha256" and prov[field] != first[field]:
                 raise ValueError(f"run {key} has a different {field}; runs are not comparable")
+    # dev_split_sha256 hashes the items a run EVALUATED, so it must agree among runs of the same intents only
+    # (a policy-only oracle run covers fewer items than a 38-item run)
+    by_intents: dict[tuple, str] = {}
+    for key in keys:
+        prov = runs[key]["deterministic"]["provenance"]
+        intents = tuple(prov["config"]["intents"])
+        if by_intents.setdefault(intents, prov["dev_split_sha256"]) != prov["dev_split_sha256"]:
+            raise ValueError(f"run {key} has a different dev_split_sha256 than the other runs over {list(intents)}; "
+                             f"runs are not comparable")
     for field, wanted in (("lexical_fingerprint", lambda k: k[0] in CANDIDATES),
                           ("perturbation_sha256", lambda k: k[2] == "dev_folded")):
         values = {runs[k]["deterministic"]["provenance"].get(field) for k in keys if wanted(k)}
@@ -208,6 +219,40 @@ def worsened_co_dau(base_records: Sequence[dict], cand_records: Sequence[dict], 
     return out
 
 
+# --- ablation: dense alone ------------------------------------------------------------------------------------------
+
+
+ABLATION_MODES = ("hybrid", "dense", "dense_folded", "dense_sparse_folded")
+ABLATION_CONTRASTS = {  # name -> (from, to); the difference is `to` minus `from`
+    "dense_minus_hybrid": ("hybrid", "dense"),  # removing bge-m3 sparse
+    "dense_folded_minus_dense": ("dense", "dense_folded"),  # adding the folded branch to dense
+    "dense_sparse_folded_minus_hybrid": ("hybrid", "dense_sparse_folded"),  # adding the folded branch to hybrid
+    "dense_folded_minus_hybrid": ("hybrid", "dense_folded"),  # both at once (the candidate of the rule)
+}
+
+
+def _mean_table(records: Sequence[dict]) -> dict:
+    table = {}
+    for gold_type, intent in INTENT_OF_GOLD.items():
+        rows = [r for r in records if r["gold"]["type"] == gold_type]
+        table[intent] = {"n": len(rows), **{m: mean([r["metrics"][m] for r in rows]) for m in TABLE_METRICS}}
+    return table
+
+
+def ablation_dense(runs: dict) -> dict:
+    """Perturbation set, filters none: hybrid, dense, dense_folded and dense_sparse_folded side by side, and the paired
+    contrasts that split the effect of dense_folded into 'sparse removed' and 'folded added'."""
+    def records(mode: str) -> list[dict]:
+        return _records(runs, mode, "none", "dev_folded")
+
+    ids = sorted(_answerable(records("hybrid")))
+    return {"status": EXPLORATORY_STATUS,
+            "means": {mode: _mean_table(records(mode)) for mode in ABLATION_MODES},
+            "contrasts": {name: {"by_intent_and_style": paired_table(records(a), records(b)),
+                                 "pooled": _pooled_rr(records(a), records(b), ids)}
+                          for name, (a, b) in ABLATION_CONTRASTS.items()}}
+
+
 # --- the report ------------------------------------------------------------------------------------------------------
 
 
@@ -248,6 +293,8 @@ def build_report(runs: dict, committed_baseline: dict, questions: dict[str, str]
         oracle = {c: {"by_intent_and_style": paired_table(base_oracle, _records(runs, c, "oracle", "dev"))}
                   for c in CANDIDATES if (c, "oracle", "dev") in runs}
     report["oracle_policy"] = oracle
+    if ("dense", "none", "dev_folded") in runs:
+        report["ablation_dense"] = ablation_dense(runs)
     report["caveats"] = CAVEATS
     return report
 
@@ -268,6 +315,9 @@ def load_runs(results_dir: Path) -> dict:
         oracle = results_dir / result_name(mode, "oracle", ("policy_question",))
         if oracle.is_file():
             runs[(mode, "oracle", "dev")] = _read(oracle)
+    ablation = results_dir / result_name("dense", "none", RETRIEVAL_INTENTS, "dev_folded")  # exploratory, optional
+    if ablation.is_file():
+        runs[("dense", "none", "dev_folded")] = _read(ablation)
     return runs
 
 

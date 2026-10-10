@@ -1,0 +1,686 @@
+{
+  "deterministic": {
+    "provenance": {
+      "git_commit": "4c8ee47c62fe138fd9797831b97f2fd713159cf6",
+      "git_dirty": false,
+      "index_manifest_sha256": "8bee3a76b734c9d245e81f8a0727d7975e675e02b1b7ba8e0e32956712a7fb38",
+      "embedder_fingerprint": "53b494c7da7e1203",
+      "golden_file_sha256": "89f0dd2deff438b09e7849c0f6c2bed022a347ce12e3ec97b93514bf9631bd81",
+      "dev_split_sha256": "c99613eaffcd245a30610bd3c142555cf93de3b6d2df0fcfb7e8df6af0b7efba",
+      "config": {
+        "mode": "hybrid",
+        "filters": "oracle",
+        "top_k": 10,
+        "ks": [
+          1,
+          5,
+          10
+        ],
+        "split": "dev",
+        "intents": [
+          "policy_question"
+        ],
+        "oracle_drops": [
+          "keyword"
+        ],
+        "bootstrap": {
+          "resamples": 10000,
+          "seed": 20261009,
+          "confidence": 0.95
+        },
+        "metrics_version": "phase3b-v1"
+      }
+    },
+    "aggregate": {
+      "counts": {
+        "product_answerable": 0,
+        "policy": 14,
+        "no_answer": 0
+      },
+      "product_search": {
+        "hit@1": {
+          "n": 0,
+          "excluded": 0,
+          "mean": null,
+          "ci_low": null,
+          "ci_high": null
+        },
+        "hit@5": {
+          "n": 0,
+          "excluded": 0,
+          "mean": null,
+          "ci_low": null,
+          "ci_high": null
+        },
+        "hit@10": {
+          "n": 0,
+          "excluded": 0,
+          "mean": null,
+          "ci_low": null,
+          "ci_high": null
+        },
+        "precision@1": {
+          "n": 0,
+          "excluded": 0,
+          "mean": null,
+          "ci_low": null,
+          "ci_high": null
+        },
+        "precision@5": {
+          "n": 0,
+          "excluded": 0,
+          "mean": null,
+          "ci_low": null,
+          "ci_high": null
+        },
+        "precision@10": {
+          "n": 0,
+          "excluded": 0,
+          "mean": null,
+          "ci_low": null,
+          "ci_high": null
+        },
+        "nrecall@1": {
+          "n": 0,
+          "excluded": 0,
+          "mean": null,
+          "ci_low": null,
+          "ci_high": null
+        },
+        "nrecall@5": {
+          "n": 0,
+          "excluded": 0,
+          "mean": null,
+          "ci_low": null,
+          "ci_high": null
+        },
+        "nrecall@10": {
+          "n": 0,
+          "excluded": 0,
+          "mean": null,
+          "ci_low": null,
+          "ci_high": null
+        },
+        "rr": {
+          "n": 0,
+          "excluded": 0,
+          "mean": null,
+          "ci_low": null,
+          "ci_high": null
+        }
+      },
+      "policy_question": {
+        "hit@1": {
+          "n": 14,
+          "excluded": 0,
+          "mean": 0.6428571428571429,
+          "ci_low": 0.35714285714285715,
+          "ci_high": 0.8571428571428571
+        },
+        "hit@5": {
+          "n": 14,
+          "excluded": 0,
+          "mean": 0.9285714285714286,
+          "ci_low": 0.7857142857142857,
+          "ci_high": 1.0
+        },
+        "hit@10": {
+          "n": 14,
+          "excluded": 0,
+          "mean": 1.0,
+          "ci_low": 1.0,
+          "ci_high": 1.0
+        },
+        "rr": {
+          "n": 14,
+          "excluded": 0,
+          "mean": 0.7642857142857142,
+          "ci_low": 0.5857142857142856,
+          "ci_high": 0.9285714285714286
+        }
+      },
+      "returned_results": {
+        "mean_returned_answerable": 10.0,
+        "answerable_with_zero_results": 0
+      },
+      "breakdown_by_query_style": {
+        "product_search": {},
+        "policy_question": {
+          "co_dau": {
+            "n": 6,
+            "too_small_to_interpret": true,
+            "metrics": {
+              "hit@1": 1.0,
+              "hit@5": 1.0,
+              "rr": 1.0
+            }
+          },
+          "khong_dau": {
+            "n": 3,
+            "too_small_to_interpret": true,
+            "metrics": {
+              "hit@1": 0.3333333333333333,
+              "hit@5": 1.0,
+              "rr": 0.5666666666666667
+            }
+          },
+          "teencode": {
+            "n": 5,
+            "too_small_to_interpret": true,
+            "metrics": {
+              "hit@1": 0.4,
+              "hit@5": 0.8,
+              "rr": 0.6
+            }
+          }
+        }
+      },
+      "filter_correctness_check": {
+        "note": "no_answer items: share of correctly EMPTY result lists. Under oracle filters this is true by construction; it checks filter correctness, it is NOT a quality metric.",
+        "n": 0,
+        "correct_empty": null
+      }
+    },
+    "items": [
+      {
+        "id": "gs-023",
+        "intent": "policy_question",
+        "query_style": "co_dau",
+        "author": "agent_draft",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:doi-tra:2"
+          ]
+        },
+        "filters": {
+          "doc_type": "policy"
+        },
+        "retrieved": [
+          "policy:doi-tra:2",
+          "policy:doi-tra:7",
+          "policy:doi-tra:6",
+          "policy:doi-tra:3",
+          "policy:doi-tra:4",
+          "policy:van-chuyen:3",
+          "policy:doi-tra:1",
+          "policy:bao-hanh:5",
+          "policy:doi-tra:5",
+          "policy:bao-hanh:1"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-024",
+        "intent": "policy_question",
+        "query_style": "co_dau",
+        "author": "agent_draft",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:van-chuyen:2"
+          ]
+        },
+        "filters": {
+          "doc_type": "policy"
+        },
+        "retrieved": [
+          "policy:van-chuyen:2",
+          "policy:doi-tra:4",
+          "policy:van-chuyen:5",
+          "policy:bao-hanh:5",
+          "policy:doi-tra:3",
+          "policy:doi-tra:1",
+          "policy:doi-tra:7",
+          "policy:doi-tra:6",
+          "policy:doi-tra:5",
+          "policy:doi-tra:2"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-025",
+        "intent": "policy_question",
+        "query_style": "teencode",
+        "author": "agent_draft",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:van-chuyen:2"
+          ]
+        },
+        "filters": {
+          "doc_type": "policy"
+        },
+        "retrieved": [
+          "policy:van-chuyen:5",
+          "policy:van-chuyen:4",
+          "policy:van-chuyen:2",
+          "policy:van-chuyen:6",
+          "policy:doi-tra:5",
+          "policy:doi-tra:3",
+          "policy:van-chuyen:3",
+          "policy:doi-tra:4",
+          "policy:bao-hanh:2",
+          "policy:doi-tra:7"
+        ],
+        "metrics": {
+          "first_gold_rank": 3,
+          "rr": 0.3333333333333333,
+          "returned": 10,
+          "hit@1": 0.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-026",
+        "intent": "policy_question",
+        "query_style": "teencode",
+        "author": "agent_draft",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:doi-tra:5"
+          ]
+        },
+        "filters": {
+          "doc_type": "policy"
+        },
+        "retrieved": [
+          "policy:doi-tra:3",
+          "policy:doi-tra:5",
+          "policy:doi-tra:2",
+          "policy:doi-tra:1",
+          "policy:doi-tra:7",
+          "policy:doi-tra:4",
+          "policy:doi-tra:6",
+          "policy:bao-hanh:1",
+          "policy:bao-hanh:5",
+          "policy:van-chuyen:5"
+        ],
+        "metrics": {
+          "first_gold_rank": 2,
+          "rr": 0.5,
+          "returned": 10,
+          "hit@1": 0.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-027",
+        "intent": "policy_question",
+        "query_style": "co_dau",
+        "author": "agent_draft",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:doi-tra:6"
+          ]
+        },
+        "filters": {
+          "doc_type": "policy"
+        },
+        "retrieved": [
+          "policy:doi-tra:6",
+          "policy:doi-tra:2",
+          "policy:bao-hanh:5",
+          "policy:doi-tra:1",
+          "policy:doi-tra:7",
+          "policy:van-chuyen:5",
+          "policy:van-chuyen:6",
+          "policy:van-chuyen:3",
+          "policy:bao-hanh:1",
+          "policy:doi-tra:3"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-029",
+        "intent": "policy_question",
+        "query_style": "co_dau",
+        "author": "agent_draft",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:van-chuyen:3"
+          ]
+        },
+        "filters": {
+          "doc_type": "policy"
+        },
+        "retrieved": [
+          "policy:van-chuyen:3",
+          "policy:doi-tra:2",
+          "policy:doi-tra:6",
+          "policy:bao-hanh:5",
+          "policy:doi-tra:7",
+          "policy:bao-hanh:6",
+          "policy:van-chuyen:6",
+          "policy:van-chuyen:2",
+          "policy:van-chuyen:1",
+          "policy:van-chuyen:4"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-030",
+        "intent": "policy_question",
+        "query_style": "teencode",
+        "author": "agent_draft",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:van-chuyen:5"
+          ]
+        },
+        "filters": {
+          "doc_type": "policy"
+        },
+        "retrieved": [
+          "policy:van-chuyen:5",
+          "policy:van-chuyen:4",
+          "policy:van-chuyen:6",
+          "policy:van-chuyen:3",
+          "policy:doi-tra:6",
+          "policy:doi-tra:3",
+          "policy:doi-tra:7",
+          "policy:doi-tra:2",
+          "policy:doi-tra:5",
+          "policy:van-chuyen:2"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-031",
+        "intent": "policy_question",
+        "query_style": "co_dau",
+        "author": "agent_draft",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:bao-hanh:1"
+          ]
+        },
+        "filters": {
+          "doc_type": "policy"
+        },
+        "retrieved": [
+          "policy:bao-hanh:1",
+          "policy:bao-hanh:3",
+          "policy:bao-hanh:5",
+          "policy:bao-hanh:2",
+          "policy:bao-hanh:6",
+          "policy:bao-hanh:4",
+          "policy:doi-tra:3",
+          "policy:doi-tra:1",
+          "policy:doi-tra:5",
+          "policy:doi-tra:2"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-032",
+        "intent": "policy_question",
+        "query_style": "khong_dau",
+        "author": "agent_draft",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:bao-hanh:3"
+          ]
+        },
+        "filters": {
+          "doc_type": "policy"
+        },
+        "retrieved": [
+          "policy:bao-hanh:3",
+          "policy:van-chuyen:1",
+          "policy:doi-tra:1",
+          "policy:van-chuyen:6",
+          "policy:bao-hanh:4",
+          "policy:doi-tra:3",
+          "policy:doi-tra:4",
+          "policy:doi-tra:5",
+          "policy:bao-hanh:2",
+          "policy:van-chuyen:5"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-034",
+        "intent": "policy_question",
+        "query_style": "teencode",
+        "author": "agent_draft",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:van-chuyen:1"
+          ]
+        },
+        "filters": {
+          "doc_type": "policy"
+        },
+        "retrieved": [
+          "policy:van-chuyen:1",
+          "policy:van-chuyen:3",
+          "policy:van-chuyen:2",
+          "policy:van-chuyen:6",
+          "policy:van-chuyen:4",
+          "policy:bao-hanh:5",
+          "policy:doi-tra:4",
+          "policy:doi-tra:1",
+          "policy:doi-tra:2",
+          "policy:doi-tra:6"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-113",
+        "intent": "policy_question",
+        "query_style": "khong_dau",
+        "author": "human",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:van-chuyen:2"
+          ]
+        },
+        "filters": {
+          "doc_type": "policy"
+        },
+        "retrieved": [
+          "policy:van-chuyen:6",
+          "policy:van-chuyen:3",
+          "policy:van-chuyen:4",
+          "policy:van-chuyen:1",
+          "policy:van-chuyen:2",
+          "policy:bao-hanh:1",
+          "policy:bao-hanh:5",
+          "policy:doi-tra:4",
+          "policy:van-chuyen:5",
+          "policy:doi-tra:2"
+        ],
+        "metrics": {
+          "first_gold_rank": 5,
+          "rr": 0.2,
+          "returned": 10,
+          "hit@1": 0.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-118",
+        "intent": "policy_question",
+        "query_style": "teencode",
+        "author": "human",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:doi-tra:7"
+          ]
+        },
+        "filters": {
+          "doc_type": "policy"
+        },
+        "retrieved": [
+          "policy:van-chuyen:5",
+          "policy:van-chuyen:6",
+          "policy:bao-hanh:3",
+          "policy:bao-hanh:1",
+          "policy:doi-tra:4",
+          "policy:doi-tra:7",
+          "policy:bao-hanh:2",
+          "policy:doi-tra:2",
+          "policy:van-chuyen:3",
+          "policy:doi-tra:3"
+        ],
+        "metrics": {
+          "first_gold_rank": 6,
+          "rr": 0.16666666666666666,
+          "returned": 10,
+          "hit@1": 0.0,
+          "hit@5": 0.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-119",
+        "intent": "policy_question",
+        "query_style": "khong_dau",
+        "author": "human",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:van-chuyen:3"
+          ]
+        },
+        "filters": {
+          "doc_type": "policy"
+        },
+        "retrieved": [
+          "policy:van-chuyen:1",
+          "policy:van-chuyen:3",
+          "policy:van-chuyen:6",
+          "policy:bao-hanh:1",
+          "policy:van-chuyen:2",
+          "policy:van-chuyen:4",
+          "policy:doi-tra:2",
+          "policy:doi-tra:4",
+          "policy:doi-tra:1",
+          "policy:bao-hanh:4"
+        ],
+        "metrics": {
+          "first_gold_rank": 2,
+          "rr": 0.5,
+          "returned": 10,
+          "hit@1": 0.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-120",
+        "intent": "policy_question",
+        "query_style": "co_dau",
+        "author": "human",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:bao-hanh:5"
+          ]
+        },
+        "filters": {
+          "doc_type": "policy"
+        },
+        "retrieved": [
+          "policy:bao-hanh:5",
+          "policy:bao-hanh:6",
+          "policy:van-chuyen:2",
+          "policy:bao-hanh:1",
+          "policy:van-chuyen:3",
+          "policy:doi-tra:4",
+          "policy:bao-hanh:4",
+          "policy:doi-tra:7",
+          "policy:bao-hanh:3",
+          "policy:bao-hanh:2"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      }
+    ]
+  },
+  "deterministic_sha256": "ec40cb705692be776b9272f34c874b96a18017824ee52a4b7ef33bc959b7003e",
+  "measurements": {
+    "latency_ms": {
+      "p50": 177.6,
+      "p95": 199.1,
+      "n": 14
+    },
+    "wall_seconds": 2.6
+  }
+}

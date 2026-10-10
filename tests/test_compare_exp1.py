@@ -220,6 +220,45 @@ def test_report_applies_the_rule_and_returns_every_section():
     assert any("multiple" in c for c in report["caveats"])
 
 
+def test_policy_only_oracle_runs_are_compared_within_their_own_item_set():
+    """The dev-split hash of a run is the hash of the items it evaluated: a policy-only run legitimately has
+    another one than the 38-item runs, and must only agree with the other policy-only runs."""
+    runs = _fake_phase4_runs()
+    questions = {r["id"]: "câu hỏi có dấu" for r in COMMITTED["deterministic"]["items"]}
+    for mode in ("hybrid", "dense_folded", "dense_sparse_folded"):
+        stand_in = copy.deepcopy(runs[(mode, "none", "dev")])
+        stand_in["deterministic"]["provenance"]["config"]["intents"] = ["policy_question"]
+        stand_in["deterministic"]["provenance"]["dev_split_sha256"] = "1" * 64
+        runs[(mode, "oracle", "dev")] = _rehash(stand_in)
+    assert set(cx.build_report(runs, COMMITTED, questions, texts={})["oracle_policy"]) == {"dense_sparse_folded", "dense_folded"}
+    other = copy.deepcopy(runs[("dense_folded", "oracle", "dev")])
+    other["deterministic"]["provenance"]["dev_split_sha256"] = "2" * 64  # same item set, different hash: still refused
+    runs[("dense_folded", "oracle", "dev")] = _rehash(other)
+    with pytest.raises(ValueError, match="dev_split_sha256"):
+        cx.build_report(runs, COMMITTED, questions, texts={})
+
+
+def test_ablation_appears_only_with_the_dense_perturbation_run_is_exploratory_and_leaves_the_decision_alone():
+    runs = _fake_phase4_runs()
+    questions = {r["id"]: "câu hỏi có dấu" for r in COMMITTED["deterministic"]["items"]}
+    without = cx.build_report(runs, COMMITTED, questions, texts={})
+    assert "ablation_dense" not in without
+    runs[("dense", "none", "dev_folded")] = json.loads((REPO / "eval/results/dense-none.json").read_text(encoding="utf-8"))
+    with_ablation = cx.build_report(runs, COMMITTED, questions, texts={})
+    ab = with_ablation["ablation_dense"]
+    assert ab["status"].startswith("EXPLORATORY") and "does not decide" in ab["status"]
+    assert set(ab["contrasts"]) == {"dense_minus_hybrid", "dense_folded_minus_dense", "dense_sparse_folded_minus_hybrid",
+                                    "dense_folded_minus_hybrid"}
+    assert set(ab["means"]) == {"hybrid", "dense", "dense_folded", "dense_sparse_folded"}
+    assert ab["means"]["dense"]["product_search"]["n"] == 19 and ab["means"]["dense"]["policy_question"]["n"] == 14
+    # paired differences add up: (dense_folded - hybrid) = (dense - hybrid) + (dense_folded - dense)
+    pooled = {name: c["pooled"]["mean_diff"] for name, c in ab["contrasts"].items()}
+    assert pooled["dense_folded_minus_hybrid"] == pytest.approx(pooled["dense_minus_hybrid"] + pooled["dense_folded_minus_dense"])
+    assert ab["contrasts"]["dense_minus_hybrid"]["pooled"]["n_pairs"] == 33
+    for section in ("rule", "dev", "perturbation", "exploratory", "co_dau_worsened", "reproduction"):
+        assert with_ablation[section] == without[section]  # the ablation changes nothing that decides
+
+
 def test_report_refuses_runs_that_are_not_comparable():
     runs = _fake_phase4_runs()
     other = copy.deepcopy(runs[("dense_folded", "none", "dev")])

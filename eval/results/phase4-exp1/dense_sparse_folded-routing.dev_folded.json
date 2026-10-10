@@ -1,0 +1,1528 @@
+{
+  "deterministic": {
+    "provenance": {
+      "git_commit": "4c8ee47c62fe138fd9797831b97f2fd713159cf6",
+      "git_dirty": false,
+      "index_manifest_sha256": "8bee3a76b734c9d245e81f8a0727d7975e675e02b1b7ba8e0e32956712a7fb38",
+      "embedder_fingerprint": "53b494c7da7e1203",
+      "golden_file_sha256": "89f0dd2deff438b09e7849c0f6c2bed022a347ce12e3ec97b93514bf9631bd81",
+      "dev_split_sha256": "62fe8897140b08601306f468b40a71512693f8543d96442deb3dca479b0e8ed6",
+      "config": {
+        "mode": "dense_sparse_folded",
+        "filters": "routing",
+        "top_k": 10,
+        "ks": [
+          1,
+          5,
+          10
+        ],
+        "split": "dev",
+        "intents": [
+          "product_search",
+          "policy_question"
+        ],
+        "oracle_drops": [
+          "keyword"
+        ],
+        "bootstrap": {
+          "resamples": 10000,
+          "seed": 20261009,
+          "confidence": 0.95
+        },
+        "metrics_version": "phase3b-v1",
+        "queryset": "dev_folded"
+      },
+      "lexical_fingerprint": "9c2ab3e20f5f1b26",
+      "perturbation_sha256": "3be1d846179bbd6b55eb973a14929c3ab6a7f2785cccd11b5bbf9d64c0cda506"
+    },
+    "aggregate": {
+      "counts": {
+        "product_answerable": 19,
+        "policy": 14,
+        "no_answer": 0
+      },
+      "product_search": {
+        "hit@1": {
+          "n": 19,
+          "excluded": 0,
+          "mean": 0.6842105263157895,
+          "ci_low": 0.47368421052631576,
+          "ci_high": 0.8947368421052632
+        },
+        "hit@5": {
+          "n": 19,
+          "excluded": 0,
+          "mean": 0.9473684210526315,
+          "ci_low": 0.8421052631578947,
+          "ci_high": 1.0
+        },
+        "hit@10": {
+          "n": 19,
+          "excluded": 0,
+          "mean": 1.0,
+          "ci_low": 1.0,
+          "ci_high": 1.0
+        },
+        "precision@1": {
+          "n": 19,
+          "excluded": 0,
+          "mean": 0.6842105263157895,
+          "ci_low": 0.47368421052631576,
+          "ci_high": 0.8947368421052632
+        },
+        "precision@5": {
+          "n": 19,
+          "excluded": 0,
+          "mean": 0.30526315789473685,
+          "ci_low": 0.23157894736842108,
+          "ci_high": 0.38947368421052636
+        },
+        "precision@10": {
+          "n": 19,
+          "excluded": 0,
+          "mean": 0.20526315789473684,
+          "ci_low": 0.1473684210526316,
+          "ci_high": 0.2736842105263158
+        },
+        "nrecall@1": {
+          "n": 19,
+          "excluded": 0,
+          "mean": 0.6842105263157895,
+          "ci_low": 0.47368421052631576,
+          "ci_high": 0.8947368421052632
+        },
+        "nrecall@5": {
+          "n": 19,
+          "excluded": 0,
+          "mean": 0.8070175438596492,
+          "ci_low": 0.6596491228070175,
+          "ci_high": 0.9368421052631579
+        },
+        "nrecall@10": {
+          "n": 19,
+          "excluded": 0,
+          "mean": 0.9280701754385965,
+          "ci_low": 0.8578947368421053,
+          "ci_high": 0.9824561403508772
+        },
+        "rr": {
+          "n": 19,
+          "excluded": 0,
+          "mean": 0.8145363408521303,
+          "ci_low": 0.681704260651629,
+          "ci_high": 0.9385964912280701
+        }
+      },
+      "policy_question": {
+        "hit@1": {
+          "n": 14,
+          "excluded": 0,
+          "mean": 0.42857142857142855,
+          "ci_low": 0.21428571428571427,
+          "ci_high": 0.7142857142857143
+        },
+        "hit@5": {
+          "n": 14,
+          "excluded": 0,
+          "mean": 1.0,
+          "ci_low": 1.0,
+          "ci_high": 1.0
+        },
+        "hit@10": {
+          "n": 14,
+          "excluded": 0,
+          "mean": 1.0,
+          "ci_low": 1.0,
+          "ci_high": 1.0
+        },
+        "rr": {
+          "n": 14,
+          "excluded": 0,
+          "mean": 0.6511904761904762,
+          "ci_low": 0.4880952380952381,
+          "ci_high": 0.8178571428571428
+        }
+      },
+      "returned_results": {
+        "mean_returned_answerable": 10.0,
+        "answerable_with_zero_results": 0
+      },
+      "breakdown_by_query_style": {
+        "product_search": {
+          "co_dau": {
+            "n": 3,
+            "too_small_to_interpret": true,
+            "metrics": {
+              "hit@1": 0.6666666666666666,
+              "hit@5": 1.0,
+              "hit@10": 1.0,
+              "nrecall@10": 1.0,
+              "rr": 0.8333333333333334
+            }
+          },
+          "khong_dau": {
+            "n": 3,
+            "too_small_to_interpret": true,
+            "metrics": {
+              "hit@1": 0.6666666666666666,
+              "hit@5": 1.0,
+              "hit@10": 1.0,
+              "nrecall@10": 0.8888888888888888,
+              "rr": 0.8333333333333334
+            }
+          },
+          "teencode": {
+            "n": 13,
+            "too_small_to_interpret": false,
+            "metrics": {
+              "hit@1": 0.6923076923076923,
+              "hit@5": 0.9230769230769231,
+              "hit@10": 1.0,
+              "nrecall@10": 0.9205128205128206,
+              "rr": 0.8058608058608059
+            }
+          }
+        },
+        "policy_question": {
+          "co_dau": {
+            "n": 6,
+            "too_small_to_interpret": true,
+            "metrics": {
+              "hit@1": 0.5,
+              "hit@5": 1.0,
+              "rr": 0.7083333333333334
+            }
+          },
+          "khong_dau": {
+            "n": 3,
+            "too_small_to_interpret": true,
+            "metrics": {
+              "hit@1": 0.6666666666666666,
+              "hit@5": 1.0,
+              "rr": 0.8333333333333334
+            }
+          },
+          "teencode": {
+            "n": 5,
+            "too_small_to_interpret": true,
+            "metrics": {
+              "hit@1": 0.2,
+              "hit@5": 1.0,
+              "rr": 0.47333333333333333
+            }
+          }
+        }
+      },
+      "filter_correctness_check": {
+        "note": "no_answer items: share of correctly EMPTY result lists. Under oracle filters this is true by construction; it checks filter correctness, it is NOT a quality metric.",
+        "n": 0,
+        "correct_empty": null
+      }
+    },
+    "items": [
+      {
+        "id": "gs-002",
+        "intent": "product_search",
+        "query_style": "khong_dau",
+        "author": "agent_draft",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-GIAY-0002",
+            "product:SM-GIAY-0014",
+            "product:SM-GIAY-0020",
+            "product:SM-GIAY-0032",
+            "product:SM-GIAY-0038"
+          ]
+        },
+        "filters": {
+          "doc_type": "product"
+        },
+        "retrieved": [
+          "product:SM-GIAY-0014",
+          "product:SM-GIAY-0002",
+          "product:SM-GIAY-0038",
+          "product:SM-GIAY-0043",
+          "product:SM-GIAY-0032",
+          "product:SM-GIAY-0020",
+          "product:SM-GIAY-0019",
+          "product:SM-GIAY-0031",
+          "product:SM-GIAY-0044",
+          "product:SM-GIAY-0013"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "precision@1": 1.0,
+          "nrecall@1": 1.0,
+          "hit@5": 1.0,
+          "precision@5": 0.8,
+          "nrecall@5": 0.8,
+          "hit@10": 1.0,
+          "precision@10": 0.5,
+          "nrecall@10": 1.0
+        }
+      },
+      {
+        "id": "gs-003",
+        "intent": "product_search",
+        "query_style": "teencode",
+        "author": "agent_draft",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-NAM-0004"
+          ]
+        },
+        "filters": {
+          "doc_type": "product"
+        },
+        "retrieved": [
+          "product:SM-NAM-0004",
+          "product:SM-NAM-0046",
+          "product:SM-NAM-0025",
+          "product:SM-NAM-0028",
+          "product:SM-NAM-0039",
+          "product:SM-NAM-0011",
+          "product:SM-NAM-0018",
+          "product:SM-NAM-0048",
+          "product:SM-NAM-0032",
+          "product:SM-NAM-0007"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "precision@1": 1.0,
+          "nrecall@1": 1.0,
+          "hit@5": 1.0,
+          "precision@5": 0.2,
+          "nrecall@5": 1.0,
+          "hit@10": 1.0,
+          "precision@10": 0.1,
+          "nrecall@10": 1.0
+        }
+      },
+      {
+        "id": "gs-004",
+        "intent": "product_search",
+        "query_style": "teencode",
+        "author": "agent_draft",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-NU-0003",
+            "product:SM-NU-0010"
+          ]
+        },
+        "filters": {
+          "doc_type": "product"
+        },
+        "retrieved": [
+          "product:SM-NU-0024",
+          "product:SM-GIAY-0027",
+          "product:SM-NU-0017",
+          "product:SM-NU-0046",
+          "product:SM-NAM-0028",
+          "product:SM-GIAY-0045",
+          "product:SM-NU-0010",
+          "product:SM-NU-0038",
+          "product:SM-NU-0031",
+          "product:SM-GIAY-0030"
+        ],
+        "metrics": {
+          "first_gold_rank": 7,
+          "rr": 0.14285714285714285,
+          "returned": 10,
+          "hit@1": 0.0,
+          "precision@1": 0.0,
+          "nrecall@1": 0.0,
+          "hit@5": 0.0,
+          "precision@5": 0.0,
+          "nrecall@5": 0.0,
+          "hit@10": 1.0,
+          "precision@10": 0.1,
+          "nrecall@10": 0.5
+        }
+      },
+      {
+        "id": "gs-007",
+        "intent": "product_search",
+        "query_style": "teencode",
+        "author": "agent_draft",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-TT-0005",
+            "product:SM-TT-0010",
+            "product:SM-TT-0015",
+            "product:SM-TT-0020",
+            "product:SM-TT-0025",
+            "product:SM-TT-0030"
+          ]
+        },
+        "filters": {
+          "doc_type": "product"
+        },
+        "retrieved": [
+          "product:SM-GIAY-0039",
+          "product:SM-GIAY-0041",
+          "product:SM-TT-0030",
+          "product:SM-TT-0025",
+          "product:SM-GIAY-0035",
+          "product:SM-GIAY-0021",
+          "product:SM-GIAY-0005",
+          "product:SM-GIAY-0007",
+          "product:SM-TT-0020",
+          "product:SM-TT-0010"
+        ],
+        "metrics": {
+          "first_gold_rank": 3,
+          "rr": 0.3333333333333333,
+          "returned": 10,
+          "hit@1": 0.0,
+          "precision@1": 0.0,
+          "nrecall@1": 0.0,
+          "hit@5": 1.0,
+          "precision@5": 0.4,
+          "nrecall@5": 0.4,
+          "hit@10": 1.0,
+          "precision@10": 0.4,
+          "nrecall@10": 0.6666666666666666
+        }
+      },
+      {
+        "id": "gs-008",
+        "intent": "product_search",
+        "query_style": "teencode",
+        "author": "agent_draft",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-TUI-0008",
+            "product:SM-TUI-0028"
+          ]
+        },
+        "filters": {
+          "doc_type": "product"
+        },
+        "retrieved": [
+          "product:SM-TUI-0008",
+          "product:SM-TUI-0028",
+          "product:SM-GIAY-0006",
+          "product:SM-GIAY-0030",
+          "product:SM-GIAY-0036",
+          "product:SM-GIAY-0024",
+          "product:SM-GIAY-0042",
+          "product:SM-TUI-0033",
+          "product:SM-GIAY-0012",
+          "product:SM-TUI-0003"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "precision@1": 1.0,
+          "nrecall@1": 1.0,
+          "hit@5": 1.0,
+          "precision@5": 0.4,
+          "nrecall@5": 1.0,
+          "hit@10": 1.0,
+          "precision@10": 0.2,
+          "nrecall@10": 1.0
+        }
+      },
+      {
+        "id": "gs-009",
+        "intent": "product_search",
+        "query_style": "teencode",
+        "author": "agent_draft",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-TUI-0004",
+            "product:SM-TUI-0009",
+            "product:SM-TUI-0014",
+            "product:SM-TUI-0019",
+            "product:SM-TUI-0024"
+          ]
+        },
+        "filters": {
+          "doc_type": "product"
+        },
+        "retrieved": [
+          "product:SM-TUI-0024",
+          "product:SM-TUI-0034",
+          "product:SM-TUI-0029",
+          "product:SM-GIAY-0045",
+          "product:SM-TUI-0009",
+          "product:SM-TUI-0004",
+          "product:SM-TUI-0014",
+          "product:SM-GIAY-0027",
+          "product:SM-TUI-0019",
+          "product:SM-TUI-0030"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "precision@1": 1.0,
+          "nrecall@1": 1.0,
+          "hit@5": 1.0,
+          "precision@5": 0.4,
+          "nrecall@5": 0.4,
+          "hit@10": 1.0,
+          "precision@10": 0.5,
+          "nrecall@10": 1.0
+        }
+      },
+      {
+        "id": "gs-011",
+        "intent": "product_search",
+        "query_style": "teencode",
+        "author": "agent_draft",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-GIAY-0006"
+          ]
+        },
+        "filters": {
+          "doc_type": "product"
+        },
+        "retrieved": [
+          "product:SM-GIAY-0006",
+          "product:SM-GIAY-0024",
+          "product:SM-GIAY-0036",
+          "product:SM-GIAY-0030",
+          "product:SM-GIAY-0018",
+          "product:SM-GIAY-0012",
+          "product:SM-GIAY-0042",
+          "product:SM-GIAY-0005",
+          "product:SM-GIAY-0023",
+          "product:SM-GIAY-0004"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "precision@1": 1.0,
+          "nrecall@1": 1.0,
+          "hit@5": 1.0,
+          "precision@5": 0.2,
+          "nrecall@5": 1.0,
+          "hit@10": 1.0,
+          "precision@10": 0.1,
+          "nrecall@10": 1.0
+        }
+      },
+      {
+        "id": "gs-012",
+        "intent": "product_search",
+        "query_style": "teencode",
+        "author": "agent_draft",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-NU-0006",
+            "product:SM-NU-0013",
+            "product:SM-NU-0020",
+            "product:SM-NU-0034",
+            "product:SM-NU-0048"
+          ]
+        },
+        "filters": {
+          "doc_type": "product"
+        },
+        "retrieved": [
+          "product:SM-NU-0021",
+          "product:SM-NU-0048",
+          "product:SM-NU-0007",
+          "product:SM-NU-0020",
+          "product:SM-NU-0049",
+          "product:SM-NU-0034",
+          "product:SM-NU-0028",
+          "product:SM-NU-0013",
+          "product:SM-NU-0014",
+          "product:SM-NU-0042"
+        ],
+        "metrics": {
+          "first_gold_rank": 2,
+          "rr": 0.5,
+          "returned": 10,
+          "hit@1": 0.0,
+          "precision@1": 0.0,
+          "nrecall@1": 0.0,
+          "hit@5": 1.0,
+          "precision@5": 0.4,
+          "nrecall@5": 0.4,
+          "hit@10": 1.0,
+          "precision@10": 0.4,
+          "nrecall@10": 0.8
+        }
+      },
+      {
+        "id": "gs-013",
+        "intent": "product_search",
+        "query_style": "co_dau",
+        "author": "agent_draft",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-PK-0013"
+          ]
+        },
+        "filters": {
+          "doc_type": "product"
+        },
+        "retrieved": [
+          "product:SM-PK-0013",
+          "product:SM-NU-0035",
+          "product:SM-TUI-0004",
+          "product:SM-NU-0028",
+          "product:SM-NU-0040",
+          "product:SM-PK-0029",
+          "product:SM-PK-0023",
+          "product:SM-NU-0042",
+          "product:SM-PK-0034",
+          "product:SM-PK-0009"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "precision@1": 1.0,
+          "nrecall@1": 1.0,
+          "hit@5": 1.0,
+          "precision@5": 0.2,
+          "nrecall@5": 1.0,
+          "hit@10": 1.0,
+          "precision@10": 0.1,
+          "nrecall@10": 1.0
+        }
+      },
+      {
+        "id": "gs-014",
+        "intent": "product_search",
+        "query_style": "khong_dau",
+        "author": "agent_draft",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-NAM-0047"
+          ]
+        },
+        "filters": {
+          "doc_type": "product"
+        },
+        "retrieved": [
+          "product:SM-NAM-0047",
+          "product:SM-NAM-0040",
+          "product:SM-NAM-0026",
+          "product:SM-NAM-0005",
+          "product:SM-NAM-0033",
+          "product:SM-NAM-0012",
+          "product:SM-NAM-0019",
+          "product:SM-NAM-0046",
+          "product:SM-NAM-0006",
+          "product:SM-NAM-0018"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "precision@1": 1.0,
+          "nrecall@1": 1.0,
+          "hit@5": 1.0,
+          "precision@5": 0.2,
+          "nrecall@5": 1.0,
+          "hit@10": 1.0,
+          "precision@10": 0.1,
+          "nrecall@10": 1.0
+        }
+      },
+      {
+        "id": "gs-015",
+        "intent": "product_search",
+        "query_style": "teencode",
+        "author": "agent_draft",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-TT-0001",
+            "product:SM-TT-0011",
+            "product:SM-TT-0026"
+          ]
+        },
+        "filters": {
+          "doc_type": "product"
+        },
+        "retrieved": [
+          "product:SM-TT-0001",
+          "product:SM-TT-0026",
+          "product:SM-TT-0011",
+          "product:SM-TT-0016",
+          "product:SM-TT-0009",
+          "product:SM-TT-0033",
+          "product:SM-TT-0024",
+          "product:SM-TT-0022",
+          "product:SM-TT-0004",
+          "product:SM-TT-0034"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "precision@1": 1.0,
+          "nrecall@1": 1.0,
+          "hit@5": 1.0,
+          "precision@5": 0.6,
+          "nrecall@5": 1.0,
+          "hit@10": 1.0,
+          "precision@10": 0.3,
+          "nrecall@10": 1.0
+        }
+      },
+      {
+        "id": "gs-016",
+        "intent": "product_search",
+        "query_style": "teencode",
+        "author": "agent_draft",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-GIAY-0009",
+            "product:SM-GIAY-0039",
+            "product:SM-GIAY-0045"
+          ]
+        },
+        "filters": {
+          "doc_type": "product"
+        },
+        "retrieved": [
+          "product:SM-GIAY-0039",
+          "product:SM-GIAY-0045",
+          "product:SM-GIAY-0007",
+          "product:SM-GIAY-0009",
+          "product:SM-GIAY-0021",
+          "product:SM-GIAY-0037",
+          "product:SM-GIAY-0027",
+          "product:SM-GIAY-0015",
+          "product:SM-GIAY-0031",
+          "product:SM-GIAY-0003"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "precision@1": 1.0,
+          "nrecall@1": 1.0,
+          "hit@5": 1.0,
+          "precision@5": 0.6,
+          "nrecall@5": 1.0,
+          "hit@10": 1.0,
+          "precision@10": 0.3,
+          "nrecall@10": 1.0
+        }
+      },
+      {
+        "id": "gs-017",
+        "intent": "product_search",
+        "query_style": "teencode",
+        "author": "agent_draft",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-PK-0027"
+          ]
+        },
+        "filters": {
+          "doc_type": "product"
+        },
+        "retrieved": [
+          "product:SM-PK-0027",
+          "product:SM-PK-0032",
+          "product:SM-TT-0028",
+          "product:SM-NU-0010",
+          "product:SM-TUI-0028",
+          "product:SM-PK-0007",
+          "product:SM-TT-0008",
+          "product:SM-TT-0018",
+          "product:SM-NU-0038",
+          "product:SM-PK-0015"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "precision@1": 1.0,
+          "nrecall@1": 1.0,
+          "hit@5": 1.0,
+          "precision@5": 0.2,
+          "nrecall@5": 1.0,
+          "hit@10": 1.0,
+          "precision@10": 0.1,
+          "nrecall@10": 1.0
+        }
+      },
+      {
+        "id": "gs-018",
+        "intent": "product_search",
+        "query_style": "khong_dau",
+        "author": "agent_draft",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-TUI-0022",
+            "product:SM-TUI-0027",
+            "product:SM-TUI-0032"
+          ]
+        },
+        "filters": {
+          "doc_type": "product"
+        },
+        "retrieved": [
+          "product:SM-GIAY-0027",
+          "product:SM-TUI-0032",
+          "product:SM-TUI-0002",
+          "product:SM-GIAY-0023",
+          "product:SM-GIAY-0006",
+          "product:SM-GIAY-0035",
+          "product:SM-TUI-0022",
+          "product:SM-GIAY-0045",
+          "product:SM-GIAY-0041",
+          "product:SM-NAM-0007"
+        ],
+        "metrics": {
+          "first_gold_rank": 2,
+          "rr": 0.5,
+          "returned": 10,
+          "hit@1": 0.0,
+          "precision@1": 0.0,
+          "nrecall@1": 0.0,
+          "hit@5": 1.0,
+          "precision@5": 0.2,
+          "nrecall@5": 0.3333333333333333,
+          "hit@10": 1.0,
+          "precision@10": 0.2,
+          "nrecall@10": 0.6666666666666666
+        }
+      },
+      {
+        "id": "gs-019",
+        "intent": "product_search",
+        "query_style": "teencode",
+        "author": "agent_draft",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-TT-0007"
+          ]
+        },
+        "filters": {
+          "doc_type": "product"
+        },
+        "retrieved": [
+          "product:SM-TT-0007",
+          "product:SM-TT-0012",
+          "product:SM-TT-0032",
+          "product:SM-TT-0017",
+          "product:SM-TT-0022",
+          "product:SM-TT-0002",
+          "product:SM-TT-0027",
+          "product:SM-NAM-0034",
+          "product:SM-TT-0004",
+          "product:SM-TT-0001"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "precision@1": 1.0,
+          "nrecall@1": 1.0,
+          "hit@5": 1.0,
+          "precision@5": 0.2,
+          "nrecall@5": 1.0,
+          "hit@10": 1.0,
+          "precision@10": 0.1,
+          "nrecall@10": 1.0
+        }
+      },
+      {
+        "id": "gs-023",
+        "intent": "policy_question",
+        "query_style": "co_dau",
+        "author": "agent_draft",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:doi-tra:2"
+          ]
+        },
+        "filters": {
+          "doc_type": "policy"
+        },
+        "retrieved": [
+          "policy:doi-tra:2",
+          "policy:bao-hanh:1",
+          "policy:doi-tra:1",
+          "policy:doi-tra:4",
+          "policy:doi-tra:7",
+          "policy:doi-tra:6",
+          "policy:bao-hanh:3",
+          "policy:van-chuyen:3",
+          "policy:bao-hanh:2",
+          "policy:doi-tra:5"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-024",
+        "intent": "policy_question",
+        "query_style": "co_dau",
+        "author": "agent_draft",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:van-chuyen:2"
+          ]
+        },
+        "filters": {
+          "doc_type": "policy"
+        },
+        "retrieved": [
+          "policy:doi-tra:4",
+          "policy:bao-hanh:5",
+          "policy:van-chuyen:1",
+          "policy:van-chuyen:2",
+          "policy:van-chuyen:5",
+          "policy:bao-hanh:4",
+          "policy:van-chuyen:3",
+          "policy:van-chuyen:4",
+          "policy:van-chuyen:6",
+          "policy:doi-tra:1"
+        ],
+        "metrics": {
+          "first_gold_rank": 4,
+          "rr": 0.25,
+          "returned": 10,
+          "hit@1": 0.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-025",
+        "intent": "policy_question",
+        "query_style": "teencode",
+        "author": "agent_draft",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:van-chuyen:2"
+          ]
+        },
+        "filters": {
+          "doc_type": "policy"
+        },
+        "retrieved": [
+          "policy:doi-tra:2",
+          "policy:van-chuyen:5",
+          "policy:van-chuyen:2",
+          "policy:van-chuyen:1",
+          "policy:van-chuyen:4",
+          "policy:doi-tra:3",
+          "policy:doi-tra:4",
+          "policy:doi-tra:6",
+          "policy:doi-tra:5",
+          "policy:bao-hanh:2"
+        ],
+        "metrics": {
+          "first_gold_rank": 3,
+          "rr": 0.3333333333333333,
+          "returned": 10,
+          "hit@1": 0.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-026",
+        "intent": "policy_question",
+        "query_style": "teencode",
+        "author": "agent_draft",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:doi-tra:5"
+          ]
+        },
+        "filters": {
+          "doc_type": "policy"
+        },
+        "retrieved": [
+          "policy:van-chuyen:5",
+          "policy:doi-tra:5",
+          "policy:doi-tra:4",
+          "policy:doi-tra:1",
+          "policy:bao-hanh:3",
+          "policy:doi-tra:3",
+          "policy:van-chuyen:6",
+          "policy:doi-tra:2",
+          "policy:doi-tra:6",
+          "policy:doi-tra:7"
+        ],
+        "metrics": {
+          "first_gold_rank": 2,
+          "rr": 0.5,
+          "returned": 10,
+          "hit@1": 0.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-027",
+        "intent": "policy_question",
+        "query_style": "co_dau",
+        "author": "agent_draft",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:doi-tra:6"
+          ]
+        },
+        "filters": {
+          "doc_type": "policy"
+        },
+        "retrieved": [
+          "policy:doi-tra:6",
+          "policy:van-chuyen:6",
+          "policy:doi-tra:5",
+          "policy:bao-hanh:1",
+          "policy:doi-tra:1",
+          "policy:bao-hanh:4",
+          "policy:van-chuyen:5",
+          "policy:doi-tra:3",
+          "policy:bao-hanh:3",
+          "policy:doi-tra:2"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-029",
+        "intent": "policy_question",
+        "query_style": "co_dau",
+        "author": "agent_draft",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:van-chuyen:3"
+          ]
+        },
+        "filters": {
+          "doc_type": "policy"
+        },
+        "retrieved": [
+          "policy:bao-hanh:1",
+          "policy:van-chuyen:3",
+          "policy:van-chuyen:6",
+          "policy:doi-tra:7",
+          "policy:bao-hanh:6",
+          "policy:van-chuyen:1",
+          "policy:van-chuyen:5",
+          "policy:van-chuyen:2",
+          "policy:van-chuyen:4",
+          "policy:doi-tra:6"
+        ],
+        "metrics": {
+          "first_gold_rank": 2,
+          "rr": 0.5,
+          "returned": 10,
+          "hit@1": 0.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-030",
+        "intent": "policy_question",
+        "query_style": "teencode",
+        "author": "agent_draft",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:van-chuyen:5"
+          ]
+        },
+        "filters": {
+          "doc_type": "policy"
+        },
+        "retrieved": [
+          "policy:van-chuyen:5",
+          "policy:van-chuyen:3",
+          "policy:van-chuyen:6",
+          "policy:van-chuyen:2",
+          "policy:van-chuyen:4",
+          "policy:doi-tra:1",
+          "policy:doi-tra:6",
+          "policy:doi-tra:3",
+          "policy:doi-tra:7",
+          "policy:bao-hanh:5"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-031",
+        "intent": "policy_question",
+        "query_style": "co_dau",
+        "author": "agent_draft",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:bao-hanh:1"
+          ]
+        },
+        "filters": {
+          "doc_type": "policy"
+        },
+        "retrieved": [
+          "policy:bao-hanh:1",
+          "policy:bao-hanh:3",
+          "policy:doi-tra:5",
+          "policy:bao-hanh:6",
+          "policy:doi-tra:6",
+          "policy:bao-hanh:5",
+          "policy:van-chuyen:6",
+          "policy:van-chuyen:5",
+          "policy:doi-tra:3",
+          "policy:bao-hanh:4"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-032",
+        "intent": "policy_question",
+        "query_style": "khong_dau",
+        "author": "agent_draft",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:bao-hanh:3"
+          ]
+        },
+        "filters": {
+          "doc_type": "policy"
+        },
+        "retrieved": [
+          "policy:bao-hanh:3",
+          "policy:van-chuyen:1",
+          "policy:van-chuyen:6",
+          "policy:doi-tra:1",
+          "policy:bao-hanh:4",
+          "policy:bao-hanh:1",
+          "policy:doi-tra:3",
+          "policy:bao-hanh:2",
+          "policy:doi-tra:5",
+          "policy:doi-tra:4"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-034",
+        "intent": "policy_question",
+        "query_style": "teencode",
+        "author": "agent_draft",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:van-chuyen:1"
+          ]
+        },
+        "filters": {
+          "doc_type": "policy"
+        },
+        "retrieved": [
+          "policy:van-chuyen:4",
+          "policy:van-chuyen:5",
+          "policy:doi-tra:3",
+          "policy:van-chuyen:6",
+          "policy:van-chuyen:1",
+          "policy:doi-tra:2",
+          "policy:bao-hanh:3",
+          "policy:doi-tra:6",
+          "policy:doi-tra:4",
+          "policy:bao-hanh:5"
+        ],
+        "metrics": {
+          "first_gold_rank": 5,
+          "rr": 0.2,
+          "returned": 10,
+          "hit@1": 0.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-104",
+        "intent": "product_search",
+        "query_style": "teencode",
+        "author": "human",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-NAM-0018"
+          ]
+        },
+        "filters": {
+          "doc_type": "product"
+        },
+        "retrieved": [
+          "product:SM-NAM-0032",
+          "product:SM-NAM-0018",
+          "product:SM-NAM-0039",
+          "product:SM-NU-0019",
+          "product:SM-NAM-0046",
+          "product:SM-NAM-0011",
+          "product:SM-NAM-0004",
+          "product:SM-NAM-0025",
+          "product:SM-NU-0033",
+          "product:SM-NU-0047"
+        ],
+        "metrics": {
+          "first_gold_rank": 2,
+          "rr": 0.5,
+          "returned": 10,
+          "hit@1": 0.0,
+          "precision@1": 0.0,
+          "nrecall@1": 0.0,
+          "hit@5": 1.0,
+          "precision@5": 0.2,
+          "nrecall@5": 1.0,
+          "hit@10": 1.0,
+          "precision@10": 0.1,
+          "nrecall@10": 1.0
+        }
+      },
+      {
+        "id": "gs-106",
+        "intent": "product_search",
+        "query_style": "co_dau",
+        "author": "human",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-GIAY-0002"
+          ]
+        },
+        "filters": {
+          "doc_type": "product"
+        },
+        "retrieved": [
+          "product:SM-GIAY-0002",
+          "product:SM-GIAY-0014",
+          "product:SM-GIAY-0038",
+          "product:SM-GIAY-0032",
+          "product:SM-GIAY-0019",
+          "product:SM-GIAY-0020",
+          "product:SM-GIAY-0043",
+          "product:SM-GIAY-0025",
+          "product:SM-GIAY-0008",
+          "product:SM-GIAY-0001"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "precision@1": 1.0,
+          "nrecall@1": 1.0,
+          "hit@5": 1.0,
+          "precision@5": 0.2,
+          "nrecall@5": 1.0,
+          "hit@10": 1.0,
+          "precision@10": 0.1,
+          "nrecall@10": 1.0
+        }
+      },
+      {
+        "id": "gs-107",
+        "intent": "product_search",
+        "query_style": "teencode",
+        "author": "human",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-TUI-0009"
+          ]
+        },
+        "filters": {
+          "doc_type": "product"
+        },
+        "retrieved": [
+          "product:SM-TUI-0009",
+          "product:SM-TUI-0034",
+          "product:SM-TUI-0024",
+          "product:SM-GIAY-0033",
+          "product:SM-TUI-0029",
+          "product:SM-GIAY-0013",
+          "product:SM-TUI-0004",
+          "product:SM-TUI-0030",
+          "product:SM-GIAY-0015",
+          "product:SM-TUI-0014"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "precision@1": 1.0,
+          "nrecall@1": 1.0,
+          "hit@5": 1.0,
+          "precision@5": 0.2,
+          "nrecall@5": 1.0,
+          "hit@10": 1.0,
+          "precision@10": 0.1,
+          "nrecall@10": 1.0
+        }
+      },
+      {
+        "id": "gs-109",
+        "intent": "product_search",
+        "query_style": "co_dau",
+        "author": "human",
+        "gold": {
+          "type": "skus",
+          "keys": [
+            "product:SM-TT-0025"
+          ]
+        },
+        "filters": {
+          "doc_type": "product"
+        },
+        "retrieved": [
+          "product:SM-TT-0005",
+          "product:SM-TT-0025",
+          "product:SM-TT-0020",
+          "product:SM-NAM-0001",
+          "product:SM-TT-0015",
+          "product:SM-GIAY-0003",
+          "product:SM-TT-0030",
+          "product:SM-TT-0010",
+          "product:SM-TT-0021",
+          "product:SM-TT-0035"
+        ],
+        "metrics": {
+          "first_gold_rank": 2,
+          "rr": 0.5,
+          "returned": 10,
+          "hit@1": 0.0,
+          "precision@1": 0.0,
+          "nrecall@1": 0.0,
+          "hit@5": 1.0,
+          "precision@5": 0.2,
+          "nrecall@5": 1.0,
+          "hit@10": 1.0,
+          "precision@10": 0.1,
+          "nrecall@10": 1.0
+        }
+      },
+      {
+        "id": "gs-113",
+        "intent": "policy_question",
+        "query_style": "khong_dau",
+        "author": "human",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:van-chuyen:2"
+          ]
+        },
+        "filters": {
+          "doc_type": "policy"
+        },
+        "retrieved": [
+          "policy:van-chuyen:2",
+          "policy:van-chuyen:6",
+          "policy:van-chuyen:3",
+          "policy:van-chuyen:4",
+          "policy:doi-tra:4",
+          "policy:van-chuyen:1",
+          "policy:bao-hanh:5",
+          "policy:bao-hanh:1",
+          "policy:doi-tra:2",
+          "policy:van-chuyen:5"
+        ],
+        "metrics": {
+          "first_gold_rank": 1,
+          "rr": 1.0,
+          "returned": 10,
+          "hit@1": 1.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-118",
+        "intent": "policy_question",
+        "query_style": "teencode",
+        "author": "human",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:doi-tra:7"
+          ]
+        },
+        "filters": {
+          "doc_type": "policy"
+        },
+        "retrieved": [
+          "policy:van-chuyen:5",
+          "policy:van-chuyen:6",
+          "policy:doi-tra:7",
+          "policy:bao-hanh:1",
+          "policy:doi-tra:4",
+          "policy:bao-hanh:3",
+          "policy:bao-hanh:6",
+          "policy:doi-tra:2",
+          "policy:doi-tra:1",
+          "policy:doi-tra:3"
+        ],
+        "metrics": {
+          "first_gold_rank": 3,
+          "rr": 0.3333333333333333,
+          "returned": 10,
+          "hit@1": 0.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-119",
+        "intent": "policy_question",
+        "query_style": "khong_dau",
+        "author": "human",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:van-chuyen:3"
+          ]
+        },
+        "filters": {
+          "doc_type": "policy"
+        },
+        "retrieved": [
+          "policy:van-chuyen:1",
+          "policy:van-chuyen:3",
+          "policy:van-chuyen:6",
+          "policy:doi-tra:2",
+          "policy:van-chuyen:2",
+          "policy:bao-hanh:1",
+          "policy:van-chuyen:4",
+          "policy:doi-tra:4",
+          "policy:doi-tra:3",
+          "policy:bao-hanh:4"
+        ],
+        "metrics": {
+          "first_gold_rank": 2,
+          "rr": 0.5,
+          "returned": 10,
+          "hit@1": 0.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      },
+      {
+        "id": "gs-120",
+        "intent": "policy_question",
+        "query_style": "co_dau",
+        "author": "human",
+        "gold": {
+          "type": "policy_clause",
+          "keys": [
+            "policy:bao-hanh:5"
+          ]
+        },
+        "filters": {
+          "doc_type": "policy"
+        },
+        "retrieved": [
+          "policy:van-chuyen:3",
+          "policy:bao-hanh:5",
+          "policy:bao-hanh:1",
+          "policy:doi-tra:3",
+          "policy:bao-hanh:3",
+          "policy:doi-tra:7",
+          "policy:doi-tra:1",
+          "policy:doi-tra:4",
+          "policy:doi-tra:6",
+          "policy:doi-tra:5"
+        ],
+        "metrics": {
+          "first_gold_rank": 2,
+          "rr": 0.5,
+          "returned": 10,
+          "hit@1": 0.0,
+          "hit@5": 1.0,
+          "hit@10": 1.0
+        }
+      }
+    ]
+  },
+  "deterministic_sha256": "af39ae014b03ada9ee26e552ffe090e6a84186403a518a3bb2e67292454285c4",
+  "measurements": {
+    "latency_ms": {
+      "p50": 208.5,
+      "p95": 225.4,
+      "n": 33
+    },
+    "wall_seconds": 6.9
+  }
+}
