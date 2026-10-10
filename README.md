@@ -16,7 +16,7 @@ ShopMate is an AI sales assistant for e-commerce: a retrieval-augmented (RAG) ag
 | `data/policies/` | Policy documents of the fictional shop (đổi trả, vận chuyển, bảo hành), with numbered clauses. |
 | `eval/golden/` | Golden evaluation set (`golden.vi.json`), its schema, drafting and validation scripts. |
 | `eval/` | Retrieval evaluation: runner (`run_retrieval_eval.py`), metrics, Phase 3B comparison, and the Phase 4 experiment 1 rule (`exp1_rule.py`), perturbation set (`perturbation/`) and comparison (`compare_exp1.py`). Results in `eval/results/`. |
-| `scripts/` | Generators, seeders for Saleor channel `vn`, the drift report and the Phase 1 smoke test. |
+| `scripts/` | Generators, seeders for Saleor channel `vn`, the drift report and the Phase 1 smoke test. `scripts/demo_requests.py` runs ten hand-written questions through the pipeline and writes their traces (`uv run python -m scripts.demo_requests`, offline from the cache; `--live` fetches missing answers within the free-tier guards). |
 | `tests/` | `uv run pytest`: unit tests, no services. `uv run pytest -m integration`: live Qdrant, model and Saleor. `scripts/test_all.sh` runs both. |
 | `docs/SETUP.md` | How the local environment was set up, Saleor app permissions, seeding commands. |
 | `.env.example` | Configuration template (placeholders only). |
