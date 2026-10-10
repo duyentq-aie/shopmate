@@ -18,6 +18,7 @@ from dataclasses import dataclass, field
 from app.llm.generator import CachedGenerator, Usage
 from app.llm.prompts import PromptTemplate, Vocabulary, catalog_vocabulary, render_prompt
 from app.retrieval.search import SearchFilters
+from app.tracing import span
 
 EXTRACTOR_FIELDS = ("category", "kind", "color", "material", "size", "price_min", "price_max", "in_stock")
 EXTRACTOR_GENERATION_CONFIG = {"temperature": 0, "maxOutputTokens": 512, "thinkingConfig": {"thinkingLevel": "minimal"}}
@@ -99,9 +100,19 @@ class FilterExtractor:
         self.name = f"{generator.model}/{template.name}"
 
     def extract(self, question: str) -> ExtractionResult:
-        result = self.generator.generate(component="filters", template_sha256=self.template.sha256,
-                                         system_instruction=self._system, user_text=question, schema=self.schema,
-                                         generation_config=EXTRACTOR_GENERATION_CONFIG)
+        with span("extractor", model=self.generator.model) as recorded:  # a no-op outside a traced request
+            result = self.generator.generate(component="filters", template_sha256=self.template.sha256,
+                                             system_instruction=self._system, user_text=question, schema=self.schema,
+                                             generation_config=EXTRACTOR_GENERATION_CONFIG)
+            recorded.record_response(result)
+            extraction = self._interpret(result)
+            if extraction.error:
+                recorded.fail("llm_invalid_output", extraction.error)
+            elif extraction.dropped:  # field names only: the dropped values are model output, not needed in a trace
+                recorded.fail("filter_out_of_vocab", "dropped fields: " + ", ".join(sorted(extraction.dropped)))
+            return extraction
+
+    def _interpret(self, result) -> ExtractionResult:
         common = dict(raw_response=result.raw, usage=result.usage, cached=result.cached, latency_ms=result.latency_ms)
         if result.text is None:
             return ExtractionResult(filters=None, error=f"no answer (finishReason={result.finish_reason})", **common)

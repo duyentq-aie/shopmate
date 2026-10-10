@@ -48,6 +48,7 @@ from app.retrieval.fusion import rrf_fuse
 from app.retrieval.lexical import LexicalConfig, query_vector
 from app.retrieval.manifest import active_collection
 from app.retrieval.store import DENSE, FOLDED, SPARSE, to_sparse_vector
+from app.tracing import span
 
 Mode = Literal["dense", "hybrid", "dense_sparse_folded", "dense_folded"]
 FUSED_BRANCHES: dict[str, tuple[str, ...]] = {
@@ -160,6 +161,11 @@ class Retriever:
     def search(self, query: str, filters: SearchFilters | dict | None = None, k: int = 10,
                mode: Mode | None = None) -> list[Hit]:
         """`mode=None` means the configured default (app.config.DEFAULT_RETRIEVAL_MODE)."""
+        model_id = getattr(getattr(self.embedder, "config", None), "model_id", None)
+        with span("retrieval", model=model_id):  # a no-op outside a traced request
+            return self._search(query, filters, k, mode)
+
+    def _search(self, query: str, filters: SearchFilters | dict | None, k: int, mode: Mode | None) -> list[Hit]:
         if k < 1:
             raise ValueError("k must be >= 1")
         mode = mode or config.DEFAULT_RETRIEVAL_MODE  # looked up at call time: one value, one place

@@ -30,6 +30,7 @@ class GenResult:
     digest: str
     http_attempts: int
     model_version: str | None
+    minute_429_retries: int = 0  # of THIS call (0 for a cache hit: no call was made); never written to the cache
 
 
 def parse_usage(raw: dict) -> Usage:
@@ -61,6 +62,7 @@ class CachedGenerator:
                        generation_config=generation_config)
         entry = self.cache.get(component, key)
         cached = entry is not None
+        minute_429_retries = 0
         if entry is None:
             if self.client is None:
                 raise CacheMiss(f"no cached {component} response for this request and live calls are off "
@@ -69,10 +71,11 @@ class CachedGenerator:
                                         generation_config=generation_config)
             entry = self.cache.put(component, key, live.raw, latency_ms=live.latency_ms, http_attempts=live.http_attempts)
             self.live_calls += 1
+            minute_429_retries = live.minute_429_retries
         else:
             self.cache_hits += 1
         raw = entry["response"]
         text, finish = parse_answer(raw)
         return GenResult(raw=raw, text=text, finish_reason=finish, usage=parse_usage(raw), latency_ms=entry["latency_ms"],
                          cached=cached, digest=entry["digest"], http_attempts=entry["http_attempts"],
-                         model_version=raw.get("modelVersion"))
+                         model_version=raw.get("modelVersion"), minute_429_retries=minute_429_retries)

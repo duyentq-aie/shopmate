@@ -209,3 +209,36 @@ def test_the_client_never_shows_its_key(tmp_path):
 ])
 def test_429_classification(body, expected):
     assert classify_429(body) == expected
+
+
+# --- what a retried call reports to the tracing layer (it must never be guessed afterwards) -------------------------------------------
+
+
+def test_a_call_reports_how_many_per_minute_429s_it_retried_before_succeeding(tmp_path):
+    assert Harness(tmp_path / "a", [(200, OK)]).generate().minute_429_retries == 0
+    assert Harness(tmp_path / "b", [(429, PER_MINUTE), (200, OK)]).generate().minute_429_retries == 1
+    assert Harness(tmp_path / "c", [(429, PER_MINUTE), (429, PER_MINUTE), (200, OK)]).generate().minute_429_retries == 2
+
+
+def test_only_a_recognised_per_minute_429_counts_as_one(tmp_path):
+    five_hundred = Harness(tmp_path / "a", [(503, {"error": {}}), (200, OK)]).generate()
+    network = Harness(tmp_path / "b", [httpx.ConnectError("down"), (200, OK)]).generate()
+    unknown = Harness(tmp_path / "c", [(429, UNKNOWN_429), (200, OK)]).generate()
+    mixed = Harness(tmp_path / "d", [(503, {"error": {}}), (429, PER_MINUTE), (200, OK)]).generate()
+    assert [r.http_attempts for r in (five_hundred, network, unknown, mixed)] == [2, 2, 2, 3]  # all were retried ...
+    assert [r.minute_429_retries for r in (five_hundred, network, unknown, mixed)] == [0, 0, 0, 1]  # ... one was a per-minute 429
+
+
+@pytest.mark.parametrize("script, kwargs, cause", [
+    ([(429, PER_MINUTE)] * 10, {"max_attempts": 3}, "rate_limit"),
+    ([(429, UNKNOWN_429)] * 10, {"max_unknown_429_retries": 1}, "rate_limit"),
+    ([(500, {"error": {}})] * 10, {"max_attempts": 3}, "server_error"),
+    ([httpx.ReadTimeout("slow")] * 10, {"max_attempts": 3}, "network"),
+    ([(429, PER_MINUTE), (503, {"error": {}})], {"max_attempts": 2}, "server_error"),  # the LAST failure names the cause
+    ([(503, {"error": {}}), (429, PER_MINUTE)], {"max_attempts": 2}, "rate_limit"),
+])
+def test_exhausted_retries_say_what_kind_of_failure_they_ended_on(tmp_path, script, kwargs, cause):
+    h = Harness(tmp_path, script, **kwargs)
+    with pytest.raises(RetriesExhausted) as caught:
+        h.generate()
+    assert caught.value.cause == cause

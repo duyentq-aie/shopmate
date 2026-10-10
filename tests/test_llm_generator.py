@@ -80,3 +80,19 @@ def test_an_answer_without_text_is_returned_as_such_and_cached_not_raised(tmp_pa
     first, second = _generate(gen), _generate(gen)
     assert first.text is None and first.finish_reason == "SAFETY" and second.cached and len(client.calls) == 1
     assert _generate(CachedGenerator(DiskCache(tmp_path / "x"), StubClient({}))).text is None  # nothing at all
+
+
+class RetriedClient(StubClient):
+    def generate(self, **kwargs):
+        self.calls.append(kwargs["user_text"])
+        return LiveResponse(raw=self.raw, latency_ms=812.5, http_attempts=3, minute_429_retries=2)
+
+
+def test_the_per_minute_429_retries_of_a_live_call_are_reported_but_never_cached(tmp_path):
+    gen = CachedGenerator(DiskCache(tmp_path), RetriedClient())
+    live, hit = _generate(gen), _generate(gen)
+    assert (live.cached, live.minute_429_retries) == (False, 2)
+    assert (hit.cached, hit.minute_429_retries) == (True, 0)  # a cache hit made no call, so it retried nothing
+    assert _generate(CachedGenerator(DiskCache(tmp_path / "plain"), StubClient())).minute_429_retries == 0
+    stored = [p for p in tmp_path.rglob("*.json")]
+    assert stored and all("minute_429" not in p.read_text(encoding="utf-8") for p in stored)  # the cache format is unchanged

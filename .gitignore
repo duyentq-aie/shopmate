@@ -26,3 +26,6 @@ __pycache__/
 # Logs and OS noise
 *.log
 .DS_Store
+
+# Request traces (one JSON line per request, app/tracing.py)
+logs/

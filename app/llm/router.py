@@ -23,6 +23,7 @@ from typing import Protocol, runtime_checkable
 from app.llm.generator import CachedGenerator, Usage
 from app.llm.intents import INTENTS
 from app.llm.prompts import PromptTemplate, render_prompt
+from app.tracing import record_intent, span
 
 ROUTER_SCHEMA = {"type": "OBJECT", "properties": {"intent": {"type": "STRING", "enum": list(INTENTS)}},
                  "required": ["intent"]}
@@ -74,10 +75,16 @@ class GeminiRouter:
         self.name = f"{generator.model}/{template.name}"
 
     def route(self, question: str) -> RouteResult:
-        result = self.generator.generate(component="router", template_sha256=self.template.sha256,
-                                         system_instruction=self._system, user_text=question, schema=ROUTER_SCHEMA,
-                                         generation_config=ROUTER_GENERATION_CONFIG)
-        intent, error = parse_intent(result.text, result.finish_reason)
-        return RouteResult(intent=intent, raw_response=result.raw, usage=result.usage, confidence=None,
-                           confidence_note=NO_CONFIDENCE_NOTE, cached=result.cached, latency_ms=result.latency_ms,
-                           error=error)
+        with span("router", model=self.generator.model) as recorded:  # a no-op outside a traced request
+            result = self.generator.generate(component="router", template_sha256=self.template.sha256,
+                                             system_instruction=self._system, user_text=question, schema=ROUTER_SCHEMA,
+                                             generation_config=ROUTER_GENERATION_CONFIG)
+            intent, error = parse_intent(result.text, result.finish_reason)
+            recorded.record_response(result)
+            if error:
+                recorded.fail("llm_invalid_output", error)
+            else:
+                record_intent(intent)
+            return RouteResult(intent=intent, raw_response=result.raw, usage=result.usage, confidence=None,
+                               confidence_note=NO_CONFIDENCE_NOTE, cached=result.cached, latency_ms=result.latency_ms,
+                               error=error)

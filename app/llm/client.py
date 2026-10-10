@@ -45,6 +45,7 @@ class LiveResponse:
     raw: dict
     latency_ms: float
     http_attempts: int
+    minute_429_retries: int = 0  # recognised per-minute 429s this call retried before it succeeded (for tracing; not cached)
 
 
 def estimate_tokens(system_instruction: str, user_text: str, schema: dict, max_output_tokens: int) -> int:
@@ -117,7 +118,7 @@ class GeminiClient:
                                      "responseSchema": schema}}
         tokens = estimate_tokens(system_instruction, user_text, schema, int(generation_config.get("maxOutputTokens", 256)))
         url = f"{self._base_url}/models/{self.model}:generateContent"
-        attempts = retries = unknown_retries = 0
+        attempts = retries = unknown_retries = minute_429s = 0
         while True:
             if self.live_requests >= self.max_live_requests:
                 raise CallCapExceeded(f"the per-run cap of {self.max_live_requests} live requests is reached")
@@ -129,7 +130,7 @@ class GeminiClient:
             try:
                 response = self._http.post(url, headers={"x-goog-api-key": self._api_key}, json=body)
             except httpx.TransportError as exc:
-                reason, wait = f"network error ({type(exc).__name__})", None
+                reason, wait, cause = f"network error ({type(exc).__name__})", None, "network"
             else:
                 latency_ms = (time.perf_counter() - started) * 1000
                 status = response.status_code
@@ -138,7 +139,8 @@ class GeminiClient:
                         raw = response.json()
                     except ValueError:
                         raise BadResponse("the API answered 200 with a body that is not JSON") from None
-                    return LiveResponse(raw=raw, latency_ms=round(latency_ms, 1), http_attempts=attempts)
+                    return LiveResponse(raw=raw, latency_ms=round(latency_ms, 1), http_attempts=attempts,
+                                        minute_429_retries=minute_429s)
                 try:
                     error_body = response.json()
                 except ValueError:
@@ -153,14 +155,16 @@ class GeminiClient:
                         unknown_retries += 1
                         if unknown_retries > self.max_unknown_429_retries:
                             raise RetriesExhausted(f"429 not recognised as per-minute, still failing after "
-                                                   f"{attempts} attempts; stopping") from None
-                    reason = f"429 ({kind})"
+                                                   f"{attempts} attempts; stopping", cause="rate_limit") from None
+                    elif kind == "per_minute":
+                        minute_429s += 1  # counted when seen; it only matters if a later attempt then succeeds
+                    reason, cause = f"429 ({kind})", "rate_limit"
                 elif status >= 500:
-                    reason, wait = f"server error {status}", None
+                    reason, wait, cause = f"server error {status}", None, "server_error"
                 else:
                     message = (error_body or {}).get("error", {}).get("message") if isinstance(error_body, dict) else None
                     raise ApiError(status, self._scrub(str(message or response.text[:200])))
             if attempts >= self.max_attempts:
-                raise RetriesExhausted(f"{reason} on the last of {attempts} attempts; stopping")
+                raise RetriesExhausted(f"{reason} on the last of {attempts} attempts; stopping", cause=cause)
             self._sleep(self._backoff(retries, wait))
             retries += 1

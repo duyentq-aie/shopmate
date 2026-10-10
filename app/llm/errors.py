@@ -28,7 +28,18 @@ class FreeTierUnavailable(LLMError):
 
 
 class RetriesExhausted(LLMError):
-    """Bounded retries (per-minute 429, 5xx, network) did not succeed."""
+    """Bounded retries (per-minute 429, 5xx, network) did not succeed.
+
+    `cause` is what the LAST attempt failed with: "rate_limit" (a 429 that never recovered), "server_error" (5xx) or
+    "network"; None when the raiser did not say. Tracing uses it to name the failure truthfully."""
+
+    CAUSES = ("rate_limit", "server_error", "network")
+
+    def __init__(self, message: str, *, cause: str | None = None) -> None:
+        super().__init__(message)
+        if cause is not None and cause not in self.CAUSES:
+            raise ValueError(f"unknown retry failure cause {cause!r}")
+        self.cause = cause
 
 
 class DailyBudgetReached(LLMError):
