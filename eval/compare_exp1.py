@@ -59,6 +59,9 @@ CAVEATS = [
     "it is a robustness test, not a substitute for real queries",
     "dev sets are small (19 answerable product items, 14 policy items); most intervals are wide and query-style "
     "cells with fewer than 8 items are marked too_small_to_interpret",
+    "exact score ties inside a branch (frequent in the folded branch: equal-length documents with the same matching "
+    "tokens) are broken by stable key, client-side (DECISIONS R25): an arbitrary but fixed rule, so part of any "
+    "measured difference may come from that arbitrary order",
     "dense_sparse_folded has two lexical branches of three, so dense carries 1/3 of the RRF weight instead of "
     "1/2 as in the baseline and in dense_folded: its effect mixes 'a new signal' with 'less dense weight'",
 ]

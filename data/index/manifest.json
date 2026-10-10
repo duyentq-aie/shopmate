@@ -71,7 +71,7 @@
     "torch": "2.14.1+cpu",
     "transformers": "5.19.0"
   },
-  "built_at": "2026-10-10T02:35:28+00:00",
+  "built_at": "2026-10-10T03:23:21+00:00",
   "lexical": {
     "folding_version": 1,
     "tokenizer": "alnum-syllable",
@@ -81,9 +81,7 @@
     "k1": 1.2,
     "b": 0.75,
     "avg_len": 70.9,
-    "tie_break": "stable-key-rank",
-    "tie_delta": 0.001,
-    "fingerprint": "149b5e12e83a3ffc"
+    "fingerprint": "9c2ab3e20f5f1b26"
   },
   "derived_from": {
     "collection": "shopmate_vn",

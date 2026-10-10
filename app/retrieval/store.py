@@ -10,8 +10,7 @@ Payload indexes exist for every field retrieval filters on.
 Each point's payload carries `text_sha256` and `embedding_fingerprint` (the re-embedding key:
 a change of text, model revision or embedding settings forces re-embedding) and `payload_sha256`
 (a payload-only change is written without re-embedding). Layout v2 points also carry
-`lexical_fingerprint` and `lexical_tie` (a change of the lexical config, or of the point's stable-key
-rank because the document set changed, rewrites only the folded vector).
+`lexical_fingerprint` (a change of the lexical config rewrites only the folded vector).
 """
 
 from __future__ import annotations
@@ -142,26 +141,17 @@ def count_by_doc_type(client: QdrantClient, collection: str = COLLECTION) -> dic
     return counts
 
 
-def existing_lexical_state(client: QdrantClient, collection: str = COLLECTION) -> dict[str, tuple[str, str]]:
-    """point id -> (lexical_fingerprint, lexical_tie); "" for a field the point does not have.
-
-    `lexical_tie` is "rank/n": the point's rank among the n documents by stable key, which the folded
-    vector's tie-break scaling was computed from (app/retrieval/lexical.py)."""
-    out: dict[str, tuple[str, str]] = {}
+def existing_lexical_fingerprints(client: QdrantClient, collection: str = COLLECTION) -> dict[str, str]:
+    """point id -> lexical_fingerprint ("" when the point has none)."""
+    out: dict[str, str] = {}
     offset = None
     while True:
         points, offset = client.scroll(collection, limit=256, offset=offset, with_vectors=False,
-                                       with_payload=["lexical_fingerprint", "lexical_tie"])
+                                       with_payload=["lexical_fingerprint"])
         for point in points:
-            payload = point.payload or {}
-            out[str(point.id)] = (payload.get("lexical_fingerprint", ""), payload.get("lexical_tie", ""))
+            out[str(point.id)] = (point.payload or {}).get("lexical_fingerprint", "")
         if offset is None:
             return out
-
-
-def existing_lexical_fingerprints(client: QdrantClient, collection: str = COLLECTION) -> dict[str, str]:
-    """point id -> lexical_fingerprint ("" when the point has none)."""
-    return {point_id: fingerprint for point_id, (fingerprint, _tie) in existing_lexical_state(client, collection).items()}
 
 
 def lexical_fingerprint_counts(client: QdrantClient, collection: str = COLLECTION) -> dict[str, int]:

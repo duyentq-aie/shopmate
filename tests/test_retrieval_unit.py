@@ -204,34 +204,95 @@ def test_dense_ties_are_broken_by_stable_key_after_over_fetching(client):
     assert runs == {("product:SM-NAM-0001", "product:SM-NAM-0002", "product:SM-NAM-0003")}
 
 
-@pytest.mark.parametrize("mode", ["dense", "hybrid", "dense_sparse_folded", "dense_folded"])
-def test_fused_ties_are_sorted_after_over_fetching(mode):
-    """Fake Qdrant that returns tied points in a different random order on every call (like the
-    real RRF ties). The retriever must ask for fetch_limit(k) points and return a stable order."""
-    from qdrant_client import models
+class ShufflingClient:
+    """Fake Qdrant that, like the real one, returns points with EXACTLY equal scores in an arbitrary order that
+    changes on every call (and ignores `limit` beyond what it holds). `scores[using]` maps a point number to its
+    score for that vector; points not listed score 0.1."""
 
-    from app.retrieval.search import fetch_limit, stable_key
+    def __init__(self, n_points, scores):
+        self.rng = random.Random(1)
+        self.n_points, self.scores = n_points, scores
+        self.calls = []
 
-    class ShufflingClient:
-        def __init__(self):
-            self.rng = random.Random(1)
-            self.limits = []
+    def count(self, collection, exact=True):
+        return types.SimpleNamespace(count=self.n_points)
 
-        def query_points(self, collection, limit, **kwargs):
-            self.limits.append(limit)
-            points = [models.ScoredPoint(id=n, version=0, score=0.5 if n < 20 else 0.1,
-                                         payload={"doc_type": "product", "sku": f"SM-NAM-{n:04d}", "key": f"product:SM-NAM-{n:04d}"})
-                      for n in range(40)]
-            # Like Qdrant: highest scores first, but tied points in an arbitrary order on every call.
-            self.rng.shuffle(points)
-            points.sort(key=lambda p: -p.score)  # stable sort keeps the random order within ties
-            return types.SimpleNamespace(points=points[:limit])  # the retriever only reads .points
+    def query_points(self, collection, limit, using=None, **kwargs):
+        from qdrant_client import models
 
-    client = ShufflingClient()
+        self.calls.append({"limit": limit, "using": using, **kwargs})
+        points = [models.ScoredPoint(id=n, version=0, score=self.scores.get(using, {}).get(n, 0.1),
+                                     payload={"doc_type": "product", "sku": f"SM-NAM-{n:04d}", "key": f"product:SM-NAM-{n:04d}"})
+                  for n in range(self.n_points)]
+        self.rng.shuffle(points)  # tied points in a different arbitrary order on every call
+        points.sort(key=lambda p: -p.score)  # a stable sort keeps the random order inside ties
+        return types.SimpleNamespace(points=points[:limit])  # the retriever only reads .points
+
+
+def _sku(n):
+    return f"product:SM-NAM-{n:04d}"
+
+
+GROUP_A_HIGH = {n: 0.5 for n in range(20)}  # points 0..19 tie at 0.5, the other 20 tie at 0.1
+GROUP_B_HIGH = {n: 0.5 for n in range(20, 40)}
+
+
+def test_dense_ties_do_not_depend_on_the_order_qdrant_returns_them():
+    from app.retrieval.search import fetch_limit
+
+    client = ShufflingClient(40, {"dense": GROUP_A_HIGH})
     retriever = Retriever(client, FakeEmbedder(), collection="test")
-    runs = {tuple(h.key for h in retriever.search("x", k=5, mode=mode)) for _ in range(10)}
-    assert runs == {tuple(f"product:SM-NAM-{n:04d}" for n in range(5))}
-    assert set(client.limits) == {fetch_limit(5)} == {30}
+    runs = {tuple(h.key for h in retriever.search("x", k=5, mode="dense")) for _ in range(10)}
+    assert runs == {tuple(_sku(n) for n in range(5))}
+    assert {c["limit"] for c in client.calls} == {fetch_limit(5)} == {30}
     assert fetch_limit(10) == 30 and fetch_limit(20) == 60
+
+
+@pytest.mark.parametrize("mode", ["hybrid", "dense_folded"])
+def test_fused_ties_between_different_rank_pairs_resolve_by_stable_key_in_every_call(mode):
+    # dense: points 0..19 first (stable key order), then 20..39. Second branch (sparse or folded): 20..39 first.
+    # point i (< 20): ranks (i, i + 20) -> 1/(i+2) + 1/(i+22); point 20 + i: ranks (i + 20, i) -> the same two
+    # terms: exactly equal sums. Stable key decides: 0, 20, 1, 21, 2, 22, ...
+    second = "sparse" if mode == "hybrid" else "folded"
+    client = ShufflingClient(40, {"dense": GROUP_A_HIGH, second: GROUP_B_HIGH})
+    retriever = Retriever(client, FakeEmbedder(), collection="test")
+    runs = {tuple(h.key for h in retriever.search("x", k=6, mode=mode)) for _ in range(10)}
+    assert runs == {tuple(_sku(n) for n in (0, 20, 1, 21, 2, 22))}
+
+
+def test_three_branches_fuse_by_hand():
+    # branch ranks: dense A-group first; sparse and folded B-group first.
+    # point 20: 1/22 + 1/2 + 1/2 = 1.045; point 21: 1/23 + 1/3 + 1/3 = 0.710; point 0: 1/2 + 1/22 + 1/22 = 0.591;
+    # point 22: 1/24 + 1/4 + 1/4 = 0.542 (so point 0 beats it)
+    client = ShufflingClient(40, {"dense": GROUP_A_HIGH, "sparse": GROUP_B_HIGH, "folded": GROUP_B_HIGH})
+    hits = Retriever(client, FakeEmbedder(), collection="test").search("x", k=4, mode="dense_sparse_folded")
+    assert [h.key for h in hits[:3]] == [_sku(20), _sku(21), _sku(0)]
+    assert hits[0].score == pytest.approx(1 / 22 + 1 / 2 + 1 / 2)
+
+
+def test_each_branch_is_fetched_whole_and_never_through_server_side_fusion():
+    client = ShufflingClient(40, {})
+    Retriever(client, FakeEmbedder(), collection="test").search("x", {"doc_type": "product"}, k=3, mode="dense_sparse_folded")
+    assert [c["using"] for c in client.calls] == ["dense", "sparse", "folded"]
+    assert {c["limit"] for c in client.calls} == {40}  # the whole collection: no tie can sit on a cut-off
+    assert all("prefetch" not in c and c["query_filter"] == SearchFilters(doc_type="product").to_qdrant() for c in client.calls)
+
+
+def test_a_tie_straddling_the_window_is_cut_by_stable_key():
+    # 60 points. dense: all tied -> stable key order 0..59, only 0..49 inside the 50-window.
+    # sparse: point 59 first, the rest tied -> [59, 0, 1, ..., 58], window [59, 0..48].
+    # point 0: 1/2 + 1/3 = 0.833; point 1: 1/3 + 1/4 = 0.583; point 59: 1/2 (sparse only) = 0.5; point 2: 1/4 + 1/5 = 0.45.
+    # Points 50..58 are in neither window and must not appear at all; 49 is in dense only.
+    client = ShufflingClient(60, {"sparse": {59: 1.0}})
+    hits = Retriever(client, FakeEmbedder(), collection="test").search("x", k=60, mode="hybrid")
+    assert [h.key for h in hits[:3]] == [_sku(0), _sku(1), _sku(59)]
+    assert hits[2].score == 0.5
+    assert len(hits) == 51 and {h.key for h in hits} == {_sku(n) for n in (*range(50), 59)}
+    assert next(h.score for h in hits if h.key == _sku(49)) == pytest.approx(1 / 51)
+
+
+def test_stable_key_orders_clauses_numerically():
+    from app.retrieval.search import stable_key
+
     assert stable_key({"doc_type": "policy", "file": "doi-tra", "clause": 2}, "x") < \
         stable_key({"doc_type": "policy", "file": "doi-tra", "clause": 10}, "x")

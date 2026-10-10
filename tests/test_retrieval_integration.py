@@ -21,9 +21,11 @@ from app.policies import POLICY_DOCUMENTS, clauses
 from app.retrieval.documents import fetch_product_documents, policy_documents
 from app.retrieval.embedder import EmbeddingConfig
 from app.retrieval.indexer import index_documents
-from app.retrieval.lexical import query_vector
+from app.retrieval.folding import tokenize
+from app.retrieval.fusion import rrf_fuse
+from app.retrieval.lexical import doc_vector, query_vector
 from app.retrieval.manifest import file_sha256, load_manifest
-from app.retrieval.search import Retriever, SearchFilters
+from app.retrieval.search import PREFETCH_LIMIT, Retriever, SearchFilters, stable_key
 from app.retrieval.store import (
     DENSE,
     FOLDED,
@@ -133,23 +135,109 @@ def test_the_live_index_passes_every_check_the_evaluation_runner_makes(client):
 
 
 @pytest.mark.skipif(LEXICAL is None, reason="the committed manifest is layout v1: there is no folded vector yet")
-def test_folded_branch_has_no_exact_score_ties_and_does_not_depend_on_the_limit(client):
-    """Measured on the real server without the tie-break: exact ties in the folded branch, ordered
-    differently per build and per limit. With the stable-key-rank scaling every score is distinct, so the
-    order cannot depend on Qdrant's internals (the 50 here is the retriever's prefetch limit)."""
-    returned = []
-    for query in TIE_QUERIES:
-        vector = to_sparse_vector(query_vector(query))
-        top50 = client.query_points(ACTIVE, query=vector, using=FOLDED, limit=50).points
-        scores = [p.score for p in top50]
-        returned.append(len(scores))  # a query with no matching token ("free ship") legitimately returns nothing
-        assert len(set(scores)) == len(scores), (query, "exact score tie in the top 50")
-        top100 = client.query_points(ACTIVE, query=vector, using=FOLDED, limit=100).points
-        assert [p.id for p in top100[:50]] == [p.id for p in top50], (query, "order depends on limit")
-        again = client.query_points(ACTIVE, query=vector, using=FOLDED, limit=50).points
-        assert [p.id for p in again] == [p.id for p in top50], (query, "order differs between calls")
-    # not vacuous: most queries match several documents, many fill the whole prefetch window where ties occur
-    assert sum(n >= 2 for n in returned) >= 30 and sum(n == 50 for n in returned) >= 20, returned
+def test_stored_folded_vectors_are_exactly_the_bm25_weights_of_their_text(client):
+    """Scores are never modified: the folded vector of every point is pure BM25 of its stored text."""
+    offset, checked = None, 0
+    while True:
+        points, offset = client.scroll(ACTIVE, limit=64, offset=offset, with_vectors=[FOLDED], with_payload=["text"])
+        for point in points:
+            stored = dict(zip(point.vector[FOLDED].indices, point.vector[FOLDED].values))
+            expected = doc_vector(point.payload["text"], LEXICAL)
+            assert stored.keys() == expected.keys() and all(
+                stored[i] == pytest.approx(expected[i], rel=1e-6) for i in expected), point.id
+            checked += 1
+        if offset is None:
+            break
+    assert checked == load_manifest()["documents"]["total"]
+
+
+def _dev_and_perturbation_questions() -> list[str]:
+    from eval.golden.loader import load_split
+    from eval.perturbation.dev_folded import load_dev_folded
+
+    dev = load_split("dev")  # questions only: no metric is computed here
+    return [i.question for i in dev if i.intent in ("product_search", "policy_question")] + \
+        [i.question for i in load_dev_folded(dev)[0]]
+
+
+def _ranking_invariants(retriever, client, query, branch):
+    from qdrant_client import models as qm
+
+    ranking = retriever.ranking(query, branch)
+    keys = [stable_key(p.payload, str(p.id)) for p in ranking]
+    for a, b, ka, kb in zip(ranking, ranking[1:], keys, keys[1:]):
+        # different scores keep Qdrant's order (higher first); EXACT ties are ordered by ascending stable key
+        assert a.score > b.score or (a.score == b.score and ka < kb), (query, branch, ka, kb, a.score, b.score)
+    size = client.count(ACTIVE, exact=True).count
+    embedding = retriever.embedder.encode_query(query)
+    raw_query = {"dense": embedding.dense, "sparse": qm.SparseVector(indices=sorted(embedding.sparse),
+                                                                    values=[embedding.sparse[i] for i in sorted(embedding.sparse)]),
+                 "folded": to_sparse_vector(query_vector(query))}[branch]
+    raw = client.query_points(ACTIVE, query=raw_query, using=branch, limit=size).points
+    # nothing dropped, no score modified
+    assert {str(p.id): p.score for p in ranking} == {str(p.id): p.score for p in raw}, (query, branch)
+    return ranking
+
+
+@pytest.mark.parametrize("branch", ["dense", "sparse"] + (["folded"] if LEXICAL else []))
+def test_every_branch_ranking_orders_ties_by_stable_key_and_never_reorders_different_scores(retriever, client, branch):
+    sizes = [len(_ranking_invariants(retriever, client, query, branch)) for query in TIE_QUERIES]
+    # an empty ranking is legitimate (a query with no matching token), but most queries must match something
+    assert sum(n > 0 for n in sizes) >= 20 and sum(n >= 2 for n in sizes) >= 20, sizes
+
+
+@pytest.mark.skipif(LEXICAL is None, reason="the committed manifest is layout v1: there is no folded vector yet")
+def test_folded_ranking_holds_the_invariants_for_every_dev_and_perturbation_query_and_is_complete(retriever, client):
+    texts, offset = {}, None
+    while True:
+        points, offset = client.scroll(ACTIVE, limit=256, with_payload=["text"], offset=offset)
+        texts.update({str(p.id): set(tokenize(p.payload["text"])) for p in points})
+        if offset is None:
+            break
+    questions = _dev_and_perturbation_questions()
+    assert len(questions) == 38 + 33
+    for question in questions:
+        ranking = _ranking_invariants(retriever, client, question, "folded")
+        wanted = {i for i, tokens in texts.items() if tokens & set(tokenize(question))}
+        assert {str(p.id) for p in ranking} == wanted, question  # every document sharing a token, and nothing else
+
+
+@pytest.mark.skipif(LEXICAL is None, reason="the committed manifest is layout v1: there is no folded vector yet")
+def test_ties_in_the_folded_branch_are_common_so_the_stable_key_rule_is_exercised(retriever, client):
+    tied = sum(len({p.score for p in r}) < len(r) for r in (retriever.ranking(q, "folded") for q in TIE_QUERIES))
+    assert tied >= 20, tied  # measured 53/54 hand-written queries: exact ties are the rule, not the exception
+
+
+def test_client_side_rrf_equals_the_servers_fusion_on_a_fixed_fixture():
+    """The formula is Qdrant's own (1 / (rank0 + 2) per branch, window 50). If an upgrade of the server changes
+    it, this fails. Fixture: 60 points; dense ranks them 1..60, sparse ranks them 60..1; both windows cut at 50."""
+    import math
+    import uuid
+
+    from qdrant_client import models as qm
+
+    name = f"zz_rrf_fixture_{uuid.uuid4().hex[:8]}"
+    c = connect()
+    c.create_collection(name, vectors_config={"dense": qm.VectorParams(size=2, distance=qm.Distance.COSINE)},
+                        sparse_vectors_config={"sparse": qm.SparseVectorParams()})
+    try:
+        c.upsert(name, wait=True, points=[
+            qm.PointStruct(id=i, vector={"dense": [math.cos(math.radians(i)), math.sin(math.radians(i))],
+                                         "sparse": qm.SparseVector(indices=[0], values=[i / 10])}) for i in range(1, 61)])
+        dense_query, sparse_query = [1.0, 0.0], qm.SparseVector(indices=[0], values=[1.0])
+        server = c.query_points(
+            name, prefetch=[qm.Prefetch(query=dense_query, using="dense", limit=PREFETCH_LIMIT),
+                            qm.Prefetch(query=sparse_query, using="sparse", limit=PREFETCH_LIMIT)],
+            query=qm.FusionQuery(fusion=qm.Fusion.RRF), limit=60).points
+        # by hand: doc i is dense rank0 i-1 (inside the window if i <= 50) and sparse rank0 60-i (inside if i >= 11)
+        by_hand = {i: (1 / (i + 1) if i <= 50 else 0.0) + (1 / (62 - i) if i >= 11 else 0.0) for i in range(1, 61)}
+        assert len(server) == 60 and all(abs(p.score - by_hand[p.id]) < 1e-6 for p in server)
+        rankings = [[str(i) for i in range(1, 61)], [str(i) for i in range(60, 0, -1)]]
+        fused = rrf_fuse(rankings, window=PREFETCH_LIMIT)
+        assert {int(i): float(v) for i, v in fused.items()} == pytest.approx(by_hand)
+        assert all(abs(float(fused[str(p.id)]) - p.score) < 1e-6 for p in server)
+    finally:
+        c.delete_collection(name)
 
 
 def test_reindexing_leaves_point_counts_unchanged(client):

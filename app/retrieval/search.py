@@ -2,14 +2,21 @@
 
 search(query, filters, k, mode):
 - mode "dense":  nearest neighbours on the bge-m3 dense vector;
-- mode "hybrid": dense and sparse candidates (PREFETCH_LIMIT each) fused with Reciprocal Rank
-  Fusion inside Qdrant (Query API, FusionQuery RRF);
+- mode "hybrid": dense and sparse candidates fused with Reciprocal Rank Fusion;
 - Phase 4 experiment 1 (layout-v2 collection only), the same fusion with the diacritic-folded
   lexical vector (`folded`) as an extra or replacement branch:
     "dense_sparse_folded": dense + sparse + folded;
     "dense_folded":        dense + folded (the folded branch replaces bge-m3 sparse).
-  Every fused mode uses the same RRF settings, PREFETCH_LIMIT and R16 ordering, so branches are the
-  only thing that differs. A branch with no query weights (no tokens) is dropped.
+  Every fused mode uses the same fusion, window and ordering, so branches are the only thing that
+  differs. A branch with no query weights (no tokens) is dropped.
+
+Fusion is CLIENT-SIDE (decided 2026-10-10, DECISIONS R25). Qdrant breaks exact score ties in an
+arbitrary order that differs for every build and every `limit`, and its server-side RRF turns that
+order into ranks. So each branch is fetched WHOLE (limit = collection size, so no tie can sit on a
+cut-off), ordered by (score desc, stable key asc), cut to the first PREFETCH_LIMIT and fused with
+app/retrieval/fusion.rrf_fuse, which reproduces Qdrant's formula exactly. Scores are never modified.
+Fetching the whole collection is valid only at this scale (a few hundred points); the scalable
+version fetches N and extends the fetch while the N-th and (N+1)-th scores tie.
 Filters are translated to a Qdrant filter and applied INSIDE Qdrant, on every prefetch branch and
 on the final query, so a result can never violate them. There is deliberately no `keyword`
 filter: free-text name matching is the retrieval model's job, not a hard filter (DECISIONS R14).
@@ -35,6 +42,7 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 from qdrant_client import QdrantClient, models
 
 from app.retrieval.embedder import Embedding
+from app.retrieval.fusion import rrf_fuse
 from app.retrieval.lexical import LexicalConfig, query_vector
 from app.retrieval.manifest import active_collection
 from app.retrieval.store import DENSE, FOLDED, SPARSE, to_sparse_vector
@@ -45,7 +53,7 @@ FUSED_BRANCHES: dict[str, tuple[str, ...]] = {
     "dense_sparse_folded": (DENSE, SPARSE, FOLDED),
     "dense_folded": (DENSE, FOLDED),
 }
-PREFETCH_LIMIT = 50  # candidates per branch before RRF; part of the baseline definition
+PREFETCH_LIMIT = 50  # window per branch before RRF (documents ranked deeper add nothing); part of the baseline definition
 MIN_FETCH = 30  # fused results fetched before the deterministic sort
 
 
@@ -127,6 +135,26 @@ class Retriever:
             return embedding.dense
         return embedding.sparse if branch == SPARSE else query_vector(query)
 
+    def branch_ranking(self, branch: str, query: str, flt: models.Filter | None, embedding: Embedding,
+                       size: int) -> list:
+        """The WHOLE ranking of one branch (`size` = collection size), ordered by (score desc, stable key asc).
+        Empty if the query has no weights for this branch. Scores are Qdrant's own, never modified."""
+        weights = self._weights(branch, query, embedding)
+        if not weights or size == 0:
+            return []
+        vector = weights if branch == DENSE else to_sparse_vector(weights)
+        points = self.client.query_points(self.collection, query=vector, using=branch, query_filter=flt, limit=size,
+                                          with_payload=True).points
+        return sorted(points, key=lambda p: (-p.score, stable_key(p.payload or {}, str(p.id))))
+
+    def ranking(self, query: str, branch: str, filters: SearchFilters | dict | None = None) -> list:
+        """The whole ordered ranking of ONE branch ("dense", "sparse" or "folded") for a query: what search()
+        fuses (before the window cut). For inspection and tests."""
+        if isinstance(filters, dict):
+            filters = SearchFilters.model_validate(filters)
+        return self.branch_ranking(branch, query, filters.to_qdrant() if filters else None,
+                                   self.embedder.encode_query(query), self.client.count(self.collection, exact=True).count)
+
     def search(self, query: str, filters: SearchFilters | dict | None = None, k: int = 10,
                mode: Mode = "dense") -> list[Hit]:
         if k < 1:
@@ -141,26 +169,23 @@ class Retriever:
         if mode == "dense":
             result = self.client.query_points(self.collection, query=embedding.dense, using=DENSE,
                                               query_filter=flt, limit=fetch_limit(k), with_payload=True)
+            ordered = sorted(result.points,
+                             key=lambda p: (-p.score, stable_key(p.payload or {}, str(p.id))))[:k]
+            scored = [(point, point.score) for point in ordered]
         else:
-            prefetch = []
-            for branch in FUSED_BRANCHES[mode]:
-                weights = self._weights(branch, query, embedding)
-                if not weights:
-                    continue  # no sparse weights / no tokens: this branch cannot say anything
-                vector = weights if branch == DENSE else to_sparse_vector(weights)
-                prefetch.append(models.Prefetch(query=vector, using=branch, filter=flt, limit=PREFETCH_LIMIT))
-            result = self.client.query_points(self.collection, prefetch=prefetch,
-                                              query=models.FusionQuery(fusion=models.Fusion.RRF),
-                                              query_filter=flt, limit=fetch_limit(k), with_payload=True)
+            size = self.client.count(self.collection, exact=True).count
+            rankings = [self.branch_ranking(branch, query, flt, embedding, size) for branch in FUSED_BRANCHES[mode]]
+            points = {str(p.id): p for ranking in rankings for p in ranking}
+            fused = rrf_fuse([[str(p.id) for p in ranking] for ranking in rankings], window=PREFETCH_LIMIT)
+            best = sorted(fused, key=lambda i: (-fused[i], stable_key(points[i].payload or {}, i)))[:k]
+            scored = [(points[i], float(fused[i])) for i in best]
 
-        ordered = sorted(result.points,
-                         key=lambda p: (-p.score, stable_key(p.payload or {}, str(p.id))))[:k]
         hits = []
-        for point in ordered:
+        for point, score in scored:
             payload = dict(point.payload or {})
             text = payload.get("text", "")
             for field in HIDDEN_PAYLOAD:
                 payload.pop(field, None)
-            hits.append(Hit(point_id=str(point.id), score=point.score, key=payload.pop("key", ""), text=text,
+            hits.append(Hit(point_id=str(point.id), score=score, key=payload.pop("key", ""), text=text,
                             payload=payload))
         return hits
