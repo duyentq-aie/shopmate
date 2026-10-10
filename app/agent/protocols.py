@@ -26,6 +26,7 @@ class Answer:
 
     text: str
     fallback_reason: str | None = None
+    generation: object | None = None  # the GenResult of the LLM call, if there was one: the answer span records its tokens from it
 
 
 class AgentTools(Protocol):

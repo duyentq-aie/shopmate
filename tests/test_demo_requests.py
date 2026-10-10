@@ -87,7 +87,18 @@ class Rig:
             return httpx.Response(status, json=body)
         body = json.loads(request.content)
         question = body["contents"][0]["parts"][0]["text"]
-        if "intent" in body["generationConfig"]["responseSchema"]["properties"]:
+        properties = body["generationConfig"]["responseSchema"]["properties"]
+        if "cited_skus" in properties:  # the answer step: a grounded answer written from the evidence it is given
+            asked = json.loads(question)
+            hits = asked["evidence"]["hits"]
+            if asked["kind"] == "products":
+                hit = hits[0]
+                answer = {"text": f"{hit['name']} (SKU {hit['sku']}) giá {hit['price_vnd']:,}đ.".replace(",", "."), "cited_skus": [hit["sku"]], "cited_clauses": []}
+            else:
+                answer = {"text": "Mình đã tìm được quy định liên quan trong chính sách của cửa hàng.", "cited_skus": [],
+                          "cited_clauses": [{"file": hits[0]["file"], "clause": hits[0]["clause"]}]}
+            return httpx.Response(200, json=_raw(answer, {"promptTokenCount": 1500, "candidatesTokenCount": 60, "totalTokenCount": 1560}))
+        if "intent" in properties:
             intent = next(q.expected_intent for q in QUESTIONS if q.text == question)
             return httpx.Response(200, json=_raw({"intent": intent}))
         return httpx.Response(200, json=_raw({**NULLS, **FILTERS.get(question, {})},
@@ -109,6 +120,11 @@ class Rig:
 
     def lines(self):
         return [json.loads(x) for x in self.traces.read_text(encoding="utf-8").splitlines()] if self.traces.exists() else []
+
+
+def llm_answers(lines) -> int:
+    """How many answers were written by the model in these trace lines (a fresh call, not the cache)."""
+    return sum(1 for l in lines for s in l["spans"] if s["stage"] == "answer" and s["cache_hit"] is False)
 
 
 def _summary(text: str) -> dict:
@@ -206,13 +222,18 @@ def test_a_live_run_sends_each_question_through_the_pipeline_and_writes_one_vali
     assert [l["intent"] for l in lines] == [q.expected_intent for q in QUESTIONS]
     stages = {q.text: [s["stage"] for s in l["spans"]] for q, l in zip(QUESTIONS, lines)}
     for q in QUESTIONS:
-        expected = {"product_search": ["router", "extractor", "retrieval"], "policy_question": ["router", "retrieval"]}.get(q.expected_intent, ["router"])
-        assert stages[q.text] == expected, q.text
-    assert all(l["status"] == "ok" for l in lines) and all(s["cache_hit"] is False for l in lines for s in l["spans"] if s["stage"] != "retrieval")
-    # 10 router calls + 3 extractor calls: every one went through the limiter and was counted against the day
-    assert len(rig.requests) == 13 and len(rig.acquired) == 13 and rig.budget.used() == 113
+        head = {"product_search": ["router", "extractor", "retrieval"], "policy_question": ["router", "retrieval"]}.get(q.expected_intent)
+        if head:  # a search ends in an answer (the model's) or, when nothing was found, in the fixed "nothing found" reply
+            body = stages[q.text][:-1]  # a product search that found nothing is tried once more with one constraint dropped: a second retrieval
+            assert body in (head, head + ["retrieval"] if q.expected_intent == "product_search" else head) and stages[q.text][-1] in ("answer", "reply"), q.text
+        else:  # orders and tickets ask for the email, the rest is small talk or out of scope: a fixed reply, no tool, no LLM answer
+            assert stages[q.text] == ["router", "reply"], q.text
+    assert all(l["status"] == "ok" for l in lines) and all(s["cache_hit"] is False for l in lines for s in l["spans"] if s["stage"] in ("router", "extractor", "answer"))
+    # 10 router calls + 3 extractor calls + the answers the model wrote: every one went through the limiter and was counted against the day
+    calls = 13 + llm_answers(lines)
+    assert llm_answers(lines) >= 1 and len(rig.requests) == calls and len(rig.acquired) == calls and rig.budget.used() == 100 + calls
     summary = _summary(shown.out)
-    assert summary["live"] == 13 and summary["quota"] == (113, 450) and summary["traces"] == str(rig.traces)
+    assert summary["live"] == calls and summary["quota"] == (100 + calls, 450) and summary["traces"] == str(rig.traces)
     assert "10 new lines" in shown.out and "all valid" in shown.out
     assert KEY not in shown.out and KEY not in shown.err and KEY not in rig.traces.read_text(encoding="utf-8")
 
@@ -237,14 +258,15 @@ def test_without_live_the_cache_is_used_and_nothing_is_sent_or_counted(tmp_path,
     assert rig.run("--live") == 0
     capsys.readouterr()
     sent, counted = len(rig.requests), rig.budget.used()
+    assert sent > 13 and counted == 100 + sent
     assert rig.run() == 0  # the second run is offline: every answer comes from the cache
     shown = capsys.readouterr().out
-    assert len(rig.requests) == sent and rig.budget.used() == counted == 113 and len(rig.acquired) == 13
-    assert _summary(shown)["live"] == 0 and _summary(shown)["quota"] == (113, 450)
+    assert len(rig.requests) == sent and rig.budget.used() == counted and len(rig.acquired) == sent
+    assert _summary(shown)["live"] == 0 and _summary(shown)["quota"] == (counted, 450)
     lines = rig.lines()
     assert len(lines) == 20 and all(validate_trace_line(l) == [] for l in lines)
     again = lines[10:]
-    assert all(s["cache_hit"] is True for l in again for s in l["spans"] if s["stage"] in ("router", "extractor"))
+    assert all(s["cache_hit"] is True for l in again for s in l["spans"] if s["stage"] in ("router", "extractor", "answer"))
     assert "10 new lines" in shown  # only the lines of THIS run are counted and checked
 
 
@@ -297,11 +319,15 @@ def test_the_per_run_cap_stops_the_run(tmp_path, capsys):
 
 
 def test_a_retried_per_minute_429_counts_as_a_live_call_and_the_run_goes_on(tmp_path, capsys):
-    rig = Rig(tmp_path, prelude=[(429, PER_MINUTE)])
+    baseline = Rig(tmp_path / "base")
+    assert baseline.run("--live") == 0
+    capsys.readouterr()
+    plain = len(baseline.requests)
+    rig = Rig(tmp_path / "retry", prelude=[(429, PER_MINUTE)])
     assert rig.run("--live") == 0
     shown = capsys.readouterr().out
-    assert len(rig.requests) == 14 and len(rig.acquired) == 14 and rig.budget.used() == 14 and rig.sleeps  # the retry waited and was counted
-    assert _summary(shown)["live"] == 14
+    assert len(rig.requests) == plain + 1 and len(rig.acquired) == plain + 1 and rig.budget.used() == plain + 1 and rig.sleeps  # the retry waited and was counted
+    assert _summary(shown)["live"] == plain + 1
     first = rig.lines()[0]
     assert first["status"] == "warn" and first["spans"][0]["error"]["type"] == "llm_429_minute"
 

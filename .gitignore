@@ -9,6 +9,7 @@ data/*
 !data/seed/
 !data/policies/
 !data/index/
+# (data/tickets/tickets.jsonl, the tickets the agent writes, is covered by data/*: it holds customer emails)
 
 # Qdrant local storage
 qdrant_storage/

@@ -1,4 +1,4 @@
-"""Demo: ten hand-written questions through app.pipeline.handle_question, traced to logs/traces.jsonl.
+"""Demo: ten hand-written questions through app.pipeline.handle_question (one turn of the conversation agent each), traced to logs/traces.jsonl.
 
     uv run python -m scripts.demo_requests            # offline: answers come from the demo cache; a miss stops the run
     uv run python -m scripts.demo_requests --live     # fetch what is missing from Gemini (free tier, counts against the day)
@@ -37,14 +37,15 @@ from app.llm.generator import CachedGenerator
 from app.llm.limits import DailyBudget, RateLimiter
 from app.llm.prompts import load_prompt
 from app.llm.router import GeminiRouter
+from app.agent.answer import GeminiAnswerer
 from app.pipeline import handle_question
 from app.tracing import TRACE_PATH, Tracer, validate_trace_line
 from eval.run_phase5_eval import DAILY_CEILING, RPM, TPM, USAGE_DIR
 
 DEMO_CACHE_DIR = REPO_ROOT / "logs" / "demo_llm_cache"
-ROUTER_PROMPT, FILTERS_PROMPT = "router_v1", "filters_v1"
-DEFAULT_MAX_LIVE_CALLS = 40  # the run needs about 13 requests (10 router + 3 extractor); the rest is room for retries
-TOP_HITS = 3
+ROUTER_PROMPT, FILTERS_PROMPT, ANSWER_PROMPT = "router_v1", "filters_v1", "answer_v1"
+DEFAULT_MAX_LIVE_CALLS = 40  # about 18 requests (10 router, 3 extractor, up to 5 answers); the rest is room for retries
+SHOWN_HITS = 3
 
 
 @dataclass(frozen=True)
@@ -78,6 +79,7 @@ class Refused(Exception):
 class Stack:
     router: GeminiRouter
     extractor: FilterExtractor
+    answerer: GeminiAnswerer
     retriever: object
     tracer: Tracer
     generator: CachedGenerator
@@ -103,7 +105,8 @@ def build_llm(*, live: bool, max_live_calls: int, key: str | None = None, limite
 def assemble(*, llm: GeminiClient | None, budget: DailyBudget, cache_dir: Path, retriever, tracer: Tracer) -> Stack:
     generator = CachedGenerator(DiskCache(cache_dir), llm)
     return Stack(router=GeminiRouter(generator, load_prompt(ROUTER_PROMPT)), extractor=FilterExtractor(generator, load_prompt(FILTERS_PROMPT)),
-                 retriever=retriever, tracer=tracer, generator=generator, llm=llm, budget=budget)
+                 answerer=GeminiAnswerer(generator, load_prompt(ANSWER_PROMPT)), retriever=retriever, tracer=tracer, generator=generator, llm=llm,
+                 budget=budget)
 
 
 def build_retriever():
@@ -149,7 +152,7 @@ def run_demo(questions, stack: Stack) -> Outcome:
         outcome.attempted = number
         try:
             result = handle_question(question.text, router=stack.router, extractor=stack.extractor, retriever=stack.retriever,
-                                     tracer=stack.tracer, k=TOP_HITS)
+                                     tracer=stack.tracer, answerer=stack.answerer)
         except KeyboardInterrupt:
             outcome.stopped = f"STOPPED at question {number} of {total}: interrupted"
             break
@@ -160,11 +163,17 @@ def run_demo(questions, stack: Stack) -> Outcome:
         print(f"        intent={result.intent} (expected {question.expected_intent}"
               f"{'' if result.intent == question.expected_intent else ' -- DIFFERENT'}"
               f"{', prompt-injection attempt' if question.kind == 'injection' else ''})")
-        if result.filters is not None:
+        if result.filters:
             print(f"        filters={result.filters}")
-            print(f"        hits={len(result.hits)}" + (" · " + ", ".join(hit.key for hit in result.hits) if result.hits else ""))
+        if result.hits:
+            print(f"        hits={len(result.hits)} · " + ", ".join(hit["key"] for hit in result.hits[:SHOWN_HITS]))
+        elif result.intent in ("product_search", "policy_question"):
+            print("        hits=0")
         else:
             print("        no retrieval for this intent")
+        print("        reply: " + result.reply.replace("\n", " / "))
+        if result.awaiting:
+            print(f"        waiting for: {result.awaiting}")
         if result.error:
             print(f"        error: {result.error}")
     return outcome

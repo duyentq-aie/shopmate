@@ -13,11 +13,11 @@ from app.retrieval.folding import fold, tokenize
 EMAIL = re.compile(r"[A-Za-z0-9._%+\-]+@[A-Za-z0-9\-]+(?:\.[A-Za-z0-9\-]+)*\.[A-Za-z]{2,}")
 PHONE = re.compile(r"(?<![\d@])(?:\+?84|0)(?:[\s.\-]?\d){9}(?!\d)")
 MAX_ORDER_DIGITS = 7  # a longer run of digits is a phone number or an amount, never an order number
-_DIGITS = r"(\d{1," + str(MAX_ORDER_DIGITS) + r"})(?!\d)"
+_DIGITS = r"([0-9]{1," + str(MAX_ORDER_DIGITS) + r"})(?![0-9])"
 _ORDER_AFTER_WORD = re.compile(r"\b(?:don|order)(?:\s+hang)?(?:\s+so|\s+ma)?\s*[:#]?\s*" + _DIGITS
                                + r"(?!\s*(?:k\b|d\b|dong\b|vnd\b|%|ngay\b|cai\b|chiec\b|nghin\b|trieu\b))")
 _ORDER_AFTER_HASH = re.compile(r"#\s*" + _DIGITS)
-_BARE_NUMBER = re.compile(r"^#?\s*(\d{1," + str(MAX_ORDER_DIGITS) + r"})$")
+_BARE_NUMBER = re.compile(r"^#?\s*([0-9]{1," + str(MAX_ORDER_DIGITS) + r"})$")
 
 _YES_LEAD = {"co", "yes", "y", "ok", "oke", "okay", "vang", "duoc", "u", "uh", "dong", "xac"}
 _YES_FILLER = {"tao", "di", "nhe", "nha", "a", "ah", "ak", "shop", "ban", "giup", "minh", "cho", "phieu", "ticket", "luon", "roi", "day",

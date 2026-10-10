@@ -1,4 +1,4 @@
-"""Tracing the request path router -> extractor -> retrieval (app/pipeline.handle_question) with the fake client.
+"""Tracing one turn of the agent (app/pipeline.handle_question: router -> extractor -> retrieval -> answer) with the fake client.
 
 LLM answers come from a scripted stub of the client; the failure paths run through the REAL GeminiClient over a fake
 HTTP transport, the REAL Qdrant client pointed at a closed port, and the REAL read-only Saleor client, so the
@@ -88,19 +88,20 @@ ROUTES = {Q_PRODUCT: "product_search", Q_POLICY: "policy_question", Q_CHAT: "sma
 FILTERS = {Q_PRODUCT: {"kind": "Áo thun nam", "color": "Đen"}}
 
 
-def test_a_product_question_traces_router_extractor_retrieval_in_order_with_real_token_counts(tmp_path):
+def test_a_product_question_traces_router_extractor_retrieval_answer_in_order_with_real_token_counts(tmp_path):
     stack = _stack(tmp_path, ScriptedLLM(ROUTES, FILTERS))
     result = _handle(Q_PRODUCT, stack)
     (line,) = _lines(stack)
     assert validate_trace_line(line) == []
-    assert [s["stage"] for s in line["spans"]] == ["router", "extractor", "retrieval"]
+    assert [s["stage"] for s in line["spans"]] == ["router", "extractor", "retrieval", "answer"]
     assert line["intent"] == "product_search" and line["status"] == "ok" and line["error"] is None
-    router_span, extractor_span, retrieval_span = line["spans"]
+    router_span, extractor_span, retrieval_span, answer_span = line["spans"]
+    assert (answer_span["model"], answer_span["tokens_in"], answer_span["cache_hit"], answer_span["error"]) == (None, None, None, None)  # no LLM: the template answerer
     assert (router_span["model"], router_span["tokens_in"], router_span["tokens_out"], router_span["cache_hit"]) == ("gemini-3.5-flash-lite", 700, 8, False)
     assert (extractor_span["tokens_in"], extractor_span["tokens_out"]) == (1900, 40)  # the usageMetadata numbers, not estimates
     assert retrieval_span["model"] == "fake/bag-of-words" and retrieval_span["tokens_in"] is None and retrieval_span["cache_hit"] is None
-    assert result.intent == "product_search" and result.filters["doc_type"] == "product" and result.filters["kind"] == "Áo thun nam"
-    assert result.hits and all(h.payload["doc_type"] == "product" for h in result.hits)
+    assert result.intent == "product_search" and result.filters["kind"] == "Áo thun nam" and "doc_type" not in result.filters
+    assert result.hits and all(h["key"].startswith("product:") for h in result.hits) and "SM-" in result.reply
     starts = [s["start_ms"] for s in line["spans"]]
     assert starts == sorted(starts) and all(s["duration_ms"] >= 0 for s in line["spans"])
 
@@ -109,9 +110,9 @@ def test_a_policy_question_skips_the_extractor_and_a_greeting_skips_retrieval_to
     stack = _stack(tmp_path, ScriptedLLM(ROUTES, FILTERS))
     policy, chat = _handle(Q_POLICY, stack), _handle(Q_CHAT, stack)
     first, second = _lines(stack)
-    assert [s["stage"] for s in first["spans"]] == ["router", "retrieval"] and first["intent"] == "policy_question"
-    assert policy.filters == {"doc_type": "policy"} and all(h.payload["doc_type"] == "policy" for h in policy.hits)
-    assert [s["stage"] for s in second["spans"]] == ["router"] and second["intent"] == "smalltalk" and chat.hits == []
+    assert [s["stage"] for s in first["spans"]] == ["router", "retrieval", "answer"] and first["intent"] == "policy_question"
+    assert policy.filters == {} and all(h["key"].startswith("policy:") for h in policy.hits) and "Nguồn:" in policy.reply
+    assert [s["stage"] for s in second["spans"]] == ["router", "reply"] and second["intent"] == "smalltalk" and chat.hits == []
     assert first["status"] == second["status"] == "ok"
 
 
@@ -123,7 +124,7 @@ def test_exactly_one_line_per_request_and_a_repeated_question_is_a_cache_hit(tmp
     assert len(lines) == 4 and len({l["trace_id"] for l in lines}) == 4 and all(validate_trace_line(l) == [] for l in lines)
     again = lines[3]["spans"]
     assert [s["cache_hit"] for s in again[:2]] == [True, True] and (again[0]["tokens_in"], again[0]["tokens_out"]) == (700, 8)
-    assert again[2]["cache_hit"] is None  # retrieval has no cache
+    assert [s["stage"] for s in again] == ["router", "extractor", "retrieval", "answer"] and again[2]["cache_hit"] is None  # retrieval has no cache
 
 
 def test_tokens_are_null_when_the_response_has_no_usage_metadata_and_include_thought_tokens_when_it_has(tmp_path):
@@ -142,7 +143,7 @@ def test_without_a_tracer_the_request_is_handled_the_same_and_nothing_is_written
     router, extractor, retriever, tracer = _stack(tmp_path, ScriptedLLM(ROUTES, FILTERS))
     traced = handle_question(Q_PRODUCT, router=router, extractor=extractor, retriever=retriever, tracer=tracer)
     plain = handle_question(Q_PRODUCT, router=router, extractor=extractor, retriever=retriever)
-    assert [h.key for h in plain.hits] == [h.key for h in traced.hits] and plain.filters == traced.filters
+    assert [h["key"] for h in plain.hits] == [h["key"] for h in traced.hits] and plain.filters == traced.filters and plain.reply == traced.reply
     assert len(tracer.path.read_text(encoding="utf-8").splitlines()) == 1  # only the traced request wrote
 
 
@@ -159,9 +160,9 @@ def test_an_unusable_router_answer_is_llm_invalid_output_and_stops_the_request_w
     stack = _stack(tmp_path, ScriptedLLM({Q_PRODUCT: "this is not json"}))
     result = _handle(Q_PRODUCT, stack)
     (line,) = _lines(stack)
-    assert result.intent is None and result.hits == [] and result.error
+    assert result.intent is None and result.hits == [] and result.error and result.reply  # a fixed apology, never an exception
     assert line["status"] == "error" and line["error"]["type"] == "llm_invalid_output" and line["intent"] is None
-    assert [s["stage"] for s in line["spans"]] == ["router"] and line["spans"][0]["error"]["type"] == "llm_invalid_output"
+    assert [s["stage"] for s in line["spans"]] == ["router", "reply"] and line["spans"][0]["error"]["type"] == "llm_invalid_output"
     assert validate_trace_line(line) == []
 
 
@@ -173,8 +174,9 @@ def test_a_value_outside_the_vocabulary_is_filter_out_of_vocab_and_the_request_g
     extractor_span = line["spans"][1]
     assert extractor_span["stage"] == "extractor" and extractor_span["error"]["type"] == "filter_out_of_vocab"
     assert "kind" in extractor_span["error"]["message"] and "Áo gió" not in extractor_span["error"]["message"]  # field names only
-    assert line["spans"][2]["stage"] == "retrieval" and line["spans"][2]["error"] is None
-    assert result.filters == {"doc_type": "product", "color": "Đen"} and validate_trace_line(line) == []
+    # the dropped `kind` leaves the request without a product type (A5): the agent asks for it instead of searching on a colour alone
+    assert [(s["stage"], s["error"]) for s in line["spans"][2:]] == [("reply", None)]
+    assert result.filters == {"color": "Đen"} and result.awaiting == "product_type" and validate_trace_line(line) == []
 
 
 ROUTER_OK = (200, _raw({"intent": "smalltalk"}))
@@ -210,7 +212,8 @@ def test_a_per_minute_429_that_was_retried_and_then_succeeded_is_llm_429_minute_
     (line,) = _lines(stack)
     assert result.intent == "smalltalk" and len(harness.requests) == 3
     assert line["status"] == "warn" and line["error"] is None and validate_trace_line(line) == []
-    (router_span,) = line["spans"]
+    router_span, reply_span = line["spans"]
+    assert reply_span["stage"] == "reply" and reply_span["error"] is None
     assert router_span["error"]["type"] == "llm_429_minute" and "2" in router_span["error"]["message"]
     assert (router_span["tokens_in"], router_span["tokens_out"], router_span["cache_hit"]) == (700, 8, False)  # the call did succeed
     _handle(Q_CHAT, stack)  # the same question again: a cache hit, no call, no 429 to report
@@ -389,10 +392,14 @@ def test_a_read_only_violation_in_the_ticket_confirm_stage(tmp_path):
 # internal_error (not an agreed type: a bug)
 
 
-def test_an_unexpected_exception_is_traced_as_internal_error_and_re_raised(tmp_path):
+def test_an_unexpected_exception_is_traced_as_internal_error_and_re_raised(tmp_path, monkeypatch):
+    def a_bug(self, *args, **kwargs):
+        raise ValueError("a bug in retrieval")
+
+    monkeypatch.setattr(Retriever, "_search", a_bug)
     stack = _stack(tmp_path, ScriptedLLM(ROUTES, FILTERS))
     with pytest.raises(ValueError):
-        _handle(Q_PRODUCT, stack, k=0)  # the retriever refuses k < 1
+        _handle(Q_PRODUCT, stack)
     (line,) = _lines(stack)
     assert line["error"]["type"] == "internal_error" and line["spans"][-1]["stage"] == "retrieval" and validate_trace_line(line) == []
 

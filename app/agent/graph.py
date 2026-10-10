@@ -267,6 +267,8 @@ def build_graph(deps: Deps, *, max_steps: int = MAX_STEPS, checkpointer=None):
             return {"reply": text, **_finished(state)}
         with span("answer", model=getattr(answerer, "model", None)) as recorded:
             answer = answerer.compose(kind, state.get("query") or state["message"], evidence)
+            if answer.generation is not None:
+                recorded.record_response(answer.generation)
             if answer.fallback_reason:
                 recorded.fail("answer_guardrail_fallback", answer.fallback_reason)
         text = answer.text

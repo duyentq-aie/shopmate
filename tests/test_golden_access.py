@@ -54,6 +54,12 @@ def offenders(root: Path, allowed: set[str]) -> dict[str, list[str]]:
     return result
 
 
+def test_the_only_exceptions_are_the_three_tests_of_the_golden_tooling_listed_by_name():
+    """Approved by the owner (docs/DECISIONS-phase6.md, A0): these three check the schema, the frozen test-split hash and the merge, so they see every item."""
+    assert TOOLING_TESTS == {"tests/test_golden.py", "tests/test_frozen_test_split.py", "tests/test_merge_human_items.py"}
+    assert all((REPO / name).is_file() for name in TOOLING_TESTS)
+
+
 def test_no_module_outside_eval_golden_references_the_golden_file():
     assert offenders(REPO, TOOLING_TESTS | {THIS_FILE}) == {}
 

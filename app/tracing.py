@@ -147,7 +147,11 @@ def classify_exception(exc: BaseException, stage: str | None = None) -> tuple[st
         return "llm_cache_miss_offline", message
     if isinstance(exc, BadResponse):
         return "llm_invalid_output", message
+    from app.agent.tools import TicketWriteError  # lazy: tracing must not import the agent at load time
     from app.saleor.readonly_client import ReadOnlyViolation, SaleorQueryError  # lazy: retrieval does not need Saleor
+
+    if isinstance(exc, TicketWriteError):
+        return "ticket_write_failed", message
 
     if isinstance(exc, ReadOnlyViolation):
         return "readonly_violation", message
