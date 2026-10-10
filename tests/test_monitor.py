@@ -249,6 +249,18 @@ def test_the_example_address_in_the_real_pages_help_text_is_the_monitors_default
     assert ports == {str(monitor.DEFAULT_PORT)}, f"the page's help text names ports {sorted(ports)}, the monitor listens on {monitor.DEFAULT_PORT}"
 
 
+def test_the_real_page_knows_every_error_type_the_tracer_can_write_and_no_other():
+    from app.tracing import ERROR_TYPES
+
+    html = DASHBOARD_PAGE.read_text(encoding="utf-8")
+    block = re.search(r"const ERR = \{(.*?)\n\};", html, re.S).group(1)
+    entries = {key: (label, sev) for key, label, sev in re.findall(r"^\s+([a-z0-9_]+):\s*\{label: '([^']*)', sev: '(\w+)'", block, re.M)}
+    assert set(entries) == set(ERROR_TYPES), f"page only: {sorted(set(entries) - set(ERROR_TYPES))}, tracer only: {sorted(set(ERROR_TYPES) - set(entries))}"
+    assert entries["request_interrupted"] == ("Request bị ngắt giữa chừng", "error")
+    hint = re.search(r"error\.type đã biết: (.*?)\. Loại lạ", html).group(1)
+    assert set(re.findall(r"[a-z0-9_]+", hint)) == set(ERROR_TYPES)  # the help text lists the same types
+
+
 def _page_loads_only_what_the_csp_allows(html: str) -> list[str]:
     """What in the real page would break under CSP; [] when everything it loads is allowed."""
     problems = []

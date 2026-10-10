@@ -337,7 +337,7 @@ pre.code{background:var(--panel-2);border:1px solid var(--line);border-radius:3p
         <button id="copySchema" class="btn" type="button">Chép mẫu</button>
         <span class="hint mono" id="copyMsg"></span>
       </div>
-      <p class="hint">stage: router · extractor · retrieval · order_lookup · ticket_confirm · reply · answer. error.type đã biết: llm_429_minute · llm_rate_limited · llm_429_daily · llm_unavailable · llm_request_error · llm_invalid_output · llm_cache_miss_offline · budget_cap_reached · filter_out_of_vocab · qdrant_unreachable · saleor_timeout · saleor_error · readonly_violation · internal_error. Loại lạ vẫn hiển thị, xếp vào nhóm lỗi.</p>
+      <p class="hint">stage: router · extractor · retrieval · order_lookup · ticket_confirm · reply · answer. error.type đã biết: llm_429_minute · llm_rate_limited · llm_429_daily · llm_unavailable · llm_request_error · llm_invalid_output · llm_cache_miss_offline · budget_cap_reached · filter_out_of_vocab · qdrant_unreachable · saleor_timeout · saleor_error · readonly_violation · request_interrupted · internal_error. Loại lạ vẫn hiển thị, xếp vào nhóm lỗi.</p>
     </details>
   </section>
 
@@ -384,6 +384,7 @@ const ERR = {
   llm_cache_miss_offline: {label: 'Thiếu cache khi chạy offline', sev: 'error', fix: 'Chạy lại với --live để tạo cache, hoặc kiểm tra hash prompt có bị đổi không.'},
   budget_cap_reached: {label: 'Chạm trần ngân sách tự đặt', sev: 'error', fix: 'Trần 450 lời gọi mỗi ngày hoặc 300 mỗi lần chạy đã đầy. Chờ sang ngày quota mới.'},
   saleor_error:       {label: 'Saleor trả lỗi', sev: 'error', fix: 'Lỗi HTTP hoặc GraphQL không phải timeout. Đọc message; thường là quyền token hoặc truy vấn sai.'},
+  request_interrupted:{label: 'Request bị ngắt giữa chừng', sev: 'error', fix: 'Tiến trình bị dừng (Ctrl+C hoặc thoát) khi request đang chạy nên request không hoàn tất. Xem message để biết là KeyboardInterrupt hay SystemExit; nếu không ai chủ ý dừng thì kiểm tra nơi tắt tiến trình.'},
   internal_error:     {label: 'Lỗi code nội bộ', sev: 'error', fix: 'Ngoại lệ không thuộc loại nào ở trên. Tìm stack trace trong stderr theo trace id.'}
 };
 const SEV_COLOR = {warn: 'var(--warn)', error: 'var(--err)', security: 'var(--sec)'};

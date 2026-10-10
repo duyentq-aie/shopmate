@@ -195,6 +195,10 @@ def test_a_failing_log_write_never_breaks_the_request(tmp_path, capsys):
     (InvalidVariablesError("bad variables"), "ticket_confirm", "readonly_violation"),
     (ValueError("a bug"), "retrieval", "internal_error"),
     (KeyError("a bug"), "router", "internal_error"),
+    (KeyboardInterrupt(), "router", "request_interrupted"),
+    (KeyboardInterrupt(), None, "request_interrupted"),
+    (SystemExit(1), "retrieval", "request_interrupted"),
+    (SystemExit(), None, "request_interrupted"),
 ])
 def test_exceptions_map_to_their_own_error_type(exc, stage, expected):
     kind, message = classify_exception(exc, stage)
@@ -244,7 +248,7 @@ def test_no_exception_ever_maps_to_llm_429_minute():
              CacheMiss("x"), CacheCorrupt("x"), LLMError("x"), ApiError(429, "x"), ApiError(400, "x"),
              *(RetriesExhausted("x", cause=c) for c in ("rate_limit", "server_error", "network", None)),
              ResponseHandlingException(httpx.ConnectError("x")), httpx.ConnectError("x"), httpx.ReadTimeout("x"),
-             SaleorQueryError("x"), ReadOnlyViolation("x"), ValueError("x")]
+             SaleorQueryError("x"), ReadOnlyViolation("x"), ValueError("x"), KeyboardInterrupt(), SystemExit(2)]
     for exc in every:
         for stage in (*STAGES, None):
             assert classify_exception(exc, stage)[0] != "llm_429_minute", (exc, stage)
@@ -277,8 +281,188 @@ def test_the_error_vocabulary_is_the_agreed_one_plus_what_a_trace_needs_to_tell_
         # added by the owner when the nearest-match mapping was rejected
         "llm_unavailable", "llm_request_error", "llm_cache_miss_offline", "budget_cap_reached", "saleor_error",
         # added so that a 429 that never recovered is not called llm_429_minute, and for bugs
-        "llm_rate_limited", "internal_error"}
+        "llm_rate_limited", "internal_error",
+        # added so that a request ended by Ctrl+C or sys.exit() is not recorded as a success
+        "request_interrupted"}
     assert STAGES == ("router", "extractor", "retrieval", "order_lookup", "ticket_confirm", "reply", "answer")
+
+
+# --- interrupts: KeyboardInterrupt and SystemExit end a request; it is traced as an error and the exception is never swallowed ----------------
+
+
+def _keyboard_interrupt():
+    return KeyboardInterrupt()
+
+
+INTERRUPTS = [pytest.param(_keyboard_interrupt, "KeyboardInterrupt", id="KeyboardInterrupt"),
+              pytest.param(lambda: SystemExit(3), "SystemExit", id="SystemExit(3)"),
+              pytest.param(lambda: SystemExit(), "SystemExit", id="SystemExit()")]
+
+
+@pytest.mark.parametrize("make, name", INTERRUPTS)
+def test_an_interrupt_inside_a_span_inside_a_request_is_one_request_interrupted_line_and_is_re_raised(tmp_path, make, name):
+    tracer = _tracer(tmp_path)
+    boom = make()
+    with pytest.raises(type(boom)) as caught:
+        with tracer.request("q") as trace:
+            trace.intent = "product_search"
+            with span("router", model="gemini-3.5-flash-lite"):
+                raise boom
+    assert caught.value is boom  # the very object, never swallowed, replaced or wrapped
+    (line,) = _lines(tracer)
+    assert line["status"] == "error" and line["intent"] == "product_search"
+    assert line["error"]["type"] == "request_interrupted" and name in line["error"]["message"]
+    assert [(s["stage"], s["error"]["type"]) for s in line["spans"]] == [("router", "request_interrupted")]
+    assert validate_trace_line(line) == []
+
+
+@pytest.mark.parametrize("make, name", INTERRUPTS)
+def test_an_interrupt_in_a_request_outside_any_span_is_traced_too(tmp_path, make, name):
+    tracer = _tracer(tmp_path)
+    boom = make()
+    with pytest.raises(type(boom)) as caught:
+        with tracer.request("q"):
+            with span("router"):
+                pass  # one finished span first
+            raise boom
+    assert caught.value is boom
+    (line,) = _lines(tracer)
+    assert line["status"] == "error" and line["error"]["type"] == "request_interrupted" and name in line["error"]["message"]
+    assert [(s["stage"], s["error"]) for s in line["spans"]] == [("router", None)]  # the finished step is not blamed
+    assert validate_trace_line(line) == []
+
+
+@pytest.mark.parametrize("make, name", INTERRUPTS)
+def test_an_interrupt_through_nested_spans_marks_each_open_span_and_writes_one_line(tmp_path, make, name):
+    tracer = _tracer(tmp_path)
+    with pytest.raises(BaseException):
+        with tracer.request("q"):
+            with span("answer"):
+                with span("reply"):
+                    raise make()
+    (line,) = _lines(tracer)
+    assert [(s["stage"], s["error"]["type"]) for s in line["spans"]] == [("reply", "request_interrupted"), ("answer", "request_interrupted")]
+    assert line["error"]["type"] == "request_interrupted" and validate_trace_line(line) == []
+
+
+def test_the_message_names_which_interrupt_it_was_and_the_exit_code(tmp_path):
+    tracer = _tracer(tmp_path)
+    for exc in (KeyboardInterrupt(), SystemExit(3), SystemExit()):
+        with pytest.raises(BaseException):
+            with tracer.request("q"):
+                raise exc
+    first, second, third = (l["error"]["message"] for l in _lines(tracer))
+    assert "KeyboardInterrupt" in first and "SystemExit" not in first
+    assert "SystemExit" in second and "3" in second and "SystemExit" in third and "KeyboardInterrupt" not in second + third
+
+
+def test_an_interrupt_is_never_swallowed_whatever_the_tracing_does(tmp_path, capsys):
+    path = tmp_path / "logs" / "traces.jsonl"
+    path.mkdir(parents=True)  # a directory where the file should be: every write fails
+    tracer = Tracer(path)
+    with pytest.raises(KeyboardInterrupt):
+        with tracer.request("q"):
+            with span("router"):
+                raise KeyboardInterrupt
+    assert "trace write failed" in capsys.readouterr().err  # the failed write is reported, and the interrupt still got out
+
+
+def test_an_interrupt_in_a_span_outside_a_request_passes_untouched_and_writes_nothing(tmp_path):
+    tracer = _tracer(tmp_path)
+    boom = KeyboardInterrupt()
+    with pytest.raises(KeyboardInterrupt) as caught:
+        with span("router"):
+            raise boom
+    assert caught.value is boom and not tracer.path.exists()
+
+
+def test_an_interrupt_replaces_a_recovered_429_warning_on_the_span_it_ended(tmp_path):
+    from types import SimpleNamespace
+
+    tracer = _tracer(tmp_path)
+    recovered = SimpleNamespace(raw={}, usage=None, cached=False, minute_429_retries=1)
+    with pytest.raises(KeyboardInterrupt):
+        with tracer.request("q"):
+            with span("router") as sp:
+                sp.record_response(recovered)  # the call recovered from a per-minute 429 ...
+                raise KeyboardInterrupt  # ... and then the process was interrupted
+    (line,) = _lines(tracer)
+    assert [s["error"]["type"] for s in line["spans"]] == ["request_interrupted"] and line["error"]["type"] == "request_interrupted"
+
+
+@pytest.mark.parametrize("exc, expected", [(ValueError("a bug"), "internal_error"), (DailyLimitExhausted("quota"), "llm_429_daily"),
+                                           (RetriesExhausted("x", cause="network"), "llm_unavailable"), (CacheMiss("x"), "llm_cache_miss_offline")])
+def test_ordinary_exceptions_are_traced_exactly_as_before(tmp_path, exc, expected):
+    tracer = _tracer(tmp_path)
+    with pytest.raises(type(exc)) as caught:
+        with tracer.request("q"):
+            with span("router"):
+                raise exc
+    assert caught.value is exc
+    (line,) = _lines(tracer)
+    assert line["error"]["type"] == line["spans"][0]["error"]["type"] == expected and "request_interrupted" not in json.dumps(line)
+
+
+def test_any_other_baseexception_is_recorded_as_an_internal_error_never_as_a_success_and_is_re_raised(tmp_path):
+    class Odd(BaseException):
+        pass
+
+    tracer = _tracer(tmp_path)
+    boom = Odd("odd")
+    with pytest.raises(Odd) as caught:
+        with tracer.request("q"):
+            with span("router"):
+                raise boom
+    assert caught.value is boom
+    (line,) = _lines(tracer)
+    assert line["status"] == "error" and line["error"]["type"] == "internal_error" and "Odd" in line["error"]["message"]
+
+
+# GeneratorExit is how Python closes a generator, not a failure: it must pass through the spans and requests untouched
+
+def test_generator_exit_passes_through_a_span_and_a_request_without_being_recorded_as_an_error(tmp_path):
+    tracer = _tracer(tmp_path)
+    boom = GeneratorExit()
+    with pytest.raises(GeneratorExit) as caught:
+        with tracer.request("q"):
+            with span("router"):
+                raise boom
+    assert caught.value is boom
+    (line,) = _lines(tracer)
+    assert line["status"] == "ok" and line["error"] is None and line["spans"][0]["error"] is None
+    assert "request_interrupted" not in json.dumps(line) and validate_trace_line(line) == []
+
+
+def test_closing_a_generator_that_holds_a_request_open_is_clean_and_is_not_recorded_as_an_error(tmp_path):
+    tracer = _tracer(tmp_path)
+
+    def streaming_handler():
+        with tracer.request("q"):
+            with span("answer"):
+                yield "first chunk"
+                yield "second chunk"
+
+    handler = streaming_handler()
+    assert next(handler) == "first chunk"
+    assert handler.close() is None  # GeneratorExit went in at the yield; nothing swallowed it, nothing yielded again, no RuntimeError
+    (line,) = _lines(tracer)
+    assert line["status"] == "ok" and line["error"] is None and line["spans"][0]["stage"] == "answer" and line["spans"][0]["error"] is None
+
+
+def test_an_interrupt_thrown_into_a_generator_that_holds_a_request_open_is_traced_and_comes_out(tmp_path):
+    tracer = _tracer(tmp_path)
+
+    def streaming_handler():
+        with tracer.request("q"):
+            with span("answer"):
+                yield "first chunk"
+
+    handler = streaming_handler()
+    next(handler)
+    with pytest.raises(KeyboardInterrupt):
+        handler.throw(KeyboardInterrupt())
+    (line,) = _lines(tracer)
+    assert line["error"]["type"] == "request_interrupted" and validate_trace_line(line) == []
 
 
 # --- secrets and personal data -------------------------------------------------------------------------------------------

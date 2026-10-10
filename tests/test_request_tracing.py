@@ -397,6 +397,48 @@ def test_an_unexpected_exception_is_traced_as_internal_error_and_re_raised(tmp_p
     assert line["error"]["type"] == "internal_error" and line["spans"][-1]["stage"] == "retrieval" and validate_trace_line(line) == []
 
 
+# --- Ctrl+C and sys.exit() during a request ---------------------------------------------------------------------------------------
+
+
+class InterruptingLLM(ScriptedLLM):
+    """The fake model answers the router, then the process is interrupted while the extractor waits for it."""
+
+    def __init__(self, *args, interrupt=KeyboardInterrupt, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.interrupt = interrupt
+
+    def generate(self, *, system_instruction, user_text, schema, generation_config):
+        if "intent" not in schema["properties"]:
+            raise self.interrupt
+        return super().generate(system_instruction=system_instruction, user_text=user_text, schema=schema, generation_config=generation_config)
+
+
+@pytest.mark.parametrize("interrupt, name", [(KeyboardInterrupt(), "KeyboardInterrupt"), (SystemExit(4), "SystemExit")])
+def test_an_interrupt_in_the_extractor_is_one_request_interrupted_line_and_still_stops_the_caller(tmp_path, interrupt, name):
+    stack = _stack(tmp_path, InterruptingLLM(ROUTES, FILTERS, interrupt=interrupt))
+    with pytest.raises(type(interrupt)) as caught:
+        _handle(Q_PRODUCT, stack)
+    assert caught.value is interrupt
+    (line,) = _lines(stack)
+    assert line["status"] == "error" and line["intent"] == "product_search"  # the router had answered
+    assert line["error"]["type"] == "request_interrupted" and name in line["error"]["message"] and validate_trace_line(line) == []
+    assert [(s["stage"], (s["error"] or {}).get("type")) for s in line["spans"]] == [("router", None), ("extractor", "request_interrupted")]
+
+
+def test_an_interrupt_in_retrieval_is_traced_after_the_llm_stages_succeeded(tmp_path, monkeypatch):
+    def interrupted(self, *args, **kwargs):
+        raise KeyboardInterrupt
+
+    monkeypatch.setattr(Retriever, "_search", interrupted)
+    stack = _stack(tmp_path, ScriptedLLM(ROUTES, FILTERS))
+    with pytest.raises(KeyboardInterrupt):
+        _handle(Q_PRODUCT, stack)
+    (line,) = _lines(stack)
+    assert [(s["stage"], (s["error"] or {}).get("type")) for s in line["spans"]] == [
+        ("router", None), ("extractor", None), ("retrieval", "request_interrupted")]
+    assert line["error"]["type"] == "request_interrupted" and line["status"] == "error"
+
+
 # --- secrets and personal data in a real request ------------------------------------------------------------------------------------
 
 

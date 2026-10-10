@@ -68,7 +68,8 @@ class SpyLimiter(RateLimiter):
 class Rig:
     """A fake Gemini behind the real client, plus the files a run uses, all under tmp_path."""
 
-    def __init__(self, tmp_path: Path, *, used_today: int = 0, prelude=()):
+    def __init__(self, tmp_path: Path, *, used_today: int = 0, prelude=(), interrupt_on: int | None = None):
+        self.interrupt_on = interrupt_on  # the number of the HTTP request during which Ctrl+C is pressed
         self.tmp, self.requests, self.sleeps, self.acquired = tmp_path, [], [], []
         self.prelude = list(prelude)  # answers given first, e.g. [(429, PER_MINUTE)]
         self.usage_dir, self.cache_dir, self.traces = tmp_path / "usage", tmp_path / "cache", tmp_path / "logs" / "traces.jsonl"
@@ -79,6 +80,8 @@ class Rig:
 
     def handler(self, request: httpx.Request) -> httpx.Response:
         self.requests.append(request)
+        if self.interrupt_on == len(self.requests):
+            raise KeyboardInterrupt
         if self.prelude:
             status, body = self.prelude.pop(0)
             return httpx.Response(status, json=body)
@@ -301,6 +304,18 @@ def test_a_retried_per_minute_429_counts_as_a_live_call_and_the_run_goes_on(tmp_
     assert _summary(shown)["live"] == 14
     first = rig.lines()[0]
     assert first["status"] == "warn" and first["spans"][0]["error"]["type"] == "llm_429_minute"
+
+
+def test_ctrl_c_during_a_question_stops_the_run_and_the_interrupted_request_is_traced_as_such(tmp_path, capsys):
+    rig = Rig(tmp_path, interrupt_on=5)  # request 5 is the router call of question 3
+    assert rig.run("--live") == 2
+    shown = capsys.readouterr()
+    assert "STOPPED at question 3 of 10: interrupted" in shown.err and "questions run: 2 of 10 (stopped at question 3)" in shown.out
+    lines = rig.lines()
+    assert len(lines) == 3 and [l["status"] for l in lines] == ["ok", "ok", "error"]
+    assert lines[2]["error"]["type"] == "request_interrupted" and lines[2]["spans"][0]["error"]["type"] == "request_interrupted"
+    assert all(validate_trace_line(l) == [] for l in lines) and "all valid" in shown.out
+    assert _summary(shown.out)["live"] == 5
 
 
 def test_an_api_error_that_echoes_the_key_never_reaches_the_screen_or_the_file(tmp_path, capsys):

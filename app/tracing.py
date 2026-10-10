@@ -12,7 +12,9 @@ status: error if the request has an error, warn if only spans have one (the requ
 start_ms and duration_ms are milliseconds from the start of the request.
 
 Tracing never changes behaviour: spans are no-ops outside a request, exceptions are recorded and re-raised
-untouched, and a failing log write is reported on stderr and otherwise ignored.
+untouched (BaseException too: Ctrl+C and sys.exit() end a request, so they are recorded as errors, never as a success;
+only GeneratorExit, which is how Python closes a generator and not a failure, passes through unrecorded), and a failing
+log write is reported on stderr and otherwise ignored.
 
 Tokens are the numbers of the Gemini `usageMetadata` of the response, never estimates (null when the response has
 none); tokens_out is candidates + thought tokens, the billed output. A cache hit carries the recorded metadata of the
@@ -37,6 +39,7 @@ own type and nothing is mapped to the nearest one (details and the real cause ar
   saleor_timeout         a real timeout talking to Saleor
   saleor_error           any other SaleorQueryError (unreachable, HTTP status, GraphQL error)
   readonly_violation     the read-only Saleor client refused a request
+  request_interrupted    KeyboardInterrupt or SystemExit ended the request before it finished (it is re-raised, never swallowed)
   internal_error         any other exception: a bug (without a type of its own it would be untraceable)
 """
 
@@ -76,7 +79,7 @@ TRACE_PATH = REPO_ROOT / "logs" / "traces.jsonl"
 STAGES = ("router", "extractor", "retrieval", "order_lookup", "ticket_confirm", "reply", "answer")
 ERROR_TYPES = ("llm_429_minute", "llm_429_daily", "llm_rate_limited", "llm_unavailable", "llm_request_error",
                "llm_cache_miss_offline", "budget_cap_reached", "llm_invalid_output", "filter_out_of_vocab", "qdrant_unreachable",
-               "saleor_timeout", "saleor_error", "readonly_violation", "internal_error")
+               "saleor_timeout", "saleor_error", "readonly_violation", "request_interrupted", "internal_error")
 WARNING_ONLY = frozenset({"llm_429_minute"})  # a recovered condition: valid on a span, never the reason a request failed
 STATUSES = ("ok", "warn", "error")
 MESSAGE_LIMIT = 300
@@ -117,6 +120,10 @@ def classify_exception(exc: BaseException, stage: str | None = None) -> tuple[st
     Only a type that names what really happened is returned; an exception that fits none is `internal_error`.
     Never `llm_429_minute`: that is the warning of a call that recovered, and an exception means it did not."""
     message = f"{type(exc).__name__}: {str(exc)[:MESSAGE_LIMIT]}"
+    if isinstance(exc, KeyboardInterrupt):
+        return "request_interrupted", "KeyboardInterrupt: the request was interrupted before it finished"
+    if isinstance(exc, SystemExit):
+        return "request_interrupted", f"SystemExit: the process was asked to exit (code {str(exc.code)[:100]!r}) before the request finished"
     if isinstance(exc, DailyLimitExhausted):
         return "llm_429_daily", message
     if isinstance(exc, (DailyBudgetReached, CallCapExceeded)):
@@ -234,7 +241,9 @@ def span(stage: str, model: str | None = None) -> Iterator[SpanRecorder]:
     start = trace._clock()
     try:
         yield recorder
-    except Exception as exc:
+    except GeneratorExit:  # Python closing a generator is not a failure of this step: let it through, record nothing
+        raise
+    except BaseException as exc:  # incl. KeyboardInterrupt and SystemExit: the step did not finish, and the exception goes on
         if recorder.error is None:
             kind, message = classify_exception(exc, stage)
             recorder.error = {"type": kind, "message": message}
@@ -264,7 +273,9 @@ class Tracer:
         token = _CURRENT.set(trace)
         try:
             yield trace
-        except Exception as exc:
+        except GeneratorExit:  # the generator that holds this request open is being closed: not a failure
+            raise
+        except BaseException as exc:  # incl. KeyboardInterrupt and SystemExit: the line says error, and the exception goes on
             if trace.error is None:
                 seen = trace._escaping
                 if seen is not None and seen[0] is exc:
