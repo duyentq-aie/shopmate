@@ -1,6 +1,7 @@
 """Baseline retrieval over the ShopMate collection.
 
-search(query, filters, k, mode):
+search(query, filters, k, mode): `mode=None` runs the configured default, app.config.DEFAULT_RETRIEVAL_MODE
+(dense_folded, adopted in Phase 4); the evaluation runners always name their mode.
 - mode "dense":  nearest neighbours on the bge-m3 dense vector;
 - mode "hybrid": dense and sparse candidates fused with Reciprocal Rank Fusion;
 - Phase 4 experiment 1 (layout-v2 collection only), the same fusion with the diacritic-folded
@@ -41,6 +42,7 @@ from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 from qdrant_client import QdrantClient, models
 
+import app.config as config
 from app.retrieval.embedder import Embedding
 from app.retrieval.fusion import rrf_fuse
 from app.retrieval.lexical import LexicalConfig, query_vector
@@ -156,9 +158,11 @@ class Retriever:
                                    self.embedder.encode_query(query), self.client.count(self.collection, exact=True).count)
 
     def search(self, query: str, filters: SearchFilters | dict | None = None, k: int = 10,
-               mode: Mode = "dense") -> list[Hit]:
+               mode: Mode | None = None) -> list[Hit]:
+        """`mode=None` means the configured default (app.config.DEFAULT_RETRIEVAL_MODE)."""
         if k < 1:
             raise ValueError("k must be >= 1")
+        mode = mode or config.DEFAULT_RETRIEVAL_MODE  # looked up at call time: one value, one place
         if mode != "dense" and mode not in FUSED_BRANCHES:
             raise ValueError(f"unknown mode {mode!r}")
         if isinstance(filters, dict):

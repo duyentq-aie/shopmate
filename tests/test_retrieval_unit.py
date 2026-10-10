@@ -174,7 +174,7 @@ def test_filters_are_enforced_inside_qdrant(client, mode):
 
 def test_policy_filters_and_hidden_payload(client):
     _index(client, _documents())
-    hits = Retriever(client, FakeEmbedder(), collection="test").search("phí ship", {"doc_type": "policy", "clause": 2}, k=5)
+    hits = Retriever(client, FakeEmbedder(), collection="test").search("phí ship", {"doc_type": "policy", "clause": 2}, k=5, mode="dense")
     assert [h.key for h in hits] == ["policy:van-chuyen:2"]
     assert not {"text_sha256", "payload_sha256", "embedding_fingerprint"} & set(hits[0].payload) and hits[0].text
 
