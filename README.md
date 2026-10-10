@@ -9,6 +9,7 @@ ShopMate is an AI sales assistant for e-commerce: a retrieval-augmented (RAG) ag
 | `app/` | The ShopMate service. So far: data schemas, shop constants, the read-only Saleor client (`app/saleor/readonly_client.py`) and retrieval (`app/retrieval/`: bge-m3 embeddings, Qdrant index, dense/hybrid search, and the diacritic-folded lexical vector with its two Phase 4 configurations). |
 | `docker-compose.yml` | ShopMate's own services (Qdrant), separate from Saleor's. |
 | `app/tracing.py`, `app/pipeline.py` | Request tracing (one JSON line per request in git-ignored `logs/traces.jsonl`, see `docs/DECISIONS-tracing.md`) and the request path router → extractor → retrieval it traces. |
+| `app/monitor.py`, `dashboard/` | The local trace monitor: `uv run python -m app.monitor` serves `dashboard/index.html` at `http://127.0.0.1:8765/monitor/` and the tail of `logs/traces.jsonl` at `/monitor/api/traces`. Read-only, loopback only, no token mode (`docs/DECISIONS-monitor.md`). |
 | `app/llm/`, `prompts/` | Phase 5: Gemini client with free-tier guards (cache, rate limit, daily ceiling), the router and the filter extractor, and their versioned prompts. |
 | `data/index/manifest.json` | Lineage of the current vector index and the collection evaluation runs against (model revision, lexical config, counts, vector digest, source hashes). |
 | `data/seed/` | Synthetic catalog (`catalog.vi.json`) and test orders (`orders.vi.json`), versioned. |

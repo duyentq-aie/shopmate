@@ -148,6 +148,9 @@ docker compose stop         # stop, keeps the data
 cd ~/shopmate-workspace/storefront
 source ~/.nvm/nvm.sh && nvm use
 pnpm dev
+
+# Trace monitor (read-only, loopback only), then open http://127.0.0.1:8765/monitor/
+cd ~/shopmate-workspace/shopmate && uv run python -m app.monitor
 ```
 
 Never run `docker compose down --volumes` or `docker compose rm` casually: they delete the database volume (all data, the superuser and the test order).
