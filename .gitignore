@@ -30,3 +30,4 @@ __pycache__/
 
 # Request traces (one JSON line per request, app/tracing.py)
 logs/
+.claude/settings.local.json

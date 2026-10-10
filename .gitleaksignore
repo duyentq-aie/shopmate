@@ -1,0 +1,4 @@
+# Fake secrets used as masking fixtures in tests (verified: no 12-char window of any .env secret appears in history)
+3104fa817f78a816f95cf5a953f662144088e5ea:tests/test_tracing.py:generic-api-key:300
+3104fa817f78a816f95cf5a953f662144088e5ea:tests/test_tracing.py:generic-api-key:308
+05053510da39cfcc62e375a512e6e619c03571c4:tests/test_llm_client.py:generic-api-key:28
