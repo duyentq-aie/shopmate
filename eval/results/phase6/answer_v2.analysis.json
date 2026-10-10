@@ -2,8 +2,8 @@
   "provenance": {
     "official_result_sha256": "9db0ce6cd35bd7502b59ec3c687554386d689e4a6e40cc25ce5973ea6bce9937",
     "official_result_commit": "3af7dc68f39dced5b27a10303da0bdc547c2d5ec",
-    "git_commit": "3af7dc68f39dced5b27a10303da0bdc547c2d5ec",
-    "tracked_files_modified": true,
+    "git_commit": "c75b566340376c5b6a1529e74db02869801a69d3",
+    "tracked_files_modified": false,
     "live_calls": 0,
     "this_file_is_a_reporting_analysis": "the claim detector is a heuristic that reads text; it is not a guardrail and not a score"
   },

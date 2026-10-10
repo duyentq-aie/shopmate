@@ -1,0 +1,2111 @@
+{
+  "deterministic": {
+    "per_intent": {
+      "product_search": {
+        "n": 24,
+        "correct": 24,
+        "accuracy": 1.0,
+        "by_kind": {
+          "skus": {
+            "n": 19,
+            "correct": 19,
+            "accuracy": 1.0
+          },
+          "no_answer": {
+            "n": 5,
+            "correct": 5,
+            "accuracy": 1.0
+          }
+        }
+      },
+      "policy_question": {
+        "n": 14,
+        "correct": 13,
+        "accuracy": 0.9285714285714286
+      },
+      "order_status": {
+        "n": 12,
+        "correct": 12,
+        "accuracy": 1.0
+      },
+      "create_ticket": {
+        "n": 7,
+        "correct": 7,
+        "accuracy": 1.0
+      },
+      "out_of_scope": {
+        "n": 7,
+        "correct": 7,
+        "accuracy": 1.0
+      },
+      "smalltalk": {
+        "n": 7,
+        "correct": 7,
+        "accuracy": 1.0
+      },
+      "all": {
+        "n": 71,
+        "correct": 70,
+        "accuracy": 0.9859154929577465
+      }
+    },
+    "items": [
+      {
+        "id": "gs-002",
+        "intent": "product_search",
+        "kind": "skus",
+        "correct": true,
+        "check": "gold_sku",
+        "reason": "",
+        "routed_to": "product_search",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [
+          "SM-GIAY-0002",
+          "SM-GIAY-0032",
+          "SM-GIAY-0038",
+          "SM-GIAY-0014",
+          "SM-GIAY-0020"
+        ],
+        "retrieved_clauses": [],
+        "llm_calls": 3,
+        "steps": 6,
+        "reply": "Bên mình có Giày sneaker nữ slip-on trắng (SKU SM-GIAY-0002) với giá 559.000đ, hiện còn hàng. Giày sneaker nữ cổ thấp trắng (SKU SM-GIAY-0032) có giá 999.000đ, hiện còn hàng. Giày sneaker nữ đế độn hồng (SKU SM-GIAY-0038) có giá 689.000đ, hiện còn hàng. Giày sneaker nữ cổ thấp đen (SKU SM-GIAY-0014) có giá 819.000đ, hiện đã hết hàng. Giày sneaker nữ slip-on hồng (SKU SM-GIAY-0020) có giá 1.179.000đ, hiện đã hết hàng."
+      },
+      {
+        "id": "gs-003",
+        "intent": "product_search",
+        "kind": "skus",
+        "correct": true,
+        "check": "gold_sku",
+        "reason": "",
+        "routed_to": "product_search",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [
+          "SM-NAM-0004"
+        ],
+        "retrieved_clauses": [],
+        "llm_calls": 3,
+        "steps": 6,
+        "reply": "Quần jean nam rách gối đen (SKU SM-NAM-0004) có giá 479.000đ, hiện còn hàng."
+      },
+      {
+        "id": "gs-004",
+        "intent": "product_search",
+        "kind": "skus",
+        "correct": true,
+        "check": "gold_sku",
+        "reason": "",
+        "routed_to": "product_search",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [
+          "SM-NU-0010",
+          "SM-NU-0003"
+        ],
+        "retrieved_clauses": [],
+        "llm_calls": 3,
+        "steps": 6,
+        "reply": "Bên mình có hai mẫu váy phù hợp với ngân sách của bạn. Váy liền nữ hoa nhí hồng (SKU SM-NU-0010) có giá 369.000đ và hiện còn hàng. Váy liền nữ công sở xanh dương (SKU SM-NU-0003) có giá 389.000đ và hiện còn hàng."
+      },
+      {
+        "id": "gs-007",
+        "intent": "product_search",
+        "kind": "skus",
+        "correct": true,
+        "check": "gold_sku",
+        "reason": "",
+        "routed_to": "product_search",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [
+          "SM-TT-0030",
+          "SM-TT-0015",
+          "SM-TT-0020",
+          "SM-TT-0025",
+          "SM-TT-0010"
+        ],
+        "retrieved_clauses": [],
+        "llm_calls": 3,
+        "steps": 6,
+        "reply": "Dạ, bên em có các mẫu giày chạy bộ có size 42 ạ. Giày chạy bộ chống trượt trắng (SKU SM-TT-0030) có giá 939.000đ và hiện còn hàng. Giày chạy bộ siêu nhẹ đen (SKU SM-TT-0015) có giá 1.129.000đ và hiện còn hàng. Giày chạy bộ đệm êm cam (SKU SM-TT-0020) có giá 769.000đ và hiện còn hàng. Giày chạy bộ siêu nhẹ xám (SKU SM-TT-0025) có giá 1.019.000đ và hiện còn hàng. Giày chạy bộ chống trượt đen (SKU SM-TT-0010) có giá 909.000đ và hiện còn hàng."
+      },
+      {
+        "id": "gs-008",
+        "intent": "product_search",
+        "kind": "skus",
+        "correct": true,
+        "check": "gold_sku",
+        "reason": "",
+        "routed_to": "product_search",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [
+          "SM-TUI-0008",
+          "SM-TUI-0028"
+        ],
+        "retrieved_clauses": [],
+        "llm_calls": 3,
+        "steps": 6,
+        "reply": "Balo du lịch đen (SKU SM-TUI-0008) có giá 379.000đ và hiện còn hàng. Balo mini đen (SKU SM-TUI-0028) có giá 989.000đ và hiện còn hàng."
+      },
+      {
+        "id": "gs-009",
+        "intent": "product_search",
+        "kind": "skus",
+        "correct": true,
+        "check": "gold_sku",
+        "reason": "",
+        "routed_to": "product_search",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [
+          "SM-TUI-0024",
+          "SM-TUI-0004",
+          "SM-TUI-0009",
+          "SM-TUI-0014",
+          "SM-TUI-0019"
+        ],
+        "retrieved_clauses": [],
+        "llm_calls": 3,
+        "steps": 6,
+        "reply": "Dưới đây là các mẫu ví da nam phù hợp với ngân sách của bạn. Ví da nam mỏng nâu (SKU SM-TUI-0024) có giá 429.000đ, hiện còn hàng. Ví da nam dáng ngang có khóa nâu (SKU SM-TUI-0004) có giá 479.000đ, hiện đã hết hàng. Ví da nam dáng đứng đen (SKU SM-TUI-0009) có giá 379.000đ, hiện còn hàng. Ví da nam gập đôi đen (SKU SM-TUI-0014) có giá 489.000đ, hiện còn hàng. Ví da nam dáng đứng nâu (SKU SM-TUI-0019) có giá 459.000đ, hiện còn hàng."
+      },
+      {
+        "id": "gs-011",
+        "intent": "product_search",
+        "kind": "skus",
+        "correct": true,
+        "check": "gold_sku",
+        "reason": "",
+        "routed_to": "product_search",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [
+          "SM-GIAY-0006"
+        ],
+        "retrieved_clauses": [],
+        "llm_calls": 3,
+        "steps": 6,
+        "reply": "Dép quai ngang in logo trắng (SKU SM-GIAY-0006) có giá 149.000đ và hiện còn hàng."
+      },
+      {
+        "id": "gs-012",
+        "intent": "product_search",
+        "kind": "skus",
+        "correct": true,
+        "check": "gold_sku",
+        "reason": "",
+        "routed_to": "product_search",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [
+          "SM-NU-0020",
+          "SM-NU-0048",
+          "SM-NU-0034",
+          "SM-NU-0013",
+          "SM-NU-0006"
+        ],
+        "retrieved_clauses": [],
+        "llm_calls": 3,
+        "steps": 6,
+        "reply": "Áo khoác nữ blazer đen (SKU SM-NU-0020) có giá 319.000đ và hiện còn hàng. Áo khoác nữ blazer trắng (SKU SM-NU-0048) có giá 779.000đ và hiện còn hàng. Áo khoác nữ gió chống nắng be (SKU SM-NU-0034) có giá 379.000đ và hiện còn hàng. Áo khoác nữ gió chống nắng trắng (SKU SM-NU-0013) có giá 309.000đ và hiện còn hàng. Áo khoác nữ gió chống nắng hồng (SKU SM-NU-0006) có giá 419.000đ và hiện còn hàng."
+      },
+      {
+        "id": "gs-013",
+        "intent": "product_search",
+        "kind": "skus",
+        "correct": true,
+        "check": "gold_sku",
+        "reason": "",
+        "routed_to": "product_search",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [
+          "SM-PK-0013"
+        ],
+        "retrieved_clauses": [],
+        "llm_calls": 3,
+        "steps": 6,
+        "reply": "Kính mát phi công nâu (SKU SM-PK-0013) có giá 309.000đ và hiện còn hàng."
+      },
+      {
+        "id": "gs-014",
+        "intent": "product_search",
+        "kind": "skus",
+        "correct": true,
+        "check": "gold_sku",
+        "reason": "",
+        "routed_to": "product_search",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [
+          "SM-NAM-0047"
+        ],
+        "retrieved_clauses": [],
+        "llm_calls": 3,
+        "steps": 6,
+        "reply": "Quần kaki nam ống đứng be (SKU SM-NAM-0047) có giá 389.000đ và hiện còn hàng."
+      },
+      {
+        "id": "gs-015",
+        "intent": "product_search",
+        "kind": "skus",
+        "correct": true,
+        "check": "gold_sku",
+        "reason": "",
+        "routed_to": "product_search",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [
+          "SM-TT-0001",
+          "SM-TT-0026",
+          "SM-TT-0011",
+          "SM-TT-0016",
+          "SM-TT-0021"
+        ],
+        "retrieved_clauses": [],
+        "llm_calls": 3,
+        "steps": 6,
+        "reply": "Bên mình có một số mẫu áo tập gym nam để bạn lựa chọn. Áo thể thao nam tập gym trắng (SKU SM-TT-0001) có giá 279.000đ và hiện còn hàng. Áo thể thao nam tập gym xám (SKU SM-TT-0026) có giá 189.000đ và hiện đã hết hàng. Áo thể thao nam tập gym đỏ (SKU SM-TT-0011) có giá 329.000đ và hiện còn hàng."
+      },
+      {
+        "id": "gs-016",
+        "intent": "product_search",
+        "kind": "skus",
+        "correct": true,
+        "check": "gold_sku",
+        "reason": "",
+        "routed_to": "product_search",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [
+          "SM-GIAY-0039",
+          "SM-GIAY-0009",
+          "SM-GIAY-0045"
+        ],
+        "retrieved_clauses": [],
+        "llm_calls": 3,
+        "steps": 6,
+        "reply": "Bên mình có các mẫu giày tây nam màu nâu size 41. Giày tây nam oxford nâu (SKU SM-GIAY-0039) có giá 1.499.000đ và hiện còn hàng. Giày tây nam derby nâu (SKU SM-GIAY-0009) có giá 899.000đ và hiện còn hàng. Giày tây nam monk strap nâu (SKU SM-GIAY-0045) có giá 1.619.000đ và hiện còn hàng."
+      },
+      {
+        "id": "gs-017",
+        "intent": "product_search",
+        "kind": "skus",
+        "correct": true,
+        "check": "gold_sku",
+        "reason": "",
+        "routed_to": "product_search",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [
+          "SM-PK-0027",
+          "SM-PK-0007",
+          "SM-PK-0032",
+          "SM-PK-0022",
+          "SM-PK-0012"
+        ],
+        "retrieved_clauses": [],
+        "llm_calls": 3,
+        "steps": 6,
+        "reply": "Mũ bucket trắng (SKU SM-PK-0027) có giá 159.000đ và hiện còn hàng."
+      },
+      {
+        "id": "gs-018",
+        "intent": "product_search",
+        "kind": "skus",
+        "correct": true,
+        "check": "gold_sku",
+        "reason": "",
+        "routed_to": "product_search",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [
+          "SM-TUI-0022",
+          "SM-TUI-0032",
+          "SM-TUI-0027"
+        ],
+        "retrieved_clauses": [],
+        "llm_calls": 3,
+        "steps": 6,
+        "reply": "ShopMate Fashion xin gửi bạn các mẫu túi đeo chéo dưới 400k. Túi đeo chéo mini be (SKU SM-TUI-0022) có giá 389.000đ và hiện còn hàng. Túi đeo chéo hộp nâu (SKU SM-TUI-0032) có giá 369.000đ và hiện còn hàng. Túi đeo chéo hộp đen (SKU SM-TUI-0027) có giá 369.000đ và hiện còn hàng."
+      },
+      {
+        "id": "gs-019",
+        "intent": "product_search",
+        "kind": "skus",
+        "correct": true,
+        "check": "gold_sku",
+        "reason": "",
+        "routed_to": "product_search",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [
+          "SM-TT-0007"
+        ],
+        "retrieved_clauses": [],
+        "llm_calls": 3,
+        "steps": 6,
+        "reply": "Áo bra thể thao nữ dây chéo lưng hồng (SKU SM-TT-0007) có giá 319.000đ và hiện còn hàng."
+      },
+      {
+        "id": "gs-021",
+        "intent": "product_search",
+        "kind": "no_answer",
+        "correct": true,
+        "check": "no_answer",
+        "reason": "",
+        "routed_to": "product_search",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [],
+        "llm_calls": 2,
+        "steps": 7,
+        "reply": "Mình không tìm thấy sản phẩm nào khớp tất cả yêu cầu của bạn. Mình cũng đã thử bỏ điều kiện kích cỡ nhưng vẫn không có kết quả."
+      },
+      {
+        "id": "gs-023",
+        "intent": "policy_question",
+        "kind": "none",
+        "correct": true,
+        "check": "gold_clause",
+        "reason": "",
+        "routed_to": "policy_question",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [
+          [
+            "doi-tra",
+            2
+          ],
+          [
+            "doi-tra",
+            7
+          ],
+          [
+            "doi-tra",
+            6
+          ]
+        ],
+        "llm_calls": 2,
+        "steps": 4,
+        "reply": "Bạn có thể đổi kích cỡ hoặc màu sắc trong vòng 7 ngày kể từ ngày nhận hàng.\nNguồn: doi-tra, Điều 2"
+      },
+      {
+        "id": "gs-024",
+        "intent": "policy_question",
+        "kind": "none",
+        "correct": true,
+        "check": "gold_clause",
+        "reason": "",
+        "routed_to": "policy_question",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [
+          [
+            "doi-tra",
+            4
+          ],
+          [
+            "van-chuyen",
+            2
+          ],
+          [
+            "bao-hanh",
+            5
+          ]
+        ],
+        "llm_calls": 2,
+        "steps": 4,
+        "reply": "Phí giao hàng tiêu chuẩn toàn quốc là 30.000đ mỗi đơn hàng. Bên mình miễn phí vận chuyển cho đơn hàng có giá trị sản phẩm từ 500.000đ trở lên, chưa tính phí vận chuyển và sau khi trừ giảm giá.\nNguồn: van-chuyen, Điều 2"
+      },
+      {
+        "id": "gs-025",
+        "intent": "policy_question",
+        "kind": "none",
+        "correct": false,
+        "check": "gold_clause",
+        "reason": "the reply does not cite van-chuyen Điều 2",
+        "routed_to": "policy_question",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": true,
+        "retrieved_skus": [],
+        "retrieved_clauses": [
+          [
+            "doi-tra",
+            2
+          ],
+          [
+            "van-chuyen",
+            5
+          ],
+          [
+            "van-chuyen",
+            1
+          ]
+        ],
+        "llm_calls": 2,
+        "steps": 4,
+        "reply": "Mình chưa có thông tin về nội dung này trong chính sách của cửa hàng nên chưa trả lời chính xác được. Bạn vui lòng liên hệ nhân viên để được giải đáp nhé."
+      },
+      {
+        "id": "gs-026",
+        "intent": "policy_question",
+        "kind": "none",
+        "correct": true,
+        "check": "gold_clause",
+        "reason": "",
+        "routed_to": "policy_question",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [
+          [
+            "doi-tra",
+            5
+          ],
+          [
+            "doi-tra",
+            3
+          ],
+          [
+            "doi-tra",
+            4
+          ]
+        ],
+        "llm_calls": 2,
+        "steps": 4,
+        "reply": "Sản phẩm mua trong chương trình giảm giá từ 50% trở lên không áp dụng đổi trả, trừ khi sản phẩm bị lỗi do nhà sản xuất.\nNguồn: doi-tra, Điều 5"
+      },
+      {
+        "id": "gs-027",
+        "intent": "policy_question",
+        "kind": "none",
+        "correct": true,
+        "check": "gold_clause",
+        "reason": "",
+        "routed_to": "policy_question",
+        "awaiting": null,
+        "fallback": true,
+        "fallback_rules": [
+          "unknown_clause"
+        ],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [
+          [
+            "doi-tra",
+            6
+          ],
+          [
+            "bao-hanh",
+            4
+          ],
+          [
+            "doi-tra",
+            7
+          ]
+        ],
+        "llm_calls": 2,
+        "steps": 4,
+        "reply": "Theo chính sách của cửa hàng (Hoàn tiền):\nChính sách đổi trả – ShopMate Fashion\nĐiều 6. Hoàn tiền\n1. Tiền được hoàn trong vòng **5–7 ngày làm việc** kể từ khi kho xác nhận đã nhận lại sản phẩm đạt điều kiện tại Điều 3.\n2. Đơn thanh toán khi nhận hàng (COD): hoàn tiền qua chuyển khoản ngân hàng theo thông tin khách hàng cung cấp.\n3. Đơn thanh toán trực tuyến: hoàn tiền về đúng phương thức thanh toán ban đầu.\nNguồn: doi-tra, Điều 6"
+      },
+      {
+        "id": "gs-029",
+        "intent": "policy_question",
+        "kind": "none",
+        "correct": true,
+        "check": "gold_clause",
+        "reason": "",
+        "routed_to": "policy_question",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [
+          [
+            "van-chuyen",
+            3
+          ],
+          [
+            "doi-tra",
+            7
+          ],
+          [
+            "bao-hanh",
+            5
+          ]
+        ],
+        "llm_calls": 2,
+        "steps": 4,
+        "reply": "Nội dung vận chuyển đến Hà Nội: Hà Nội, Đà Nẵng và các tỉnh, thành phố khác: 2–5 ngày làm việc.\nNguồn: van-chuyen, Điều 3"
+      },
+      {
+        "id": "gs-030",
+        "intent": "policy_question",
+        "kind": "none",
+        "correct": true,
+        "check": "gold_clause",
+        "reason": "",
+        "routed_to": "policy_question",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [
+          [
+            "van-chuyen",
+            5
+          ],
+          [
+            "van-chuyen",
+            4
+          ],
+          [
+            "van-chuyen",
+            2
+          ]
+        ],
+        "llm_calls": 2,
+        "steps": 4,
+        "reply": "ShopMate Fashion hỗ trợ khách hàng kiểm tra hàng (xem sản phẩm, không thử) trước khi thanh toán.\nNguồn: van-chuyen, Điều 5"
+      },
+      {
+        "id": "gs-031",
+        "intent": "policy_question",
+        "kind": "none",
+        "correct": true,
+        "check": "gold_clause",
+        "reason": "",
+        "routed_to": "policy_question",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [
+          [
+            "bao-hanh",
+            1
+          ],
+          [
+            "bao-hanh",
+            5
+          ],
+          [
+            "bao-hanh",
+            6
+          ]
+        ],
+        "llm_calls": 2,
+        "steps": 4,
+        "reply": "Túi xách, túi đeo chéo, balo, ví và thắt lưng làm từ da bò được bảo hành 12 tháng đối với lỗi đường may, khóa kéo, khóa cài.\nNguồn: bao-hanh, Điều 1"
+      },
+      {
+        "id": "gs-032",
+        "intent": "policy_question",
+        "kind": "none",
+        "correct": true,
+        "check": "gold_clause",
+        "reason": "",
+        "routed_to": "policy_question",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [
+          [
+            "bao-hanh",
+            3
+          ],
+          [
+            "bao-hanh",
+            1
+          ],
+          [
+            "van-chuyen",
+            6
+          ]
+        ],
+        "llm_calls": 2,
+        "steps": 4,
+        "reply": "Sản phẩm da bị ẩm mốc do bảo quản không đúng hướng dẫn thuộc trường hợp không được bảo hành.\nNguồn: bao-hanh, Điều 3"
+      },
+      {
+        "id": "gs-034",
+        "intent": "policy_question",
+        "kind": "none",
+        "correct": true,
+        "check": "gold_clause",
+        "reason": "",
+        "routed_to": "policy_question",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [
+          [
+            "van-chuyen",
+            1
+          ],
+          [
+            "van-chuyen",
+            4
+          ],
+          [
+            "van-chuyen",
+            5
+          ]
+        ],
+        "llm_calls": 2,
+        "steps": 4,
+        "reply": "ShopMate Fashion giao hàng trên toàn lãnh thổ Việt Nam và hiện chưa hỗ trợ giao hàng quốc tế.\nNguồn: van-chuyen, Điều 1"
+      },
+      {
+        "id": "gs-035",
+        "intent": "order_status",
+        "kind": "none",
+        "correct": true,
+        "check": "behaviour",
+        "reason": "",
+        "routed_to": "order_status",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [],
+        "llm_calls": 2,
+        "steps": 5,
+        "reply": "Đơn hàng 88 của bạn đang được xử lý, chưa giao. Đơn hàng bao gồm các sản phẩm: Giày sneaker nữ đế độn đen và Áo sơ mi nữ công sở đen."
+      },
+      {
+        "id": "gs-037",
+        "intent": "order_status",
+        "kind": "none",
+        "correct": true,
+        "check": "behaviour",
+        "reason": "",
+        "routed_to": "order_status",
+        "awaiting": "email",
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [],
+        "llm_calls": 1,
+        "steps": 4,
+        "reply": "Để bảo mật, mình cần email đặt hàng của đơn này trước khi cung cấp thông tin. Bạn cho mình xin email nhé."
+      },
+      {
+        "id": "gs-040",
+        "intent": "order_status",
+        "kind": "none",
+        "correct": true,
+        "check": "behaviour",
+        "reason": "",
+        "routed_to": "order_status",
+        "awaiting": "email",
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [],
+        "llm_calls": 1,
+        "steps": 4,
+        "reply": "Để bảo mật, mình cần email đặt hàng của đơn này trước khi cung cấp thông tin. Bạn cho mình xin email nhé."
+      },
+      {
+        "id": "gs-041",
+        "intent": "order_status",
+        "kind": "none",
+        "correct": true,
+        "check": "behaviour",
+        "reason": "",
+        "routed_to": "order_status",
+        "awaiting": "email",
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [],
+        "llm_calls": 1,
+        "steps": 4,
+        "reply": "Để bảo mật, mình cần email đặt hàng của đơn này trước khi cung cấp thông tin. Bạn cho mình xin email nhé."
+      },
+      {
+        "id": "gs-042",
+        "intent": "order_status",
+        "kind": "none",
+        "correct": true,
+        "check": "behaviour",
+        "reason": "",
+        "routed_to": "order_status",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [],
+        "llm_calls": 2,
+        "steps": 5,
+        "reply": "Đơn hàng 85 của bạn đã giao một phần. Các sản phẩm trong đơn gồm Áo polo nam thể thao trắng và Áo thun nam cổ tròn basic xanh rêu. Mã vận đơn của đơn hàng là SMVN979241643."
+      },
+      {
+        "id": "gs-044",
+        "intent": "create_ticket",
+        "kind": "none",
+        "correct": true,
+        "check": "ticket",
+        "reason": "",
+        "routed_to": "create_ticket",
+        "awaiting": "email",
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [],
+        "llm_calls": 1,
+        "steps": 4,
+        "reply": "Để bảo mật, mình cần email đặt hàng của đơn này trước khi cung cấp thông tin. Bạn cho mình xin email nhé."
+      },
+      {
+        "id": "gs-046",
+        "intent": "create_ticket",
+        "kind": "no_answer",
+        "correct": true,
+        "check": "ticket",
+        "reason": "",
+        "routed_to": "create_ticket",
+        "awaiting": "email",
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [],
+        "llm_calls": 1,
+        "steps": 4,
+        "reply": "Để nhân viên liên hệ lại với bạn, bạn cho mình xin địa chỉ email nhé."
+      },
+      {
+        "id": "gs-047",
+        "intent": "create_ticket",
+        "kind": "none",
+        "correct": true,
+        "check": "ticket",
+        "reason": "",
+        "routed_to": "create_ticket",
+        "awaiting": "email",
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [],
+        "llm_calls": 1,
+        "steps": 4,
+        "reply": "Để bảo mật, mình cần email đặt hàng của đơn này trước khi cung cấp thông tin. Bạn cho mình xin email nhé."
+      },
+      {
+        "id": "gs-049",
+        "intent": "out_of_scope",
+        "kind": "no_answer",
+        "correct": true,
+        "check": "polite",
+        "reason": "",
+        "routed_to": "out_of_scope",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [],
+        "llm_calls": 1,
+        "steps": 3,
+        "reply": "Xin lỗi, mình chỉ hỗ trợ về sản phẩm, chính sách và đơn hàng của ShopMate Fashion nên chưa giúp được việc này. Bạn cần mình hỗ trợ gì về cửa hàng không?"
+      },
+      {
+        "id": "gs-050",
+        "intent": "out_of_scope",
+        "kind": "no_answer",
+        "correct": true,
+        "check": "polite",
+        "reason": "",
+        "routed_to": "out_of_scope",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [],
+        "llm_calls": 1,
+        "steps": 3,
+        "reply": "Xin lỗi, mình chỉ hỗ trợ về sản phẩm, chính sách và đơn hàng của ShopMate Fashion nên chưa giúp được việc này. Bạn cần mình hỗ trợ gì về cửa hàng không?"
+      },
+      {
+        "id": "gs-051",
+        "intent": "out_of_scope",
+        "kind": "no_answer",
+        "correct": true,
+        "check": "polite",
+        "reason": "",
+        "routed_to": "out_of_scope",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [],
+        "llm_calls": 1,
+        "steps": 3,
+        "reply": "Xin lỗi, mình chỉ hỗ trợ về sản phẩm, chính sách và đơn hàng của ShopMate Fashion nên chưa giúp được việc này. Bạn cần mình hỗ trợ gì về cửa hàng không?"
+      },
+      {
+        "id": "gs-053",
+        "intent": "out_of_scope",
+        "kind": "no_answer",
+        "correct": true,
+        "check": "polite",
+        "reason": "",
+        "routed_to": "out_of_scope",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [],
+        "llm_calls": 1,
+        "steps": 3,
+        "reply": "Xin lỗi, mình chỉ hỗ trợ về sản phẩm, chính sách và đơn hàng của ShopMate Fashion nên chưa giúp được việc này. Bạn cần mình hỗ trợ gì về cửa hàng không?"
+      },
+      {
+        "id": "gs-055",
+        "intent": "smalltalk",
+        "kind": "no_answer",
+        "correct": true,
+        "check": "polite",
+        "reason": "",
+        "routed_to": "smalltalk",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [],
+        "llm_calls": 1,
+        "steps": 3,
+        "reply": "Chào bạn! Mình là trợ lý của ShopMate Fashion. Bạn cần tìm sản phẩm, hỏi về chính sách đổi trả, vận chuyển, bảo hành hay kiểm tra đơn hàng, cứ nhắn mình nhé."
+      },
+      {
+        "id": "gs-057",
+        "intent": "smalltalk",
+        "kind": "no_answer",
+        "correct": true,
+        "check": "polite",
+        "reason": "",
+        "routed_to": "smalltalk",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [],
+        "llm_calls": 1,
+        "steps": 3,
+        "reply": "Chào bạn! Mình là trợ lý của ShopMate Fashion. Bạn cần tìm sản phẩm, hỏi về chính sách đổi trả, vận chuyển, bảo hành hay kiểm tra đơn hàng, cứ nhắn mình nhé."
+      },
+      {
+        "id": "gs-060",
+        "intent": "smalltalk",
+        "kind": "no_answer",
+        "correct": true,
+        "check": "polite",
+        "reason": "",
+        "routed_to": "smalltalk",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [],
+        "llm_calls": 1,
+        "steps": 3,
+        "reply": "Chào bạn! Mình là trợ lý của ShopMate Fashion. Bạn cần tìm sản phẩm, hỏi về chính sách đổi trả, vận chuyển, bảo hành hay kiểm tra đơn hàng, cứ nhắn mình nhé."
+      },
+      {
+        "id": "gs-062",
+        "intent": "order_status",
+        "kind": "none",
+        "correct": true,
+        "check": "behaviour",
+        "reason": "",
+        "routed_to": "order_status",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [],
+        "llm_calls": 1,
+        "steps": 5,
+        "reply": "Mình không xác minh được đơn hàng với thông tin bạn cung cấp. Bạn kiểm tra lại số đơn và email đặt hàng giúp mình nhé."
+      },
+      {
+        "id": "gs-063",
+        "intent": "order_status",
+        "kind": "none",
+        "correct": true,
+        "check": "behaviour",
+        "reason": "",
+        "routed_to": "order_status",
+        "awaiting": "email",
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [],
+        "llm_calls": 1,
+        "steps": 4,
+        "reply": "Để bảo mật, mình cần email đặt hàng của đơn này trước khi cung cấp thông tin. Bạn cho mình xin email nhé."
+      },
+      {
+        "id": "gs-064",
+        "intent": "order_status",
+        "kind": "none",
+        "correct": true,
+        "check": "behaviour",
+        "reason": "",
+        "routed_to": "order_status",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [],
+        "llm_calls": 1,
+        "steps": 5,
+        "reply": "Mình không xác minh được đơn hàng với thông tin bạn cung cấp. Bạn kiểm tra lại số đơn và email đặt hàng giúp mình nhé."
+      },
+      {
+        "id": "gs-104",
+        "intent": "product_search",
+        "kind": "skus",
+        "correct": true,
+        "check": "gold_sku",
+        "reason": "",
+        "routed_to": "product_search",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [
+          "SM-NAM-0018"
+        ],
+        "retrieved_clauses": [],
+        "llm_calls": 3,
+        "steps": 6,
+        "reply": "Quần jean nam ống đứng xanh đậm (SKU SM-NAM-0018) có giá 559.000đ, hiện còn hàng."
+      },
+      {
+        "id": "gs-105",
+        "intent": "product_search",
+        "kind": "no_answer",
+        "correct": true,
+        "check": "no_answer",
+        "reason": "",
+        "routed_to": "product_search",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [
+          "SM-TUI-0007"
+        ],
+        "retrieved_clauses": [],
+        "llm_calls": 3,
+        "steps": 7,
+        "reply": "Mình không tìm thấy sản phẩm nào khớp tất cả yêu cầu của bạn. Nếu bỏ điều kiện màu sắc, mình có gợi ý sau:\nBên mình hiện không có sản phẩm màu nâu, nhưng có mẫu Túi đeo chéo hộp xám (SKU SM-TUI-0007), giá 639.000đ, hiện còn hàng."
+      },
+      {
+        "id": "gs-106",
+        "intent": "product_search",
+        "kind": "skus",
+        "correct": true,
+        "check": "gold_sku",
+        "reason": "",
+        "routed_to": "product_search",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [
+          "SM-GIAY-0002"
+        ],
+        "retrieved_clauses": [],
+        "llm_calls": 3,
+        "steps": 6,
+        "reply": "Bên mình có Giày sneaker nữ slip-on trắng (SKU SM-GIAY-0002) với giá 559.000đ và hiện còn hàng."
+      },
+      {
+        "id": "gs-107",
+        "intent": "product_search",
+        "kind": "skus",
+        "correct": true,
+        "check": "gold_sku",
+        "reason": "",
+        "routed_to": "product_search",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [
+          "SM-TUI-0009"
+        ],
+        "retrieved_clauses": [],
+        "llm_calls": 3,
+        "steps": 6,
+        "reply": "Ví da nam dáng đứng đen (SKU SM-TUI-0009) có giá 379.000đ và hiện còn hàng."
+      },
+      {
+        "id": "gs-108",
+        "intent": "product_search",
+        "kind": "no_answer",
+        "correct": true,
+        "check": "no_answer",
+        "reason": "",
+        "routed_to": "product_search",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [],
+        "llm_calls": 2,
+        "steps": 7,
+        "reply": "Mình không tìm thấy sản phẩm nào khớp tất cả yêu cầu của bạn. Mình cũng đã thử bỏ điều kiện màu sắc nhưng vẫn không có kết quả."
+      },
+      {
+        "id": "gs-109",
+        "intent": "product_search",
+        "kind": "skus",
+        "correct": true,
+        "check": "gold_sku",
+        "reason": "",
+        "routed_to": "product_search",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [
+          "SM-TT-0025"
+        ],
+        "retrieved_clauses": [],
+        "llm_calls": 3,
+        "steps": 6,
+        "reply": "Giày chạy bộ siêu nhẹ xám (SKU SM-TT-0025) có giá 1.019.000đ và hiện còn hàng."
+      },
+      {
+        "id": "gs-110",
+        "intent": "product_search",
+        "kind": "no_answer",
+        "correct": true,
+        "check": "no_answer",
+        "reason": "",
+        "routed_to": "product_search",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [],
+        "llm_calls": 2,
+        "steps": 7,
+        "reply": "Mình không tìm thấy sản phẩm nào khớp tất cả yêu cầu của bạn. Mình cũng đã thử bỏ điều kiện kích cỡ nhưng vẫn không có kết quả."
+      },
+      {
+        "id": "gs-112",
+        "intent": "product_search",
+        "kind": "no_answer",
+        "correct": true,
+        "check": "no_answer",
+        "reason": "",
+        "routed_to": "product_search",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [
+          "SM-PK-0018",
+          "SM-PK-0023",
+          "SM-PK-0003",
+          "SM-PK-0028",
+          "SM-PK-0008"
+        ],
+        "retrieved_clauses": [],
+        "llm_calls": 3,
+        "steps": 7,
+        "reply": "Mình không tìm thấy sản phẩm nào khớp tất cả yêu cầu của bạn. Nếu bỏ điều kiện màu sắc, mình có gợi ý sau:\nBên mình không có mẫu kính màu đỏ, nhưng bạn có thể tham khảo Kính mát gọng vuông bạc (SKU SM-PK-0018) giá 319.000đ, hiện còn hàng. Kính mát gọng tròn bạc (SKU SM-PK-0023) có giá 199.000đ, hiện còn hàng. Kính mát phi công vàng (SKU SM-PK-0003) giá 399.000đ, hiện còn hàng. Kính mát gọng vuông vàng (SKU SM-PK-0028) có giá 299.000đ, hiện còn hàng. Kính mát phi công đen (SKU SM-PK-0008) giá 209.000đ, hiện đã hết hàng."
+      },
+      {
+        "id": "gs-113",
+        "intent": "policy_question",
+        "kind": "none",
+        "correct": true,
+        "check": "gold_clause",
+        "reason": "",
+        "routed_to": "policy_question",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [
+          [
+            "van-chuyen",
+            6
+          ],
+          [
+            "van-chuyen",
+            2
+          ],
+          [
+            "van-chuyen",
+            4
+          ]
+        ],
+        "llm_calls": 2,
+        "steps": 4,
+        "reply": "Phí giao hàng tiêu chuẩn toàn quốc là 30.000đ mỗi đơn hàng. Bên mình miễn phí vận chuyển cho đơn hàng có giá trị sản phẩm từ 500.000đ trở lên (chưa tính phí vận chuyển, sau khi trừ giảm giá). Phí vận chuyển được hiển thị và xác nhận trước khi đặt hàng.\nNguồn: van-chuyen, Điều 2"
+      },
+      {
+        "id": "gs-118",
+        "intent": "policy_question",
+        "kind": "none",
+        "correct": true,
+        "check": "gold_clause",
+        "reason": "",
+        "routed_to": "policy_question",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [
+          [
+            "doi-tra",
+            7
+          ],
+          [
+            "van-chuyen",
+            6
+          ],
+          [
+            "bao-hanh",
+            1
+          ]
+        ],
+        "llm_calls": 2,
+        "steps": 4,
+        "reply": "Khách hàng gửi yêu cầu kèm mã đơn hàng, lý do và hình ảnh sản phẩm qua trợ lý ShopMate hoặc hotline. Bộ phận chăm sóc khách hàng phản hồi trong vòng 24 giờ làm việc. Sau khi được xác nhận, khách hàng đóng gói và gửi sản phẩm về kho trong vòng 3 ngày.\nNguồn: doi-tra, Điều 7"
+      },
+      {
+        "id": "gs-119",
+        "intent": "policy_question",
+        "kind": "none",
+        "correct": true,
+        "check": "gold_clause",
+        "reason": "",
+        "routed_to": "policy_question",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [
+          [
+            "van-chuyen",
+            1
+          ],
+          [
+            "van-chuyen",
+            3
+          ],
+          [
+            "van-chuyen",
+            6
+          ]
+        ],
+        "llm_calls": 2,
+        "steps": 4,
+        "reply": "Thời gian giao hàng đối với khu vực nội thành Thành phố Hồ Chí Minh là 1–2 ngày làm việc, còn Hà Nội, Đà Nẵng và các tỉnh, thành phố khác là 2–5 ngày làm việc. Đơn hàng đặt trước 14 giờ được xử lý và bàn giao cho đơn vị vận chuyển trong ngày, trong khi đơn đặt sau 14 giờ được xử lý vào ngày làm việc tiếp theo. Thời gian giao hàng có thể kéo dài thêm trong dịp lễ, Tết hoặc do thiên tai, dịch bệnh.\nNguồn: van-chuyen, Điều 3"
+      },
+      {
+        "id": "gs-120",
+        "intent": "policy_question",
+        "kind": "none",
+        "correct": true,
+        "check": "gold_clause",
+        "reason": "",
+        "routed_to": "policy_question",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [
+          [
+            "bao-hanh",
+            5
+          ],
+          [
+            "van-chuyen",
+            3
+          ],
+          [
+            "bao-hanh",
+            6
+          ]
+        ],
+        "llm_calls": 2,
+        "steps": 4,
+        "reply": "Thời gian xử lý bảo hành là 7–14 ngày làm việc kể từ khi kho nhận được sản phẩm. ShopMate Fashion chịu phí vận chuyển hai chiều cho sản phẩm được chấp nhận bảo hành.\nNguồn: bao-hanh, Điều 5"
+      },
+      {
+        "id": "gs-121",
+        "intent": "order_status",
+        "kind": "none",
+        "correct": true,
+        "check": "behaviour",
+        "reason": "",
+        "routed_to": "order_status",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [],
+        "llm_calls": 2,
+        "steps": 5,
+        "reply": "Đơn hàng số 89 đã giao. Các sản phẩm trong đơn gồm Áo thun nam cổ tròn basic xám, Túi đeo chéo mini be và Áo sơ mi nữ dáng rộng hồng. Mã vận đơn của đơn hàng là SMVN552280045."
+      },
+      {
+        "id": "gs-122",
+        "intent": "order_status",
+        "kind": "none",
+        "correct": true,
+        "check": "behaviour",
+        "reason": "",
+        "routed_to": "order_status",
+        "awaiting": "email",
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [],
+        "llm_calls": 1,
+        "steps": 4,
+        "reply": "Để bảo mật, mình cần email đặt hàng của đơn này trước khi cung cấp thông tin. Bạn cho mình xin email nhé."
+      },
+      {
+        "id": "gs-124",
+        "intent": "order_status",
+        "kind": "none",
+        "correct": true,
+        "check": "behaviour",
+        "reason": "",
+        "routed_to": "order_status",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [],
+        "llm_calls": 1,
+        "steps": 5,
+        "reply": "Mình không xác minh được đơn hàng với thông tin bạn cung cấp. Bạn kiểm tra lại số đơn và email đặt hàng giúp mình nhé."
+      },
+      {
+        "id": "gs-126",
+        "intent": "order_status",
+        "kind": "none",
+        "correct": true,
+        "check": "behaviour",
+        "reason": "",
+        "routed_to": "order_status",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [],
+        "llm_calls": 2,
+        "steps": 5,
+        "reply": "Đơn hàng số 91 của bạn đang được xử lý, chưa giao. Đơn hàng bao gồm các sản phẩm: Áo bra thể thao nữ nâng đỡ vừa trắng, Tất cổ ngắn set 5 đôi xám và Túi xách nữ tote trắng."
+      },
+      {
+        "id": "gs-127",
+        "intent": "create_ticket",
+        "kind": "none",
+        "correct": true,
+        "check": "ticket",
+        "reason": "",
+        "routed_to": "create_ticket",
+        "awaiting": "ticket_confirmation",
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [],
+        "llm_calls": 1,
+        "steps": 6,
+        "reply": "Mình sẽ tạo phiếu hỗ trợ với nội dung sau:\nNội dung: \"minh muon tao khieu nai doi hang bi rach cho don 90, mail la k***@example.com\"\nĐơn hàng: #90\nEmail liên hệ: k***@example.com\nBạn xác nhận tạo phiếu này không? (trả lời \"có\" để tạo, \"không\" để hủy)"
+      },
+      {
+        "id": "gs-129",
+        "intent": "create_ticket",
+        "kind": "none",
+        "correct": true,
+        "check": "ticket",
+        "reason": "",
+        "routed_to": "create_ticket",
+        "awaiting": "email",
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [],
+        "llm_calls": 1,
+        "steps": 4,
+        "reply": "Để bảo mật, mình cần email đặt hàng của đơn này trước khi cung cấp thông tin. Bạn cho mình xin email nhé."
+      },
+      {
+        "id": "gs-130",
+        "intent": "create_ticket",
+        "kind": "no_answer",
+        "correct": true,
+        "check": "ticket",
+        "reason": "",
+        "routed_to": "create_ticket",
+        "awaiting": "email",
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [],
+        "llm_calls": 1,
+        "steps": 4,
+        "reply": "Để nhân viên liên hệ lại với bạn, bạn cho mình xin địa chỉ email nhé."
+      },
+      {
+        "id": "gs-131",
+        "intent": "create_ticket",
+        "kind": "none",
+        "correct": true,
+        "check": "ticket",
+        "reason": "",
+        "routed_to": "create_ticket",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [],
+        "llm_calls": 1,
+        "steps": 5,
+        "reply": "Mình không xác minh được đơn hàng với thông tin bạn cung cấp. Bạn kiểm tra lại số đơn và email đặt hàng giúp mình nhé."
+      },
+      {
+        "id": "gs-132",
+        "intent": "out_of_scope",
+        "kind": "no_answer",
+        "correct": true,
+        "check": "polite",
+        "reason": "",
+        "routed_to": "out_of_scope",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [],
+        "llm_calls": 1,
+        "steps": 3,
+        "reply": "Xin lỗi, mình chỉ hỗ trợ về sản phẩm, chính sách và đơn hàng của ShopMate Fashion nên chưa giúp được việc này. Bạn cần mình hỗ trợ gì về cửa hàng không?"
+      },
+      {
+        "id": "gs-134",
+        "intent": "out_of_scope",
+        "kind": "no_answer",
+        "correct": true,
+        "check": "polite",
+        "reason": "",
+        "routed_to": "out_of_scope",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [],
+        "llm_calls": 1,
+        "steps": 3,
+        "reply": "Xin lỗi, mình chỉ hỗ trợ về sản phẩm, chính sách và đơn hàng của ShopMate Fashion nên chưa giúp được việc này. Bạn cần mình hỗ trợ gì về cửa hàng không?"
+      },
+      {
+        "id": "gs-135",
+        "intent": "out_of_scope",
+        "kind": "no_answer",
+        "correct": true,
+        "check": "polite",
+        "reason": "",
+        "routed_to": "out_of_scope",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [],
+        "llm_calls": 1,
+        "steps": 3,
+        "reply": "Xin lỗi, mình chỉ hỗ trợ về sản phẩm, chính sách và đơn hàng của ShopMate Fashion nên chưa giúp được việc này. Bạn cần mình hỗ trợ gì về cửa hàng không?"
+      },
+      {
+        "id": "gs-136",
+        "intent": "smalltalk",
+        "kind": "no_answer",
+        "correct": true,
+        "check": "polite",
+        "reason": "",
+        "routed_to": "smalltalk",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [],
+        "llm_calls": 1,
+        "steps": 3,
+        "reply": "Chào bạn! Mình là trợ lý của ShopMate Fashion. Bạn cần tìm sản phẩm, hỏi về chính sách đổi trả, vận chuyển, bảo hành hay kiểm tra đơn hàng, cứ nhắn mình nhé."
+      },
+      {
+        "id": "gs-137",
+        "intent": "smalltalk",
+        "kind": "no_answer",
+        "correct": true,
+        "check": "polite",
+        "reason": "",
+        "routed_to": "smalltalk",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [],
+        "llm_calls": 1,
+        "steps": 3,
+        "reply": "Chào bạn! Mình là trợ lý của ShopMate Fashion. Bạn cần tìm sản phẩm, hỏi về chính sách đổi trả, vận chuyển, bảo hành hay kiểm tra đơn hàng, cứ nhắn mình nhé."
+      },
+      {
+        "id": "gs-139",
+        "intent": "smalltalk",
+        "kind": "no_answer",
+        "correct": true,
+        "check": "polite",
+        "reason": "",
+        "routed_to": "smalltalk",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [],
+        "llm_calls": 1,
+        "steps": 3,
+        "reply": "Chào bạn! Mình là trợ lý của ShopMate Fashion. Bạn cần tìm sản phẩm, hỏi về chính sách đổi trả, vận chuyển, bảo hành hay kiểm tra đơn hàng, cứ nhắn mình nhé."
+      },
+      {
+        "id": "gs-140",
+        "intent": "smalltalk",
+        "kind": "no_answer",
+        "correct": true,
+        "check": "polite",
+        "reason": "",
+        "routed_to": "smalltalk",
+        "awaiting": null,
+        "fallback": false,
+        "fallback_rules": [],
+        "declined": false,
+        "retrieved_skus": [],
+        "retrieved_clauses": [],
+        "llm_calls": 1,
+        "steps": 3,
+        "reply": "Chào bạn! Mình là trợ lý của ShopMate Fashion. Bạn cần tìm sản phẩm, hỏi về chính sách đổi trả, vận chuyển, bảo hành hay kiểm tra đơn hàng, cứ nhắn mình nhé."
+      }
+    ],
+    "multiturn": {
+      "passed": 13,
+      "total": 13,
+      "cases": [
+        {
+          "id": "mt-01",
+          "title": "A vague request is clarified, then answered",
+          "checks": [
+            "clarify"
+          ],
+          "passed": true,
+          "turns": [
+            {
+              "turn": 1,
+              "passed": true,
+              "problems": [],
+              "reply": "Bạn đang tìm loại sản phẩm nào (ví dụ áo khoác, giày sneaker, túi xách)? Cho mình biết thêm màu sắc, kích cỡ hoặc mức giá nếu có nhé.",
+              "llm_calls": 2
+            },
+            {
+              "turn": 2,
+              "passed": true,
+              "problems": [],
+              "reply": "Mình không tìm thấy sản phẩm nào khớp tất cả yêu cầu của bạn. Nếu bỏ điều kiện màu sắc, mình có gợi ý sau:\nDạ bên mình hiện chưa có áo sơ mi nam màu trắng, nhưng bạn có thể tham khảo các mẫu áo sơ mi nam sau đây. Áo sơ mi nam tay ngắn kem (SKU SM-NAM-0030) có giá 369.000đ và hiện còn hàng. Áo sơ mi nam tay dài công sở xanh dương (SKU SM-NAM-0044) có giá 489.000đ và hiện đã hết hàng. Áo sơ mi nam tay dài công sở kem (SKU SM-NAM-0037) có giá 389.000đ và hiện còn hàng. Áo sơ mi nam tay dài công sở đen (SKU SM-NAM-0002) có giá 369.000đ và hiện còn hàng. Áo sơ mi nam kẻ sọc hồng (SKU SM-NAM-0009) có giá 319.000đ và hiện còn hàng.",
+              "llm_calls": 3
+            }
+          ]
+        },
+        {
+          "id": "mt-02",
+          "title": "At most two clarifying questions, then a search with what is known",
+          "checks": [
+            "clarify_limit"
+          ],
+          "passed": true,
+          "turns": [
+            {
+              "turn": 1,
+              "passed": true,
+              "problems": [],
+              "reply": "Bạn đang tìm loại sản phẩm nào (ví dụ áo khoác, giày sneaker, túi xách)? Cho mình biết thêm màu sắc, kích cỡ hoặc mức giá nếu có nhé.",
+              "llm_calls": 2
+            },
+            {
+              "turn": 2,
+              "passed": true,
+              "problems": [],
+              "reply": "Bạn đang tìm loại sản phẩm nào (ví dụ áo khoác, giày sneaker, túi xách)? Cho mình biết thêm màu sắc, kích cỡ hoặc mức giá nếu có nhé.",
+              "llm_calls": 2
+            },
+            {
+              "turn": 3,
+              "passed": true,
+              "problems": [],
+              "reply": "ShopMate Fashion xin gửi các sản phẩm màu đen dưới 500k dành cho bạn. Thắt lưng nam bản nhỏ đen (SKU SM-PK-0001) có giá 419.000đ và hiện còn hàng. Chân váy nữ bút chì đen (SKU SM-NU-0032) có giá 379.000đ và hiện còn hàng. Quần jean nữ skinny đen (SKU SM-NU-0026) có giá 369.000đ và hiện còn hàng. Chân váy nữ chữ A đen (SKU SM-NU-0011) có giá 249.000đ và hiện còn hàng. Áo sơ mi nữ công sở đen (SKU SM-NU-0037) có giá 359.000đ và hiện còn hàng.",
+              "llm_calls": 3
+            }
+          ]
+        },
+        {
+          "id": "mt-03",
+          "title": "Order number only: ask for the email, then verify and answer",
+          "checks": [
+            "verify_answer"
+          ],
+          "passed": true,
+          "turns": [
+            {
+              "turn": 1,
+              "passed": true,
+              "problems": [],
+              "reply": "Để bảo mật, mình cần email đặt hàng của đơn này trước khi cung cấp thông tin. Bạn cho mình xin email nhé.",
+              "llm_calls": 1
+            },
+            {
+              "turn": 2,
+              "passed": true,
+              "problems": [],
+              "reply": "Đơn hàng số 88 của bạn đang được xử lý, chưa giao. Đơn hàng bao gồm các sản phẩm: Giày sneaker nữ đế độn đen và Áo sơ mi nữ công sở đen.",
+              "llm_calls": 1
+            }
+          ]
+        },
+        {
+          "id": "mt-04",
+          "title": "Order details never given: two questions, then a hand-off",
+          "checks": [
+            "order_slots_handoff"
+          ],
+          "passed": true,
+          "turns": [
+            {
+              "turn": 1,
+              "passed": true,
+              "problems": [],
+              "reply": "Để kiểm tra, bạn cho mình xin số đơn hàng và email đặt hàng nhé.",
+              "llm_calls": 1
+            },
+            {
+              "turn": 2,
+              "passed": true,
+              "problems": [],
+              "reply": "Để kiểm tra, bạn cho mình xin số đơn hàng và email đặt hàng nhé.",
+              "llm_calls": 1
+            },
+            {
+              "turn": 3,
+              "passed": true,
+              "problems": [],
+              "reply": "Mình chưa đủ thông tin để xử lý yêu cầu này. Bạn vui lòng liên hệ nhân viên của ShopMate Fashion để được hỗ trợ trực tiếp nhé.",
+              "llm_calls": 1
+            }
+          ]
+        },
+        {
+          "id": "mt-05",
+          "title": "Three failed verifications disable order lookup, even for correct details",
+          "checks": [
+            "verify_lock"
+          ],
+          "passed": true,
+          "turns": [
+            {
+              "turn": 1,
+              "passed": true,
+              "problems": [],
+              "reply": "Mình không xác minh được đơn hàng với thông tin bạn cung cấp. Bạn kiểm tra lại số đơn và email đặt hàng giúp mình nhé.",
+              "llm_calls": 1
+            },
+            {
+              "turn": 2,
+              "passed": true,
+              "problems": [],
+              "reply": "Mình không xác minh được đơn hàng với thông tin bạn cung cấp. Bạn kiểm tra lại số đơn và email đặt hàng giúp mình nhé.",
+              "llm_calls": 1
+            },
+            {
+              "turn": 3,
+              "passed": true,
+              "problems": [],
+              "reply": "Mình không xác minh được đơn hàng với thông tin bạn cung cấp. Bạn kiểm tra lại số đơn và email đặt hàng giúp mình nhé. Vì thông tin chưa khớp nhiều lần, mình tạm dừng tra cứu đơn hàng trong cuộc trò chuyện này. Bạn vui lòng liên hệ nhân viên để được hỗ trợ.",
+              "llm_calls": 1
+            },
+            {
+              "turn": 4,
+              "passed": true,
+              "problems": [],
+              "reply": "Mình đã tạm dừng tra cứu đơn hàng trong cuộc trò chuyện này vì thông tin xác minh chưa khớp nhiều lần. Bạn vui lòng liên hệ nhân viên để được hỗ trợ.",
+              "llm_calls": 1
+            }
+          ]
+        },
+        {
+          "id": "mt-06",
+          "title": "A ticket is written only after an explicit yes",
+          "checks": [
+            "ticket_yes"
+          ],
+          "passed": true,
+          "turns": [
+            {
+              "turn": 1,
+              "passed": true,
+              "problems": [],
+              "reply": "Mình sẽ tạo phiếu hỗ trợ với nội dung sau:\nNội dung: \"mình muốn khiếu nại đơn 89 giao thiếu hàng, email k***@example.com\"\nĐơn hàng: #89\nEmail liên hệ: k***@example.com\nBạn xác nhận tạo phiếu này không? (trả lời \"có\" để tạo, \"không\" để hủy)",
+              "llm_calls": 1
+            },
+            {
+              "turn": 2,
+              "passed": true,
+              "problems": [],
+              "reply": "Mình đã tạo phiếu hỗ trợ TCK-394667AA04. Nhân viên sẽ liên hệ với bạn qua email.",
+              "llm_calls": 0
+            }
+          ]
+        },
+        {
+          "id": "mt-07",
+          "title": "A no writes no ticket",
+          "checks": [
+            "ticket_no"
+          ],
+          "passed": true,
+          "turns": [
+            {
+              "turn": 1,
+              "passed": true,
+              "problems": [],
+              "reply": "Mình sẽ tạo phiếu hỗ trợ với nội dung sau:\nNội dung: \"tạo phiếu khiếu nại giúp mình đơn 92, hàng bị lỗi, email k***@example.com\"\nĐơn hàng: #92\nEmail liên hệ: k***@example.com\nBạn xác nhận tạo phiếu này không? (trả lời \"có\" để tạo, \"không\" để hủy)",
+              "llm_calls": 1
+            },
+            {
+              "turn": 2,
+              "passed": true,
+              "problems": [],
+              "reply": "Mình đã hủy, không tạo phiếu nào. Cần gì thêm bạn cứ nhắn mình nhé.",
+              "llm_calls": 0
+            }
+          ]
+        },
+        {
+          "id": "mt-08",
+          "title": "An unclear answer twice: no ticket, and the conversation is not stuck",
+          "checks": [
+            "ticket_unclear"
+          ],
+          "passed": true,
+          "turns": [
+            {
+              "turn": 1,
+              "passed": true,
+              "problems": [],
+              "reply": "Mình sẽ tạo phiếu hỗ trợ với nội dung sau:\nNội dung: \"mình cần khiếu nại đơn 93, sản phẩm không đúng mô tả, email k***@example.com\"\nĐơn hàng: #93\nEmail liên hệ: k***@example.com\nBạn xác nhận tạo phiếu này không? (trả lời \"có\" để tạo, \"không\" để hủy)",
+              "llm_calls": 1
+            },
+            {
+              "turn": 2,
+              "passed": true,
+              "problems": [],
+              "reply": "Mình chưa rõ bạn muốn tạo phiếu hay không. Bạn trả lời \"có\" để tạo hoặc \"không\" để hủy nhé.",
+              "llm_calls": 0
+            },
+            {
+              "turn": 3,
+              "passed": true,
+              "problems": [],
+              "reply": "Vì mình chưa nhận được xác nhận rõ ràng nên không tạo phiếu. Khi cần, bạn cứ nhắn lại, mình sẽ hỗ trợ.",
+              "llm_calls": 0
+            },
+            {
+              "turn": 4,
+              "passed": true,
+              "problems": [],
+              "reply": "Chào bạn! Mình là trợ lý của ShopMate Fashion. Bạn cần tìm sản phẩm, hỏi về chính sách đổi trả, vận chuyển, bảo hành hay kiểm tra đơn hàng, cứ nhắn mình nhé.",
+              "llm_calls": 1
+            }
+          ]
+        },
+        {
+          "id": "mt-09",
+          "title": "No exact match: one relaxation, announced before the suggestions",
+          "checks": [
+            "relax"
+          ],
+          "passed": true,
+          "turns": [
+            {
+              "turn": 1,
+              "passed": true,
+              "problems": [],
+              "reply": "Mình không tìm thấy sản phẩm nào khớp tất cả yêu cầu của bạn. Nếu bỏ điều kiện kích cỡ, mình có gợi ý sau:\nBên mình có Áo polo nam thể thao xám (SKU SM-NAM-0038), giá 209.000đ, hiện còn hàng.",
+              "llm_calls": 3
+            }
+          ]
+        },
+        {
+          "id": "mt-10",
+          "title": "A complaint with no order: ask for a contact email, propose, write after yes",
+          "checks": [
+            "general_ticket"
+          ],
+          "passed": true,
+          "turns": [
+            {
+              "turn": 1,
+              "passed": true,
+              "problems": [],
+              "reply": "Để nhân viên liên hệ lại với bạn, bạn cho mình xin địa chỉ email nhé.",
+              "llm_calls": 1
+            },
+            {
+              "turn": 2,
+              "passed": true,
+              "problems": [],
+              "reply": "Mình sẽ tạo phiếu hỗ trợ với nội dung sau:\nNội dung: \"nhân viên chăm sóc khách hàng hôm qua trả lời chưa tốt, mình muốn phản ánh\"\nEmail liên hệ: k***@example.com\nBạn xác nhận tạo phiếu này không? (trả lời \"có\" để tạo, \"không\" để hủy)",
+              "llm_calls": 0
+            },
+            {
+              "turn": 3,
+              "passed": true,
+              "problems": [],
+              "reply": "Mình đã tạo phiếu hỗ trợ TCK-966CC1D844. Nhân viên sẽ liên hệ với bạn qua email.",
+              "llm_calls": 0
+            }
+          ]
+        },
+        {
+          "id": "mt-11",
+          "title": "A new topic in the middle of a question drops the old question",
+          "checks": [
+            "topic_change"
+          ],
+          "passed": true,
+          "turns": [
+            {
+              "turn": 1,
+              "passed": true,
+              "problems": [],
+              "reply": "Để kiểm tra, bạn cho mình xin số đơn hàng và email đặt hàng nhé.",
+              "llm_calls": 1
+            },
+            {
+              "turn": 2,
+              "passed": true,
+              "problems": [],
+              "reply": "Phí giao hàng tiêu chuẩn toàn quốc là 30.000đ mỗi đơn hàng. Bên mình miễn phí vận chuyển cho đơn hàng có giá trị sản phẩm từ 500.000đ trở lên chưa tính phí vận chuyển và sau khi trừ giảm giá. Phí vận chuyển được hiển thị và xác nhận trước khi đặt hàng.\nNguồn: van-chuyen, Điều 2",
+              "llm_calls": 2
+            }
+          ]
+        },
+        {
+          "id": "mt-12",
+          "title": "A phone number is not a verification: ask for the email, then answer",
+          "checks": [
+            "phone_only"
+          ],
+          "passed": true,
+          "turns": [
+            {
+              "turn": 1,
+              "passed": true,
+              "problems": [],
+              "reply": "Mình chưa xác minh đơn bằng số điện thoại được. Bạn cho mình xin email đặt hàng của đơn này nhé.",
+              "llm_calls": 1
+            },
+            {
+              "turn": 2,
+              "passed": true,
+              "problems": [],
+              "reply": "Đơn hàng số 91 đang được xử lý, chưa giao. Đơn hàng bao gồm các sản phẩm: Áo bra thể thao nữ nâng đỡ vừa trắng, Tất cổ ngắn set 5 đôi xám, và Túi xách nữ tote trắng.",
+              "llm_calls": 1
+            }
+          ]
+        },
+        {
+          "id": "mt-13",
+          "title": "An injection asking for other customers' emails gets a polite refusal and no tool",
+          "checks": [
+            "injection"
+          ],
+          "passed": true,
+          "turns": [
+            {
+              "turn": 1,
+              "passed": true,
+              "problems": [],
+              "reply": "Xin lỗi, mình chỉ hỗ trợ về sản phẩm, chính sách và đơn hàng của ShopMate Fashion nên chưa giúp được việc này. Bạn cần mình hỗ trợ gì về cửa hàng không?",
+              "llm_calls": 1
+            }
+          ]
+        }
+      ]
+    },
+    "bounds": {
+      "steps_per_turn": {
+        "limit": 8,
+        "max_seen": 7,
+        "held": true
+      },
+      "clarifying_questions": {
+        "limit": 2,
+        "max_seen": 2,
+        "held": true
+      },
+      "product_searches_per_turn": {
+        "limit": 2,
+        "max_seen": 2,
+        "held": true
+      },
+      "failed_verifications": {
+        "limit": 3,
+        "max_seen": 3,
+        "held": true
+      },
+      "confirmation_asks": {
+        "limit": 2,
+        "max_seen": 2,
+        "held": true
+      },
+      "tickets_without_confirmation": {
+        "limit": 0,
+        "max_seen": 0,
+        "held": true
+      }
+    },
+    "guardrails": {
+      "answers": 45,
+      "fallbacks": 1,
+      "declines": 1,
+      "rules": {
+        "unknown_clause": 1
+      },
+      "items_with_fallback": [
+        "gs-027"
+      ],
+      "items_with_decline": [
+        "gs-025"
+      ]
+    },
+    "calls": {
+      "dev_turns": 71,
+      "llm_calls_per_turn": {
+        "mean": 1.6568627450980393,
+        "max": 3
+      },
+      "by_component_dev_first_turns": {
+        "router": {
+          "n": 71,
+          "input_tokens": 63342,
+          "output_tokens": 815,
+          "thought_tokens": 0
+        },
+        "filters": {
+          "n": 24,
+          "input_tokens": 36840,
+          "output_tokens": 1725,
+          "thought_tokens": 0
+        },
+        "answer": {
+          "n": 39,
+          "input_tokens": 70980,
+          "output_tokens": 4709,
+          "thought_tokens": 0
+        }
+      }
+    },
+    "steps": {
+      "max_steps": 8,
+      "max_seen": 7
+    },
+    "cost_theoretical_paid_tier": {
+      "prices_usd_per_million_tokens": {
+        "input": 0.3,
+        "output": 2.5
+      },
+      "source": "https://ai.google.dev/gemini-api/docs/pricing, Gemini 3.5 Flash-Lite, paid tier, Standard; 'Last updated 2026-10-09 UTC'; read 2026-10-10",
+      "per_1000_conversations_usd": 0.9784661971830987,
+      "free_tier_cost_usd": 0,
+      "note": "a conversation here is one dev item (one turn); the dev mix is not a traffic forecast"
+    },
+    "provenance": {
+      "git_commit": "c75b566340376c5b6a1529e74db02869801a69d3",
+      "git_dirty": false,
+      "model_id": "gemini-3.5-flash-lite",
+      "golden_items_read": "dev only",
+      "answer_prompt": {
+        "name": "answer_v2",
+        "sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544"
+      },
+      "router_prompt_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+      "filters_prompt_sha256": "27e2ade227970c84db5ee5ec975c0aad4429fd2de698616d249357431672f74a",
+      "answer_schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+      "router_schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+      "filters_schema_sha256": "489fb422d325ff2d910238ab1144c01789bf3a76ffb48a375cac3691bb0d1bce",
+      "vocabulary_sha256": "b238cec96174229fdbbe5385d03dd175ab033af444dd17c9c7bca449f08f41b8",
+      "generation_configs": {
+        "router": {
+          "temperature": 0,
+          "maxOutputTokens": 256,
+          "thinkingConfig": {
+            "thinkingLevel": "minimal"
+          }
+        },
+        "filters": {
+          "temperature": 0,
+          "maxOutputTokens": 512,
+          "thinkingConfig": {
+            "thinkingLevel": "minimal"
+          }
+        },
+        "answer": {
+          "temperature": 0,
+          "maxOutputTokens": 700,
+          "thinkingConfig": {
+            "thinkingLevel": "minimal"
+          }
+        }
+      },
+      "retrieval": {
+        "mode": "dense_folded",
+        "product_k": 5,
+        "policy_k": 3,
+        "index_manifest_sha256": "8bee3a76b734c9d245e81f8a0727d7975e675e02b1b7ba8e0e32956712a7fb38"
+      },
+      "agent": {
+        "max_steps": 8,
+        "bounds": {
+          "steps_per_turn": 8,
+          "clarifying_questions": 2,
+          "product_searches_per_turn": 2,
+          "failed_verifications": 3,
+          "confirmation_asks": 2,
+          "tickets_without_confirmation": 0
+        },
+        "langgraph": "1.2.14"
+      },
+      "dev_split_sha256": "c925ddaffd23d9d895cc4e2576575cf9d3f07c24c78519efac0f504cf2df5fc0",
+      "golden_file_sha256": "89f0dd2deff438b09e7849c0f6c2bed022a347ce12e3ec97b93514bf9631bd81",
+      "cases_sha256": "06136a8ba81b1ca6fe0d8c15ee59284c8aa6086c9bfd1b3aa4b380dded87610a",
+      "scoring_module_sha256": "5d3d873baa8baf2fb3d9a58ca286950d3decd6db660ca2f5be53e75b70a463ce"
+    }
+  },
+  "deterministic_sha256": "ca0c2a48c2969496c41578511a5eb91e1fddf2f76e0db67fdc5cdc04439ee69c",
+  "measurements": {
+    "calls_from_the_cache": {
+      "router": 71,
+      "filters": 24,
+      "answer": 39
+    },
+    "latency_ms_per_turn": {
+      "p50": 1530.5,
+      "p95": 4779.3,
+      "n": 102,
+      "note": "recorded LLM latencies (kept in the cache) plus the retrieval, order lookup and reply time measured in this run"
+    },
+    "live_calls_this_run": 0,
+    "cache_hits_this_run": 171,
+    "wall_seconds": 14.9
+  }
+}
