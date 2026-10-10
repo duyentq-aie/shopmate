@@ -1,0 +1,50 @@
+{
+ "digest": "1e9f51902e21828edb1bafeac7bd19b30d7e0851163bcb51b4555567067a18ba",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"color\":\"Be\",\"in_stock\":true,\"kind\":\"Túi đeo chéo\",\"material\":\"Vải canvas\",\"name\":\"Túi đeo chéo mini be\",\"price_vnd\":389000,\"sizes\":[\"Freesize\"],\"sku\":\"SM-TUI-0022\"},{\"color\":\"Nâu\",\"in_stock\":true,\"kind\":\"Túi đeo chéo\",\"material\":\"Dù\",\"name\":\"Túi đeo chéo hộp nâu\",\"price_vnd\":369000,\"sizes\":[\"Freesize\"],\"sku\":\"SM-TUI-0032\"},{\"color\":\"Đen\",\"in_stock\":true,\"kind\":\"Túi đeo chéo\",\"material\":\"Vải canvas\",\"name\":\"Túi đeo chéo hộp đen\",\"price_vnd\":369000,\"sizes\":[\"Freesize\"],\"sku\":\"SM-TUI-0027\"}],\"relaxed\":[]},\"kind\":\"products\",\"question\":\"tui deo cheo duoi 400k co ko shop\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"text\": \"ShopMate Fashion xin gửi bạn các mẫu túi đeo chéo dưới 400k. Túi đeo chéo mini be (SKU SM-TUI-0022) có giá 389.000đ và hiện còn hàng. Túi đeo chéo hộp nâu (SKU SM-TUI-0032) có giá 369.000đ và hiện còn hàng. Túi đeo chéo hộp đen (SKU SM-TUI-0027) có giá 369.000đ và hiện còn hàng.\", \"cited_skus\": [\"SM-TUI-0022\", \"SM-TUI-0032\", \"SM-TUI-0027\"], \"cited_clauses\": []}",
+       "thoughtSignature": "EmAKXgFpFH0TG57KeuMH/kiIpQRahgVxVQ2XxfvhcmdVq5QeJKSh3zVYRdDmKFgTllItRb2XZqF+ocrptrTQOwFpSzyPVSBPpc9JVz0rZTJK6+IMTb268r56hIZWLuQPPko="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1765,
+   "candidatesTokenCount": 178,
+   "totalTokenCount": 1943,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1765
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "eFPKatujLca6mNMPhuDwmAU"
+ },
+ "latency_ms": 1369.4,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T15:02:17+00:00"
+}

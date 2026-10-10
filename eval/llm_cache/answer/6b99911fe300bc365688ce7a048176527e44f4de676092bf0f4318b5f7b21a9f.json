@@ -1,0 +1,50 @@
+{
+ "digest": "6b99911fe300bc365688ce7a048176527e44f4de676092bf0f4318b5f7b21a9f",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"color\":\"Trắng\",\"in_stock\":true,\"kind\":\"Áo thể thao nam\",\"material\":\"Thun lạnh\",\"name\":\"Áo thể thao nam tập gym trắng\",\"price_vnd\":279000,\"sizes\":[\"M\",\"L\",\"XL\",\"XXL\"],\"sku\":\"SM-TT-0001\"},{\"color\":\"Xám\",\"in_stock\":false,\"kind\":\"Áo thể thao nam\",\"material\":\"Vải lưới\",\"name\":\"Áo thể thao nam tập gym xám\",\"price_vnd\":189000,\"sizes\":[\"L\",\"XL\"],\"sku\":\"SM-TT-0026\"},{\"color\":\"Đỏ\",\"in_stock\":true,\"kind\":\"Áo thể thao nam\",\"material\":\"Polyester\",\"name\":\"Áo thể thao nam tập gym đỏ\",\"price_vnd\":329000,\"sizes\":[\"S\",\"M\",\"L\",\"XL\",\"XXL\"],\"sku\":\"SM-TT-0011\"},{\"color\":\"Xám\",\"in_stock\":true,\"kind\":\"Áo thể thao nam\",\"material\":\"Vải lưới\",\"name\":\"Áo thể thao nam ba lỗ xám\",\"price_vnd\":309000,\"sizes\":[\"S\",\"M\",\"L\"],\"sku\":\"SM-TT-0016\"},{\"color\":\"Đen\",\"in_stock\":true,\"kind\":\"Áo thể thao nam\",\"material\":\"Vải lưới\",\"name\":\"Áo thể thao nam chạy bộ đen\",\"price_vnd\":309000,\"sizes\":[\"S\",\"M\",\"L\",\"XL\",\"XXL\"],\"sku\":\"SM-TT-0021\"}],\"relaxed\":[]},\"kind\":\"products\",\"question\":\"shop có áo tập gym nam ko ạ\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"text\": \"Bên mình có một số mẫu áo tập gym nam để bạn lựa chọn. Áo thể thao nam tập gym trắng (SKU SM-TT-0001) có giá 279.000đ và hiện còn hàng. Áo thể thao nam tập gym xám (SKU SM-TT-0026) có giá 189.000đ và hiện đã hết hàng. Áo thể thao nam tập gym đỏ (SKU SM-TT-0011) có giá 329.000đ và hiện còn hàng.\",\n  \"cited_skus\": [\n    \"SM-TT-0001\",\n    \"SM-TT-0026\",\n    \"SM-TT-0011\"\n  ],\n  \"cited_clauses\": []\n}",
+       "thoughtSignature": "EmAKXgFpFH0TYd8zxXl+kxsuMO7CEQ+ObaLdiob8bFyDC77dDnQ+SQ2qwWCkSgsDbz4V+ScLNBKfb4cwA8rz22MJ/KAkb4yK19fljbWT7E2q4XYrEMVoU+g6P66SGn0NwJc="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1904,
+   "candidatesTokenCount": 192,
+   "totalTokenCount": 2096,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1904
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "TlPKasHYBeGijuMP4vnA4Ao"
+ },
+ "latency_ms": 1454.2,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T15:01:34+00:00"
+}

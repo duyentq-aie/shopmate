@@ -1,0 +1,50 @@
+{
+ "digest": "8f1b5939a9e65a1631d4b8e04cb63bfd6106ffeacccaed2d28a0534a80c5c7e1",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"clause\":1,\"file\":\"van-chuyen\",\"text\":\"Chính sách vận chuyển – ShopMate Fashion\\nĐiều 1. Phạm vi giao hàng\\n1. ShopMate Fashion giao hàng trên toàn lãnh thổ Việt Nam.\\n2. Hiện chưa hỗ trợ giao hàng quốc tế.\\n3. Hàng được gửi đi từ kho tại Thành phố Hồ Chí Minh.\",\"title\":\"Phạm vi giao hàng\"},{\"clause\":3,\"file\":\"van-chuyen\",\"text\":\"Chính sách vận chuyển – ShopMate Fashion\\nĐiều 3. Thời gian giao hàng\\n1. Nội thành Thành phố Hồ Chí Minh: **1–2 ngày** làm việc.\\n2. Hà Nội, Đà Nẵng và các tỉnh, thành phố khác: **2–5 ngày** làm việc.\\n3. Đơn hàng đặt trước **14 giờ** được xử lý và bàn giao cho đơn vị vận chuyển trong ngày; đơn đặt sau 14 giờ được xử lý vào ngày làm việc tiếp theo.\\n4. Thời gian giao hàng có thể kéo dài thêm trong dịp lễ, Tết hoặc do thiên tai, dịch bệnh.\",\"title\":\"Thời gian giao hàng\"},{\"clause\":6,\"file\":\"van-chuyen\",\"text\":\"Chính sách vận chuyển – ShopMate Fashion\\nĐiều 6. Giao hàng không thành công\\n1. Đơn vị vận chuyển liên hệ giao lại tối đa **2 lần**.\\n2. Sau 2 lần giao không thành công, đơn hàng được hoàn về kho và tự động hủy.\\n3. Khách hàng từ chối nhận hàng không có lý do chính đáng từ **2 lần** trở lên có thể bị tạm ngưng hình thức COD.\",\"title\":\"Giao hàng không thành công\"}]},\"kind\":\"policies\",\"question\":\"shop mat bao lau de giao hang toi khu vuc cua minh\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"text\":\"Thời gian giao hàng đối với khu vực nội thành Thành phố Hồ Chí Minh là 1–2 ngày làm việc, còn Hà Nội, Đà Nẵng và các tỉnh, thành phố khác là 2–5 ngày làm việc. Đơn hàng đặt trước 14 giờ được xử lý và bàn giao cho đơn vị vận chuyển trong ngày, trong khi đơn đặt sau 14 giờ được xử lý vào ngày làm việc tiếp theo. Thời gian giao hàng có thể kéo dài thêm trong dịp lễ, Tết hoặc do thiên tai, dịch bệnh.\",\"cited_skus\":[],\"cited_clauses\":[{\"file\":\"van-chuyen\",\"clause\":3}]}",
+       "thoughtSignature": "EmAKXgFpFH0ToVSifbEDLzwofrYkpMdg5utHzoRKYzsNyHdJ0eDx/iIiMj6rWVf+QtAVY4+7m338IHQl6g6ScGzRqwB74AiNCSq9EFiFNBJCBruzOCGCaDxOw615FjmeJ6I="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1928,
+   "candidatesTokenCount": 138,
+   "totalTokenCount": 2066,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1928
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "x1PKat2wN9CKjuMP1KGemAU"
+ },
+ "latency_ms": 1259.7,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T15:03:36+00:00"
+}

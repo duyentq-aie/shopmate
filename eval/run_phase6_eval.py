@@ -5,7 +5,8 @@ What is measured (dev only: `load_split("dev")` is the only way golden items are
 - the tickets: for every proposal, a conversation that answers "có" and one that answers "không" are simulated, in a temporary ticket file;
 - the scripted multi-turn cases of eval/phase6/multiturn_cases.json (outside the golden set), checked turn by turn;
 - every bound of the agent (steps, clarifying questions, searches, failed verifications, confirmation asks, tickets without a yes);
-- the guardrails (how often the fallback answer replaced the generated one, and which rule fired), LLM calls and tokens per turn, latency per turn,
+- the guardrails (how often the fallback answer replaced the generated one, and which rule fired; how often the model said it had no information:
+  a decline, not a fallback), LLM calls and tokens per turn, latency per turn,
   the theoretical paid-tier cost per 1,000 conversations.
 
 Free-tier guards: LLM calls go through the disk cache (eval/llm_cache/, committed): a re-run makes ZERO API calls, and the router and extractor
@@ -152,7 +153,7 @@ class Harness:
 
     def turn(self, conversation_id: str, message: str, *, role: str) -> dict:
         marks, log_before, fallbacks_before = self.tools.mark(), len(self.generator.log), self.answerer.stats.fallbacks
-        reasons_before = len(self.answerer.stats.reasons)
+        reasons_before, declines_before = len(self.answerer.stats.reasons), self.answerer.stats.declines
         result = self.agent.turn(conversation_id, message)
         after = self.tools.mark()
         delta = {"product_searches": after[0] - marks[0], "policy_searches": after[1] - marks[1], "lookups": after[2] - marks[2], "tickets": after[3] - marks[3]}
@@ -175,7 +176,8 @@ class Harness:
                   "non_llm_ms": sum(s["duration_ms"] for s in line["spans"] if s["stage"] in NON_LLM_STAGES)}
         self.turn_records.append(record)
         return {"result": result, "delta": delta, "first_search_empty": first_search_empty, "verified": verified, "verify_failures": verify_failures,
-                "fallback": self.answerer.stats.fallbacks > fallbacks_before, "answer_calls": sum(1 for c in calls if c["component"] == "answer"), "record": record,
+                "fallback": self.answerer.stats.fallbacks > fallbacks_before, "declined": self.answerer.stats.declines > declines_before,
+                "answer_calls": sum(1 for c in calls if c["component"] == "answer"), "record": record,
                 "fallback_rules": sorted({rule for rules in self.answerer.stats.reasons[reasons_before:] for rule in rules})}
 
 
@@ -211,6 +213,7 @@ def evaluate_item(item, h: Harness) -> dict:
     score = score_item(item, obs)
     return {"id": item.id, "intent": item.intent, "kind": _item_kind(item), "correct": score["correct"], "check": score["check"], "reason": score["reason"],
             "routed_to": result.intent, "awaiting": result.awaiting, "fallback": first["fallback"], "fallback_rules": first["fallback_rules"],
+            "declined": first["declined"],
             "retrieved_skus": [h["sku"] for h in result.hits if "sku" in h], "retrieved_clauses": [[h["file"], h["clause"]] for h in result.hits if "clause" in h],
             "llm_calls": first["record"]["llm_calls"], "steps": result.steps, "reply": result.reply}
 
@@ -270,9 +273,10 @@ def evaluate_phase6(items, cases, h: Harness, *, prices: tuple[float, float] | N
         "items": done_items,
         "multiturn": {"passed": sum(c["passed"] for c in done_cases), "total": len(done_cases), "cases": done_cases},
         "bounds": bounds_report(h.seen),
-        "guardrails": {"answers": h.answerer.stats.answers, "fallbacks": h.answerer.stats.fallbacks,
+        "guardrails": {"answers": h.answerer.stats.answers, "fallbacks": h.answerer.stats.fallbacks, "declines": h.answerer.stats.declines,
                        "rules": dict(Counter(rule for rules in h.answerer.stats.reasons for rule in rules)),
-                       "items_with_fallback": [r["id"] for r in done_items if r["fallback"]]},
+                       "items_with_fallback": [r["id"] for r in done_items if r["fallback"]],
+                       "items_with_decline": [r["id"] for r in done_items if r["declined"]]},
         "calls": {"dev_turns": len(dev_turns), "llm_calls_per_turn": {"mean": (sum(r["llm_calls"] for r in all_turns) / len(all_turns)) if all_turns else None,
                                                                       "max": max((r["llm_calls"] for r in all_turns), default=0)},
                   "by_component_dev_first_turns": by_component},

@@ -1,0 +1,50 @@
+{
+ "digest": "93347e810dfbde9d0abb62646755f83990f41099969f5418078d2912bee40517",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"color\":\"Đen\",\"in_stock\":true,\"kind\":\"Thắt lưng nam\",\"material\":\"Da bò\",\"name\":\"Thắt lưng nam bản nhỏ đen\",\"price_vnd\":419000,\"sizes\":[\"Freesize\"],\"sku\":\"SM-PK-0001\"},{\"color\":\"Đen\",\"in_stock\":true,\"kind\":\"Chân váy nữ\",\"material\":\"Tweed\",\"name\":\"Chân váy nữ bút chì đen\",\"price_vnd\":379000,\"sizes\":[\"L\",\"XL\",\"XXL\"],\"sku\":\"SM-NU-0032\"},{\"color\":\"Đen\",\"in_stock\":true,\"kind\":\"Quần jean nữ\",\"material\":\"Denim\",\"name\":\"Quần jean nữ skinny đen\",\"price_vnd\":369000,\"sizes\":[\"31\",\"32\"],\"sku\":\"SM-NU-0026\"},{\"color\":\"Đen\",\"in_stock\":true,\"kind\":\"Chân váy nữ\",\"material\":\"Voan\",\"name\":\"Chân váy nữ chữ A đen\",\"price_vnd\":249000,\"sizes\":[\"M\",\"L\",\"XL\"],\"sku\":\"SM-NU-0011\"},{\"color\":\"Đen\",\"in_stock\":true,\"kind\":\"Áo sơ mi nữ\",\"material\":\"Lụa\",\"name\":\"Áo sơ mi nữ công sở đen\",\"price_vnd\":359000,\"sizes\":[\"S\",\"M\",\"L\",\"XL\",\"XXL\"],\"sku\":\"SM-NU-0037\"}],\"relaxed\":[]},\"kind\":\"products\",\"question\":\"mình muốn mua đồ màu đen thôi giá dưới 500k cũng được\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"text\": \"ShopMate Fashion xin gửi các sản phẩm màu đen dưới 500k dành cho bạn. Thắt lưng nam bản nhỏ đen (SKU SM-PK-0001) có giá 419.000đ và hiện còn hàng. Chân váy nữ bút chì đen (SKU SM-NU-0032) có giá 379.000đ và hiện còn hàng. Quần jean nữ skinny đen (SKU SM-NU-0026) có giá 369.000đ và hiện còn hàng. Chân váy nữ chữ A đen (SKU SM-NU-0011) có giá 249.000đ và hiện còn hàng. Áo sơ mi nữ công sở đen (SKU SM-NU-0037) có giá 359.000đ và hiện còn hàng.\", \"cited_skus\": [\"SM-PK-0001\", \"SM-NU-0032\", \"SM-NU-0026\", \"SM-NU-0011\", \"SM-NU-0037\"], \"cited_clauses\": []}",
+       "thoughtSignature": "EmAKXgFpFH0TxKs3nu+yg0P+ESlXH1FvkREcEzwP1VeMYMXSVKX4qfUyeoXoIFPJNjYnnEZ88ML9cVJ+Sdn9FRBTj1xQaF3YLIvDq/f+2/TEZitMRsV46VK0WyvW/HfFYlM="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1892,
+   "candidatesTokenCount": 263,
+   "totalTokenCount": 2155,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1892
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "91PKaqHYEKj-juMPzv_zyA8"
+ },
+ "latency_ms": 1705.4,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T15:04:24+00:00"
+}

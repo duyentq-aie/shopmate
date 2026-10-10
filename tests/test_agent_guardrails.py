@@ -5,12 +5,16 @@ from __future__ import annotations
 
 import pytest
 
+from app.agent import templates as T
 from app.agent.guardrails import (
+    SKU,
     STATUS_LABELS,
+    bounded_fallback,
     budget_numbers,
     check_answer,
     citation_footer,
     fallback_text,
+    is_decline,
     prices_in,
 )
 
@@ -233,3 +237,103 @@ def test_an_answer_that_repeats_the_instructions_is_rejected():
 def test_an_empty_answer_is_rejected():
     assert rules(check("products", "   ", PRODUCTS)) == {"empty"}
     assert rules(check("products", "", PRODUCTS)) == {"empty"}
+
+
+# --- an explicit "no information" answer needs no citation, and a fallback never says more than the text it replaces ---------------------------
+# (docs/DECISIONS-phase6.md, A21: the bug found in gs-025 — the model honestly said it had no information, the citation rule rejected it and the
+# fallback quoted a clause the model had not used)
+
+GS025_V1 = "Xin lỗi bạn, hiện tại chúng tôi không có thông tin về chính sách miễn phí vận chuyển cho đơn hàng trên 500k."
+GS025_V2 = "Xin lỗi, hiện tại trong chính sách của ShopMate Fashion không có thông tin về việc miễn phí vận chuyển cho đơn hàng trên 500k."
+
+
+@pytest.mark.parametrize("text", [
+    GS025_V1, GS025_V2, "Mình chưa có thông tin về nội dung này.", "Chính sách hiện không đề cập đến phí giao hàng quốc tế.",
+    "Mình không tìm thấy thông tin về việc đó trong chính sách.", "Hiện chưa có dữ liệu về nội dung này.", "Mình chưa đủ thông tin để trả lời.",
+    "KHÔNG CÓ THÔNG TIN về phí ship quốc tế.", "Khong co thong tin ve phi ship quoc te.", T.NO_POLICY_INFO,
+])
+def test_an_explicit_no_information_answer_is_a_decline(text):
+    assert is_decline(text)
+
+
+@pytest.mark.parametrize("text", [
+    "Đổi kích cỡ hoặc màu sắc trong vòng 7 ngày kể từ ngày nhận hàng.",  # an answer
+    "Thông tin về phí giao hàng: 30.000đ mỗi đơn.",  # "information" without a negation
+    "Sản phẩm này không có phí đổi size.",  # a negation, not about information: a claim that needs a citation
+    "Chính sách không có quy định đổi trả cho hàng giảm giá trên 50%.",  # a claim about the rules, not "no information"
+    "Bạn chưa cung cấp thông tin đơn hàng.", "", "   ",
+])
+def test_anything_that_is_not_an_explicit_no_information_answer_is_not_a_decline(text):
+    assert not is_decline(text)
+
+
+def test_an_answer_that_cites_a_clause_or_names_one_is_not_a_decline_even_when_it_says_so():
+    text = "Mình không có thông tin về ship quốc tế, nhưng Điều 2 nêu đơn trên 500.000đ được miễn phí."
+    assert not is_decline(text)
+    assert not is_decline(GS025_V2, [{"file": "doi-tra", "clause": 2}])  # the model cited a clause: the citation rules apply to it
+    assert is_decline(GS025_V2, [])
+
+
+def test_the_citation_rule_does_not_ask_a_citation_of_a_decline_but_every_other_rule_still_applies():
+    assert check("policies", GS025_V2, POLICY, question="đơn trên 500k có free ship ko shop?") == []
+    assert check("policies", T.NO_POLICY_INFO, POLICY) == []
+    assert rules(check("policies", GS025_V2 + " Ship miễn phí từ 300.000đ.", POLICY)) == {"price_not_in_evidence"}
+    assert "email" in rules(check("policies", GS025_V2 + " Liên hệ khachhang10@example.com.", POLICY))
+    assert rules(check("policies", GS025_V2 + " Xem Điều 9.", POLICY)) == {"no_clause_cited", "unknown_clause"}  # it names a clause, so it is not a decline
+
+
+def test_a_decline_is_a_way_out_of_the_citation_rule_for_a_policy_answer_only():
+    assert rules(check("products", T.NO_POLICY_INFO, PRODUCTS)) == {"no_sku_cited"}
+    assert rules(check("order", T.NO_POLICY_INFO, ORDER)) == {"order_status_mismatch"}
+    assert rules(check("policies", "Phí gửi hàng về là 30.000đ.", POLICY)) == {"no_clause_cited"}  # not a decline: still needs a citation
+
+
+def clause(file, number, text="Nội dung."):
+    return {"key": f"policy:{file}:{number}", "file": file, "clause": number, "title": f"Điều {number}", "text": text}
+
+
+THREE_CLAUSES = {"hits": [clause("doi-tra", 2, "Đổi trong 7 ngày."), clause("van-chuyen", 5, "Phí COD là 15.000đ."), clause("van-chuyen", 1, "Giao toàn quốc.")]}
+
+
+def test_a_policy_fallback_quotes_only_the_clauses_the_rejected_text_cited():
+    text = bounded_fallback("policies", "Phí là 50.000đ.", THREE_CLAUSES, cited_clauses=[{"file": "van-chuyen", "clause": 5}])
+    assert "Phí COD là 15.000đ." in text and "Đổi trong 7 ngày." not in text and "Giao toàn quốc." not in text
+    assert text.endswith(citation_footer([("van-chuyen", 5)]))
+    assert check("policies", text, THREE_CLAUSES, clauses=[{"file": "van-chuyen", "clause": 5}]) == []
+
+
+def test_a_policy_fallback_quotes_at_most_two_clauses_in_the_order_of_the_evidence():
+    cited = [{"file": "van-chuyen", "clause": 1}, {"file": "van-chuyen", "clause": 5}, {"file": "doi-tra", "clause": 2}]
+    text = bounded_fallback("policies", "x", THREE_CLAUSES, cited_clauses=cited)
+    assert "Đổi trong 7 ngày." in text and "Phí COD là 15.000đ." in text and "Giao toàn quốc." not in text
+    assert text.endswith(citation_footer([("doi-tra", 2), ("van-chuyen", 5)]))
+
+
+@pytest.mark.parametrize("cited", [[], [{"file": "bao-hanh", "clause": 3}], [{"file": "doi-tra", "clause": 9}]])
+def test_a_policy_fallback_with_no_clause_the_text_used_is_the_fixed_no_information_reply(cited):
+    assert bounded_fallback("policies", GS025_V2, THREE_CLAUSES, cited_clauses=cited) == T.NO_POLICY_INFO
+    assert "Điều" not in T.NO_POLICY_INFO and "Nguồn" not in T.NO_POLICY_INFO
+
+
+def test_a_product_fallback_lists_only_the_products_the_rejected_text_named():
+    wrong = "Áo sơ mi nam trắng (SKU SM-NAM-0002) giá 99k."
+    text = bounded_fallback("products", wrong, PRODUCTS)
+    assert "SM-NAM-0002" in text and "329.000đ" in text and "SM-NAM-0001" not in text and "459.000đ" not in text
+    assert check("products", text, PRODUCTS) == []
+    by_citation = bounded_fallback("products", "Mẫu này giá 99k.", PRODUCTS, cited_skus=["SM-NAM-0001", "SM-XXX-9999"])
+    assert "SM-NAM-0001" in by_citation and "SM-NAM-0002" not in by_citation and "SM-XXX-9999" not in by_citation
+
+
+@pytest.mark.parametrize("text, cited", [("Mẫu SM-XXX-9999 giá 459.000đ.", []), ("Mình gợi ý áo khoác nhé.", []), ("", ["SM-XXX-9999"])])
+def test_a_product_fallback_with_no_product_the_text_named_is_the_fixed_no_information_reply(text, cited):
+    assert bounded_fallback("products", text, PRODUCTS, cited_skus=cited) == T.NO_INFORMATION
+
+
+def test_an_order_fallback_is_the_whole_verified_statement_of_the_order_whatever_the_text_said():
+    assert bounded_fallback("order", "Đơn đã giao.", ORDER) == fallback_text("order", ORDER)
+
+
+def test_the_fixed_no_information_replies_say_nothing_about_products_prices_or_clauses():
+    for reply in (T.NO_INFORMATION, T.NO_POLICY_INFO):
+        assert not SKU.findall(reply) and prices_in(reply) == [] and "Điều" not in reply and "nhân viên" in reply
+

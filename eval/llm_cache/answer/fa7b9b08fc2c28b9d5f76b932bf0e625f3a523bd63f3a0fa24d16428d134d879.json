@@ -1,0 +1,50 @@
+{
+ "digest": "fa7b9b08fc2c28b9d5f76b932bf0e625f3a523bd63f3a0fa24d16428d134d879",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"color\":\"Trắng\",\"in_stock\":true,\"kind\":\"Giày sneaker nữ\",\"material\":\"Vải canvas\",\"name\":\"Giày sneaker nữ slip-on trắng\",\"price_vnd\":559000,\"sizes\":[\"35\",\"36\",\"37\",\"38\"],\"sku\":\"SM-GIAY-0002\"}],\"relaxed\":[]},\"kind\":\"products\",\"question\":\"Mình cần mua giày sneaker nữ màu trắng size 37 giá từ 300000 đến 700000\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"text\": \"Bên mình có Giày sneaker nữ slip-on trắng (SKU SM-GIAY-0002) với giá 559.000đ và hiện còn hàng.\",\n  \"cited_skus\": [\n    \"SM-GIAY-0002\"\n  ],\n  \"cited_clauses\": []\n}",
+       "thoughtSignature": "EmAKXgFpFH0TWQJ4yLLnGHMCGW0Vsy2NM5t+VJX0wHM26sS7AFMzQk0T+vaU+pWhSiOcJaarpB163ARDOpJiQYvo3FxyKl25HsSOuv6kKQ8zb0+9gWFLneAvFLlKATo5nRc="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1656,
+   "candidatesTokenCount": 86,
+   "totalTokenCount": 1742,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1656
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "vFPKavL6DpbRg8UPiOz30A8"
+ },
+ "latency_ms": 950.5,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T15:03:24+00:00"
+}

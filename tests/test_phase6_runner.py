@@ -156,9 +156,30 @@ def test_an_agent_that_answers_wrongly_is_scored_wrongly_and_the_reason_is_recor
 def test_a_fabricated_answer_is_replaced_and_counted_with_its_rule(tmp_path):
     h, _, _ = make(tmp_path, llm=GroundedLLM(wrong=True))
     d = evaluate_phase6([ITEMS[0]], [], h)["deterministic"]
-    assert d["guardrails"] == {"answers": 1, "fallbacks": 1, "rules": {"price_mismatch": 1}, "items_with_fallback": ["gs-901"]}
+    assert d["guardrails"] == {"answers": 1, "fallbacks": 1, "declines": 0, "rules": {"price_mismatch": 1}, "items_with_fallback": ["gs-901"], "items_with_decline": []}
     assert d["items"][0]["correct"] is True and "99" not in d["items"][0]["reply"] and d["items"][0]["fallback"] is True  # the deterministic answer still names the SKU
     assert d["items"][0]["fallback_rules"] == ["price_mismatch"] and d["items"][0]["retrieved_skus"] == ["SM-NAM-0001"]  # what the error analysis needs
+
+
+class DecliningLLM(GroundedLLM):
+    """A model that says it has no information when it is asked about a policy."""
+
+    def generate(self, *, system_instruction, user_text, schema, generation_config):
+        if json.loads(user_text)["kind"] != "policies":
+            return super().generate(system_instruction=system_instruction, user_text=user_text, schema=schema, generation_config=generation_config)
+        answer = {"text": "Xin lỗi, hiện tại mình không có thông tin về nội dung này.", "cited_skus": [], "cited_clauses": []}
+        raw = {"candidates": [{"content": {"parts": [{"text": json.dumps(answer, ensure_ascii=False)}]}, "finishReason": "STOP"}],
+               "usageMetadata": {"promptTokenCount": 1200, "candidatesTokenCount": 30, "totalTokenCount": 1230}, "modelVersion": "gemini-3.5-flash-lite"}
+        return LiveResponse(raw=raw, latency_ms=800.0, http_attempts=1)
+
+
+def test_a_decline_is_reported_apart_from_the_fallbacks_in_the_item_and_in_the_guardrails_block(tmp_path):
+    h, _, _ = make(tmp_path, llm=DecliningLLM())
+    d = evaluate_phase6([ITEMS[0], ITEMS[2]], [], h)["deterministic"]
+    by_id = {r["id"]: r for r in d["items"]}
+    assert by_id["gs-903"]["declined"] is True and by_id["gs-903"]["fallback"] is False and by_id["gs-903"]["reply"] == T.NO_POLICY_INFO
+    assert by_id["gs-903"]["correct"] is False and by_id["gs-901"]["declined"] is False  # the honest "no information" is not the gold clause
+    assert d["guardrails"] == {"answers": 2, "fallbacks": 0, "declines": 1, "rules": {}, "items_with_fallback": [], "items_with_decline": ["gs-903"]}
 
 
 def test_a_ticket_written_by_a_turn_that_was_not_an_explicit_yes_is_a_violated_bound(tmp_path):

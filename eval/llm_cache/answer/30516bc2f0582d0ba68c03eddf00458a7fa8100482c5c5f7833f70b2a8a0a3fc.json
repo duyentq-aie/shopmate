@@ -1,0 +1,50 @@
+{
+ "digest": "30516bc2f0582d0ba68c03eddf00458a7fa8100482c5c5f7833f70b2a8a0a3fc",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"color\":\"Hồng\",\"in_stock\":true,\"kind\":\"Váy liền nữ\",\"material\":\"Cotton\",\"name\":\"Váy liền nữ hoa nhí hồng\",\"price_vnd\":369000,\"sizes\":[\"S\",\"M\",\"L\",\"XL\"],\"sku\":\"SM-NU-0010\"},{\"color\":\"Xanh dương\",\"in_stock\":true,\"kind\":\"Váy liền nữ\",\"material\":\"Linen\",\"name\":\"Váy liền nữ công sở xanh dương\",\"price_vnd\":389000,\"sizes\":[\"S\",\"M\",\"L\"],\"sku\":\"SM-NU-0003\"}],\"relaxed\":[]},\"kind\":\"products\",\"question\":\"Có váy liền nào dưới 400k ko shop?\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"text\": \"Bên mình có hai mẫu váy phù hợp với ngân sách của bạn. Váy liền nữ hoa nhí hồng (SKU SM-NU-0010) có giá 369.000đ và hiện còn hàng. Váy liền nữ công sở xanh dương (SKU SM-NU-0003) có giá 389.000đ và hiện còn hàng.\",\n  \"cited_skus\": [\n    \"SM-NU-0010\",\n    \"SM-NU-0003\"\n  ],\n  \"cited_clauses\": []\n}",
+       "thoughtSignature": "EmAKXgFpFH0Tip6T5u/A+EuLAPMeUyqC2pn1MFOG3cx/sQOscUi9Ao8xHf7rhG12RlrvhUA9GYhFqSwSnmyr75/KoPm67x5R3LrsNdRPMl88XRzs0Ui7TgxlBZrM6yNScFQ="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1697,
+   "candidatesTokenCount": 141,
+   "totalTokenCount": 1838,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1697
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "PlPKaoiXG-zV4-EPo_DF2A4"
+ },
+ "latency_ms": 1538.1,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T15:01:18+00:00"
+}

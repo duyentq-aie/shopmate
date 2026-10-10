@@ -1,0 +1,50 @@
+{
+ "digest": "b56c65dc624424807c321b2d13cc3e7f9e13b5a3a0b7a0126dda0c93f2eb086c",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"clause\":7,\"file\":\"doi-tra\",\"text\":\"Chính sách đổi trả – ShopMate Fashion\\nĐiều 7. Quy trình yêu cầu đổi trả\\n1. Khách hàng gửi yêu cầu kèm mã đơn hàng, lý do và hình ảnh sản phẩm qua trợ lý ShopMate hoặc hotline.\\n2. Bộ phận chăm sóc khách hàng phản hồi trong vòng **24 giờ** làm việc.\\n3. Sau khi được xác nhận, khách hàng đóng gói và gửi sản phẩm về kho trong vòng **3 ngày**.\",\"title\":\"Quy trình yêu cầu đổi trả\"},{\"clause\":6,\"file\":\"van-chuyen\",\"text\":\"Chính sách vận chuyển – ShopMate Fashion\\nĐiều 6. Giao hàng không thành công\\n1. Đơn vị vận chuyển liên hệ giao lại tối đa **2 lần**.\\n2. Sau 2 lần giao không thành công, đơn hàng được hoàn về kho và tự động hủy.\\n3. Khách hàng từ chối nhận hàng không có lý do chính đáng từ **2 lần** trở lên có thể bị tạm ngưng hình thức COD.\",\"title\":\"Giao hàng không thành công\"},{\"clause\":1,\"file\":\"bao-hanh\",\"text\":\"Chính sách bảo hành – ShopMate Fashion\\nĐiều 1. Sản phẩm được bảo hành\\n1. Giày dép (giày sneaker, giày tây, giày cao gót, giày chạy bộ, sandal): bảo hành **6 tháng** đối với lỗi bong keo, tuột chỉ, gãy đế.\\n2. Túi xách, túi đeo chéo, balo, ví và thắt lưng làm từ **da bò**: bảo hành **12 tháng** đối với lỗi đường may, khóa kéo, khóa cài.\\n3. Túi, ví, thắt lưng làm từ chất liệu khác: bảo hành **6 tháng** đối với lỗi đường may và khóa kéo.\\n4. Kính mát và phụ kiện kim loại: bảo hành **3 tháng** đối với lỗi gọng, bản lề.\\n5. Quần áo và đồ thể thao: không bảo hành; lỗi do nhà sản xuất được xử lý theo Chính sách đổi trả (Điều 2, khoản 3: đổi trả trong 30 ngày).\",\"title\":\"Sản phẩm được bảo hành\"}]},\"kind\":\"policies\",\"question\":\"lam the nao de gui yeu cau doi tra do vay mn\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"text\": \"Khách hàng gửi yêu cầu kèm mã đơn hàng, lý do và hình ảnh sản phẩm qua trợ lý ShopMate hoặc hotline. Bộ phận chăm sóc khách hàng phản hồi trong vòng 24 giờ làm việc. Sau khi được xác nhận, khách hàng đóng gói và gửi sản phẩm về kho trong vòng 3 ngày.\",\n  \"cited_skus\": [],\n  \"cited_clauses\": [\n    {\n      \"file\": \"doi-tra\",\n      \"clause\": 7\n    }\n  ]\n}",
+       "thoughtSignature": "EmAKXgFpFH0TTAPTP9efR2NHhJr2tH23nisEJByPk/enRNv6eD1Gl6a2pFNByYjCJzgkREFVdiwO/9D3vetDYesW7cfl76dGVArzkPiRh/oNHn8ugigoDV2csD3GVFjhecE="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 2045,
+   "candidatesTokenCount": 118,
+   "totalTokenCount": 2163,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 2045
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "xlPKauaOBuaumNMPze754As"
+ },
+ "latency_ms": 1260.3,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T15:03:34+00:00"
+}

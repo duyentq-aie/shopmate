@@ -1,0 +1,50 @@
+{
+ "digest": "ed145440165fa91dc229dd239cf1f10ad410e1aed72cb6c913b1f082e7aa0c11",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"order\":{\"created\":\"2026-08-05T19:09:20+00:00\",\"fulfillments\":[{\"created\":\"2026-10-09T11:34:28.659322+00:00\",\"status\":\"FULFILLED\",\"tracking_number\":\"SMVN979241643\"}],\"lines\":[{\"name\":\"Áo polo nam thể thao trắng\",\"quantity\":2,\"quantity_fulfilled\":2,\"sku\":\"SM-NAM-0017\"},{\"name\":\"Áo thun nam cổ tròn basic xanh rêu\",\"quantity\":2,\"quantity_fulfilled\":0,\"sku\":\"SM-NAM-0036\"}],\"number\":\"85\",\"status\":\"PARTIALLY_FULFILLED\"}},\"kind\":\"order\",\"question\":\"Shop xem giúp mình đơn 85 nha, email khachhang07@example.com\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"text\": \"Đơn hàng 85 của bạn đã giao một phần. Các sản phẩm trong đơn gồm Áo polo nam thể thao trắng và Áo thun nam cổ tròn basic xanh rêu. Mã vận đơn của đơn hàng là SMVN979241643.\", \"cited_skus\": [], \"cited_clauses\": []}",
+       "thoughtSignature": "EmAKXgFpFH0T7XSNXO1Kcm9Fjh5ASoSK1CSXDzj8vIvkETe4EnRN7vR+CeUtyMN56jA2blFwPLw+BAR3MpHVhBYQolBkah/tSvoFPjcx/tq6gn2CLB6rgkic0beMCnmJOmQ="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1744,
+   "candidatesTokenCount": 77,
+   "totalTokenCount": 1821,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1744
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "tlPKapy-F-T_g8UPpu2GyA0"
+ },
+ "latency_ms": 1168.7,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T15:03:18+00:00"
+}

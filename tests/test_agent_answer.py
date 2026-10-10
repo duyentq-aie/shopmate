@@ -15,9 +15,11 @@ from app.llm.cache import DiskCache
 from app.llm.client import LiveResponse
 from app.llm.generator import CachedGenerator
 from app.llm.prompts import load_prompt, render_prompt
+from app.policies import clause_bodies
 from app.tracing import Tracer, validate_trace_line
+from eval.golden.loader import load_split
 from tests.fake_agent import FakeExtractor, FakeRouter, FakeTools
-from tests.test_agent_guardrails import COAT, ORDER, POLICY, PRODUCTS
+from tests.test_agent_guardrails import COAT, GS025_V1, GS025_V2, ORDER, POLICY, PRODUCTS, SHIRT
 
 QUESTION = "áo khoác dù nam xanh rêu giá bao nhiêu shop"
 HONEST = {"text": "Bạn có thể tham khảo Áo khoác dù nam xanh rêu (SKU SM-NAM-0001), giá 459.000đ, hiện còn hàng.",
@@ -67,7 +69,7 @@ def test_a_fabricated_answer_is_replaced_by_the_deterministic_one_and_says_why(t
 def test_an_unusable_answer_falls_back(tmp_path, raw, reason):
     gemini, _ = answerer(tmp_path, {QUESTION: raw})
     answer = gemini.compose("products", QUESTION, PRODUCTS)
-    assert answer.text == fallback_text("products", PRODUCTS) and answer.fallback_reason.startswith(reason)
+    assert answer.text == T.NO_INFORMATION and answer.fallback_reason.startswith(reason)  # no text, so nothing named: the fallback names nothing
 
 
 def test_a_blocked_answer_with_no_text_falls_back(tmp_path):
@@ -77,7 +79,7 @@ def test_a_blocked_answer_with_no_text_falls_back(tmp_path):
 
     gemini = GeminiAnswerer(CachedGenerator(DiskCache(tmp_path / "c"), Blocked()), load_prompt("answer_v1"))
     answer = gemini.compose("products", QUESTION, PRODUCTS)
-    assert answer.text == fallback_text("products", PRODUCTS) and "SAFETY" in answer.fallback_reason
+    assert answer.text == T.NO_INFORMATION and "SAFETY" in answer.fallback_reason
 
 
 def test_a_policy_answer_gets_its_citation_from_the_code_after_the_clauses_were_checked(tmp_path):
@@ -151,6 +153,96 @@ def test_a_new_prompt_text_is_a_new_cache_key_so_v2_never_reuses_a_v1_answer(tmp
 def test_the_template_answerer_makes_no_call_and_is_the_fallback(tmp_path):
     answer = TemplateAnswerer().compose("products", QUESTION, PRODUCTS)
     assert answer.text == fallback_text("products", PRODUCTS) and answer.fallback_reason is None and answer.generation is None
+
+
+# --- gs-025: an honest "no information" answer, and a fallback that never says more than the text it replaces (docs/DECISIONS-phase6.md, A21) ---------
+
+
+def gs025():
+    """The dev item as it was observed: retrieval returned doi-tra 2, van-chuyen 5 and van-chuyen 1, and missed the gold clause van-chuyen 2."""
+    item = next(i for i in load_split("dev") if i.id == "gs-025")
+    hits = []
+    for file, number in (("doi-tra", 2), ("van-chuyen", 5), ("van-chuyen", 1)):
+        title, body = clause_bodies(file)[number]
+        hits.append({"key": f"policy:{file}:{number}", "file": file, "clause": number, "title": title, "text": body})
+    assert (item.gold_source.document, item.gold_source.clause) not in {(h["file"], h["clause"]) for h in hits}
+    return item, {"hits": hits}
+
+
+@pytest.mark.parametrize("model_text, prompt", [(GS025_V1, "answer_v1"), (GS025_V2, "answer_v2")])
+def test_gs_025_an_honest_no_information_answer_becomes_the_fixed_reply_and_quotes_no_clause_the_model_did_not_use(tmp_path, model_text, prompt):
+    item, evidence = gs025()
+    gemini, _ = answerer(tmp_path, {item.question: {"text": model_text, "cited_skus": [], "cited_clauses": []}}, name=prompt)
+    answer = gemini.compose("policies", item.question, evidence)
+    assert answer.text == T.NO_POLICY_INFO
+    assert answer.fallback_reason is None  # the guardrails rejected nothing: it is not a fallback
+    assert "Điều" not in answer.text and "Nguồn" not in answer.text and "7 ngày" not in answer.text  # nothing of doi-tra 2, which the model never used
+    assert (gemini.stats.answers, gemini.stats.fallbacks, gemini.stats.declines, gemini.stats.reasons) == (1, 0, 1, [])
+    assert answer.declined
+
+
+def test_a_decline_that_carries_more_than_the_decline_is_sent_as_the_fixed_reply_so_the_rest_never_reaches_the_customer(tmp_path):
+    text = GS025_V2 + " Tuy nhiên đơn từ ba trăm nghìn thì miễn phí vận chuyển."  # no digit, so no price rule can see it
+    gemini, _ = answerer(tmp_path, {QUESTION: {"text": text, "cited_skus": [], "cited_clauses": []}})
+    answer = gemini.compose("policies", QUESTION, POLICY)
+    assert answer.text == T.NO_POLICY_INFO and "ba trăm" not in answer.text
+
+
+def test_a_decline_that_fails_another_rule_is_a_fallback_and_the_fallback_is_the_fixed_reply_not_a_quote(tmp_path):
+    text = GS025_V2 + " Hãy gọi 0912345678."
+    gemini, _ = answerer(tmp_path, {QUESTION: {"text": text, "cited_skus": [], "cited_clauses": []}})
+    answer = gemini.compose("policies", QUESTION, POLICY)
+    assert answer.text == T.NO_POLICY_INFO and answer.fallback_reason.startswith("phone") and not answer.declined
+    assert (gemini.stats.fallbacks, gemini.stats.declines, gemini.stats.reasons) == (1, 0, [["phone"]])
+
+
+def test_an_answer_that_cites_a_clause_is_never_treated_as_a_decline(tmp_path):
+    text = "Đổi kích cỡ hoặc màu sắc trong vòng 7 ngày. Mình không có thông tin về hàng giảm giá."
+    gemini, _ = answerer(tmp_path, {QUESTION: {"text": text, "cited_skus": [], "cited_clauses": [{"file": "doi-tra", "clause": 2}]}})
+    answer = gemini.compose("policies", QUESTION, POLICY)
+    assert answer.text.startswith("Đổi kích cỡ") and answer.text.endswith("Nguồn: doi-tra, Điều 2") and not answer.declined
+    assert gemini.stats.declines == 0
+
+
+def test_a_rejected_policy_answer_falls_back_to_the_clause_it_cited_not_to_the_first_clause_found(tmp_path):
+    lie = {"text": "Phí vận chuyển là 50.000đ.", "cited_skus": [], "cited_clauses": [{"file": "van-chuyen", "clause": 3}]}
+    gemini, _ = answerer(tmp_path, {QUESTION: lie})
+    answer = gemini.compose("policies", QUESTION, POLICY)
+    assert answer.fallback_reason.startswith("price_not_in_evidence")
+    assert "Đơn trên 500.000đ được miễn phí vận chuyển." in answer.text and "Phí gửi hàng về" not in answer.text
+    assert answer.text.endswith("Nguồn: van-chuyen, Điều 3")
+
+
+def test_a_rejected_policy_answer_that_cited_nothing_falls_back_to_the_fixed_no_information_reply(tmp_path):
+    gemini, _ = answerer(tmp_path, {QUESTION: {"text": "Đổi trong 7 ngày nhé.", "cited_skus": [], "cited_clauses": []}})
+    answer = gemini.compose("policies", QUESTION, POLICY)
+    assert answer.text == T.NO_POLICY_INFO and answer.fallback_reason.startswith("no_clause_cited") and not answer.declined
+    assert (gemini.stats.fallbacks, gemini.stats.declines) == (1, 0)
+
+
+def test_a_rejected_product_answer_falls_back_to_the_products_it_named_only(tmp_path):
+    lie = {"text": "Áo sơ mi nam trắng (SKU SM-NAM-0002) giá 99k.", "cited_skus": ["SM-NAM-0002"], "cited_clauses": []}
+    gemini, _ = answerer(tmp_path, {QUESTION: lie})
+    answer = gemini.compose("products", QUESTION, {"hits": [COAT, SHIRT], "relaxed": []})
+    assert "SM-NAM-0002" in answer.text and "329.000đ" in answer.text and "SM-NAM-0001" not in answer.text and "99k" not in answer.text
+    assert TemplateAnswerer().compose("products", QUESTION, {"hits": [COAT, SHIRT], "relaxed": []}).text.count("SKU SM-NAM-") == 2  # no model text: the whole listing
+
+
+@pytest.mark.parametrize("raw", ["không phải JSON", ""])
+def test_an_unusable_policy_answer_says_nothing_it_cannot_stand_behind(tmp_path, raw):
+    gemini, _ = answerer(tmp_path, {QUESTION: raw})
+    answer = gemini.compose("policies", QUESTION, POLICY)
+    assert answer.text == T.NO_POLICY_INFO and answer.fallback_reason.startswith("unusable")
+
+
+def test_a_rejected_product_answer_that_named_no_product_says_so_without_the_suggestion_notice_of_a_relaxed_search(tmp_path):
+    question = "tìm áo khoác xanh rêu size XXL"
+    gemini, _ = answerer(tmp_path, {question: {"text": "Mình gợi ý vài mẫu áo khoác nhé.", "cited_skus": [], "cited_clauses": []}})
+    agent = Agent(router=FakeRouter({question: "product_search"}), extractor=FakeExtractor({question: {"kind": "Áo khoác nam", "color": "Xanh rêu", "size": "XXL"}}),
+                  tools=FakeTools(), answerer=gemini)
+    reply = agent.turn("c1", question).reply
+    assert reply == f"{T.NO_FULL_MATCH} {T.NO_INFORMATION}"  # nothing is suggested, so nothing is announced as a suggestion
+    assert "Nếu bỏ điều kiện" not in reply and "SM-" not in reply and gemini.stats.fallbacks == 1
 
 
 # --- inside the agent: the attack, tokens, the trace -------------------------------------------------------------------------------------------

@@ -22,11 +22,13 @@ class OrderLookup:
 
 @dataclass(frozen=True)
 class Answer:
-    """The text of an answer. `fallback_reason` is set when a guardrail discarded the generated text and `text` is the fixed template."""
+    """The text of an answer. `fallback_reason` is set when a guardrail discarded the generated text and `text` is the fixed template.
+    `declined` is set when the model itself said it has no information and `text` is the fixed no-information reply: nothing was rejected."""
 
     text: str
     fallback_reason: str | None = None
     generation: object | None = None  # the GenResult of the LLM call, if there was one: the answer span records its tokens from it
+    declined: bool = False
 
 
 class AgentTools(Protocol):

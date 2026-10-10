@@ -1,0 +1,50 @@
+{
+ "digest": "3f9366471c555c8a128673c286d3bee9086d3f842b96705552ca340ad29d35fa",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"color\":\"Trắng\",\"in_stock\":true,\"kind\":\"Mũ\",\"material\":\"Kaki\",\"name\":\"Mũ bucket trắng\",\"price_vnd\":159000,\"sizes\":[\"Freesize\"],\"sku\":\"SM-PK-0027\"},{\"color\":\"Trắng\",\"in_stock\":true,\"kind\":\"Mũ\",\"material\":\"Polyester\",\"name\":\"Mũ nồi beret trắng\",\"price_vnd\":229000,\"sizes\":[\"Freesize\"],\"sku\":\"SM-PK-0007\"},{\"color\":\"Đen\",\"in_stock\":true,\"kind\":\"Mũ\",\"material\":\"Kaki\",\"name\":\"Mũ nồi beret đen\",\"price_vnd\":149000,\"sizes\":[\"Freesize\"],\"sku\":\"SM-PK-0032\"},{\"color\":\"Be\",\"in_stock\":true,\"kind\":\"Mũ\",\"material\":\"Polyester\",\"name\":\"Mũ lưỡi trai basic be\",\"price_vnd\":209000,\"sizes\":[\"Freesize\"],\"sku\":\"SM-PK-0022\"},{\"color\":\"Be\",\"in_stock\":true,\"kind\":\"Mũ\",\"material\":\"Polyester\",\"name\":\"Mũ lưỡi trai thêu chữ be\",\"price_vnd\":139000,\"sizes\":[\"Freesize\"],\"sku\":\"SM-PK-0012\"}],\"relaxed\":[]},\"kind\":\"products\",\"question\":\"shop có mũ bucket ko nhỉ\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"text\": \"Mũ bucket trắng (SKU SM-PK-0027) có giá 159.000đ và hiện còn hàng.\",\n  \"cited_skus\": [\n    \"SM-PK-0027\"\n  ],\n  \"cited_clauses\": []\n}",
+       "thoughtSignature": "EmAKXgFpFH0TGLR5qLmpi9myoVpTNKHfmQ7/i972zZRPTTihdrKHWe0e46FkxQTAwp+4H2sgOAY+871UtxiGFMVI+n30JOf4vQQuISZASz4SsqkCXneP9DLfQivQ7F90f3g="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1850,
+   "candidatesTokenCount": 74,
+   "totalTokenCount": 1924,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1850
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "dlPKar6KMfScjuMPurOsuAs"
+ },
+ "latency_ms": 1267.4,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T15:02:14+00:00"
+}

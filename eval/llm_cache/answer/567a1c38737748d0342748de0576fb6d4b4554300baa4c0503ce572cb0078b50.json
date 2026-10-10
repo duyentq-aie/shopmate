@@ -1,0 +1,50 @@
+{
+ "digest": "567a1c38737748d0342748de0576fb6d4b4554300baa4c0503ce572cb0078b50",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"order\":{\"created\":\"2026-08-19T00:05:59+00:00\",\"fulfillments\":[{\"created\":\"2026-10-09T11:34:28.659346+00:00\",\"status\":\"FULFILLED\",\"tracking_number\":\"SMVN552280045\"}],\"lines\":[{\"name\":\"Áo thun nam cổ tròn basic xám\",\"quantity\":1,\"quantity_fulfilled\":1,\"sku\":\"SM-NAM-0050\"},{\"name\":\"Túi đeo chéo mini be\",\"quantity\":1,\"quantity_fulfilled\":1,\"sku\":\"SM-TUI-0022\"},{\"name\":\"Áo sơ mi nữ dáng rộng hồng\",\"quantity\":1,\"quantity_fulfilled\":1,\"sku\":\"SM-NU-0023\"}],\"number\":\"89\",\"status\":\"FULFILLED\"}},\"kind\":\"order\",\"question\":\"Đơn 89 của mình đang ở đâu rồi shop? Email đặt hàng là khachhang01@example.com.\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"text\": \"Đơn hàng số 89 đã giao. Các sản phẩm trong đơn gồm Áo thun nam cổ tròn basic xám, Túi đeo chéo mini be và Áo sơ mi nữ dáng rộng hồng. Mã vận đơn của đơn hàng là SMVN552280045.\",\n  \"cited_skus\": [],\n  \"cited_clauses\": []\n}",
+       "thoughtSignature": "EmAKXgFpFH0TKXzAULefxoWR76weLJmy4aMnPBAqtY655hUTlxV8HsQH1CzBX/H8R8c92Z8gEhHaqdJlYrHQ2NcVS+gYxZ/2EGLP6IvUbn3kZJ31m5cugYNc7aVi+w2x+Ls="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1780,
+   "candidatesTokenCount": 90,
+   "totalTokenCount": 1870,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1780
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "8FPKatKIKrus4-EPj4up4Qc"
+ },
+ "latency_ms": 1031.3,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T15:04:16+00:00"
+}

@@ -1,0 +1,50 @@
+{
+ "digest": "e8f4d94b22ad8daa0779c4ad5b1d24e770c98862c7d25a0a7b2b926cfb2583ba",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"clause\":4,\"file\":\"doi-tra\",\"text\":\"Chính sách đổi trả – ShopMate Fashion\\nĐiều 4. Phí đổi trả\\n1. Sản phẩm lỗi do nhà sản xuất hoặc giao sai: ShopMate Fashion chịu **toàn bộ** phí vận chuyển hai chiều.\\n2. Đổi kích cỡ hoặc màu sắc lần đầu: **miễn phí** đổi, khách hàng chỉ trả phí gửi hàng về là **30.000đ**.\\n3. Trả hàng do đổi ý: khách hàng chịu phí vận chuyển hai chiều; phí giao hàng ban đầu không được hoàn lại.\",\"title\":\"Phí đổi trả\"},{\"clause\":2,\"file\":\"van-chuyen\",\"text\":\"Chính sách vận chuyển – ShopMate Fashion\\nĐiều 2. Phí vận chuyển\\n1. Phí giao hàng tiêu chuẩn toàn quốc: **30.000đ** mỗi đơn hàng.\\n2. **Miễn phí vận chuyển** cho đơn hàng có giá trị sản phẩm từ **500.000đ** trở lên (chưa tính phí vận chuyển, sau khi trừ giảm giá).\\n3. Phí vận chuyển được hiển thị và xác nhận trước khi đặt hàng.\",\"title\":\"Phí vận chuyển\"},{\"clause\":5,\"file\":\"bao-hanh\",\"text\":\"Chính sách bảo hành – ShopMate Fashion\\nĐiều 5. Thời gian xử lý và phí vận chuyển bảo hành\\n1. Thời gian xử lý bảo hành: **7–14 ngày làm việc** kể từ khi kho nhận được sản phẩm.\\n2. ShopMate Fashion chịu phí vận chuyển hai chiều cho sản phẩm được chấp nhận bảo hành.\\n3. Nếu sản phẩm không thuộc diện bảo hành, khách hàng chịu phí gửi trả lại là **30.000đ**.\",\"title\":\"Thời gian xử lý và phí vận chuyển bảo hành\"}]},\"kind\":\"policies\",\"question\":\"phi ship nhiêu vậy shop\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"text\": \"Phí giao hàng tiêu chuẩn toàn quốc là 30.000đ mỗi đơn hàng. Bên mình miễn phí vận chuyển cho đơn hàng có giá trị sản phẩm từ 500.000đ trở lên, chưa tính phí vận chuyển và sau khi trừ giảm giá.\",\n  \"cited_skus\": [],\n  \"cited_clauses\": [\n    {\n      \"file\": \"van-chuyen\",\n      \"clause\": 2\n    }\n  ]\n}",
+       "thoughtSignature": "EmAKXgFpFH0TbQ5QIpk9WigNre2a8zqqhwDeQG4Bu4/WzbpDJ6gvIjyJ5QPY/A4siI/ECArBU8B9pS2Rv8wIYN6q60IwRSgku73fWNyJO+HcemHFhlvGiPcc/DyCeiYOaDk="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1953,
+   "candidatesTokenCount": 114,
+   "totalTokenCount": 2067,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1953
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "flPKao6fCay7juMPiITumQU"
+ },
+ "latency_ms": 1102.7,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T15:02:22+00:00"
+}

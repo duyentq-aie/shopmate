@@ -1,0 +1,50 @@
+{
+ "digest": "62e045bd27e9a9f1cdf5e45a5fda38708f30d4360b30a8a23367789e85959f27",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"color\":\"Trắng\",\"in_stock\":true,\"kind\":\"Dép quai ngang\",\"material\":\"EVA\",\"name\":\"Dép quai ngang in logo trắng\",\"price_vnd\":149000,\"sizes\":[\"36\",\"37\",\"38\",\"39\",\"40\"],\"sku\":\"SM-GIAY-0006\"}],\"relaxed\":[]},\"kind\":\"products\",\"question\":\"dép quai ngang trắng bn tiền vậy shop\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"text\": \"D\\u00E9p quai ngang in logo tr\\u1EAFng (SKU SM-GIAY-0006) c\\u00F3 gi\\u00E1 149.000\\u0111 v\\u00E0 hi\\u1EC7n c\\u00F2n h\\u00E0ng.\", \"cited_skus\": [\"SM-GIAY-0006\"], \"cited_clauses\": []}",
+       "thoughtSignature": "EmAKXgFpFH0Tv90OyWN4x5woGPHYRf/bPQVMRVGVgcZ/dCLtuIru1w+Z1IqYnmU83OSEU3rMnaYk3Uplp1U5SxR7wCJJTtFhFOslLmApa/h9BADqoINVrUwDzJdwOYFzk50="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1639,
+   "candidatesTokenCount": 123,
+   "totalTokenCount": 1762,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1639
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "RVPKaoP_BozQg8UPm9mcyQQ"
+ },
+ "latency_ms": 1698.9,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T15:01:25+00:00"
+}

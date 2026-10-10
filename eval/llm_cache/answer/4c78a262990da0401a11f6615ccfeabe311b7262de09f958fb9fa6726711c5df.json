@@ -1,0 +1,50 @@
+{
+ "digest": "4c78a262990da0401a11f6615ccfeabe311b7262de09f958fb9fa6726711c5df",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"order\":{\"created\":\"2026-08-20T13:44:52+00:00\",\"fulfillments\":[],\"lines\":[{\"name\":\"Áo bra thể thao nữ nâng đỡ vừa trắng\",\"quantity\":3,\"quantity_fulfilled\":0,\"sku\":\"SM-TT-0032\"},{\"name\":\"Tất cổ ngắn set 5 đôi xám\",\"quantity\":3,\"quantity_fulfilled\":0,\"sku\":\"SM-PK-0015\"},{\"name\":\"Túi xách nữ tote trắng\",\"quantity\":3,\"quantity_fulfilled\":0,\"sku\":\"SM-TUI-0021\"}],\"number\":\"91\",\"status\":\"UNFULFILLED\"}},\"kind\":\"order\",\"question\":\"khachhang04@example.com\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"text\": \"Đơn hàng số 91 đang được xử lý, chưa giao. Đơn hàng bao gồm các sản phẩm: Áo bra thể thao nữ nâng đỡ vừa trắng, Tất cổ ngắn set 5 đôi xám, và Túi xách nữ tote trắng.\",\n  \"cited_skus\": [],\n  \"cited_clauses\": []\n}",
+       "thoughtSignature": "EmAKXgFpFH0Tw/ikLfU4nXgNtclDgjIgdtat18ZFRQ9A93Jas8obypSXDRo07QTjN9wdcJz35BK4AwuoPLjUkmyNeghZVzldrIkWRDMlm6MwIjfTz+7pVS7cr2AFBXI29xw="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1708,
+   "candidatesTokenCount": 81,
+   "totalTokenCount": 1789,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1708
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "_lPKauauCbfNjuMPs9eFwAY"
+ },
+ "latency_ms": 1109.4,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T15:04:30+00:00"
+}

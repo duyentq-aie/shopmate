@@ -1,0 +1,50 @@
+{
+ "digest": "b063611aa0f65277586ab1c3c24dc4d9940b4ecd7f56d18209467d9dddab1eb5",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"color\":\"Đen\",\"in_stock\":true,\"kind\":\"Quần jean nam\",\"material\":\"Denim\",\"name\":\"Quần jean nam rách gối đen\",\"price_vnd\":479000,\"sizes\":[\"30\",\"31\",\"32\",\"33\"],\"sku\":\"SM-NAM-0004\"}],\"relaxed\":[]},\"kind\":\"products\",\"question\":\"jean nam màu đen còn ko shop?\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"text\": \"Quần jean nam rách gối đen (SKU SM-NAM-0004) có giá 479.000đ, hiện còn hàng.\", \"cited_skus\": [\"SM-NAM-0004\"], \"cited_clauses\": []}",
+       "thoughtSignature": "EmAKXgFpFH0TT3gIT7BdEjEgDPip79mbZWD9VNOau6Z8zjkX6E/yPvoPek8rzrv3BZUnd9N1h2RAI8ewa5YNKdpWsD99TwjkHkDnXKOoz+CY0CbzBPGfCTpDt/AIEM/1c64="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1633,
+   "candidatesTokenCount": 65,
+   "totalTokenCount": 1698,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1633
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "PFPKarjhLNDD4-EPvLiKqAs"
+ },
+ "latency_ms": 1264.2,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T15:01:17+00:00"
+}

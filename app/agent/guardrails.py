@@ -4,7 +4,8 @@ The check is done in code AFTER generation, not asked of the prompt. Whatever a 
 fixed template answer, a miss costs a wrong fact told to a customer.
 
 - Citations. A product answer names at least one SKU of the evidence and no SKU that is not in it; a policy answer cites at least one
-  (file, clause) of the evidence and writes no "Điều N" that is not in it.
+  (file, clause) of the evidence and writes no "Điều N" that is not in it. **An explicit "no information" policy answer cites nothing** (A21):
+  it is the one policy answer that asserts nothing the evidence must back, so it needs no citation (every other rule still applies to it).
 - Prices. Every price in the answer is a price of the evidence. **A price in the same sentence as a SKU must be the price of a SKU in that
   sentence** (owner's rule): "áo này 99k đúng không shop?" cannot be answered "đúng, SM-... giá 99k". A number the customer wrote may appear
   only as THEIR BUDGET (they put "dưới", "tầm", ... before it, and the answer does the same), never in a sentence about a product.
@@ -12,7 +13,9 @@ fixed template answer, a miss costs a wrong fact told to a customer.
 - Order. The status words must be those of the order's real status and of no other; "đơn 88" must be the order number; no price at all.
 - People. No email (a masked one is not an email to this check), no phone number, no street address; no copy of the instructions.
 
-The fallback texts are built from the evidence only and must pass this very check (a test makes sure of it).
+The fallback texts are built from the evidence only and must pass this very check (a test makes sure of it). **A fallback never asserts more
+than the text it replaces** (A21): it keeps only the products the rejected text named and the clauses it cited, and when there are none it is the
+fixed no-information reply, never a quote of something the model did not use.
 """
 
 from __future__ import annotations
@@ -20,6 +23,7 @@ from __future__ import annotations
 import re
 from datetime import datetime
 
+from app.agent import templates as T
 from app.agent.parsing import EMAIL, PHONE
 from app.retrieval.folding import fold
 
@@ -36,6 +40,9 @@ _ORDER_NUMBER = re.compile(r"(?:#|\bđơn(?:\s+hàng)?(?:\s+số)?\s+)([0-9]{1,1
 _ADDRESS = (re.compile(r"\b[0-9]{1,4}[A-Za-z]?(?:/[0-9]+)*\s+(?:đường|phố|ngõ|ngách|hẻm)\b", re.I),
             re.compile(r"\b(?:số nhà|địa chỉ)\s*:", re.I))
 PROMPT_WINDOW = 50
+MAX_QUOTED_CLAUSES = 2  # a policy fallback quotes at most this many of the clauses the rejected text cited
+# folded; the model says, in so many words, that it has no information. "không có quy định" is NOT here: that is a claim about the rules, which needs a citation.
+_DECLINE = re.compile(r"\b(?:(?:khong|chua)\s+(?:co|tim\s+thay|du)\s+(?:thong\s+tin|du\s+lieu)|(?:khong|chua)\s+de\s+cap)\b")
 
 STATUS_LABELS = {  # the words the fixed answers use; the guard knows them too
     "UNCONFIRMED": "chưa được xác nhận", "UNFULFILLED": "đang được xử lý, chưa giao", "PARTIALLY_FULFILLED": "đã giao một phần",
@@ -173,11 +180,20 @@ def _check_products(text: str, evidence: dict, question: str, cited_skus) -> lis
     return problems
 
 
+def is_decline(text: str, cited_clauses=()) -> bool:
+    """The model says outright that it has no information ("không có thông tin về ...", "chính sách không đề cập ..."), cites no clause and names
+    no "Điều N". Such an answer asserts nothing that needs a citation. What it is NOT: an answer that cites a clause, and a claim about the rules
+    ("không có quy định ...")."""
+    if not text or cited_clauses or _DIEU.search(text):
+        return False
+    return bool(_DECLINE.search(fold(text)))
+
+
 def _check_policies(text: str, evidence: dict, question: str, cited_clauses) -> list[str]:
     pairs = {(h["file"], h["clause"]) for h in evidence.get("hits", [])}
     problems = []
     cited = {(c["file"], c["clause"]) for c in cited_clauses}
-    if not cited & pairs:
+    if not cited & pairs and not is_decline(text, cited_clauses):
         problems.append("no_clause_cited: the answer cites none of the clauses found")
     for pair in sorted(cited - pairs):
         problems.append(f"unknown_clause: cited {pair[0]} Điều {pair[1]} is not in the tool results")
@@ -221,6 +237,12 @@ def _date(iso: str) -> str:
         return str(iso)[:10]
 
 
+def _quote(hits: list[dict]) -> str:
+    """The clauses quoted whole, each under its title, then one citation line naming all of them."""
+    quoted = [f"Theo chính sách của cửa hàng ({hit['title']}):\n{hit['text'].strip()}" for hit in hits]
+    return "\n\n".join(quoted) + "\n" + citation_footer([(hit["file"], hit["clause"]) for hit in hits])
+
+
 def fallback_text(kind: str, evidence: dict) -> str:
     """The deterministic answer, built from the evidence alone. It never says more than the evidence says."""
     if kind == "products":
@@ -228,8 +250,7 @@ def fallback_text(kind: str, evidence: dict) -> str:
                  f"kích cỡ {', '.join(h['sizes'])}" for h in evidence["hits"][:3]]
         return "Mình tìm thấy các sản phẩm sau theo dữ liệu cửa hàng:\n" + "\n".join(lines)
     if kind == "policies":
-        hit = evidence["hits"][0]
-        return f"Theo chính sách của cửa hàng ({hit['title']}):\n{hit['text'].strip()}\n" + citation_footer([(hit["file"], hit["clause"])])
+        return _quote(evidence["hits"][:1])
     order = evidence["order"]
     items = "; ".join(f"{line['name']} (SKU {line['sku']}), số lượng {line['quantity']} (đã chuyển đi {line['quantity_fulfilled']})" for line in order["lines"])
     label = STATUS_LABELS.get(order["status"], f"trạng thái {order['status']}")
@@ -238,6 +259,24 @@ def fallback_text(kind: str, evidence: dict) -> str:
     if tracking:
         parts.append("Mã vận đơn: " + ", ".join(tracking) + ".")
     return " ".join(parts)
+
+
+def bounded_fallback(kind: str, text: str, evidence: dict, *, cited_skus=(), cited_clauses=()) -> str:
+    """The fixed answer that replaces a rejected generated `text`, and says no more than that text did (A21).
+
+    products: only the products the text named (a SKU in the text, or cited), in the order of the evidence; none -> the fixed no-information reply.
+    policies: only the clauses the text cited, at most MAX_QUOTED_CLAUSES, quoted whole with their citation; none -> the fixed no-information reply.
+    order:    the whole statement of the verified order: the text was an answer to "where is my order", and this is that answer made of facts only.
+    `fallback_text` alone is the answer of the no-LLM mode, which has no text to stay within."""
+    if kind == "products":
+        named = set(SKU.findall(text or "")) | set(cited_skus)
+        hits = [h for h in evidence["hits"] if h["sku"] in named]
+        return fallback_text(kind, {**evidence, "hits": hits}) if hits else T.NO_INFORMATION
+    if kind == "policies":
+        cited = {(c["file"], c["clause"]) for c in cited_clauses}
+        hits = [h for h in evidence["hits"] if (h["file"], h["clause"]) in cited][:MAX_QUOTED_CLAUSES]
+        return _quote(hits) if hits else T.NO_POLICY_INFO
+    return fallback_text(kind, evidence)
 
 
 def citation_footer(pairs) -> str:

@@ -1,0 +1,50 @@
+{
+ "digest": "7c8442854ae1183b40bfc1cca177e3706d1e5e2cc24cfd65a02be135154fc06a",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"color\":\"Nâu\",\"in_stock\":true,\"kind\":\"Ví da nam\",\"material\":\"Da bò\",\"name\":\"Ví da nam mỏng nâu\",\"price_vnd\":429000,\"sizes\":[\"Freesize\"],\"sku\":\"SM-TUI-0024\"},{\"color\":\"Nâu\",\"in_stock\":false,\"kind\":\"Ví da nam\",\"material\":\"Da bò\",\"name\":\"Ví da nam dáng ngang có khóa nâu\",\"price_vnd\":479000,\"sizes\":[\"Freesize\"],\"sku\":\"SM-TUI-0004\"},{\"color\":\"Đen\",\"in_stock\":true,\"kind\":\"Ví da nam\",\"material\":\"Da bò\",\"name\":\"Ví da nam dáng đứng đen\",\"price_vnd\":379000,\"sizes\":[\"Freesize\"],\"sku\":\"SM-TUI-0009\"},{\"color\":\"Đen\",\"in_stock\":true,\"kind\":\"Ví da nam\",\"material\":\"Da tổng hợp\",\"name\":\"Ví da nam gập đôi đen\",\"price_vnd\":489000,\"sizes\":[\"Freesize\"],\"sku\":\"SM-TUI-0014\"},{\"color\":\"Nâu\",\"in_stock\":true,\"kind\":\"Ví da nam\",\"material\":\"Da bò\",\"name\":\"Ví da nam dáng đứng nâu\",\"price_vnd\":459000,\"sizes\":[\"Freesize\"],\"sku\":\"SM-TUI-0019\"}],\"relaxed\":[]},\"kind\":\"products\",\"question\":\"ví da nam dưới 500k có mẫu nào ko\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"text\": \"Dưới đây là các mẫu ví da nam phù hợp với ngân sách của bạn. Ví da nam mỏng nâu (SKU SM-TUI-0024) có giá 429.000đ, hiện còn hàng. Ví da nam dáng ngang có khóa nâu (SKU SM-TUI-0004) có giá 479.000đ, hiện đã hết hàng. Ví da nam dáng đứng đen (SKU SM-TUI-0009) có giá 379.000đ, hiện còn hàng. Ví da nam gập đôi đen (SKU SM-TUI-0014) có giá 489.000đ, hiện còn hàng. Ví da nam dáng đứng nâu (SKU SM-TUI-0019) có giá 459.000đ, hiện còn hàng.\",\n  \"cited_skus\": [\n    \"SM-TUI-0024\",\n    \"SM-TUI-0004\",\n    \"SM-TUI-0009\",\n    \"SM-TUI-0014\",\n    \"SM-TUI-0019\"\n  ],\n  \"cited_clauses\": []\n}",
+       "thoughtSignature": "EmAKXgFpFH0Tv5Xg98ugCodET3KRK62mLa5Z8qYVQ/vI3ZiitngD2E4+lKdHmvmDxwzR5/vFE0X/49up9MFUVbk0JVlFh9AdCTNIIopcAobVBnFPZ7kOQrWO+yjJ5dEKZHE="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1871,
+   "candidatesTokenCount": 291,
+   "totalTokenCount": 2162,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1871
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "Q1PKaquVIf-kjuMPrPm3wAw"
+ },
+ "latency_ms": 1348.7,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T15:01:23+00:00"
+}

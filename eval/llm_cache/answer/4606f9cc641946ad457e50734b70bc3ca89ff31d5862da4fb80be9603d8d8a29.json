@@ -1,0 +1,50 @@
+{
+ "digest": "4606f9cc641946ad457e50734b70bc3ca89ff31d5862da4fb80be9603d8d8a29",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"clause\":1,\"file\":\"van-chuyen\",\"text\":\"Chính sách vận chuyển – ShopMate Fashion\\nĐiều 1. Phạm vi giao hàng\\n1. ShopMate Fashion giao hàng trên toàn lãnh thổ Việt Nam.\\n2. Hiện chưa hỗ trợ giao hàng quốc tế.\\n3. Hàng được gửi đi từ kho tại Thành phố Hồ Chí Minh.\",\"title\":\"Phạm vi giao hàng\"},{\"clause\":4,\"file\":\"van-chuyen\",\"text\":\"Chính sách vận chuyển – ShopMate Fashion\\nĐiều 4. Theo dõi đơn hàng\\n1. Khi đơn hàng được giao cho đơn vị vận chuyển, khách hàng nhận được **mã vận đơn** để theo dõi.\\n2. Khách hàng có thể hỏi trạng thái đơn hàng qua trợ lý ShopMate bằng mã đơn hàng.\",\"title\":\"Theo dõi đơn hàng\"},{\"clause\":5,\"file\":\"van-chuyen\",\"text\":\"Chính sách vận chuyển – ShopMate Fashion\\nĐiều 5. Thanh toán khi nhận hàng (COD) và kiểm tra hàng\\n1. Hỗ trợ thanh toán khi nhận hàng (COD) cho đơn hàng có giá trị đến **5.000.000đ**.\\n2. Khách hàng được **kiểm tra hàng** (xem sản phẩm, không thử) trước khi thanh toán.\\n3. Nếu sản phẩm không đúng mẫu đã đặt, khách hàng có quyền từ chối nhận và không phải trả phí.\",\"title\":\"Thanh toán khi nhận hàng (COD) và kiểm tra hàng\"}]},\"kind\":\"policies\",\"question\":\"Shop có ship hàng ra nước ngoài ko ạ?\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"text\": \"ShopMate Fashion giao hàng trên toàn lãnh thổ Việt Nam và hiện chưa hỗ trợ giao hàng quốc tế.\",\n  \"cited_skus\": [],\n  \"cited_clauses\": [\n    {\n      \"file\": \"van-chuyen\",\n      \"clause\": 1\n    }\n  ]\n}",
+       "thoughtSignature": "EmAKXgFpFH0T3AtC08LWO/vKZZFs4t5DEHYVBbbpOWl24p2j2PT0rIwVRf1AJpbX0VTCIWlcc9hyJj8qfb8Pj1EfvwcZKYFnQVkW+ZBHI7K3zzCJaExf1yFgTQM4LI60BmE="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1884,
+   "candidatesTokenCount": 75,
+   "totalTokenCount": 1959,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1884
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "slPKauWfMv-kjuMPrPm3wAw"
+ },
+ "latency_ms": 1803.5,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T15:03:15+00:00"
+}

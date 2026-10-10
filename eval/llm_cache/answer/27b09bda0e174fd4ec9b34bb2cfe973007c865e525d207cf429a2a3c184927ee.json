@@ -1,0 +1,50 @@
+{
+ "digest": "27b09bda0e174fd4ec9b34bb2cfe973007c865e525d207cf429a2a3c184927ee",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"color\":\"Nâu\",\"in_stock\":true,\"kind\":\"Kính mát\",\"material\":\"Kim loại\",\"name\":\"Kính mát phi công nâu\",\"price_vnd\":309000,\"sizes\":[\"Freesize\"],\"sku\":\"SM-PK-0013\"}],\"relaxed\":[]},\"kind\":\"products\",\"question\":\"Cho mình xem kính mát gọng kim loại với\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"text\": \"Kính mát phi công nâu (SKU SM-PK-0013) có giá 309.000đ và hiện còn hàng.\",\n  \"cited_skus\": [\n    \"SM-PK-0013\"\n  ],\n  \"cited_clauses\": []\n}",
+       "thoughtSignature": "EmAKXgFpFH0TMb/1FHt7FEUVVysYk1cJyumBPe1WpreOker1YCqdEj3F+ErOboreoOtXEN665M8mT3E5nUXz7WijBgbWpE61dEsKkqohcj0zxTWQBjW4dB4HMqJ6DsFMSac="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1623,
+   "candidatesTokenCount": 76,
+   "totalTokenCount": 1699,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1623
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "SFPKaqPDOfzEg8UPy9GyiQU"
+ },
+ "latency_ms": 2435.6,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T15:01:30+00:00"
+}

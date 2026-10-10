@@ -1,0 +1,50 @@
+{
+ "digest": "48b0c555f3c7a00608b64fa7c9f6be9ac94fc4a652de7e2beee1e1fc71a1553e",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"color\":\"Xanh đậm\",\"in_stock\":true,\"kind\":\"Quần jean nam\",\"material\":\"Denim\",\"name\":\"Quần jean nam ống đứng xanh đậm\",\"price_vnd\":559000,\"sizes\":[\"29\",\"30\",\"31\",\"32\",\"33\",\"34\"],\"sku\":\"SM-NAM-0018\"}],\"relaxed\":[]},\"kind\":\"products\",\"question\":\"co quan jean nam denim mau xanh dam size 31 k shop\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"text\": \"Quần jean nam ống đứng xanh đậm (SKU SM-NAM-0018) có giá 559.000đ, hiện còn hàng.\",\n  \"cited_skus\": [\n    \"SM-NAM-0018\"\n  ],\n  \"cited_clauses\": []\n}",
+       "thoughtSignature": "EmAKXgFpFH0TTBdquJOh/3ck+LZODUyJvOeLMNSqese60Ot4D55jOY7ZGX/chZvgit/2DWsYMVF56VC01Q/5T2Ynxzn1al9zDA15FuW/M92DN1XRB37eCYkXR/3Zk+tqjJE="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1645,
+   "candidatesTokenCount": 78,
+   "totalTokenCount": 1723,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1645
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "uFPKasP6CJXNjuMPxLuyoAU"
+ },
+ "latency_ms": 1922.9,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T15:03:21+00:00"
+}

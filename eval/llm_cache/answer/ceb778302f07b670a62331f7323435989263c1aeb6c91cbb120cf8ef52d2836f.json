@@ -1,0 +1,50 @@
+{
+ "digest": "ceb778302f07b670a62331f7323435989263c1aeb6c91cbb120cf8ef52d2836f",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"color\":\"Đen\",\"in_stock\":true,\"kind\":\"Ví da nam\",\"material\":\"Da bò\",\"name\":\"Ví da nam dáng đứng đen\",\"price_vnd\":379000,\"sizes\":[\"Freesize\"],\"sku\":\"SM-TUI-0009\"}],\"relaxed\":[]},\"kind\":\"products\",\"question\":\"vi da nam mau den chat da bo bn tien vay mik can loai con hang\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"text\": \"Ví da nam dáng đứng đen (SKU SM-TUI-0009) có giá 379.000đ và hiện còn hàng.\",\n  \"cited_skus\": [\n    \"SM-TUI-0009\"\n  ],\n  \"cited_clauses\": []\n}",
+       "thoughtSignature": "EmAKXgFpFH0THHgCMpxe4Mf3Z06Nxw6ANxeBl1k59CH0cbEsthaGHLePu38yk2MvR2PEVuIVTBgh1DJQbFl+7K6NUqV5+aMbftsSIf0jYoRh9FMZiVMYwDlXy/4Oot/05zE="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1631,
+   "candidatesTokenCount": 78,
+   "totalTokenCount": 1709,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1631
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "vVPKasqiKr-1g8UP_NOAwQ4"
+ },
+ "latency_ms": 1349.1,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T15:03:25+00:00"
+}

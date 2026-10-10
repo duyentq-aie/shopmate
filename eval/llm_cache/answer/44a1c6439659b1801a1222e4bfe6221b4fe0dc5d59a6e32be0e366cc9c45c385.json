@@ -1,0 +1,50 @@
+{
+ "digest": "44a1c6439659b1801a1222e4bfe6221b4fe0dc5d59a6e32be0e366cc9c45c385",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"color\":\"Đen\",\"in_stock\":true,\"kind\":\"Balo\",\"material\":\"Vải canvas\",\"name\":\"Balo du lịch đen\",\"price_vnd\":379000,\"sizes\":[\"Freesize\"],\"sku\":\"SM-TUI-0008\"},{\"color\":\"Đen\",\"in_stock\":true,\"kind\":\"Balo\",\"material\":\"Dù\",\"name\":\"Balo mini đen\",\"price_vnd\":989000,\"sizes\":[\"Freesize\"],\"sku\":\"SM-TUI-0028\"}],\"relaxed\":[]},\"kind\":\"products\",\"question\":\"Có balo đen nào đẹp ko shop?\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"text\": \"Balo du lịch đen (SKU SM-TUI-0008) có giá 379.000đ và hiện còn hàng. Balo mini đen (SKU SM-TUI-0028) có giá 989.000đ và hiện còn hàng.\",\n  \"cited_skus\": [\n    \"SM-TUI-0008\",\n    \"SM-TUI-0028\"\n  ],\n  \"cited_clauses\": []\n}",
+       "thoughtSignature": "EmAKXgFpFH0Tb+swAgNuHp+eOkymqG47gFBuNzcheay829pRxXTBcecCmc49eBjBV0lqay1F5y6TUKByNp2dHzCsU6zuLQ0AC0Dq25VPw9it3krkfvWjcoG6A+2YLd2IOmg="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1678,
+   "candidatesTokenCount": 123,
+   "totalTokenCount": 1801,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1678
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "QlPKas_9C4Th4-EPgKWgmQw"
+ },
+ "latency_ms": 1151.8,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T15:01:22+00:00"
+}

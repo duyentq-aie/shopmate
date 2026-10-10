@@ -1,0 +1,50 @@
+{
+ "digest": "c0173283537b8806df1b6ec933b720ec784332cc4d0701ee6a5e000065a4f213",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"color\":\"Bạc\",\"in_stock\":true,\"kind\":\"Kính mát\",\"material\":\"Nhựa acetate\",\"name\":\"Kính mát gọng vuông bạc\",\"price_vnd\":319000,\"sizes\":[\"Freesize\"],\"sku\":\"SM-PK-0018\"},{\"color\":\"Bạc\",\"in_stock\":true,\"kind\":\"Kính mát\",\"material\":\"Nhựa acetate\",\"name\":\"Kính mát gọng tròn bạc\",\"price_vnd\":199000,\"sizes\":[\"Freesize\"],\"sku\":\"SM-PK-0023\"},{\"color\":\"Vàng\",\"in_stock\":true,\"kind\":\"Kính mát\",\"material\":\"Nhựa acetate\",\"name\":\"Kính mát phi công vàng\",\"price_vnd\":399000,\"sizes\":[\"Freesize\"],\"sku\":\"SM-PK-0003\"},{\"color\":\"Vàng\",\"in_stock\":true,\"kind\":\"Kính mát\",\"material\":\"Nhựa acetate\",\"name\":\"Kính mát gọng vuông vàng\",\"price_vnd\":299000,\"sizes\":[\"Freesize\"],\"sku\":\"SM-PK-0028\"},{\"color\":\"Đen\",\"in_stock\":false,\"kind\":\"Kính mát\",\"material\":\"Nhựa acetate\",\"name\":\"Kính mát phi công đen\",\"price_vnd\":209000,\"sizes\":[\"Freesize\"],\"sku\":\"SM-PK-0008\"}],\"relaxed\":[\"color\"]},\"kind\":\"products\",\"question\":\"kinh mat nhua acetate mau do gia duoi 500k co k a\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"text\": \"Bên mình không có mẫu kính màu đỏ, nhưng bạn có thể tham khảo Kính mát gọng vuông bạc (SKU SM-PK-0018) giá 319.000đ, hiện còn hàng. Kính mát gọng tròn bạc (SKU SM-PK-0023) có giá 199.000đ, hiện còn hàng. Kính mát phi công vàng (SKU SM-PK-0003) giá 399.000đ, hiện còn hàng. Kính mát gọng vuông vàng (SKU SM-PK-0028) có giá 299.000đ, hiện còn hàng. Kính mát phi công đen (SKU SM-PK-0008) giá 209.000đ, hiện đã hết hàng.\",\n  \"cited_skus\": [\n    \"SM-PK-0018\",\n    \"SM-PK-0023\",\n    \"SM-PK-0003\",\n    \"SM-PK-0028\",\n    \"SM-PK-0008\"\n  ],\n  \"cited_clauses\": []\n}",
+       "thoughtSignature": "EmAKXgFpFH0Tj0SRDBEuFR4EX6mKBNjD3r3486n6o7pREY2LBTkLG+vSS7bYgVL9iCw+QTbd9AG2qjRE1jfXGM9QgyX5z08L7D2ut430Sushm/ylID1+ozTIvXLQutFMSEQ="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1877,
+   "candidatesTokenCount": 277,
+   "totalTokenCount": 2154,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1877
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "wlPKas3TCOvn4-EPusi32Q4"
+ },
+ "latency_ms": 1840.7,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T15:03:30+00:00"
+}

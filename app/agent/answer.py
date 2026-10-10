@@ -1,6 +1,7 @@
 """Answer generation (docs/DECISIONS-phase6.md, A3, A11): the LLM writes the text of a product, policy or order answer from tool results
 only, then the code guardrails (app/agent/guardrails.py) judge it. A rejected text is replaced by a deterministic answer built from the same
-evidence, and the reason is returned so that the `answer` span can carry `answer_guardrail_fallback`.
+evidence, and the reason is returned so that the `answer` span can carry `answer_guardrail_fallback`. That replacement never says more than the
+rejected text did (A21), and a policy answer that says outright "no information" is sent as the fixed no-information reply, not as a fallback.
 
 `GeminiAnswerer` goes through the same cache and free-tier guards as the router and the extractor (CachedGenerator).
 `TemplateAnswerer` makes no LLM call at all: it is what `handle_question` uses when no answerer is given.
@@ -11,7 +12,8 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass, field
 
-from app.agent.guardrails import check_answer, citation_footer, fallback_text
+from app.agent import templates as T
+from app.agent.guardrails import bounded_fallback, check_answer, citation_footer, fallback_text, is_decline
 from app.agent.protocols import Answer
 from app.llm.generator import CachedGenerator
 from app.llm.prompts import PromptTemplate, render_prompt
@@ -47,6 +49,7 @@ class AnswerStats:
 
     answers: int = 0
     fallbacks: int = 0
+    declines: int = 0  # the model said it had no information and the fixed reply was sent: not a rejection, so not a fallback
     reasons: list = field(default_factory=list)  # one entry per fallback: the rule codes that fired
 
 
@@ -69,7 +72,11 @@ class GeminiAnswerer:
         if problems:
             self.stats.fallbacks += 1
             self.stats.reasons.append(sorted({p.split(":")[0] for p in problems}))
-            return Answer(text=fallback_text(kind, evidence), fallback_reason="; ".join(problems)[:300], generation=result)
+            return Answer(text=bounded_fallback(kind, text, evidence, cited_skus=skus, cited_clauses=clauses), fallback_reason="; ".join(problems)[:300],
+                          generation=result)
+        if kind == "policies" and is_decline(text, clauses):  # sent as the fixed reply, so that nothing said next to the decline reaches the customer
+            self.stats.declines += 1
+            return Answer(text=T.NO_POLICY_INFO, generation=result, declined=True)
         if kind == "policies":  # the citation is written by the code, from clauses that were checked against the evidence
             text = text.rstrip() + "\n" + citation_footer(sorted({(c["file"], c["clause"]) for c in clauses}))
         return Answer(text=text.strip(), generation=result)

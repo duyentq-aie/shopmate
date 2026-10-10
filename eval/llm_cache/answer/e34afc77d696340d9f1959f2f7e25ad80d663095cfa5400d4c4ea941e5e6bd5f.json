@@ -1,0 +1,50 @@
+{
+ "digest": "e34afc77d696340d9f1959f2f7e25ad80d663095cfa5400d4c4ea941e5e6bd5f",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"color\":\"Xám\",\"in_stock\":true,\"kind\":\"Túi đeo chéo\",\"material\":\"Da tổng hợp\",\"name\":\"Túi đeo chéo hộp xám\",\"price_vnd\":639000,\"sizes\":[\"Freesize\"],\"sku\":\"SM-TUI-0007\"}],\"relaxed\":[\"color\"]},\"kind\":\"products\",\"question\":\"cho xem tui deo cheo da tong hop mau nau con hang\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"text\": \"Bên mình hiện không có sản phẩm màu nâu, nhưng có mẫu Túi đeo chéo hộp xám (SKU SM-TUI-0007), giá 639.000đ, hiện còn hàng.\", \"cited_skus\": [\"SM-TUI-0007\"], \"cited_clauses\": []}",
+       "thoughtSignature": "EmAKXgFpFH0TbTUWgW6dfEwHOGh07+6nrdJkLNWWIsTcg8DdIVh7Rpdb7TKuySDYHQGvhE32TuMvP5obregkDvxlaDpXWeE893WtomOCpQqjR4q2W/Vig22sFGBWA4dR3PM="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1636,
+   "candidatesTokenCount": 79,
+   "totalTokenCount": 1715,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1636
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "ulPKas6zHd7Rg8UP-7WykAU"
+ },
+ "latency_ms": 1639.8,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T15:03:23+00:00"
+}

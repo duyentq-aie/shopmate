@@ -7,15 +7,21 @@ understand is not an email, not an order number and, above all, not a yes (A6: n
 from __future__ import annotations
 
 import re
+import unicodedata
 
 from app.retrieval.folding import fold, tokenize
 
 EMAIL = re.compile(r"[A-Za-z0-9._%+\-]+@[A-Za-z0-9\-]+(?:\.[A-Za-z0-9\-]+)*\.[A-Za-z]{2,}")
 PHONE = re.compile(r"(?<![\d@])(?:\+?84|0)(?:[\s.\-]?\d){9}(?!\d)")
 MAX_ORDER_DIGITS = 7  # a longer run of digits is a phone number or an amount, never an order number
-_DIGITS = r"([0-9]{1," + str(MAX_ORDER_DIGITS) + r"})(?![0-9])"
-_ORDER_AFTER_WORD = re.compile(r"\b(?:don|order)(?:\s+hang)?(?:\s+so|\s+ma)?\s*[:#]?\s*" + _DIGITS
-                               + r"(?!\s*(?:k\b|d\b|dong\b|vnd\b|%|ngay\b|cai\b|chiec\b|nghin\b|trieu\b))")
+_DIGITS = r"([0-9]{1," + str(MAX_ORDER_DIGITS) + r"})(?![0-9]|[.,][0-9])"  # not the start of a longer number or of a grouped amount ("88.000")
+_NOT_A_QUANTITY = r"(?!\s*(?:k\b|d\b|dong\b|vnd\b|%|ngay\b|cai\b|chiec\b|nghin\b|trieu\b))"  # "88k", "88đ", "88 ngày": an amount or a count
+_ORDER_AFTER_WORD = re.compile(r"\b(?<!van )(?:don|order)(?:\s+hang)?(?:\s+so|\s+ma)?\s*[:#]?\s*" + _DIGITS + _NOT_A_QUANTITY)  # not "mã vận đơn 88"
+# "mã 88", "mã số 88", "mã đặt hàng 88": the word "mã" alone is enough, but only the order words may stand between it and the number, so
+# "mã giảm giá 88", "mã sản phẩm 88" and "mã size 38" are not read. Known limit: "áo mã 38" (a product code) reads as order 38; the slot is only a
+# candidate for a lookup, which still needs the owner's email.
+_ORDER_AFTER_MA = re.compile(r"\bma\b(?:\s+so)?(?:\s+(?:don(?:\s+hang)?|dat\s+hang|order))?(?:\s+so)?\s*[:#]?\s*" + _DIGITS + _NOT_A_QUANTITY)
+_NOT_MA = re.compile(r"\b(?:mà|má|mả|mạ)\b")  # folded they are all "ma": a conjunction or a word of its own is not the word "mã"
 _ORDER_AFTER_HASH = re.compile(r"#\s*" + _DIGITS)
 _BARE_NUMBER = re.compile(r"^#?\s*([0-9]{1," + str(MAX_ORDER_DIGITS) + r"})$")
 
@@ -58,16 +64,16 @@ def parse_phone(text: str) -> str | None:
 
 
 def parse_order_number(text: str, *, bare_ok: bool = False) -> str | None:
-    """An order number the message says is one ("đơn 88", "#88", "mã đơn: 2057"). A bare number counts only when the
+    """An order number the message says is one ("đơn 88", "#88", "mã đơn: 2057", "mã 88"). A bare number counts only when the
     agent has just asked for the order number (bare_ok)."""
     text = _without_emails(text or "")
     if bare_ok:
         bare = _BARE_NUMBER.match(text.strip())
         if bare:
             return bare.group(1)
-    text = PHONE.sub(" ", text)
-    folded = fold(text)
-    for pattern in (_ORDER_AFTER_HASH, _ORDER_AFTER_WORD):
+    text = _NOT_MA.sub(" ", PHONE.sub(" ", unicodedata.normalize("NFC", text).lower()))  # NFC: "a" + a separate accent is the same letter
+    folded = re.sub(r"\s+", " ", fold(text))
+    for pattern in (_ORDER_AFTER_HASH, _ORDER_AFTER_WORD, _ORDER_AFTER_MA):
         match = pattern.search(folded)
         if match:
             return match.group(1)

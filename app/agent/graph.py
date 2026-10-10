@@ -273,7 +273,10 @@ def build_graph(deps: Deps, *, max_steps: int = MAX_STEPS, checkpointer=None):
                 recorded.fail("answer_guardrail_fallback", answer.fallback_reason)
         text = answer.text
         if kind == "products" and relaxed:  # the notice is code, not the LLM: it comes before any suggestion
-            text = f"{T.NO_FULL_MATCH} {T.relaxed_note(relaxed[0])}\n{text}"
+            if text == T.NO_INFORMATION:  # the fallback named no product: no suggestion follows, so there is nothing to announce
+                text = f"{T.NO_FULL_MATCH} {text}"
+            else:
+                text = f"{T.NO_FULL_MATCH} {T.relaxed_note(relaxed[0])}\n{text}"
         return {"reply": text, **_finished(state)}
 
     def reply(state: AgentState) -> dict:

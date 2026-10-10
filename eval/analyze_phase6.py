@@ -12,8 +12,11 @@ harness, offline, and adds three things the owner asked to see next to the accur
 3. **The error types of the answer-v2 rule** (docs/DECISIONS-phase6.md, A17): E1 fallback by rule code, E2 missing gold SKU although it was retrieved,
    E3 missing gold clause although it was retrieved, each with its item ids.
 
-It also checks itself against the official result (same replies, same fallback flags) and says so. Usage (Qdrant and Saleor up, cache complete):
-    uv run python -m eval.analyze_phase6
+It also checks itself against the official result (same replies, same fallback flags) and says so. When the code changed after the official run (the
+A21 bug fix: a policy answer that says "no information" is no longer rejected, and a fallback quotes only what the rejected text used), the replay
+differs from the official result on purpose: `before_after` then gives both tables, per intent, and lists every item whose answer changed.
+Usage (Qdrant and Saleor up, cache complete):
+    uv run python -m eval.analyze_phase6 --answer-prompt answer_v2
 """
 
 from __future__ import annotations
@@ -115,11 +118,13 @@ def error_types(items: list[dict]) -> dict:
 
 
 def _sources(rows: list[dict], answered: dict[str, bool]) -> dict:
-    """Of the correct items: how many were answered by the text the model wrote, by the deterministic answer that replaced it, or by a fixed reply (no model answer)."""
+    """Of the correct items: how many were answered by the text the model wrote, by the deterministic answer that replaced it, by the fixed reply sent
+    because the model said it had no information, or by a fixed reply with no model answer at all."""
     correct = [r for r in rows if r["correct"]]
-    model = sum(1 for r in correct if answered.get(r["id"]) and not r["fallback"])
     fallback = sum(1 for r in correct if answered.get(r["id"]) and r["fallback"])
-    return {"model_text": model, "fallback_answer": fallback, "fixed_reply": len(correct) - model - fallback}
+    declined = sum(1 for r in correct if answered.get(r["id"]) and not r["fallback"] and r.get("declined"))
+    model = sum(1 for r in correct if answered.get(r["id"]) and not r["fallback"] and not r.get("declined"))
+    return {"model_text": model, "fallback_answer": fallback, "declined_reply": declined, "fixed_reply": len(correct) - model - fallback - declined}
 
 
 def per_intent_table(items: list[dict], answered: dict[str, bool]) -> dict:
@@ -128,16 +133,33 @@ def per_intent_table(items: list[dict], answered: dict[str, bool]) -> dict:
         rows = [i for i in items if i["intent"] == intent]
         made = [i for i in rows if answered.get(i["id"])]
         fallbacks = [i for i in made if i["fallback"]]
+        declines = [i for i in made if i.get("declined") and not i["fallback"]]  # the model said "no information": nothing was rejected
         table[intent] = {"items": len(rows), "correct": sum(i["correct"] for i in rows), "accuracy": (sum(i["correct"] for i in rows) / len(rows)) if rows else None,
                          "answers_written_by_the_model": len(made), "fallbacks": len(fallbacks),
                          "fallback_rate_of_answers": (len(fallbacks) / len(made)) if made else None,
                          "fallback_rate_of_items": (len(fallbacks) / len(rows)) if rows else None,
+                         "declines": len(declines), "items_with_decline": [i["id"] for i in declines],
                          "correct_by_source": _sources(rows, answered), "items_with_fallback": [i["id"] for i in fallbacks]}
     made_all = [i for i in items if answered.get(i["id"])]
     table["all"] = {"items": len(items), "correct": sum(i["correct"] for i in items), "accuracy": (sum(i["correct"] for i in items) / len(items)) if items else None,
-                    "answers_written_by_the_model": len(made_all), "fallbacks": sum(i["fallback"] for i in made_all), "correct_by_source": _sources(items, answered),
+                    "answers_written_by_the_model": len(made_all), "fallbacks": sum(i["fallback"] for i in made_all),
+                    "declines": sum(1 for i in made_all if i.get("declined") and not i["fallback"]), "correct_by_source": _sources(items, answered),
                     "fallback_rate_of_answers": (sum(i["fallback"] for i in made_all) / len(made_all)) if made_all else None}
     return table
+
+
+def before_after(before: list[dict], after: list[dict], answered: dict[str, bool]) -> dict:
+    """The same items scored by two versions of the code: the per-intent table of each, and every item whose reply, fallback flag, decline flag or
+    score is not the same. `before` is the official result, `after` the replay with the code as it is now."""
+    old = {i["id"]: i for i in before}
+    changed = []
+    for item in after:
+        was = old[item["id"]]
+        if (was["reply"], was["fallback"], bool(was.get("declined")), was["correct"]) != (item["reply"], item["fallback"], bool(item.get("declined")), item["correct"]):
+            changed.append({"id": item["id"], "intent": item["intent"], "reply_changed": was["reply"] != item["reply"], "fallback": [was["fallback"], item["fallback"]],
+                            "declined_after": bool(item.get("declined")), "correct": [was["correct"], item["correct"]]})
+    table_before, table_after = per_intent_table(before, answered), per_intent_table(after, answered)
+    return {"per_intent": {name: {"before": table_before[name], "after": table_after[name]} for name in table_after}, "changed_items": changed}
 
 
 def replay(args, tmp: Path) -> dict:
@@ -147,7 +169,8 @@ def replay(args, tmp: Path) -> dict:
 
     def recording(kind, question, evidence):
         answer: Answer = compose(kind, question, evidence)
-        records.append({"kind": kind, "question": question, "evidence": evidence, "text": answer.text, "fallback": answer.fallback_reason is not None})
+        records.append({"kind": kind, "question": question, "evidence": evidence, "text": answer.text, "fallback": answer.fallback_reason is not None,
+                        "declined": answer.declined})
         return answer
 
     harness.answerer.compose = recording
@@ -166,17 +189,18 @@ def replay(args, tmp: Path) -> dict:
         for r in made:
             if not r["fallback"]:  # a fallback is built from the evidence and cannot state anything the evidence does not
                 claims += [{"id": item.id, "kind": r["kind"], **c} for c in unsupported_claims(r["kind"], r["text"], r["evidence"], vocabulary)]
-    case_records, case_claims, case_answers, case_fallbacks = [], [], 0, 0
+    case_records, case_claims, case_answers, case_fallbacks, case_declines = [], [], 0, 0, 0
     for case in load_cases().cases:
         before = len(records)
         case_records.append(evaluate_case(case, harness))
         for r in records[before:]:
             case_answers += 1
             case_fallbacks += r["fallback"]
+            case_declines += r["declined"]
             if not r["fallback"]:
                 case_claims += [{"id": case.id, "kind": r["kind"], **c} for c in unsupported_claims(r["kind"], r["text"], r["evidence"], vocabulary)]
     return {"items": items, "answered": answered, "claims": claims, "cases": case_records, "case_claims": case_claims, "case_answers": case_answers,
-            "case_fallbacks": case_fallbacks,
+            "case_fallbacks": case_fallbacks, "case_declines": case_declines,
             "live_calls": harness.generator.inner.live_calls}
 
 
@@ -198,6 +222,7 @@ def main(argv: list[str] | None = None) -> int:
     official_items = {i["id"]: i for i in official["deterministic"]["items"]}
     same = all(i["reply"] == official_items[i["id"]]["reply"] and i["fallback"] == official_items[i["id"]]["fallback"] and i["correct"] == official_items[i["id"]]["correct"]
                for i in outcome["items"]) and len(outcome["items"]) == len(official_items)
+    changes = before_after([official_items[i["id"]] for i in outcome["items"]], outcome["items"], outcome["answered"])
     status = subprocess.run(["git", "status", "--porcelain", "--untracked-files=no"], cwd=REPO_ROOT, capture_output=True, text=True).stdout.strip()
     result = {
         "provenance": {"official_result_sha256": official["deterministic_sha256"], "official_result_commit": official["deterministic"]["provenance"]["git_commit"],
@@ -206,7 +231,10 @@ def main(argv: list[str] | None = None) -> int:
                        "this_file_is_a_reporting_analysis": "the claim detector is a heuristic that reads text; it is not a guardrail and not a score"},
         "replay_agrees_with_the_official_result": same,
         "per_intent": per_intent_table(outcome["items"], outcome["answered"]),
-        "multiturn_fallbacks": {"answers": outcome["case_answers"], "fallbacks": outcome["case_fallbacks"], "claims_unsupported": len(outcome["case_claims"])},
+        "before_after_the_code_change": {"before": "the official result file, produced by the code of provenance.official_result_commit", "after": "this replay, the code as it is now",
+                                         **changes},
+        "multiturn_fallbacks": {"answers": outcome["case_answers"], "fallbacks": outcome["case_fallbacks"], "declines": outcome["case_declines"],
+                                "claims_unsupported": len(outcome["case_claims"])},
         "unsupported_claims": {"dev_items": outcome["claims"], "multiturn_cases": outcome["case_claims"],
                                "items_affected": sorted({c["id"] for c in outcome["claims"]}), "detector": "size, colour, material and days patterns of eval/analyze_phase6.py"},
         "error_types": error_types(outcome["items"]),
@@ -217,8 +245,9 @@ def main(argv: list[str] | None = None) -> int:
     print(f"{out.name}: replay agrees with the official result: {same}; live calls {outcome['live_calls']}; sha256={result['analysis_sha256'][:12]}")
     for intent, row in result["per_intent"].items():
         rate = row["fallback_rate_of_answers"]
-        print(f"  {intent:16s} accuracy {row.get('accuracy', 0) or 0:.3f}  answers {row['answers_written_by_the_model']:3d}  fallbacks {row['fallbacks']:3d}  fallback rate "
-              + ("n/a" if rate is None else f"{rate:.3f}"))
+        print(f"  {intent:16s} accuracy {row.get('accuracy', 0) or 0:.3f}  answers {row['answers_written_by_the_model']:3d}  fallbacks {row['fallbacks']:3d}  "
+              f"declines {row['declines']:3d}  fallback rate " + ("n/a" if rate is None else f"{rate:.3f}"))
+    print(f"  items whose answer differs from the official result: {[c['id'] for c in changes['changed_items']]}")
     print(f"  answers with an unsupported size/colour/material/days claim: {len(result['unsupported_claims']['items_affected'])} dev items")
     return 0
 

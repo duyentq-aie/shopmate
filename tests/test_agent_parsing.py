@@ -74,6 +74,34 @@ def test_anything_else_with_digits_is_not_an_order_number(text):
     assert parse_order_number(text) is None
 
 
+@pytest.mark.parametrize("text, expected", [
+    ("mã 88", "88"), ("Mã 88 nhé shop", "88"), ("kiểm tra mã 88 giúp mình", "88"), ("MÃ 88", "88"), ("ma 88", "88"),  # without diacritics
+    ("mã số 88", "88"), ("mã: 88", "88"), ("mã #88", "88"), ("mã số: 2057", "2057"), ("mã đặt hàng 88", "88"), ("mã order 88", "88"),
+    ("mã đơn hàng 88", "88"), ("mã đơn số 88", "88"), ("đơn mã 88", "88"),
+    ("mã 88, email khachhang10@example.com", "88"), ("mã vận đơn của đơn 88 là gì", "88"),
+])
+def test_an_order_number_after_the_word_ma_is_read_too(text, expected):
+    assert parse_order_number(text) == expected
+
+
+@pytest.mark.parametrize("text", [
+    "mã 88k", "mã 88 nghìn", "mã 88K", "mã 88.000đ", "mã 88,000", "đơn 459.000đ", "#88.000", "mã 88%",  # an amount, not an order
+    "size 38", "cỡ 38 còn không", "mã size 38", "giày size 38 giá 399k",  # a size
+    "mã giảm giá 88", "mã giảm 88", "mã khuyến mãi 88", "mã voucher 88", "mã sản phẩm 88",  # another kind of code
+    "mã vận đơn 88", "ma van don 88", "mã vận đơn SMVN979241643",  # a tracking number is not the order number
+    "mà 88", "má 88", "đặt rồi mà 88 vẫn chưa thấy", "mã", "mã đơn", "mã 12345678", "mã 0912345678",  # not the word "mã", or not an order-sized number
+])
+def test_what_looks_like_an_order_number_after_ma_but_is_not_one_is_not_read(text):
+    assert parse_order_number(text) is None
+
+
+def test_the_word_ma_is_told_from_ma_grave_and_ma_acute_also_when_the_accent_is_a_separate_character():
+    import unicodedata
+    for text, expected in (("mã 88", "88"), ("mà 88", None), ("má 88", None), ("đặt rồi mà 88 vẫn chưa thấy", None)):
+        assert parse_order_number(unicodedata.normalize("NFD", text)) == expected, text  # a keyboard may type "a" and the tilde apart
+        assert parse_order_number(unicodedata.normalize("NFC", text)) == expected, text
+
+
 def test_a_bare_number_counts_only_when_the_agent_is_waiting_for_an_order_number():
     assert parse_order_number("88", bare_ok=True) == "88"
     assert parse_order_number(" #88 ", bare_ok=True) == "88"

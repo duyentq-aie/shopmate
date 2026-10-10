@@ -38,6 +38,9 @@ NO_FULL_MATCH = "Mình không tìm thấy sản phẩm nào khớp tất cả y�
 NO_RESULTS = NO_FULL_MATCH + " Bạn thử đổi bớt điều kiện hoặc mô tả khác giúp mình nhé."
 NO_POLICY_INFO = ("Mình chưa có thông tin về nội dung này trong chính sách của cửa hàng nên chưa trả lời chính xác được. "
                   "Bạn vui lòng liên hệ nhân viên để được giải đáp nhé.")
+# Said when a generated answer is rejected and the text named nothing the evidence can back (A21): it asserts nothing about any product or clause.
+NO_INFORMATION = ("Mình chưa trả lời chính xác được câu hỏi này từ dữ liệu của cửa hàng. "
+                  "Bạn vui lòng liên hệ nhân viên của ShopMate Fashion để được hỗ trợ nhé.")
 
 TICKET_REASK = 'Mình chưa rõ bạn muốn tạo phiếu hay không. Bạn trả lời "có" để tạo hoặc "không" để hủy nhé.'
 TICKET_CANCELLED = "Mình đã hủy, không tạo phiếu nào. Cần gì thêm bạn cứ nhắn mình nhé."

@@ -1,0 +1,491 @@
+{
+  "provenance": {
+    "official_result_sha256": "9db0ce6cd35bd7502b59ec3c687554386d689e4a6e40cc25ce5973ea6bce9937",
+    "official_result_commit": "3af7dc68f39dced5b27a10303da0bdc547c2d5ec",
+    "git_commit": "3af7dc68f39dced5b27a10303da0bdc547c2d5ec",
+    "tracked_files_modified": true,
+    "live_calls": 0,
+    "this_file_is_a_reporting_analysis": "the claim detector is a heuristic that reads text; it is not a guardrail and not a score"
+  },
+  "replay_agrees_with_the_official_result": false,
+  "per_intent": {
+    "product_search": {
+      "items": 24,
+      "correct": 24,
+      "accuracy": 1.0,
+      "answers_written_by_the_model": 21,
+      "fallbacks": 0,
+      "fallback_rate_of_answers": 0.0,
+      "fallback_rate_of_items": 0.0,
+      "declines": 0,
+      "items_with_decline": [],
+      "correct_by_source": {
+        "model_text": 21,
+        "fallback_answer": 0,
+        "declined_reply": 0,
+        "fixed_reply": 3
+      },
+      "items_with_fallback": []
+    },
+    "policy_question": {
+      "items": 14,
+      "correct": 13,
+      "accuracy": 0.9285714285714286,
+      "answers_written_by_the_model": 14,
+      "fallbacks": 1,
+      "fallback_rate_of_answers": 0.07142857142857142,
+      "fallback_rate_of_items": 0.07142857142857142,
+      "declines": 1,
+      "items_with_decline": [
+        "gs-025"
+      ],
+      "correct_by_source": {
+        "model_text": 12,
+        "fallback_answer": 1,
+        "declined_reply": 0,
+        "fixed_reply": 0
+      },
+      "items_with_fallback": [
+        "gs-027"
+      ]
+    },
+    "order_status": {
+      "items": 12,
+      "correct": 12,
+      "accuracy": 1.0,
+      "answers_written_by_the_model": 4,
+      "fallbacks": 0,
+      "fallback_rate_of_answers": 0.0,
+      "fallback_rate_of_items": 0.0,
+      "declines": 0,
+      "items_with_decline": [],
+      "correct_by_source": {
+        "model_text": 4,
+        "fallback_answer": 0,
+        "declined_reply": 0,
+        "fixed_reply": 8
+      },
+      "items_with_fallback": []
+    },
+    "create_ticket": {
+      "items": 7,
+      "correct": 7,
+      "accuracy": 1.0,
+      "answers_written_by_the_model": 0,
+      "fallbacks": 0,
+      "fallback_rate_of_answers": null,
+      "fallback_rate_of_items": 0.0,
+      "declines": 0,
+      "items_with_decline": [],
+      "correct_by_source": {
+        "model_text": 0,
+        "fallback_answer": 0,
+        "declined_reply": 0,
+        "fixed_reply": 7
+      },
+      "items_with_fallback": []
+    },
+    "out_of_scope": {
+      "items": 7,
+      "correct": 7,
+      "accuracy": 1.0,
+      "answers_written_by_the_model": 0,
+      "fallbacks": 0,
+      "fallback_rate_of_answers": null,
+      "fallback_rate_of_items": 0.0,
+      "declines": 0,
+      "items_with_decline": [],
+      "correct_by_source": {
+        "model_text": 0,
+        "fallback_answer": 0,
+        "declined_reply": 0,
+        "fixed_reply": 7
+      },
+      "items_with_fallback": []
+    },
+    "smalltalk": {
+      "items": 7,
+      "correct": 7,
+      "accuracy": 1.0,
+      "answers_written_by_the_model": 0,
+      "fallbacks": 0,
+      "fallback_rate_of_answers": null,
+      "fallback_rate_of_items": 0.0,
+      "declines": 0,
+      "items_with_decline": [],
+      "correct_by_source": {
+        "model_text": 0,
+        "fallback_answer": 0,
+        "declined_reply": 0,
+        "fixed_reply": 7
+      },
+      "items_with_fallback": []
+    },
+    "all": {
+      "items": 71,
+      "correct": 70,
+      "accuracy": 0.9859154929577465,
+      "answers_written_by_the_model": 39,
+      "fallbacks": 1,
+      "declines": 1,
+      "correct_by_source": {
+        "model_text": 37,
+        "fallback_answer": 1,
+        "declined_reply": 0,
+        "fixed_reply": 32
+      },
+      "fallback_rate_of_answers": 0.02564102564102564
+    }
+  },
+  "before_after_the_code_change": {
+    "before": "the official result file, produced by the code of provenance.official_result_commit",
+    "after": "this replay, the code as it is now",
+    "per_intent": {
+      "product_search": {
+        "before": {
+          "items": 24,
+          "correct": 24,
+          "accuracy": 1.0,
+          "answers_written_by_the_model": 21,
+          "fallbacks": 0,
+          "fallback_rate_of_answers": 0.0,
+          "fallback_rate_of_items": 0.0,
+          "declines": 0,
+          "items_with_decline": [],
+          "correct_by_source": {
+            "model_text": 21,
+            "fallback_answer": 0,
+            "declined_reply": 0,
+            "fixed_reply": 3
+          },
+          "items_with_fallback": []
+        },
+        "after": {
+          "items": 24,
+          "correct": 24,
+          "accuracy": 1.0,
+          "answers_written_by_the_model": 21,
+          "fallbacks": 0,
+          "fallback_rate_of_answers": 0.0,
+          "fallback_rate_of_items": 0.0,
+          "declines": 0,
+          "items_with_decline": [],
+          "correct_by_source": {
+            "model_text": 21,
+            "fallback_answer": 0,
+            "declined_reply": 0,
+            "fixed_reply": 3
+          },
+          "items_with_fallback": []
+        }
+      },
+      "policy_question": {
+        "before": {
+          "items": 14,
+          "correct": 13,
+          "accuracy": 0.9285714285714286,
+          "answers_written_by_the_model": 14,
+          "fallbacks": 2,
+          "fallback_rate_of_answers": 0.14285714285714285,
+          "fallback_rate_of_items": 0.14285714285714285,
+          "declines": 0,
+          "items_with_decline": [],
+          "correct_by_source": {
+            "model_text": 12,
+            "fallback_answer": 1,
+            "declined_reply": 0,
+            "fixed_reply": 0
+          },
+          "items_with_fallback": [
+            "gs-025",
+            "gs-027"
+          ]
+        },
+        "after": {
+          "items": 14,
+          "correct": 13,
+          "accuracy": 0.9285714285714286,
+          "answers_written_by_the_model": 14,
+          "fallbacks": 1,
+          "fallback_rate_of_answers": 0.07142857142857142,
+          "fallback_rate_of_items": 0.07142857142857142,
+          "declines": 1,
+          "items_with_decline": [
+            "gs-025"
+          ],
+          "correct_by_source": {
+            "model_text": 12,
+            "fallback_answer": 1,
+            "declined_reply": 0,
+            "fixed_reply": 0
+          },
+          "items_with_fallback": [
+            "gs-027"
+          ]
+        }
+      },
+      "order_status": {
+        "before": {
+          "items": 12,
+          "correct": 11,
+          "accuracy": 0.9166666666666666,
+          "answers_written_by_the_model": 4,
+          "fallbacks": 0,
+          "fallback_rate_of_answers": 0.0,
+          "fallback_rate_of_items": 0.0,
+          "declines": 0,
+          "items_with_decline": [],
+          "correct_by_source": {
+            "model_text": 4,
+            "fallback_answer": 0,
+            "declined_reply": 0,
+            "fixed_reply": 7
+          },
+          "items_with_fallback": []
+        },
+        "after": {
+          "items": 12,
+          "correct": 12,
+          "accuracy": 1.0,
+          "answers_written_by_the_model": 4,
+          "fallbacks": 0,
+          "fallback_rate_of_answers": 0.0,
+          "fallback_rate_of_items": 0.0,
+          "declines": 0,
+          "items_with_decline": [],
+          "correct_by_source": {
+            "model_text": 4,
+            "fallback_answer": 0,
+            "declined_reply": 0,
+            "fixed_reply": 8
+          },
+          "items_with_fallback": []
+        }
+      },
+      "create_ticket": {
+        "before": {
+          "items": 7,
+          "correct": 7,
+          "accuracy": 1.0,
+          "answers_written_by_the_model": 0,
+          "fallbacks": 0,
+          "fallback_rate_of_answers": null,
+          "fallback_rate_of_items": 0.0,
+          "declines": 0,
+          "items_with_decline": [],
+          "correct_by_source": {
+            "model_text": 0,
+            "fallback_answer": 0,
+            "declined_reply": 0,
+            "fixed_reply": 7
+          },
+          "items_with_fallback": []
+        },
+        "after": {
+          "items": 7,
+          "correct": 7,
+          "accuracy": 1.0,
+          "answers_written_by_the_model": 0,
+          "fallbacks": 0,
+          "fallback_rate_of_answers": null,
+          "fallback_rate_of_items": 0.0,
+          "declines": 0,
+          "items_with_decline": [],
+          "correct_by_source": {
+            "model_text": 0,
+            "fallback_answer": 0,
+            "declined_reply": 0,
+            "fixed_reply": 7
+          },
+          "items_with_fallback": []
+        }
+      },
+      "out_of_scope": {
+        "before": {
+          "items": 7,
+          "correct": 7,
+          "accuracy": 1.0,
+          "answers_written_by_the_model": 0,
+          "fallbacks": 0,
+          "fallback_rate_of_answers": null,
+          "fallback_rate_of_items": 0.0,
+          "declines": 0,
+          "items_with_decline": [],
+          "correct_by_source": {
+            "model_text": 0,
+            "fallback_answer": 0,
+            "declined_reply": 0,
+            "fixed_reply": 7
+          },
+          "items_with_fallback": []
+        },
+        "after": {
+          "items": 7,
+          "correct": 7,
+          "accuracy": 1.0,
+          "answers_written_by_the_model": 0,
+          "fallbacks": 0,
+          "fallback_rate_of_answers": null,
+          "fallback_rate_of_items": 0.0,
+          "declines": 0,
+          "items_with_decline": [],
+          "correct_by_source": {
+            "model_text": 0,
+            "fallback_answer": 0,
+            "declined_reply": 0,
+            "fixed_reply": 7
+          },
+          "items_with_fallback": []
+        }
+      },
+      "smalltalk": {
+        "before": {
+          "items": 7,
+          "correct": 7,
+          "accuracy": 1.0,
+          "answers_written_by_the_model": 0,
+          "fallbacks": 0,
+          "fallback_rate_of_answers": null,
+          "fallback_rate_of_items": 0.0,
+          "declines": 0,
+          "items_with_decline": [],
+          "correct_by_source": {
+            "model_text": 0,
+            "fallback_answer": 0,
+            "declined_reply": 0,
+            "fixed_reply": 7
+          },
+          "items_with_fallback": []
+        },
+        "after": {
+          "items": 7,
+          "correct": 7,
+          "accuracy": 1.0,
+          "answers_written_by_the_model": 0,
+          "fallbacks": 0,
+          "fallback_rate_of_answers": null,
+          "fallback_rate_of_items": 0.0,
+          "declines": 0,
+          "items_with_decline": [],
+          "correct_by_source": {
+            "model_text": 0,
+            "fallback_answer": 0,
+            "declined_reply": 0,
+            "fixed_reply": 7
+          },
+          "items_with_fallback": []
+        }
+      },
+      "all": {
+        "before": {
+          "items": 71,
+          "correct": 69,
+          "accuracy": 0.971830985915493,
+          "answers_written_by_the_model": 39,
+          "fallbacks": 2,
+          "declines": 0,
+          "correct_by_source": {
+            "model_text": 37,
+            "fallback_answer": 1,
+            "declined_reply": 0,
+            "fixed_reply": 31
+          },
+          "fallback_rate_of_answers": 0.05128205128205128
+        },
+        "after": {
+          "items": 71,
+          "correct": 70,
+          "accuracy": 0.9859154929577465,
+          "answers_written_by_the_model": 39,
+          "fallbacks": 1,
+          "declines": 1,
+          "correct_by_source": {
+            "model_text": 37,
+            "fallback_answer": 1,
+            "declined_reply": 0,
+            "fixed_reply": 32
+          },
+          "fallback_rate_of_answers": 0.02564102564102564
+        }
+      }
+    },
+    "changed_items": [
+      {
+        "id": "gs-025",
+        "intent": "policy_question",
+        "reply_changed": true,
+        "fallback": [
+          true,
+          false
+        ],
+        "declined_after": true,
+        "correct": [
+          false,
+          false
+        ]
+      },
+      {
+        "id": "gs-124",
+        "intent": "order_status",
+        "reply_changed": true,
+        "fallback": [
+          false,
+          false
+        ],
+        "declined_after": false,
+        "correct": [
+          false,
+          true
+        ]
+      }
+    ]
+  },
+  "multiturn_fallbacks": {
+    "answers": 6,
+    "fallbacks": 0,
+    "declines": 0,
+    "claims_unsupported": 1
+  },
+  "unsupported_claims": {
+    "dev_items": [
+      {
+        "id": "gs-105",
+        "kind": "products",
+        "type": "color",
+        "claim": "Nâu",
+        "sentence": "Bên mình hiện không có sản phẩm màu nâu, nhưng có mẫu Túi đeo chéo hộp xám (SKU SM-TUI-0007), giá 639.000đ, hiện còn hàng."
+      },
+      {
+        "id": "gs-112",
+        "kind": "products",
+        "type": "color",
+        "claim": "Đỏ",
+        "sentence": "Bên mình không có mẫu kính màu đỏ, nhưng bạn có thể tham khảo Kính mát gọng vuông bạc (SKU SM-PK-0018) giá 319.000đ, hiện còn hàng."
+      }
+    ],
+    "multiturn_cases": [
+      {
+        "id": "mt-01",
+        "kind": "products",
+        "type": "color",
+        "claim": "Trắng",
+        "sentence": "Dạ bên mình hiện chưa có áo sơ mi nam màu trắng, nhưng bạn có thể tham khảo các mẫu áo sơ mi nam sau đây."
+      }
+    ],
+    "items_affected": [
+      "gs-105",
+      "gs-112"
+    ],
+    "detector": "size, colour, material and days patterns of eval/analyze_phase6.py"
+  },
+  "error_types": {
+    "E1_fallback_by_rule": {
+      "unknown_clause": [
+        "gs-027"
+      ]
+    },
+    "E2_missing_sku_though_retrieved": [],
+    "E3_missing_citation_though_retrieved": []
+  },
+  "analysis_sha256": "1f9364b0d1960568103ad77edb3cb9ab70797b66ba299f1525f1767b3454edea"
+}

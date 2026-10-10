@@ -1,0 +1,50 @@
+{
+ "digest": "a2d74c088c2adaecb9d43a82fddeb5d4cff94923020cf264e0bc5d2d5d171cf1",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"color\":\"Nâu\",\"in_stock\":true,\"kind\":\"Giày tây nam\",\"material\":\"Da tổng hợp\",\"name\":\"Giày tây nam oxford nâu\",\"price_vnd\":1499000,\"sizes\":[\"41\",\"42\",\"43\"],\"sku\":\"SM-GIAY-0039\"},{\"color\":\"Nâu\",\"in_stock\":true,\"kind\":\"Giày tây nam\",\"material\":\"Da tổng hợp\",\"name\":\"Giày tây nam derby nâu\",\"price_vnd\":899000,\"sizes\":[\"39\",\"40\",\"41\",\"42\",\"43\"],\"sku\":\"SM-GIAY-0009\"},{\"color\":\"Nâu\",\"in_stock\":true,\"kind\":\"Giày tây nam\",\"material\":\"Da tổng hợp\",\"name\":\"Giày tây nam monk strap nâu\",\"price_vnd\":1619000,\"sizes\":[\"39\",\"40\",\"41\",\"42\",\"43\",\"44\"],\"sku\":\"SM-GIAY-0045\"}],\"relaxed\":[]},\"kind\":\"products\",\"question\":\"Có giày tây nam màu nâu size 41 ko shop?\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"text\": \"Bên mình có các mẫu giày tây nam màu nâu size 41. Giày tây nam oxford nâu (SKU SM-GIAY-0039) có giá 1.499.000đ và hiện còn hàng. Giày tây nam derby nâu (SKU SM-GIAY-0009) có giá 899.000đ và hiện còn hàng. Giày tây nam monk strap nâu (SKU SM-GIAY-0045) có giá 1.619.000đ và hiện còn hàng.\",\n  \"cited_skus\": [\n    \"SM-GIAY-0039\",\n    \"SM-GIAY-0009\",\n    \"SM-GIAY-0045\"\n  ],\n  \"cited_clauses\": []\n}",
+       "thoughtSignature": "EmAKXgFpFH0TyV/SK1LbHWzYo9BFcCl+3Xl0vZW+NtCLK/xbm1UlL16ZNMvVk01f9xLn4/0ola3zB1Ui0elJCpiSAbd1ONGMpaeutEgqzlNp3C/WMPwX6CW4ZC9bVSgYKrA="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1789,
+   "candidatesTokenCount": 201,
+   "totalTokenCount": 1990,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1789
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "T1PKaqmPLLyAg8UPuYfOoAY"
+ },
+ "latency_ms": 1755.2,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T15:01:36+00:00"
+}

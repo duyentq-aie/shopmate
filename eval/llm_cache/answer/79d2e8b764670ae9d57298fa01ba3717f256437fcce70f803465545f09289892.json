@@ -1,0 +1,50 @@
+{
+ "digest": "79d2e8b764670ae9d57298fa01ba3717f256437fcce70f803465545f09289892",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"color\":\"Xám\",\"in_stock\":true,\"kind\":\"Áo polo nam\",\"material\":\"Cotton cá sấu\",\"name\":\"Áo polo nam thể thao xám\",\"price_vnd\":209000,\"sizes\":[\"S\",\"M\",\"L\"],\"sku\":\"SM-NAM-0038\"}],\"relaxed\":[\"size\"]},\"kind\":\"products\",\"question\":\"bên shop còn áo polo nam màu xám cỡ XXL không\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"text\": \"Bên mình có Áo polo nam thể thao xám (SKU SM-NAM-0038), giá 209.000đ, hiện còn hàng.\", \"cited_skus\": [\"SM-NAM-0038\"], \"cited_clauses\": []}",
+       "thoughtSignature": "EmAKXgFpFH0TpdihQtl3+ecgxgy7DIOSLbnKZNTVQ9DCap2VxG2y+T2V3h6eDLPd8vJw6KCpkKJMIb6lqjJNzvb4bzso9XmyfKkYxP6M3KurU5gyfiE4QSFy79JfvP5/I48="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1634,
+   "candidatesTokenCount": 67,
+   "totalTokenCount": 1701,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1634
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "-1PKavniFoHa4-EPw7Ki0AQ"
+ },
+ "latency_ms": 1030.1,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T15:04:27+00:00"
+}

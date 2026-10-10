@@ -1,0 +1,50 @@
+{
+ "digest": "dc5f2915f44093625eff72a647a627b431db3d4e91682d8e7630878a78ab6bce",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"color\":\"Trắng\",\"in_stock\":true,\"kind\":\"Giày chạy bộ\",\"material\":\"Da tổng hợp\",\"name\":\"Giày chạy bộ chống trượt trắng\",\"price_vnd\":939000,\"sizes\":[\"41\",\"42\"],\"sku\":\"SM-TT-0030\"},{\"color\":\"Đen\",\"in_stock\":true,\"kind\":\"Giày chạy bộ\",\"material\":\"Da tổng hợp\",\"name\":\"Giày chạy bộ siêu nhẹ đen\",\"price_vnd\":1129000,\"sizes\":[\"38\",\"39\",\"40\",\"41\",\"42\",\"43\"],\"sku\":\"SM-TT-0015\"},{\"color\":\"Cam\",\"in_stock\":true,\"kind\":\"Giày chạy bộ\",\"material\":\"Da tổng hợp\",\"name\":\"Giày chạy bộ đệm êm cam\",\"price_vnd\":769000,\"sizes\":[\"36\",\"37\",\"38\",\"39\",\"40\",\"41\",\"42\",\"43\"],\"sku\":\"SM-TT-0020\"},{\"color\":\"Xám\",\"in_stock\":true,\"kind\":\"Giày chạy bộ\",\"material\":\"Vải lưới\",\"name\":\"Giày chạy bộ siêu nhẹ xám\",\"price_vnd\":1019000,\"sizes\":[\"37\",\"38\",\"39\",\"40\",\"41\",\"42\"],\"sku\":\"SM-TT-0025\"},{\"color\":\"Đen\",\"in_stock\":true,\"kind\":\"Giày chạy bộ\",\"material\":\"Vải lưới\",\"name\":\"Giày chạy bộ chống trượt đen\",\"price_vnd\":909000,\"sizes\":[\"36\",\"37\",\"38\",\"39\",\"40\",\"41\",\"42\",\"43\"],\"sku\":\"SM-TT-0010\"}],\"relaxed\":[]},\"kind\":\"products\",\"question\":\"shop ơi giày chạy bộ size 42 còn ko\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"text\": \"Dạ, bên em có các mẫu giày chạy bộ có size 42 ạ. Giày chạy bộ chống trượt trắng (SKU SM-TT-0030) có giá 939.000đ và hiện còn hàng. Giày chạy bộ siêu nhẹ đen (SKU SM-TT-0015) có giá 1.129.000đ và hiện còn hàng. Giày chạy bộ đệm êm cam (SKU SM-TT-0020) có giá 769.000đ và hiện còn hàng. Giày chạy bộ siêu nhẹ xám (SKU SM-TT-0025) có giá 1.019.000đ và hiện còn hàng. Giày chạy bộ chống trượt đen (SKU SM-TT-0010) có giá 909.000đ và hiện còn hàng.\",\n  \"cited_skus\": [\n    \"SM-TT-0030\",\n    \"SM-TT-0015\",\n    \"SM-TT-0020\",\n    \"SM-TT-0025\",\n    \"SM-TT-0010\"\n  ],\n  \"cited_clauses\": []\n}",
+       "thoughtSignature": "EmAKXgFpFH0TaRoS6LTM3x7LmOxJdQzCVWtc0Vv36CV4lQssZg3q0DMj5BgCI5IuZKanlLbjupGa2Q/Rso/yZ21nseSuBPu7FLsTP3hDtl1CC6TwGG8ZKM/puROug51ITuE="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1951,
+   "candidatesTokenCount": 292,
+   "totalTokenCount": 2243,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1951
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "QFPKar-VBefp4-EPgMzI8Q4"
+ },
+ "latency_ms": 1791.4,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T15:01:20+00:00"
+}
