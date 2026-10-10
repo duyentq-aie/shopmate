@@ -30,6 +30,9 @@ A first version used the closest agreed type when the cause had no exact one (a 
 | `saleor_error` | error | any other `SaleorQueryError`: unreachable, HTTP status, GraphQL error | other `SaleorQueryError`; a raw non-timeout transport error in those stages |
 | `readonly_violation` | error | the read-only client refused a request | `ReadOnlyViolation` and subclasses |
 | `request_interrupted` | error | `KeyboardInterrupt` (Ctrl+C) or `SystemExit` (`sys.exit()`) ended the request before it finished; the exception is re-raised, never swallowed | `KeyboardInterrupt`, `SystemExit` |
+| `answer_guardrail_fallback` | warn (span only) | a code guardrail rejected the LLM-generated answer and a fixed template was sent instead (Phase 6); never the failure of a request | the answer step of the agent |
+| `agent_step_cap_reached` | error | one turn of the agent used up its step cap and was ended with a safe reply (Phase 6) | the agent's step counter, `GraphRecursionError` |
+| `ticket_write_failed` | error | the customer confirmed a ticket and it could not be written (Phase 6) | the ticket tool |
 | `internal_error` | error | **not in any list the owner gave; approved 2026-10-10.** Any other exception (a bug); without it such a request would be untraceable | everything else |
 
 *Types I had to add, for the owner to confirm or rename.* The owner's list has no type for a 429 whose retries are exhausted, and requires it to be an error and never `llm_429_minute`: I added **`llm_rate_limited`** (a 429 that never recovered; the message says per-minute or unrecognised). A 429 with `limit: 0` is `llm_request_error`, not `llm_429_daily`: the response says this key has no quota for this model, not that today's quota is used, and "come back tomorrow" would be wrong advice.
@@ -47,3 +50,5 @@ A first version used the closest agreed type when the cause had no exact one (a 
 - A recovered `llm_429_minute` warning on the span an interrupt ended is replaced by `request_interrupted` (the failure wins over the warning, as for any exception).
 - `Tracer._write` still catches only `Exception`: an interrupt that arrives while the line is being written is not hidden.
 - The dashboard knows the type (label "Request bị ngắt giữa chừng", severity error); `test_the_real_page_knows_every_error_type_the_tracer_can_write_and_no_other` keeps the page's list and `ERROR_TYPES` equal.
+
+**T7. Span-only warnings (2026-10-10, Phase 6).** `filter_out_of_vocab` and the new `answer_guardrail_fallback` describe something that went wrong inside ONE step while the request went on (a value dropped, an answer replaced by a template). They can be set on a span (`SpanRecorder.fail`) but not as the failure of a whole request (`Trace.fail` refuses them, `validate_trace_line` rejects them as a top-level `error`), as `llm_429_minute` already could not be. `agent_step_cap_reached` and `ticket_write_failed` are request errors: the turn did not complete normally. All three were added to the dashboard together with the tracer (`test_the_real_page_knows_every_error_type_the_tracer_can_write_and_no_other` enforces it).

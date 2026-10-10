@@ -40,6 +40,9 @@ own type and nothing is mapped to the nearest one (details and the real cause ar
   saleor_error           any other SaleorQueryError (unreachable, HTTP status, GraphQL error)
   readonly_violation     the read-only Saleor client refused a request
   request_interrupted    KeyboardInterrupt or SystemExit ended the request before it finished (it is re-raised, never swallowed)
+  answer_guardrail_fallback  WARNING of one span: a guardrail rejected the generated answer and a fixed template was sent
+  agent_step_cap_reached the agent's turn hit its step cap and was ended with a safe reply
+  ticket_write_failed    the customer confirmed a ticket but it could not be written
   internal_error         any other exception: a bug (without a type of its own it would be untraceable)
 """
 
@@ -79,8 +82,10 @@ TRACE_PATH = REPO_ROOT / "logs" / "traces.jsonl"
 STAGES = ("router", "extractor", "retrieval", "order_lookup", "ticket_confirm", "reply", "answer")
 ERROR_TYPES = ("llm_429_minute", "llm_429_daily", "llm_rate_limited", "llm_unavailable", "llm_request_error",
                "llm_cache_miss_offline", "budget_cap_reached", "llm_invalid_output", "filter_out_of_vocab", "qdrant_unreachable",
-               "saleor_timeout", "saleor_error", "readonly_violation", "request_interrupted", "internal_error")
+               "saleor_timeout", "saleor_error", "readonly_violation", "request_interrupted", "answer_guardrail_fallback",
+               "agent_step_cap_reached", "ticket_write_failed", "internal_error")
 WARNING_ONLY = frozenset({"llm_429_minute"})  # a recovered condition: valid on a span, never the reason a request failed
+SPAN_ONLY = frozenset({"filter_out_of_vocab", "answer_guardrail_fallback"})  # warnings of one span; a request never fails with them
 STATUSES = ("ok", "warn", "error")
 MESSAGE_LIMIT = 300
 
@@ -161,11 +166,14 @@ def classify_exception(exc: BaseException, stage: str | None = None) -> tuple[st
 # --- spans and traces ---------------------------------------------------------------------------------------------------
 
 
-def _check_failure_type(error_type: str) -> None:
+def _check_failure_type(error_type: str, *, request: bool = False) -> None:
+    """request=True: the failure of the whole request (Trace.fail); False: the error or warning of one span."""
     if error_type not in ERROR_TYPES:
         raise ValueError(f"unknown error type {error_type!r}")
     if error_type in WARNING_ONLY:
         raise ValueError(f"{error_type!r} is the warning of a call that recovered, not a failure")
+    if request and error_type in SPAN_ONLY:
+        raise ValueError(f"{error_type!r} is a warning of one span, not the failure of a request")
 
 
 class SpanRecorder:
@@ -207,7 +215,7 @@ class Trace:
         self._escaping: tuple[BaseException, dict] | None = None  # the exception a span saw, and how it classified it
 
     def fail(self, error_type: str, message: str) -> None:
-        _check_failure_type(error_type)
+        _check_failure_type(error_type, request=True)
         self.error = {"type": error_type, "message": message[:MESSAGE_LIMIT]}
 
     @property
@@ -361,8 +369,8 @@ def validate_trace_line(line) -> list[str]:
     if line["status"] not in STATUSES:
         problems.append("status must be ok, warn or error")
     problems += _error_problems(line["error"], "error")
-    if isinstance(line["error"], dict) and line["error"].get("type") in WARNING_ONLY:
-        problems.append(f"error.type {line['error']['type']!r} is a warning of a call that recovered; it cannot fail a request")
+    if isinstance(line["error"], dict) and line["error"].get("type") in WARNING_ONLY | SPAN_ONLY:
+        problems.append(f"error.type {line['error']['type']!r} is a warning of a span; it cannot fail a request")
     if not isinstance(line["spans"], list):
         return problems + ["spans must be a list"]
     span_errors = False

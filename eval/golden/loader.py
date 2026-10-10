@@ -32,6 +32,12 @@ def load_split(split: Literal["dev", "test"], *, final_evaluation: bool = False,
     return [item for item in load_golden(path).items if item.split == split]
 
 
+def golden_file_sha256(path: Path = GOLDEN_PATH) -> str:
+    """SHA-256 of the golden file's bytes, for the provenance block of a result file. It lives here so that nothing
+    outside eval/golden/ has to open the file (tests/test_golden_access.py)."""
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
 def items_hash(items: list[GoldenItem]) -> str:
     """SHA-256 of the canonical JSON of the given items (sorted by id); same scheme as test_split_hash."""
     payload = [i.model_dump(mode="json") for i in sorted(items, key=lambda i: i.id)]

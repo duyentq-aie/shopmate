@@ -38,8 +38,8 @@ from app.llm.generator import CachedGenerator
 from app.llm.limits import DailyBudget, RateLimiter
 from app.llm.prompts import PromptTemplate, catalog_vocabulary, load_prompt
 from app.llm.router import ROUTER_GENERATION_CONFIG, ROUTER_SCHEMA, GeminiRouter
-from eval.golden.loader import items_hash, load_split
-from eval.golden.schema import GOLDEN_PATH, GoldenItem
+from eval.golden.loader import golden_file_sha256, items_hash, load_split
+from eval.golden.schema import GoldenItem
 from eval.llm_metrics import filter_field_metrics, normalized_expected, normalized_extracted, routing_metrics
 from eval.probes.loader import PROBES_PATH, ProbeSet, load_probes, require_reviewed
 from eval.retrieval_metrics import paired_bootstrap, percentile_ms
@@ -336,7 +336,7 @@ def main(argv: list[str] | None = None) -> int:
         "router_schema_sha256": canonical_sha256(ROUTER_SCHEMA), "filters_schema_sha256": canonical_sha256(build_schema(vocabulary)),
         "router_generation_config": ROUTER_GENERATION_CONFIG, "filters_generation_config": EXTRACTOR_GENERATION_CONFIG,
         "retrieval": {"mode": MODE, "k": TOP_K, "index_manifest_sha256": file_sha256(MANIFEST_PATH)},
-        "dev_split_sha256": items_hash(dev), "golden_file_sha256": file_sha256(GOLDEN_PATH),
+        "dev_split_sha256": items_hash(dev), "golden_file_sha256": golden_file_sha256(),
         "probes_sha256": file_sha256(PROBES_PATH) if probes else None,
     }
     if args.price_input_per_million is not None and args.price_output_per_million is not None:

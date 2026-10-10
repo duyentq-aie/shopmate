@@ -51,8 +51,8 @@ from app.config import REPO_ROOT
 from app.retrieval.embedder import EmbeddingConfig
 from app.retrieval.lexical import LexicalConfig
 from app.retrieval.manifest import MANIFEST_PATH, file_sha256, load_manifest
-from eval.golden.loader import items_hash, load_split
-from eval.golden.schema import GOLDEN_PATH, GoldenItem
+from eval.golden.loader import golden_file_sha256, items_hash, load_split
+from eval.golden.schema import GoldenItem
 from eval.retrieval_metrics import (
     BOOTSTRAP_RESAMPLES,
     BOOTSTRAP_SEED,
@@ -338,7 +338,7 @@ def provenance(commit: str, items: list[GoldenItem], mode: str, setting: str, *,
         "git_dirty": False,  # check_clean_tree() refuses to run otherwise
         "index_manifest_sha256": file_sha256(MANIFEST_PATH),
         "embedder_fingerprint": EmbeddingConfig().fingerprint(),
-        "golden_file_sha256": file_sha256(GOLDEN_PATH),
+        "golden_file_sha256": golden_file_sha256(),
         "dev_split_sha256": items_hash(items),
         "config": {"mode": mode, "filters": setting, "top_k": TOP_K, "ks": list(KS), "split": "dev",
                    "intents": list(intents), "oracle_drops": ["keyword"],

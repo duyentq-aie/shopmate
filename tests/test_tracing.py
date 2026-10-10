@@ -283,8 +283,43 @@ def test_the_error_vocabulary_is_the_agreed_one_plus_what_a_trace_needs_to_tell_
         # added so that a 429 that never recovered is not called llm_429_minute, and for bugs
         "llm_rate_limited", "internal_error",
         # added so that a request ended by Ctrl+C or sys.exit() is not recorded as a success
-        "request_interrupted"}
+        "request_interrupted",
+        # added for the Phase 6 agent: a guardrail replaced the generated answer, a turn hit the step cap, a ticket was not written
+        "answer_guardrail_fallback", "agent_step_cap_reached", "ticket_write_failed"}
     assert STAGES == ("router", "extractor", "retrieval", "order_lookup", "ticket_confirm", "reply", "answer")
+
+
+# --- the agent's three types ---------------------------------------------------------------------------------------------------
+
+
+def test_a_guardrail_fallback_is_a_warning_of_one_span_never_the_failure_of_a_request(tmp_path):
+    tracer = _tracer(tmp_path)
+    with tracer.request("q") as trace:
+        with span("answer", model="gemini-3.5-flash-lite") as sp:
+            sp.fail("answer_guardrail_fallback", "the answer named a price that is not in the tool results")
+        with pytest.raises(ValueError):
+            trace.fail("answer_guardrail_fallback", "x")  # a request-level failure must name a real failure
+    (line,) = _lines(tracer)
+    assert line["status"] == "warn" and line["error"] is None and line["spans"][0]["error"]["type"] == "answer_guardrail_fallback"
+    assert validate_trace_line(line) == []
+    line["error"], line["status"] = {"type": "answer_guardrail_fallback", "message": "x"}, "error"
+    assert validate_trace_line(line)  # and the validator refuses it as the error of a request
+
+
+@pytest.mark.parametrize("error_type", ["agent_step_cap_reached", "ticket_write_failed"])
+def test_a_step_cap_and_a_failed_ticket_write_are_errors_of_the_request(tmp_path, error_type):
+    tracer = _tracer(tmp_path)
+    with tracer.request("q") as trace:
+        trace.fail(error_type, "x")
+    (line,) = _lines(tracer)
+    assert line["status"] == "error" and line["error"]["type"] == error_type and validate_trace_line(line) == []
+
+
+def test_filter_out_of_vocab_is_also_only_ever_a_span_warning(tmp_path):
+    tracer = _tracer(tmp_path)
+    with tracer.request("q") as trace:
+        with pytest.raises(ValueError):
+            trace.fail("filter_out_of_vocab", "x")
 
 
 # --- interrupts: KeyboardInterrupt and SystemExit end a request; it is traced as an error and the exception is never swallowed ----------------
