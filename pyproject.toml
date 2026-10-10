@@ -28,8 +28,11 @@ pythonpath = ["."]
 testpaths = ["tests"]
 # `uv run pytest` = fast unit tests, no services. `uv run pytest -m integration` = needs the
 # running Qdrant and the cached bge-m3 model. scripts/test_all.sh runs both.
-addopts = "-m 'not integration'"
-markers = ["integration: needs the running Qdrant (docker compose) and the cached bge-m3 model"]
+addopts = "-m 'not integration and not live_llm'"
+markers = [
+    "integration: needs the running Qdrant (docker compose) and the cached bge-m3 model",
+    "live_llm: calls the real Gemini API (free tier, counts against the daily quota); never part of scripts/test_all.sh",
+]
 
 # torch comes from PyTorch's CPU-only index (no CUDA wheels, ~200 MB instead of GBs).
 [[tool.uv.index]]

@@ -152,11 +152,12 @@ def mode_problems(mode: str, manifest: dict) -> list[str]:
 # --- provenance --------------------------------------------------------------------------
 
 
-def blocking_paths(porcelain_z: str) -> list[str]:
+def blocking_paths(porcelain_z: str, allowed_prefixes: tuple[str, ...] = (ALLOWED_UNTRACKED_PREFIX,)) -> list[str]:
     """Paths that make the tree unacceptable, from `git status --porcelain=v1 -z --untracked-files=all`.
 
     Blocking: any tracked change (modified, staged, deleted, renamed, ...) anywhere, and any
-    untracked file outside eval/results/. Allowed: untracked files under eval/results/.
+    untracked file outside the allowed prefixes (default eval/results/; the Phase 5 runner also allows
+    eval/llm_cache/, where its own cache entries appear). Allowed: untracked files under those prefixes.
     """
     entries = porcelain_z.split("\0")
     blocking, i = [], 0
@@ -169,18 +170,18 @@ def blocking_paths(porcelain_z: str) -> list[str]:
         if status[0] in "RC":  # rename/copy: the next entry is the original path
             i += 1
         if status == "??":
-            if not path.startswith(ALLOWED_UNTRACKED_PREFIX):
+            if not path.startswith(allowed_prefixes):
                 blocking.append(path)
         else:
             blocking.append(path)
     return blocking
 
 
-def check_clean_tree(repo: Path = REPO_ROOT) -> str:
+def check_clean_tree(repo: Path = REPO_ROOT, allowed_prefixes: tuple[str, ...] = (ALLOWED_UNTRACKED_PREFIX,)) -> str:
     """Return the HEAD commit; raise DirtyWorkingTree listing the blocking paths otherwise."""
     status = subprocess.run(["git", "status", "--porcelain=v1", "-z", "--untracked-files=all"],
                             cwd=repo, check=True, capture_output=True, text=True).stdout
-    blocking = blocking_paths(status)
+    blocking = blocking_paths(status, allowed_prefixes)
     if blocking:
         raise DirtyWorkingTree("working tree is not clean; commit or remove first:\n  " + "\n  ".join(blocking))
     return subprocess.run(["git", "rev-parse", "HEAD"], cwd=repo, check=True, capture_output=True,

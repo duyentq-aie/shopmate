@@ -8,6 +8,7 @@ ShopMate is an AI sales assistant for e-commerce: a retrieval-augmented (RAG) ag
 |---|---|
 | `app/` | The ShopMate service. So far: data schemas, shop constants, the read-only Saleor client (`app/saleor/readonly_client.py`) and retrieval (`app/retrieval/`: bge-m3 embeddings, Qdrant index, dense/hybrid search, and the diacritic-folded lexical vector with its two Phase 4 configurations). |
 | `docker-compose.yml` | ShopMate's own services (Qdrant), separate from Saleor's. |
+| `app/llm/`, `prompts/` | Phase 5: Gemini client with free-tier guards (cache, rate limit, daily ceiling), the router and the filter extractor, and their versioned prompts. |
 | `data/index/manifest.json` | Lineage of the current vector index and the collection evaluation runs against (model revision, lexical config, counts, vector digest, source hashes). |
 | `data/seed/` | Synthetic catalog (`catalog.vi.json`) and test orders (`orders.vi.json`), versioned. |
 | `data/policies/` | Policy documents of the fictional shop (đổi trả, vận chuyển, bảo hành), with numbered clauses. |

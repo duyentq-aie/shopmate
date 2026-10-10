@@ -94,6 +94,14 @@ def test_blocking_paths(porcelain, blocking):
     assert run.blocking_paths(porcelain) == blocking
 
 
+def test_extra_allowed_prefixes_let_new_files_under_them_through_but_nothing_else():
+    allowed = ("eval/results/", "eval/llm_cache/")
+    assert run.blocking_paths("?? eval/llm_cache/router/abc.json\0", allowed) == []
+    assert run.blocking_paths("?? eval/llm_cache/router/abc.json\0") == ["eval/llm_cache/router/abc.json"]  # default unchanged
+    assert run.blocking_paths("?? notes.txt\0", allowed) == ["notes.txt"]
+    assert run.blocking_paths(" M eval/llm_cache/router/old.json\0", allowed) == ["eval/llm_cache/router/old.json"]  # a committed entry changed
+
+
 def _git(repo: Path, *args: str) -> None:
     subprocess.run(["git", *args], cwd=repo, check=True, capture_output=True)
 
