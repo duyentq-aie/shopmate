@@ -1,0 +1,50 @@
+{
+ "digest": "4708326e6fd4502e19ae8dd41dbe8b7c4790c476a811fcd2575330473d1078dd",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "ae17b6aacba999115cb59ff759f3caa16e4cc6597ea9eaa8f4dfd0a74abb2ea4",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"clause\":2,\"file\":\"van-chuyen\",\"text\":\"Chính sách vận chuyển – ShopMate Fashion\\nĐiều 2. Phí vận chuyển\\n1. Phí giao hàng tiêu chuẩn toàn quốc: **30.000đ** mỗi đơn hàng.\\n2. **Miễn phí vận chuyển** cho đơn hàng có giá trị sản phẩm từ **500.000đ** trở lên (chưa tính phí vận chuyển, sau khi trừ giảm giá).\\n3. Phí vận chuyển được hiển thị và xác nhận trước khi đặt hàng.\",\"title\":\"Phí vận chuyển\"},{\"clause\":3,\"file\":\"van-chuyen\",\"text\":\"Chính sách vận chuyển – ShopMate Fashion\\nĐiều 3. Thời gian giao hàng\\n1. Nội thành Thành phố Hồ Chí Minh: **1–2 ngày** làm việc.\\n2. Hà Nội, Đà Nẵng và các tỉnh, thành phố khác: **2–5 ngày** làm việc.\\n3. Đơn hàng đặt trước **14 giờ** được xử lý và bàn giao cho đơn vị vận chuyển trong ngày; đơn đặt sau 14 giờ được xử lý vào ngày làm việc tiếp theo.\\n4. Thời gian giao hàng có thể kéo dài thêm trong dịp lễ, Tết hoặc do thiên tai, dịch bệnh.\",\"title\":\"Thời gian giao hàng\"},{\"clause\":1,\"file\":\"van-chuyen\",\"text\":\"Chính sách vận chuyển – ShopMate Fashion\\nĐiều 1. Phạm vi giao hàng\\n1. ShopMate Fashion giao hàng trên toàn lãnh thổ Việt Nam.\\n2. Hiện chưa hỗ trợ giao hàng quốc tế.\\n3. Hàng được gửi đi từ kho tại Thành phố Hồ Chí Minh.\",\"title\":\"Phạm vi giao hàng\"}]},\"kind\":\"policies\",\"question\":\"tiện thể cho mình hỏi cước giao hàng tính thế nào\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"text\":\"Phí giao hàng tiêu chuẩn toàn quốc là 30.000đ mỗi đơn hàng. Đơn hàng có giá trị sản phẩm từ 500.000đ trở lên sẽ được miễn phí vận chuyển. Phí vận chuyển sẽ được hiển thị và xác nhận trước khi bạn đặt hàng.\",\"cited_skus\":[],\"cited_clauses\":[{\"file\":\"van-chuyen\",\"clause\":2}]}",
+       "thoughtSignature": "EmAKXgFpFH0TIjIDz9MDCIMpku0iZokNvnBB9t/ZBAisDliKkLWjurfV22RdXFfGcOlUlbbBT8GDtKMFnKNbxZW1GhAQo8sZ2R+k6z1/u4BINk4mxFCEGn6q8I6/x1tHFRY="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1623,
+   "candidatesTokenCount": 91,
+   "totalTokenCount": 1714,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1623
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "c03KasKlKea3juMPkdDG-Qs"
+ },
+ "latency_ms": 1440.7,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:36:36+00:00"
+}

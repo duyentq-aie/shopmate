@@ -1,0 +1,50 @@
+{
+ "digest": "0b8f76825bb64486e333122e026c6f8869a86e312b25699d4c7e9b30a6d7db6c",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "ae17b6aacba999115cb59ff759f3caa16e4cc6597ea9eaa8f4dfd0a74abb2ea4",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"clause\":2,\"file\":\"doi-tra\",\"text\":\"Chính sách đổi trả – ShopMate Fashion\\nĐiều 2. Thời hạn đổi trả\\n1. Đổi kích cỡ hoặc màu sắc: trong vòng **7 ngày** kể từ ngày nhận hàng.\\n2. Trả hàng hoàn tiền do khách hàng đổi ý: trong vòng **7 ngày** kể từ ngày nhận hàng.\\n3. Đổi hoặc trả sản phẩm bị lỗi do nhà sản xuất, giao sai mẫu, sai kích cỡ so với đơn đặt: trong vòng **30 ngày** kể từ ngày nhận hàng.\\n4. Ngày nhận hàng được tính theo thời điểm giao hàng thành công ghi nhận trên hệ thống của đơn vị vận chuyển.\",\"title\":\"Thời hạn đổi trả\"},{\"clause\":7,\"file\":\"doi-tra\",\"text\":\"Chính sách đổi trả – ShopMate Fashion\\nĐiều 7. Quy trình yêu cầu đổi trả\\n1. Khách hàng gửi yêu cầu kèm mã đơn hàng, lý do và hình ảnh sản phẩm qua trợ lý ShopMate hoặc hotline.\\n2. Bộ phận chăm sóc khách hàng phản hồi trong vòng **24 giờ** làm việc.\\n3. Sau khi được xác nhận, khách hàng đóng gói và gửi sản phẩm về kho trong vòng **3 ngày**.\",\"title\":\"Quy trình yêu cầu đổi trả\"},{\"clause\":6,\"file\":\"doi-tra\",\"text\":\"Chính sách đổi trả – ShopMate Fashion\\nĐiều 6. Hoàn tiền\\n1. Tiền được hoàn trong vòng **5–7 ngày làm việc** kể từ khi kho xác nhận đã nhận lại sản phẩm đạt điều kiện tại Điều 3.\\n2. Đơn thanh toán khi nhận hàng (COD): hoàn tiền qua chuyển khoản ngân hàng theo thông tin khách hàng cung cấp.\\n3. Đơn thanh toán trực tuyến: hoàn tiền về đúng phương thức thanh toán ban đầu.\",\"title\":\"Hoàn tiền\"}]},\"kind\":\"policies\",\"question\":\"Shop ơi đổi size trong mấy ngày vậy?\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"text\": \"Bạn có thể đổi kích cỡ trong vòng 7 ngày kể từ ngày nhận hàng theo quy định của ShopMate Fashion.\",\n  \"cited_skus\": [],\n  \"cited_clauses\": [\n    {\n      \"file\": \"doi-tra\",\n      \"clause\": 2\n    }\n  ]\n}",
+       "thoughtSignature": "EmAKXgFpFH0TYiO/wO2rJ3mtB60s49hUZql2PeD5vgtuO3cYif11vMH8iJ/4slupxaemBYdO5RDYMr9mFBqqZVMKYcoZEabSeTMaFdJ/OL4YP8JSQsp5oaZQlBumjbDiOdA="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1646,
+   "candidatesTokenCount": 77,
+   "totalTokenCount": 1723,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1646
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "dkzKaty6PJa3g8UPu-OMoAc"
+ },
+ "latency_ms": 1433.6,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:32:23+00:00"
+}

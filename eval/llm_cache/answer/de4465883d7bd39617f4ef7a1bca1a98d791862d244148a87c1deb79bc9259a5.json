@@ -1,0 +1,50 @@
+{
+ "digest": "de4465883d7bd39617f4ef7a1bca1a98d791862d244148a87c1deb79bc9259a5",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "ae17b6aacba999115cb59ff759f3caa16e4cc6597ea9eaa8f4dfd0a74abb2ea4",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"color\":\"Be\",\"in_stock\":true,\"kind\":\"Quần kaki nam\",\"material\":\"Kaki pha spandex\",\"name\":\"Quần kaki nam ống đứng be\",\"price_vnd\":389000,\"sizes\":[\"28\",\"29\",\"30\",\"31\",\"32\",\"33\",\"34\"],\"sku\":\"SM-NAM-0047\"}],\"relaxed\":[]},\"kind\":\"products\",\"question\":\"quan kaki nam mau be size 32 con ko\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"text\": \"Quần kaki nam ống đứng be (SKU SM-NAM-0047) có giá 389.000đ và hiện còn hàng.\",\n  \"cited_skus\": [\n    \"SM-NAM-0047\"\n  ],\n  \"cited_clauses\": []\n}",
+       "thoughtSignature": "EmAKXgFpFH0ToviW6MkRlxApID5erkgIdmH2JWdTNA58lMshh/7kQb4LRebHTJaSeSjpKOSWAL14edw7xq8oYNeBBTb4tFu+/wYdeLXttK57H4JnsFwv/mbegA1DkT3VdaE="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1331,
+   "candidatesTokenCount": 77,
+   "totalTokenCount": 1408,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1331
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "REzKauuIHanE4-EP_a6ZkAU"
+ },
+ "latency_ms": 1810.0,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:31:33+00:00"
+}

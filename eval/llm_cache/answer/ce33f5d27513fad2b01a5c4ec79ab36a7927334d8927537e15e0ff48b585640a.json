@@ -1,0 +1,50 @@
+{
+ "digest": "ce33f5d27513fad2b01a5c4ec79ab36a7927334d8927537e15e0ff48b585640a",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "ae17b6aacba999115cb59ff759f3caa16e4cc6597ea9eaa8f4dfd0a74abb2ea4",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"color\":\"Đen\",\"in_stock\":true,\"kind\":\"Ví da nam\",\"material\":\"Da bò\",\"name\":\"Ví da nam dáng đứng đen\",\"price_vnd\":379000,\"sizes\":[\"Freesize\"],\"sku\":\"SM-TUI-0009\"}],\"relaxed\":[]},\"kind\":\"products\",\"question\":\"vi da nam mau den chat da bo bn tien vay mik can loai con hang\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"text\": \"ShopMate Fashion xin gửi bạn Ví da nam dáng đứng đen (SKU SM-TUI-0009), giá 379.000đ, hiện còn hàng.\",\n  \"cited_skus\": [\n    \"SM-TUI-0009\"\n  ],\n  \"cited_clauses\": []\n}",
+       "thoughtSignature": "EmAKXgFpFH0TMmMlnuNUDu5npQmqaQ4eGsoTXIoyczmzoq33RphhJPHa7JjzbADQSCpWswzqazJTSUDP4aSuNBi2eEHxtG4ESpk/VOzgnHHSF4WYLoD59o2jrj0mHteG/5E="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1318,
+   "candidatesTokenCount": 83,
+   "totalTokenCount": 1401,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1318
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "t0zKavbhPKexg8UPzNGGmQU"
+ },
+ "latency_ms": 1113.6,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:33:28+00:00"
+}

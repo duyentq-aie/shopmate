@@ -1,0 +1,50 @@
+{
+ "digest": "cd0228d02ec5b6fc458bc483e41247dd7405e76ace82533d3f3265bd3fc43fc4",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "ae17b6aacba999115cb59ff759f3caa16e4cc6597ea9eaa8f4dfd0a74abb2ea4",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"order\":{\"created\":\"2026-08-15T01:09:14+00:00\",\"fulfillments\":[],\"lines\":[{\"name\":\"Giày sneaker nữ đế độn đen\",\"quantity\":1,\"quantity_fulfilled\":0,\"sku\":\"SM-GIAY-0008\"},{\"name\":\"Áo sơ mi nữ công sở đen\",\"quantity\":3,\"quantity_fulfilled\":0,\"sku\":\"SM-NU-0037\"}],\"number\":\"88\",\"status\":\"UNFULFILLED\"}},\"kind\":\"order\",\"question\":\"Shop kiểm tra giúp mình đơn 88 với, email đặt hàng là khachhang10@example.com.\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"text\": \"Đơn hàng số 88 của bạn đang được xử lý, chưa giao. Đơn hàng bao gồm các sản phẩm: Giày sneaker nữ đế độn đen và Áo sơ mi nữ công sở đen.\", \"cited_skus\": [], \"cited_clauses\": []}",
+       "thoughtSignature": "EmAKXgFpFH0TQqh8PWOALz/jpR8tE3oB2X0D7x/fqrNmTlq/WHTfg7dyWZMoM7hIYaBm36DWywQylJ0Es9ucpCdb9Zivrbk7LHtRa7rll/fzuUKDB6imcUVSrknOjUKX+HM="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1376,
+   "candidatesTokenCount": 63,
+   "totalTokenCount": 1439,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1376
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "rkzKaqXrNfScjuMPurOsuAs"
+ },
+ "latency_ms": 1370.7,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:33:19+00:00"
+}

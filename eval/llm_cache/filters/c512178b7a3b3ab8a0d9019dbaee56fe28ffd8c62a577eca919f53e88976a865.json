@@ -1,0 +1,50 @@
+{
+ "digest": "c512178b7a3b3ab8a0d9019dbaee56fe28ffd8c62a577eca919f53e88976a865",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "27e2ade227970c84db5ee5ec975c0aad4429fd2de698616d249357431672f74a",
+  "schema_sha256": "489fb422d325ff2d910238ab1144c01789bf3a76ffb48a375cac3691bb0d1bce",
+  "input": "cho mình xem đồ đi shop",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 512,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"category\": null,\n  \"kind\": null,\n  \"color\": null,\n  \"material\": null,\n  \"size\": null,\n  \"price_min\": null,\n  \"price_max\": null,\n  \"in_stock\": null\n}",
+       "thoughtSignature": "EmAKXgFpFH0TbJTbQT/Nubbiy93DMLLR/PogwWkggQ0jihHnon5B5TD1NYtipEI2WRgcx0qCxrlHUPc/Pc8uob1WVZifsI7nt+8Oin9n725bqOGCiM4ykH8ZI+KylUbhEzE="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1528,
+   "candidatesTokenCount": 64,
+   "totalTokenCount": 1592,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1528
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "8EzKavvhMoGajuMPx-7d6A0"
+ },
+ "latency_ms": 1466.8,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:34:25+00:00"
+}

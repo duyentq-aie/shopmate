@@ -1,0 +1,50 @@
+{
+ "digest": "c5900f66605bb44f47b59ed66f201d3216027a2875afb2450cd93b3e8101fdf0",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "ae17b6aacba999115cb59ff759f3caa16e4cc6597ea9eaa8f4dfd0a74abb2ea4",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"color\":\"Xám\",\"in_stock\":true,\"kind\":\"Giày chạy bộ\",\"material\":\"Vải lưới\",\"name\":\"Giày chạy bộ siêu nhẹ xám\",\"price_vnd\":1019000,\"sizes\":[\"37\",\"38\",\"39\",\"40\",\"41\",\"42\"],\"sku\":\"SM-TT-0025\"}],\"relaxed\":[]},\"kind\":\"products\",\"question\":\"Tìm cho mình giày chạy bộ màu xám size 42 trong danh mục đồ thể thao.\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"text\": \"Bạn có thể tham khảo sản phẩm Giày chạy bộ siêu nhẹ xám (SKU SM-TT-0025) với giá 1.019.000đ, hiện còn hàng.\", \"cited_skus\": [\"SM-TT-0025\"], \"cited_clauses\": []}",
+       "thoughtSignature": "EmAKXgFpFH0Th6DB/n3bqn3Plsc8yccqwusqfA7+t/Kk5aBBs8QDnVvWDoxvX4pXcBj9MsjEmjwtT3Ip7YPycijnTRy00mxgJhO5acxXPmnBPyetrZpX19BynPM0kIEg2UY="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1339,
+   "candidatesTokenCount": 73,
+   "totalTokenCount": 1412,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1339
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "ukzKaveaBpLGjuMP0NvMuAU"
+ },
+ "latency_ms": 1018.1,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:33:30+00:00"
+}

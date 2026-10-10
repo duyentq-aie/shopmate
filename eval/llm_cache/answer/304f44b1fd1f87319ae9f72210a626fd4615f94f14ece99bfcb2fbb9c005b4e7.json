@@ -1,0 +1,50 @@
+{
+ "digest": "304f44b1fd1f87319ae9f72210a626fd4615f94f14ece99bfcb2fbb9c005b4e7",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "ae17b6aacba999115cb59ff759f3caa16e4cc6597ea9eaa8f4dfd0a74abb2ea4",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"order\":{\"created\":\"2026-08-05T19:09:20+00:00\",\"fulfillments\":[{\"created\":\"2026-10-09T11:34:28.659322+00:00\",\"status\":\"FULFILLED\",\"tracking_number\":\"SMVN979241643\"}],\"lines\":[{\"name\":\"Áo polo nam thể thao trắng\",\"quantity\":2,\"quantity_fulfilled\":2,\"sku\":\"SM-NAM-0017\"},{\"name\":\"Áo thun nam cổ tròn basic xanh rêu\",\"quantity\":2,\"quantity_fulfilled\":0,\"sku\":\"SM-NAM-0036\"}],\"number\":\"85\",\"status\":\"PARTIALLY_FULFILLED\"}},\"kind\":\"order\",\"question\":\"Shop xem giúp mình đơn 85 nha, email khachhang07@example.com\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"text\": \"Đơn hàng 85 của bạn hiện ở trạng thái đã giao một phần. Đơn gồm có Áo polo nam thể thao trắng và Áo thun nam cổ tròn basic xanh rêu, với mã vận đơn là SMVN979241643.\", \"cited_skus\": [], \"cited_clauses\": []}",
+       "thoughtSignature": "EmAKXgFpFH0Tnj3D15o+OAEXIdIJvITCUhj7MGFESkV6GKS1seTRqSO7VFSH4mhIO7SkjsJIl3v17fdpcLkUBFnU588IoMsVnQWMNxf0PDJ+/ogAPN5E3aCM9UjlOwG8E7c="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1431,
+   "candidatesTokenCount": 77,
+   "totalTokenCount": 1508,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1431
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "sEzKaojYKfDYjuMP3Zv0yQw"
+ },
+ "latency_ms": 1276.4,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:33:21+00:00"
+}

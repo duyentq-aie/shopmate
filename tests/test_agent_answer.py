@@ -126,6 +126,28 @@ def test_a_repeated_question_is_a_cache_hit_and_a_new_prompt_text_is_a_new_key(t
     assert first.text == second.text
 
 
+def test_answer_v2_differs_from_v1_only_by_the_one_sku_per_sentence_rule_and_its_example():
+    """docs/DECISIONS-phase6.md A17: v2 may target only the error type stock_mismatch (a stock claim in a sentence that names several SKUs)."""
+    v1, v2 = load_prompt("answer_v1"), load_prompt("answer_v2")
+    lines1, lines2 = v1.text.splitlines(), v2.text.splitlines()
+    removed, added = [l for l in lines1 if l not in lines2], [l for l in lines2 if l not in lines1]
+    assert removed == ["# ShopMate answer writer, prompt v1"] and added[0] == "# ShopMate answer writer, prompt v2"
+    rule, example_input, example_output = added[1:]
+    assert "exactly ONE SKU per sentence" in rule and "stock status" in rule
+    assert example_input.startswith("Input: ") and example_output.startswith("Output: ") and "SM-XXX-9003" in example_input and "SM-XXX-9004" in example_output
+    assert v1.sha256 != v2.sha256 and (v1.name, v2.name) == ("answer_v1", "answer_v2")
+    for section in ("policies", "order", "relaxed"):  # nothing about the other kinds of answer was touched
+        assert [l for l in lines1 if f"**{section}:**" in l or f"`{section}`" in l] == [l for l in lines2 if f"**{section}:**" in l or f"`{section}`" in l]
+
+
+def test_a_new_prompt_text_is_a_new_cache_key_so_v2_never_reuses_a_v1_answer(tmp_path):
+    first, client = answerer(tmp_path, {QUESTION: HONEST}, name="answer_v1")
+    second = GeminiAnswerer(first.generator, load_prompt("answer_v2"))
+    first.compose("products", QUESTION, PRODUCTS)
+    second.compose("products", QUESTION, PRODUCTS)
+    assert len(client.calls) == 2  # the same question and evidence, another prompt: a second call, not a cache hit
+
+
 def test_the_template_answerer_makes_no_call_and_is_the_fallback(tmp_path):
     answer = TemplateAnswerer().compose("products", QUESTION, PRODUCTS)
     assert answer.text == fallback_text("products", PRODUCTS) and answer.fallback_reason is None and answer.generation is None

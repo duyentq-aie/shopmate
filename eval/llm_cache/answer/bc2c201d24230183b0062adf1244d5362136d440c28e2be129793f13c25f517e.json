@@ -1,0 +1,50 @@
+{
+ "digest": "bc2c201d24230183b0062adf1244d5362136d440c28e2be129793f13c25f517e",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "ae17b6aacba999115cb59ff759f3caa16e4cc6597ea9eaa8f4dfd0a74abb2ea4",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"clause\":5,\"file\":\"bao-hanh\",\"text\":\"Chính sách bảo hành – ShopMate Fashion\\nĐiều 5. Thời gian xử lý và phí vận chuyển bảo hành\\n1. Thời gian xử lý bảo hành: **7–14 ngày làm việc** kể từ khi kho nhận được sản phẩm.\\n2. ShopMate Fashion chịu phí vận chuyển hai chiều cho sản phẩm được chấp nhận bảo hành.\\n3. Nếu sản phẩm không thuộc diện bảo hành, khách hàng chịu phí gửi trả lại là **30.000đ**.\",\"title\":\"Thời gian xử lý và phí vận chuyển bảo hành\"},{\"clause\":3,\"file\":\"van-chuyen\",\"text\":\"Chính sách vận chuyển – ShopMate Fashion\\nĐiều 3. Thời gian giao hàng\\n1. Nội thành Thành phố Hồ Chí Minh: **1–2 ngày** làm việc.\\n2. Hà Nội, Đà Nẵng và các tỉnh, thành phố khác: **2–5 ngày** làm việc.\\n3. Đơn hàng đặt trước **14 giờ** được xử lý và bàn giao cho đơn vị vận chuyển trong ngày; đơn đặt sau 14 giờ được xử lý vào ngày làm việc tiếp theo.\\n4. Thời gian giao hàng có thể kéo dài thêm trong dịp lễ, Tết hoặc do thiên tai, dịch bệnh.\",\"title\":\"Thời gian giao hàng\"},{\"clause\":6,\"file\":\"bao-hanh\",\"text\":\"Chính sách bảo hành – ShopMate Fashion\\nĐiều 6. Cách gửi yêu cầu bảo hành\\n1. Gửi yêu cầu qua trợ lý ShopMate hoặc hotline, kèm mã đơn hàng, mô tả lỗi và hình ảnh hoặc video.\\n2. Bộ phận chăm sóc khách hàng phản hồi trong vòng **48 giờ** làm việc và hướng dẫn gửi sản phẩm.\",\"title\":\"Cách gửi yêu cầu bảo hành\"}]},\"kind\":\"policies\",\"question\":\"Thời gian xử lý bảo hành mất bao lâu và bên nào chịu phí vận chuyển?\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"text\": \"Thời gian xử lý bảo hành là 7–14 ngày làm việc kể từ khi kho nhận được sản phẩm. ShopMate Fashion chịu phí vận chuyển hai chiều cho sản phẩm được chấp nhận bảo hành.\", \"cited_skus\": [], \"cited_clauses\": [{\"file\": \"bao-hanh\", \"clause\": 5}]}",
+       "thoughtSignature": "EmAKXgFpFH0TqanPFh6JLe80d5NtmXAoTAzFl78oq18kTMc/PDQ5ANkG5QQqvgX61YCDTQNqnOg6RRflG/exOqixKytf6XBvgvBKEruRD8XCevMwB4mnAESkME7MvDe6H3Y="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1644,
+   "candidatesTokenCount": 74,
+   "totalTokenCount": 1718,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1644
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "6EzKatSoN_-kjuMPrPm3wAw"
+ },
+ "latency_ms": 1923.4,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:34:17+00:00"
+}

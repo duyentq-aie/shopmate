@@ -17,6 +17,7 @@ ShopMate is an AI sales assistant for e-commerce: a retrieval-augmented (RAG) ag
 | `data/policies/` | Policy documents of the fictional shop (đổi trả, vận chuyển, bảo hành), with numbered clauses. |
 | `eval/golden/` | Golden evaluation set (`golden.vi.json`), its schema, drafting and validation scripts. |
 | `eval/` | Retrieval evaluation: runner (`run_retrieval_eval.py`), metrics, Phase 3B comparison, and the Phase 4 experiment 1 rule (`exp1_rule.py`), perturbation set (`perturbation/`) and comparison (`compare_exp1.py`). Results in `eval/results/`. |
+| `eval/run_phase6_eval.py`, `eval/analyze_phase6.py`, `eval/phase6*` | Phase 6 dev evaluation of the agent: the runner (`uv run python -m eval.run_phase6_eval`, offline from `eval/llm_cache/`, `--live` to fetch), the scoring rules written before any run, 13 scripted multi-turn cases, and the offline analysis of fallback rates and unsupported claims. Results and error analysis: `docs/RESULTS-phase6.md`. |
 | `scripts/` | Generators, seeders for Saleor channel `vn`, the drift report and the Phase 1 smoke test. `scripts/demo_requests.py` runs ten hand-written questions through the pipeline and writes their traces (`uv run python -m scripts.demo_requests`, offline from the cache; `--live` fetches missing answers within the free-tier guards). |
 | `tests/` | `uv run pytest`: unit tests, no services. `uv run pytest -m integration`: live Qdrant, model and Saleor. `scripts/test_all.sh` runs both. |
 | `docs/SETUP.md` | How the local environment was set up, Saleor app permissions, seeding commands. |

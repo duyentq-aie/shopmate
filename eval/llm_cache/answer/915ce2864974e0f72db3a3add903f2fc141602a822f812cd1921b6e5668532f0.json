@@ -1,0 +1,50 @@
+{
+ "digest": "915ce2864974e0f72db3a3add903f2fc141602a822f812cd1921b6e5668532f0",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "ae17b6aacba999115cb59ff759f3caa16e4cc6597ea9eaa8f4dfd0a74abb2ea4",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"color\":\"Trắng\",\"in_stock\":true,\"kind\":\"Giày sneaker nữ\",\"material\":\"Vải canvas\",\"name\":\"Giày sneaker nữ slip-on trắng\",\"price_vnd\":559000,\"sizes\":[\"35\",\"36\",\"37\",\"38\"],\"sku\":\"SM-GIAY-0002\"},{\"color\":\"Trắng\",\"in_stock\":true,\"kind\":\"Giày sneaker nữ\",\"material\":\"Da tổng hợp\",\"name\":\"Giày sneaker nữ cổ thấp trắng\",\"price_vnd\":999000,\"sizes\":[\"35\",\"36\",\"37\",\"38\",\"39\"],\"sku\":\"SM-GIAY-0032\"},{\"color\":\"Hồng\",\"in_stock\":true,\"kind\":\"Giày sneaker nữ\",\"material\":\"Vải canvas\",\"name\":\"Giày sneaker nữ đế độn hồng\",\"price_vnd\":689000,\"sizes\":[\"37\",\"38\",\"39\"],\"sku\":\"SM-GIAY-0038\"},{\"color\":\"Đen\",\"in_stock\":false,\"kind\":\"Giày sneaker nữ\",\"material\":\"Da tổng hợp\",\"name\":\"Giày sneaker nữ cổ thấp đen\",\"price_vnd\":819000,\"sizes\":[\"36\",\"37\",\"38\",\"39\"],\"sku\":\"SM-GIAY-0014\"},{\"color\":\"Hồng\",\"in_stock\":false,\"kind\":\"Giày sneaker nữ\",\"material\":\"Da tổng hợp\",\"name\":\"Giày sneaker nữ slip-on hồng\",\"price_vnd\":1179000,\"sizes\":[\"35\",\"36\",\"37\",\"38\",\"39\"],\"sku\":\"SM-GIAY-0020\"}],\"relaxed\":[]},\"kind\":\"products\",\"question\":\"tim sneaker nu size 37 shop oi\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"text\": \"ShopMate Fashion xin giới thiệu các mẫu giày sneaker nữ size 37 gồm: Giày sneaker nữ slip-on trắng (SKU SM-GIAY-0002) giá 559.000đ còn hàng, Giày sneaker nữ cổ thấp trắng (SKU SM-GIAY-0032) giá 999.000đ còn hàng, Giày sneaker nữ đế độn hồng (SKU SM-GIAY-0038) giá 689.000đ còn hàng, Giày sneaker nữ cổ thấp đen (SKU SM-GIAY-0014) giá 819.000đ hết hàng và Giày sneaker nữ slip-on hồng (SKU SM-GIAY-0020) giá 1.179.000đ hết hàng.\", \"cited_skus\": [\"SM-GIAY-0002\", \"SM-GIAY-0032\", \"SM-GIAY-0038\", \"SM-GIAY-0014\", \"SM-GIAY-0020\"], \"cited_clauses\": []}",
+       "thoughtSignature": "EmAKXgFpFH0TrTxTULml7CL1PHMg8JsorGqIlTi3Bh6UkvoEBtEhpRm83cAZWA+SyJcd/yiPSyjR+9LW6C4TAFK+U3zKoD/693ABmmHHcHxtsNb7FjFNfGY1ZubMTdAjFw4="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1617,
+   "candidatesTokenCount": 270,
+   "totalTokenCount": 1887,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1617
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "NEzKaueuN__YjuMPmYmHuAU"
+ },
+ "latency_ms": 2076.7,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:31:17+00:00"
+}

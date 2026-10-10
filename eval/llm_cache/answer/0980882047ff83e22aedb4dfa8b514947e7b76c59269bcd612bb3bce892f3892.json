@@ -1,0 +1,50 @@
+{
+ "digest": "0980882047ff83e22aedb4dfa8b514947e7b76c59269bcd612bb3bce892f3892",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "ae17b6aacba999115cb59ff759f3caa16e4cc6597ea9eaa8f4dfd0a74abb2ea4",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"order\":{\"created\":\"2026-08-20T13:44:52+00:00\",\"fulfillments\":[],\"lines\":[{\"name\":\"Áo bra thể thao nữ nâng đỡ vừa trắng\",\"quantity\":3,\"quantity_fulfilled\":0,\"sku\":\"SM-TT-0032\"},{\"name\":\"Tất cổ ngắn set 5 đôi xám\",\"quantity\":3,\"quantity_fulfilled\":0,\"sku\":\"SM-PK-0015\"},{\"name\":\"Túi xách nữ tote trắng\",\"quantity\":3,\"quantity_fulfilled\":0,\"sku\":\"SM-TUI-0021\"}],\"number\":\"91\",\"status\":\"UNFULFILLED\"}},\"kind\":\"order\",\"question\":\"don 91 sao lau giao the shop oi, mail dat hang khachhang04@example.com nha\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"text\": \"Đơn hàng số 91 của bạn đang được xử lý, chưa giao. Đơn hàng bao gồm Áo bra thể thao nữ nâng đỡ vừa trắng, Tất cổ ngắn set 5 đôi xám và Túi xách nữ tote trắng.\", \"cited_skus\": [], \"cited_clauses\": []}",
+       "thoughtSignature": "EmAKXgFpFH0TBs1FlVhE/8KSJ9R2ulC6N6y7YE5Xf9F8+XOzj9mpY0TuzQuJ2OuO1HdiIH5OCFVyHpgRHiOzGAZzJQJzXoEVZgpyj3BVLcH3nwXvmPrumJR1GSGqrEwPMGs="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1410,
+   "candidatesTokenCount": 70,
+   "totalTokenCount": 1480,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1410
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "7EzKavbjLeaumNMPze754As"
+ },
+ "latency_ms": 1102.5,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:34:20+00:00"
+}

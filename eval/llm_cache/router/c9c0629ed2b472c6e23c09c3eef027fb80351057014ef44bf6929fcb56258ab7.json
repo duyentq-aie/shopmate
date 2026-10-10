@@ -1,0 +1,50 @@
+{
+ "digest": "c9c0629ed2b472c6e23c09c3eef027fb80351057014ef44bf6929fcb56258ab7",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "chưa nhớ số đơn với cả email luôn",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"intent\": \"order_status\"}",
+       "thoughtSignature": "EmAKXgFpFH0ToIQ7iqv+fBR+yS5yYXAkxpjxgv2jHsJ1RRC5KKD5qQq+qZqby2U/Ech0R1or+OfHF2qwoqJCh4J12yrNEn/KLDHGNVKgZWVciywyReRdIIPl4h+2f7rfRws="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 887,
+   "candidatesTokenCount": 8,
+   "totalTokenCount": 895,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 887
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "Mk3Kav2hCNDx4-EPku3I4QY"
+ },
+ "latency_ms": 1061.7,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:35:30+00:00"
+}

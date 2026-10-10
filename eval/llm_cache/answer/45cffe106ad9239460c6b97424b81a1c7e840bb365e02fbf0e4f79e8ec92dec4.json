@@ -1,0 +1,50 @@
+{
+ "digest": "45cffe106ad9239460c6b97424b81a1c7e840bb365e02fbf0e4f79e8ec92dec4",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "ae17b6aacba999115cb59ff759f3caa16e4cc6597ea9eaa8f4dfd0a74abb2ea4",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"color\":\"Bạc\",\"in_stock\":true,\"kind\":\"Kính mát\",\"material\":\"Nhựa acetate\",\"name\":\"Kính mát gọng vuông bạc\",\"price_vnd\":319000,\"sizes\":[\"Freesize\"],\"sku\":\"SM-PK-0018\"},{\"color\":\"Bạc\",\"in_stock\":true,\"kind\":\"Kính mát\",\"material\":\"Nhựa acetate\",\"name\":\"Kính mát gọng tròn bạc\",\"price_vnd\":199000,\"sizes\":[\"Freesize\"],\"sku\":\"SM-PK-0023\"},{\"color\":\"Vàng\",\"in_stock\":true,\"kind\":\"Kính mát\",\"material\":\"Nhựa acetate\",\"name\":\"Kính mát phi công vàng\",\"price_vnd\":399000,\"sizes\":[\"Freesize\"],\"sku\":\"SM-PK-0003\"},{\"color\":\"Vàng\",\"in_stock\":true,\"kind\":\"Kính mát\",\"material\":\"Nhựa acetate\",\"name\":\"Kính mát gọng vuông vàng\",\"price_vnd\":299000,\"sizes\":[\"Freesize\"],\"sku\":\"SM-PK-0028\"},{\"color\":\"Đen\",\"in_stock\":false,\"kind\":\"Kính mát\",\"material\":\"Nhựa acetate\",\"name\":\"Kính mát phi công đen\",\"price_vnd\":209000,\"sizes\":[\"Freesize\"],\"sku\":\"SM-PK-0008\"}],\"relaxed\":[\"color\"]},\"kind\":\"products\",\"question\":\"kinh mat nhua acetate mau do gia duoi 500k co k a\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"text\": \"ShopMate Fashion gởi bạn một số mẫu kính mát hiện có: Kính mát gọng vuông bạc (SKU SM-PK-0018) giá 319.000đ còn hàng, Kính mát gọng tròn bạc (SKU SM-PK-0023) giá 199.000đ còn hàng, Kính mát phi công vàng (SKU SM-PK-0003) giá 399.000đ còn hàng, Kính mát gọng vuông vàng (SKU SM-PK-0028) giá 299.000đ còn hàng và Kính mát phi công đen (SKU SM-PK-0008) giá 209.000đ hết hàng.\", \"cited_skus\": [\"SM-PK-0018\", \"SM-PK-0023\", \"SM-PK-0003\", \"SM-PK-0028\", \"SM-PK-0008\"], \"cited_clauses\": []}",
+       "thoughtSignature": "EmAKXgFpFH0ThA/OMo1Sgsv0Bn95Si7701vJns2bnvXljZCesd83sJr6/DOajbJRRwdTiZEMiv8tTEZwqVk1fteshcNm6Gh53UIfbkMDiHPu+r+yssBZKiiaOlQInDIf2HA="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1564,
+   "candidatesTokenCount": 240,
+   "totalTokenCount": 1804,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1564
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "u0zKaryrO8OFg8UP-qiWiQc"
+ },
+ "latency_ms": 1629.6,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:33:32+00:00"
+}

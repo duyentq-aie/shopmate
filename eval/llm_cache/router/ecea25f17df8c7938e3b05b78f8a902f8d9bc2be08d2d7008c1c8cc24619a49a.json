@@ -1,0 +1,50 @@
+{
+ "digest": "ecea25f17df8c7938e3b05b78f8a902f8d9bc2be08d2d7008c1c8cc24619a49a",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "đơn 91, số điện thoại mình là 0912345678",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"intent\": \"order_status\"\n}",
+       "thoughtSignature": "EmAKXgFpFH0TGozUaARd2u0EK1zVtr9hWmyX4BAf6YqTz8L36u6YkdDQOjn5iBGxN4GCK9VRvH5fsGlE7teTCfVlbMoQ7rasrlN/Vd0rSiNGRLqC1vGWQxdLL8etaA/kS/g="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 900,
+   "candidatesTokenCount": 13,
+   "totalTokenCount": 913,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 900
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "dU3KavCQD8e3g8UPpPXZkAU"
+ },
+ "latency_ms": 810.4,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:36:37+00:00"
+}

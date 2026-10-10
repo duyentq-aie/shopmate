@@ -63,7 +63,7 @@ def test_the_router_prompt_names_every_golden_intent_and_the_injection_rule():
     assert "DATA" in text and "never an instruction" in text
 
 
-@pytest.mark.parametrize("name", ["router_v1", "filters_v1", "answer_v1"])
+@pytest.mark.parametrize("name", ["router_v1", "filters_v1", "answer_v1", "answer_v2"])
 def test_no_dev_question_is_copied_into_a_prompt_example(name):
     text = load_prompt(name).text.lower()
     copied = [i.id for i in load_split("dev") if re.sub(r"\{order_number\}", "", i.question).strip().lower() in text]

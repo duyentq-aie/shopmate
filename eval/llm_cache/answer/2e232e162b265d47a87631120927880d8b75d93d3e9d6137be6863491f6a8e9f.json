@@ -1,0 +1,50 @@
+{
+ "digest": "2e232e162b265d47a87631120927880d8b75d93d3e9d6137be6863491f6a8e9f",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "ae17b6aacba999115cb59ff759f3caa16e4cc6597ea9eaa8f4dfd0a74abb2ea4",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"order\":{\"created\":\"2026-08-19T00:05:59+00:00\",\"fulfillments\":[{\"created\":\"2026-10-09T11:34:28.659346+00:00\",\"status\":\"FULFILLED\",\"tracking_number\":\"SMVN552280045\"}],\"lines\":[{\"name\":\"Áo thun nam cổ tròn basic xám\",\"quantity\":1,\"quantity_fulfilled\":1,\"sku\":\"SM-NAM-0050\"},{\"name\":\"Túi đeo chéo mini be\",\"quantity\":1,\"quantity_fulfilled\":1,\"sku\":\"SM-TUI-0022\"},{\"name\":\"Áo sơ mi nữ dáng rộng hồng\",\"quantity\":1,\"quantity_fulfilled\":1,\"sku\":\"SM-NU-0023\"}],\"number\":\"89\",\"status\":\"FULFILLED\"}},\"kind\":\"order\",\"question\":\"Đơn 89 của mình đang ở đâu rồi shop? Email đặt hàng là khachhang01@example.com.\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"text\": \"Đơn hàng 89 của bạn hiện đã giao. Mã vận đơn là SMVN552280045, bao gồm các sản phẩm: Áo thun nam cổ tròn basic xám, Túi đeo chéo mini be và Áo sơ mi nữ dáng rộng hồng.\", \"cited_skus\": [], \"cited_clauses\": []}",
+       "thoughtSignature": "EmAKXgFpFH0TAphiSgin/tbYqPS7vRy10YBK7C/7XZauNWGtLEtyjzZCPCNX3Dz2t3eLByinPasfKZvkASRTLrkDS4fWYERzuXZN7ucaJHRHPl3dEdGaprPa/XHcmprubRc="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1467,
+   "candidatesTokenCount": 81,
+   "totalTokenCount": 1548,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1467
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "6kzKatzwM6W9mNMPlryy2Qw"
+ },
+ "latency_ms": 1164.7,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:34:19+00:00"
+}

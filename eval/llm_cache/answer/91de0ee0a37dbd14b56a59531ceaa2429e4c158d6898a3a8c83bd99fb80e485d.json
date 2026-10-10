@@ -1,0 +1,50 @@
+{
+ "digest": "91de0ee0a37dbd14b56a59531ceaa2429e4c158d6898a3a8c83bd99fb80e485d",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "ae17b6aacba999115cb59ff759f3caa16e4cc6597ea9eaa8f4dfd0a74abb2ea4",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"clause\":2,\"file\":\"doi-tra\",\"text\":\"Chính sách đổi trả – ShopMate Fashion\\nĐiều 2. Thời hạn đổi trả\\n1. Đổi kích cỡ hoặc màu sắc: trong vòng **7 ngày** kể từ ngày nhận hàng.\\n2. Trả hàng hoàn tiền do khách hàng đổi ý: trong vòng **7 ngày** kể từ ngày nhận hàng.\\n3. Đổi hoặc trả sản phẩm bị lỗi do nhà sản xuất, giao sai mẫu, sai kích cỡ so với đơn đặt: trong vòng **30 ngày** kể từ ngày nhận hàng.\\n4. Ngày nhận hàng được tính theo thời điểm giao hàng thành công ghi nhận trên hệ thống của đơn vị vận chuyển.\",\"title\":\"Thời hạn đổi trả\"},{\"clause\":5,\"file\":\"van-chuyen\",\"text\":\"Chính sách vận chuyển – ShopMate Fashion\\nĐiều 5. Thanh toán khi nhận hàng (COD) và kiểm tra hàng\\n1. Hỗ trợ thanh toán khi nhận hàng (COD) cho đơn hàng có giá trị đến **5.000.000đ**.\\n2. Khách hàng được **kiểm tra hàng** (xem sản phẩm, không thử) trước khi thanh toán.\\n3. Nếu sản phẩm không đúng mẫu đã đặt, khách hàng có quyền từ chối nhận và không phải trả phí.\",\"title\":\"Thanh toán khi nhận hàng (COD) và kiểm tra hàng\"},{\"clause\":1,\"file\":\"van-chuyen\",\"text\":\"Chính sách vận chuyển – ShopMate Fashion\\nĐiều 1. Phạm vi giao hàng\\n1. ShopMate Fashion giao hàng trên toàn lãnh thổ Việt Nam.\\n2. Hiện chưa hỗ trợ giao hàng quốc tế.\\n3. Hàng được gửi đi từ kho tại Thành phố Hồ Chí Minh.\",\"title\":\"Phạm vi giao hàng\"}]},\"kind\":\"policies\",\"question\":\"đơn trên 500k có free ship ko shop?\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"text\": \"Xin lỗi bạn, hiện tại chúng tôi không có thông tin về chính sách miễn phí vận chuyển cho đơn hàng trên 500k.\",\n  \"cited_skus\": [],\n  \"cited_clauses\": []\n}",
+       "thoughtSignature": "EmAKXgFpFH0TTyE4Rnt86VyAXcqMlk1hqnR4lfnUcoulnka4vSMfdti5Ckq5IifUbjgN/cLl0rWHTOn2aq1abiG6HMg/4AEbtP0sEVxWGUJ239WuPCw2WwAJlH2fIx6eNTA="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1639,
+   "candidatesTokenCount": 56,
+   "totalTokenCount": 1695,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1639
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "ekzKaoOEFKqsjuMPh8Di0Qw"
+ },
+ "latency_ms": 1125.3,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:32:26+00:00"
+}

@@ -1,0 +1,50 @@
+{
+ "digest": "972e9d5b5e0ba746740728a63da71705c5a7d911d92b9e782d80f1c276e49163",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "ae17b6aacba999115cb59ff759f3caa16e4cc6597ea9eaa8f4dfd0a74abb2ea4",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"clause\":6,\"file\":\"van-chuyen\",\"text\":\"Chính sách vận chuyển – ShopMate Fashion\\nĐiều 6. Giao hàng không thành công\\n1. Đơn vị vận chuyển liên hệ giao lại tối đa **2 lần**.\\n2. Sau 2 lần giao không thành công, đơn hàng được hoàn về kho và tự động hủy.\\n3. Khách hàng từ chối nhận hàng không có lý do chính đáng từ **2 lần** trở lên có thể bị tạm ngưng hình thức COD.\",\"title\":\"Giao hàng không thành công\"},{\"clause\":2,\"file\":\"van-chuyen\",\"text\":\"Chính sách vận chuyển – ShopMate Fashion\\nĐiều 2. Phí vận chuyển\\n1. Phí giao hàng tiêu chuẩn toàn quốc: **30.000đ** mỗi đơn hàng.\\n2. **Miễn phí vận chuyển** cho đơn hàng có giá trị sản phẩm từ **500.000đ** trở lên (chưa tính phí vận chuyển, sau khi trừ giảm giá).\\n3. Phí vận chuyển được hiển thị và xác nhận trước khi đặt hàng.\",\"title\":\"Phí vận chuyển\"},{\"clause\":4,\"file\":\"van-chuyen\",\"text\":\"Chính sách vận chuyển – ShopMate Fashion\\nĐiều 4. Theo dõi đơn hàng\\n1. Khi đơn hàng được giao cho đơn vị vận chuyển, khách hàng nhận được **mã vận đơn** để theo dõi.\\n2. Khách hàng có thể hỏi trạng thái đơn hàng qua trợ lý ShopMate bằng mã đơn hàng.\",\"title\":\"Theo dõi đơn hàng\"}]},\"kind\":\"policies\",\"question\":\"phi van chuyen giao hang ben shop tinh the nao vay\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"text\": \"Phí giao hàng tiêu chuẩn toàn quốc là 30.000đ mỗi đơn hàng. Bên cạnh đó, shop miễn phí vận chuyển cho đơn hàng có giá trị sản phẩm từ 500.000đ trở lên chưa tính phí vận chuyển và sau khi trừ giảm giá.\", \"cited_skus\": [], \"cited_clauses\": [{\"file\": \"van-chuyen\", \"clause\": 2}]}",
+       "thoughtSignature": "EmAKXgFpFH0TH4ZWZORiX8QeZYgZ7VtONwU0RmwfrQOGudrE5o+pUv4W03vZfXh76Ye1jMsv9xFabGFZ7RwU2xPKVwyKyYbhS1g901d/OoR2ZCPudoUconhdkJwJlun/0eE="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1592,
+   "candidatesTokenCount": 94,
+   "totalTokenCount": 1686,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1592
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "vUzKaqiHL7ywmNMP-IGWwAo"
+ },
+ "latency_ms": 1288.6,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:33:34+00:00"
+}

@@ -1,0 +1,50 @@
+{
+ "digest": "dcb84daa3fc399461310342778b273df799b357a719738bb40360fe18702b677",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "27e2ade227970c84db5ee5ec975c0aad4429fd2de698616d249357431672f74a",
+  "schema_sha256": "489fb422d325ff2d910238ab1144c01789bf3a76ffb48a375cac3691bb0d1bce",
+  "input": "cho mình xem đồ đi shop áo sơ mi nam màu trắng",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 512,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"category\": null,\n  \"kind\": \"Áo sơ mi nam\",\n  \"color\": \"Trắng\",\n  \"material\": null,\n  \"size\": null,\n  \"price_min\": null,\n  \"price_max\": null,\n  \"in_stock\": null\n}",
+       "thoughtSignature": "EmAKXgFpFH0TOpzLaHR811Kl/TYZbPstkoUIXGDydAWH5PThAntXzH/BcGvxW4Yg90EJCsyrLXqbYn02vH1AukashvjBRv+VcYDSt9jZqLFp2EsA+n3C9F8lcfUHKPe/d+M="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1534,
+   "candidatesTokenCount": 71,
+   "totalTokenCount": 1605,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1534
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "9EzKauCsA6zRjuMPheuL2QY"
+ },
+ "latency_ms": 1493.7,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:34:28+00:00"
+}

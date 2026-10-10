@@ -1,0 +1,50 @@
+{
+ "digest": "37fd5ab80fae58679dec59307e2e944281af12b9cf3ee6a26b2082b7d98efb85",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "thử lại giúp mình: đơn 84, email là sai2@example.com nhé",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"intent\": \"order_status\"}",
+       "thoughtSignature": "EmAKXgFpFH0T7mjU0pxlt0YkyvltAWezOixnMFJw5RkjrkDzJ2f6Pp9yTBy3Uq584Gck7iWHLhSibS2Nkmf2lqq0wKoj4V3r06ny2899UpGumr/3ZnsVvFfEsgvLvFwTqhM="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 898,
+   "candidatesTokenCount": 8,
+   "totalTokenCount": 906,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 898
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "NU3KavPdMuaumNMPze754As"
+ },
+ "latency_ms": 1228.1,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:35:34+00:00"
+}

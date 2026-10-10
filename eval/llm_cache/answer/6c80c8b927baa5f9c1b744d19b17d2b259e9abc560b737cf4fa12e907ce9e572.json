@@ -1,0 +1,50 @@
+{
+ "digest": "6c80c8b927baa5f9c1b744d19b17d2b259e9abc560b737cf4fa12e907ce9e572",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "ae17b6aacba999115cb59ff759f3caa16e4cc6597ea9eaa8f4dfd0a74abb2ea4",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"color\":\"Đen\",\"in_stock\":true,\"kind\":\"Áo khoác nữ\",\"material\":\"Len\",\"name\":\"Áo khoác nữ blazer đen\",\"price_vnd\":319000,\"sizes\":[\"S\",\"M\",\"L\",\"XL\"],\"sku\":\"SM-NU-0020\"},{\"color\":\"Trắng\",\"in_stock\":true,\"kind\":\"Áo khoác nữ\",\"material\":\"Len\",\"name\":\"Áo khoác nữ blazer trắng\",\"price_vnd\":779000,\"sizes\":[\"XL\",\"XXL\"],\"sku\":\"SM-NU-0048\"},{\"color\":\"Be\",\"in_stock\":true,\"kind\":\"Áo khoác nữ\",\"material\":\"Len\",\"name\":\"Áo khoác nữ gió chống nắng be\",\"price_vnd\":379000,\"sizes\":[\"L\",\"XL\"],\"sku\":\"SM-NU-0034\"},{\"color\":\"Trắng\",\"in_stock\":true,\"kind\":\"Áo khoác nữ\",\"material\":\"Len\",\"name\":\"Áo khoác nữ gió chống nắng trắng\",\"price_vnd\":309000,\"sizes\":[\"S\",\"M\",\"L\",\"XL\"],\"sku\":\"SM-NU-0013\"},{\"color\":\"Hồng\",\"in_stock\":true,\"kind\":\"Áo khoác nữ\",\"material\":\"Len\",\"name\":\"Áo khoác nữ gió chống nắng hồng\",\"price_vnd\":419000,\"sizes\":[\"S\",\"M\",\"L\",\"XL\"],\"sku\":\"SM-NU-0006\"}],\"relaxed\":[]},\"kind\":\"products\",\"question\":\"áo khoác len nữ còn mẫu nào ko shop?\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"text\": \"ShopMate Fashion xin gửi bạn các mẫu áo khoác nữ chất liệu len hiện có: Áo khoác nữ blazer đen (SKU SM-NU-0020) giá 319.000đ, Áo khoác nữ blazer trắng (SKU SM-NU-0048) giá 779.000đ, Áo khoác nữ gió chống nắng be (SKU SM-NU-0034) giá 379.000đ, Áo khoác nữ gió chống nắng trắng (SKU SM-NU-0013) giá 309.000đ và Áo khoác nữ gió chống nắng hồng (SKU SM-NU-0006) giá 419.000đ. Tất cả các sản phẩm này hiện đều còn hàng.\", \"cited_skus\": [\"SM-NU-0020\", \"SM-NU-0048\", \"SM-NU-0034\", \"SM-NU-0013\", \"SM-NU-0006\"], \"cited_clauses\": []}",
+       "thoughtSignature": "EmAKXgFpFH0T6ZEwotIsyuktz7VcAaBjXgWrrRtNyJ7c2Q0AwVIHQu/W1omA1N5fYdjx1B4EVzIs1Djz15Mb6EGRN4AxnvvJUSfJF+ZhCFXWfgSb/wNYLPDLuGEQS3irg0c="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1575,
+   "candidatesTokenCount": 253,
+   "totalTokenCount": 1828,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1575
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "QUzKaryvG4Ha4-EPw7Ki0AQ"
+ },
+ "latency_ms": 1357.1,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:31:29+00:00"
+}

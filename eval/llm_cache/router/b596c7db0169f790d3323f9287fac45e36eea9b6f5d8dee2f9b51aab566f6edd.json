@@ -1,0 +1,50 @@
+{
+ "digest": "b596c7db0169f790d3323f9287fac45e36eea9b6f5d8dee2f9b51aab566f6edd",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "email chính xác là khachhang02@example.com, xem đơn 84 giúp mình",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"intent\": \"order_status\"}",
+       "thoughtSignature": "EmAKXgFpFH0TT6r558gOQU/L8cEDZDd9kL/Lb2qHQ4KS+YjVCMfpdMeVvAzb/3QHfZ+pbdHloSYQZCNQ4xkux2EpGVHI1xiUTY2eF6euMOU/IWLfKwsoWaw9aJdOi4+JvCo="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 899,
+   "candidatesTokenCount": 8,
+   "totalTokenCount": 907,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 899
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "OU3KavC3DrGejuMPwejm-QQ"
+ },
+ "latency_ms": 815.5,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:35:37+00:00"
+}

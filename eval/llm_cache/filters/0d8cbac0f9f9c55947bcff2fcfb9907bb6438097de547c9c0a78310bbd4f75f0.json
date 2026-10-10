@@ -1,0 +1,50 @@
+{
+ "digest": "0d8cbac0f9f9c55947bcff2fcfb9907bb6438097de547c9c0a78310bbd4f75f0",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "27e2ade227970c84db5ee5ec975c0aad4429fd2de698616d249357431672f74a",
+  "schema_sha256": "489fb422d325ff2d910238ab1144c01789bf3a76ffb48a375cac3691bb0d1bce",
+  "input": "mình muốn mua đồ màu đen thôi giá dưới 500k cũng được",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 512,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"category\": null,\n  \"kind\": null,\n  \"color\": \"Đen\",\n  \"material\": null,\n  \"size\": null,\n  \"price_min\": null,\n  \"price_max\": 500000,\n  \"in_stock\": null\n}",
+       "thoughtSignature": "EmAKXgFpFH0T78nbyfC4ePZdYTrJu65cl79XvHfEC+w6FKPlhkzuAuIjVyZEyeK578rBscafCOgiqvi8kMAFtmZNp43yaaryR0GIWzrmJj2jOi/9rLvggIV9okej3z1uGbY="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1539,
+   "candidatesTokenCount": 72,
+   "totalTokenCount": 1611,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1539
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "J03KavGDA7Hdg8UPkp2R2Aw"
+ },
+ "latency_ms": 1351.7,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:35:19+00:00"
+}

@@ -1,0 +1,50 @@
+{
+ "digest": "90f997666dc640bbf45d1a8904b7ef36bab2332fb597d4e5b811f2dbc3d901c9",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "ae17b6aacba999115cb59ff759f3caa16e4cc6597ea9eaa8f4dfd0a74abb2ea4",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"clause\":3,\"file\":\"bao-hanh\",\"text\":\"Chính sách bảo hành – ShopMate Fashion\\nĐiều 3. Trường hợp không được bảo hành\\n1. Sản phẩm hư hỏng do sử dụng sai cách, va đập, rơi vỡ, cháy nổ hoặc tiếp xúc hóa chất.\\n2. Sản phẩm bị mòn tự nhiên trong quá trình sử dụng (mòn đế, phai màu tự nhiên, trầy xước bề mặt).\\n3. Sản phẩm đã được sửa chữa tại nơi khác ngoài ShopMate Fashion.\\n4. Sản phẩm da bị ẩm mốc do bảo quản không đúng hướng dẫn.\",\"title\":\"Trường hợp không được bảo hành\"},{\"clause\":1,\"file\":\"bao-hanh\",\"text\":\"Chính sách bảo hành – ShopMate Fashion\\nĐiều 1. Sản phẩm được bảo hành\\n1. Giày dép (giày sneaker, giày tây, giày cao gót, giày chạy bộ, sandal): bảo hành **6 tháng** đối với lỗi bong keo, tuột chỉ, gãy đế.\\n2. Túi xách, túi đeo chéo, balo, ví và thắt lưng làm từ **da bò**: bảo hành **12 tháng** đối với lỗi đường may, khóa kéo, khóa cài.\\n3. Túi, ví, thắt lưng làm từ chất liệu khác: bảo hành **6 tháng** đối với lỗi đường may và khóa kéo.\\n4. Kính mát và phụ kiện kim loại: bảo hành **3 tháng** đối với lỗi gọng, bản lề.\\n5. Quần áo và đồ thể thao: không bảo hành; lỗi do nhà sản xuất được xử lý theo Chính sách đổi trả (Điều 2, khoản 3: đổi trả trong 30 ngày).\",\"title\":\"Sản phẩm được bảo hành\"},{\"clause\":6,\"file\":\"van-chuyen\",\"text\":\"Chính sách vận chuyển – ShopMate Fashion\\nĐiều 6. Giao hàng không thành công\\n1. Đơn vị vận chuyển liên hệ giao lại tối đa **2 lần**.\\n2. Sau 2 lần giao không thành công, đơn hàng được hoàn về kho và tự động hủy.\\n3. Khách hàng từ chối nhận hàng không có lý do chính đáng từ **2 lần** trở lên có thể bị tạm ngưng hình thức COD.\",\"title\":\"Giao hàng không thành công\"}]},\"kind\":\"policies\",\"question\":\"do da bi moc vi de am thi co duoc bao hanh ko shop\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"text\": \"Sản phẩm da bị ẩm mốc do bảo quản không đúng hướng dẫn nằm trong trường hợp không được bảo hành.\",\n  \"cited_skus\": [],\n  \"cited_clauses\": [\n    {\n      \"file\": \"bao-hanh\",\n      \"clause\": 3\n    }\n  ]\n}",
+       "thoughtSignature": "EmAKXgFpFH0TmeC6QW6Ga54DaYxLQO3HjNJLAbDl9iQ9h74gr18txHM+nKJm+4zxnCoKdBbw6iF9FbNX0vysCEIfV+lzLtNr2LubJXuBGI/gnpjsF/OEtjKAdB8UT8TUE34="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1760,
+   "candidatesTokenCount": 78,
+   "totalTokenCount": 1838,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1760
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "hEzKasPOGdjUqfkPq7GssA4"
+ },
+ "latency_ms": 1176.9,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:32:36+00:00"
+}

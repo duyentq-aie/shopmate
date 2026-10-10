@@ -1,0 +1,50 @@
+{
+ "digest": "086087f9213dc76b04933bfcc49960e935e9acb2817cfe9fc849104b208e30fb",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "ae17b6aacba999115cb59ff759f3caa16e4cc6597ea9eaa8f4dfd0a74abb2ea4",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"color\":\"Kem\",\"in_stock\":true,\"kind\":\"Áo sơ mi nam\",\"material\":\"Cotton\",\"name\":\"Áo sơ mi nam tay ngắn kem\",\"price_vnd\":369000,\"sizes\":[\"M\",\"L\",\"XL\",\"XXL\"],\"sku\":\"SM-NAM-0030\"},{\"color\":\"Xanh dương\",\"in_stock\":false,\"kind\":\"Áo sơ mi nam\",\"material\":\"Bamboo\",\"name\":\"Áo sơ mi nam tay dài công sở xanh dương\",\"price_vnd\":489000,\"sizes\":[\"S\",\"M\",\"L\",\"XL\",\"XXL\"],\"sku\":\"SM-NAM-0044\"},{\"color\":\"Kem\",\"in_stock\":true,\"kind\":\"Áo sơ mi nam\",\"material\":\"Kate\",\"name\":\"Áo sơ mi nam tay dài công sở kem\",\"price_vnd\":389000,\"sizes\":[\"S\",\"M\",\"L\",\"XL\",\"XXL\"],\"sku\":\"SM-NAM-0037\"},{\"color\":\"Đen\",\"in_stock\":true,\"kind\":\"Áo sơ mi nam\",\"material\":\"Kate\",\"name\":\"Áo sơ mi nam tay dài công sở đen\",\"price_vnd\":369000,\"sizes\":[\"M\",\"L\",\"XL\",\"XXL\"],\"sku\":\"SM-NAM-0002\"},{\"color\":\"Hồng\",\"in_stock\":true,\"kind\":\"Áo sơ mi nam\",\"material\":\"Cotton\",\"name\":\"Áo sơ mi nam kẻ sọc hồng\",\"price_vnd\":319000,\"sizes\":[\"M\",\"L\"],\"sku\":\"SM-NAM-0009\"}],\"relaxed\":[\"color\"]},\"kind\":\"products\",\"question\":\"cho mình xem đồ đi shop áo sơ mi nam màu trắng\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"text\": \"Dạ shop hiện không có áo sơ mi nam màu trắng, nhưng bạn có thể tham khảo các mẫu áo sơ mi nam khác như Áo sơ mi nam tay ngắn kem (SKU SM-NAM-0030) giá 369.000đ hiện còn hàng, Áo sơ mi nam tay dài công sở xanh dương (SKU SM-NAM-0044) giá 489.000đ hiện hết hàng, Áo sơ mi nam tay dài công sở kem (SKU SM-NAM-0037) giá 389.000đ hiện còn hàng, Áo sơ mi nam tay dài công sở đen (SKU SM-NAM-0002) giá 369.000đ hiện còn hàng, và Áo sơ mi nam kẻ sọc hồng (SKU SM-NAM-0009) giá 319.000đ hiện còn hàng.\",\n  \"cited_skus\": [\n    \"SM-NAM-0030\",\n    \"SM-NAM-0044\",\n    \"SM-NAM-0037\",\n    \"SM-NAM-0002\",\n    \"SM-NAM-0009\"\n  ],\n  \"cited_clauses\": []\n}",
+       "thoughtSignature": "EmAKXgFpFH0TS+kqUlKop5MSpTcne2PPUbU5b7xoaBG+ofnK0qRmqQ6JPuwZrW4Bki8NE5gRfRv+sksLP+qB7+awHBRDGHPoktHI3lUYnu28Sq62blOjHXWuRB1XC9JnIgc="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1595,
+   "candidatesTokenCount": 296,
+   "totalTokenCount": 1891,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1595
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "9kzKavKfDZLGjuMP0NvMuAU"
+ },
+ "latency_ms": 1624.9,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:34:30+00:00"
+}

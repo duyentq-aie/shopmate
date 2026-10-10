@@ -1,0 +1,50 @@
+{
+ "digest": "2b75a899062b3ede7434b705df7a1f565fedfdace14ac4d302cb6456d91818a9",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "mình muốn mua đồ",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"intent\": \"product_search\"\n}",
+       "thoughtSignature": "EmAKXgFpFH0T8FAYiVNocRcKs8wW6k1VdYkgJhWoDgD944J2EJ1xFa9z3marhxvf7NY8VlEh/kOyzcrZcGksyPqxrRDymsfKSP4XD/bLmAfUD6eIXLRl14/62xMemp3aZS8="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 883,
+   "candidatesTokenCount": 13,
+   "totalTokenCount": 896,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 883
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "90zKaqjWOfCbjuMPxJ3vwQ8"
+ },
+ "latency_ms": 711.6,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:34:31+00:00"
+}

@@ -1,0 +1,50 @@
+{
+ "digest": "35204a92712160b6a0a637c58cb1f4c7d67651335dc607209b2a4d507b54a523",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "hôm nay mình hơi bận, hẹn shop dịp khác nhé",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"intent\": \"smalltalk\"}",
+       "thoughtSignature": "EmAKXgFpFH0Tc8mDBeoheO84odzXKUxc2UTmW9jFZBkJHov2JQdGeQZPekgU7zmUx44Nb7U8ydS4Wj9tEuONl/M3FWnelzjfolpDnTX4qbexO78VBhyr/BNmb4EtFZjbvxk="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 891,
+   "candidatesTokenCount": 7,
+   "totalTokenCount": 898,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 891
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "Zk3KauOPNej3juMPmcTQUQ"
+ },
+ "latency_ms": 1073.8,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:36:22+00:00"
+}

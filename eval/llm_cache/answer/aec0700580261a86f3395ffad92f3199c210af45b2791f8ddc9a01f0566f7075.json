@@ -1,0 +1,50 @@
+{
+ "digest": "aec0700580261a86f3395ffad92f3199c210af45b2791f8ddc9a01f0566f7075",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "ae17b6aacba999115cb59ff759f3caa16e4cc6597ea9eaa8f4dfd0a74abb2ea4",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"order\":{\"created\":\"2026-08-20T13:44:52+00:00\",\"fulfillments\":[],\"lines\":[{\"name\":\"Áo bra thể thao nữ nâng đỡ vừa trắng\",\"quantity\":3,\"quantity_fulfilled\":0,\"sku\":\"SM-TT-0032\"},{\"name\":\"Tất cổ ngắn set 5 đôi xám\",\"quantity\":3,\"quantity_fulfilled\":0,\"sku\":\"SM-PK-0015\"},{\"name\":\"Túi xách nữ tote trắng\",\"quantity\":3,\"quantity_fulfilled\":0,\"sku\":\"SM-TUI-0021\"}],\"number\":\"91\",\"status\":\"UNFULFILLED\"}},\"kind\":\"order\",\"question\":\"khachhang04@example.com\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"text\": \"Đơn hàng số 91 của bạn đang ở trạng thái đang được xử lý, chưa giao. Đơn hàng bao gồm các sản phẩm: Áo bra thể thao nữ nâng đỡ vừa trắng, Tất cổ ngắn set 5 đôi xám và Túi xách nữ tote trắng.\",\n  \"cited_skus\": [],\n  \"cited_clauses\": []\n}",
+       "thoughtSignature": "EmAKXgFpFH0TOJMoRpNs3GT0e17MApVh9CACkYDRVOWbVsHXYLmOGvd4S/5U92TOccFLKZZ0zAim2nzJXAnjNARlchCPn75X9rrqukJy7sPoiH1VGrXjikZGH6zRBKF4rcM="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1395,
+   "candidatesTokenCount": 86,
+   "totalTokenCount": 1481,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1395
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "nE3KasOvOczQg8UPiPPo8Qo"
+ },
+ "latency_ms": 1798.1,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:37:17+00:00"
+}

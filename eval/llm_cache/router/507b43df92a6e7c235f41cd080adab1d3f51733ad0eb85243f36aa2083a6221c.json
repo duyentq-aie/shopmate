@@ -1,0 +1,50 @@
+{
+ "digest": "507b43df92a6e7c235f41cd080adab1d3f51733ad0eb85243f36aa2083a6221c",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "à nhầm, email phải là sai3@example.com cho đơn 84",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"intent\": \"create_ticket\"}",
+       "thoughtSignature": "EmAKXgFpFH0T3ttCUsdGpW8kJWLP4DvnJh4FhK3AYvOxTLPR4vuLsll2CNWB4YS6TSGjuAe6IFSEjBTTX0fP6+I0XHT2XsVA2sNJJ14YWRB5o5LXIjMrq61vkkiCYHVTjLo="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 896,
+   "candidatesTokenCount": 8,
+   "totalTokenCount": 904,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 896
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "N03KaufqJ-zV4-EPo_DF2A4"
+ },
+ "latency_ms": 1146.3,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:35:35+00:00"
+}

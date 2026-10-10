@@ -1,0 +1,50 @@
+{
+ "digest": "6f655cc5e47d481afdb48576218103aecc3b5a0e133a40dfd0bcf27c9967a017",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "nhân viên chăm sóc khách hàng hôm qua trả lời chưa tốt, mình muốn phản ánh",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"intent\": \"create_ticket\"\n}",
+       "thoughtSignature": "EmAKXgFpFH0TvzLUo6rHrcAJ8DBRHdV6JUkM1FWQQChzgU6TOOFcnfU8G5Tk3d67AiwYzsm0s2YvdsBnWNmPy11Tm0jxY/JiIYmTfdcOyCcJZwN1XV2zaQ+zktPJ9NxqeGk="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 896,
+   "candidatesTokenCount": 13,
+   "totalTokenCount": 909,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 896
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "bk3KasOmCefp4-EPgMzI8Q4"
+ },
+ "latency_ms": 1016.1,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:36:30+00:00"
+}

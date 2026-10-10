@@ -1,0 +1,50 @@
+{
+ "digest": "1ff9ff92dbf56a21af48dea1f596d0dda544971298a4bf626a050a4110e8b217",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "ae17b6aacba999115cb59ff759f3caa16e4cc6597ea9eaa8f4dfd0a74abb2ea4",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"color\":\"Hồng\",\"in_stock\":true,\"kind\":\"Váy liền nữ\",\"material\":\"Cotton\",\"name\":\"Váy liền nữ hoa nhí hồng\",\"price_vnd\":369000,\"sizes\":[\"S\",\"M\",\"L\",\"XL\"],\"sku\":\"SM-NU-0010\"},{\"color\":\"Xanh dương\",\"in_stock\":true,\"kind\":\"Váy liền nữ\",\"material\":\"Linen\",\"name\":\"Váy liền nữ công sở xanh dương\",\"price_vnd\":389000,\"sizes\":[\"S\",\"M\",\"L\"],\"sku\":\"SM-NU-0003\"}],\"relaxed\":[]},\"kind\":\"products\",\"question\":\"Có váy liền nào dưới 400k ko shop?\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"text\": \"ShopMate Fashion xin gửi bạn các mẫu váy liền trong tầm giá dưới 400.000đ. Bạn có thể tham khảo Váy liền nữ hoa nhí hồng (SKU SM-NU-0010), giá 369.000đ, hiện còn hàng. Ngoài ra, chúng tôi có Váy liền nữ công sở xanh dương (SKU SM-NU-0003), giá 389.000đ, hiện còn hàng.\",\n  \"cited_skus\": [\n    \"SM-NU-0010\",\n    \"SM-NU-0003\"\n  ],\n  \"cited_clauses\": []\n}",
+       "thoughtSignature": "EmAKXgFpFH0TdTaFNGXfscltxb4eVLcq1kMgGzgYsuUhrEfXjM9xDWyypFYRuo8GX2KbYvLqTybHZRka2fsFqW9BdExuF7DNbgHhkjVv5h5zVKPjy32kuAeCEqyLpD1N4kc="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1384,
+   "candidatesTokenCount": 160,
+   "totalTokenCount": 1544,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1384
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "OEzKat3fGIrLjuMPkZ2fuAw"
+ },
+ "latency_ms": 2099.9,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:31:21+00:00"
+}

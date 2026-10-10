@@ -1,0 +1,50 @@
+{
+ "digest": "a89c8e666aa9e41d7dd891e45f4b471d4af4cfe23f8f6b5b01dcc48b7a7eaaef",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "ae17b6aacba999115cb59ff759f3caa16e4cc6597ea9eaa8f4dfd0a74abb2ea4",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"clause\":1,\"file\":\"bao-hanh\",\"text\":\"Chính sách bảo hành – ShopMate Fashion\\nĐiều 1. Sản phẩm được bảo hành\\n1. Giày dép (giày sneaker, giày tây, giày cao gót, giày chạy bộ, sandal): bảo hành **6 tháng** đối với lỗi bong keo, tuột chỉ, gãy đế.\\n2. Túi xách, túi đeo chéo, balo, ví và thắt lưng làm từ **da bò**: bảo hành **12 tháng** đối với lỗi đường may, khóa kéo, khóa cài.\\n3. Túi, ví, thắt lưng làm từ chất liệu khác: bảo hành **6 tháng** đối với lỗi đường may và khóa kéo.\\n4. Kính mát và phụ kiện kim loại: bảo hành **3 tháng** đối với lỗi gọng, bản lề.\\n5. Quần áo và đồ thể thao: không bảo hành; lỗi do nhà sản xuất được xử lý theo Chính sách đổi trả (Điều 2, khoản 3: đổi trả trong 30 ngày).\",\"title\":\"Sản phẩm được bảo hành\"},{\"clause\":5,\"file\":\"bao-hanh\",\"text\":\"Chính sách bảo hành – ShopMate Fashion\\nĐiều 5. Thời gian xử lý và phí vận chuyển bảo hành\\n1. Thời gian xử lý bảo hành: **7–14 ngày làm việc** kể từ khi kho nhận được sản phẩm.\\n2. ShopMate Fashion chịu phí vận chuyển hai chiều cho sản phẩm được chấp nhận bảo hành.\\n3. Nếu sản phẩm không thuộc diện bảo hành, khách hàng chịu phí gửi trả lại là **30.000đ**.\",\"title\":\"Thời gian xử lý và phí vận chuyển bảo hành\"},{\"clause\":6,\"file\":\"bao-hanh\",\"text\":\"Chính sách bảo hành – ShopMate Fashion\\nĐiều 6. Cách gửi yêu cầu bảo hành\\n1. Gửi yêu cầu qua trợ lý ShopMate hoặc hotline, kèm mã đơn hàng, mô tả lỗi và hình ảnh hoặc video.\\n2. Bộ phận chăm sóc khách hàng phản hồi trong vòng **48 giờ** làm việc và hướng dẫn gửi sản phẩm.\",\"title\":\"Cách gửi yêu cầu bảo hành\"}]},\"kind\":\"policies\",\"question\":\"Túi da bò bên mình bảo hành bao lâu ạ?\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"text\": \"Túi xách, túi đeo chéo, balo, ví và thắt lưng làm từ da bò được bảo hành 12 tháng đối với lỗi đường may, khóa kéo, khóa cài.\", \"cited_skus\": [], \"cited_clauses\": [{\"file\": \"bao-hanh\", \"clause\": 1}]}",
+       "thoughtSignature": "EmAKXgFpFH0Tp+WpkTXGWQndfO8kl7aT4HQR4+9brOHbIyoN3d+Xw7EM3LEgHeGqqHgyxp9FAERdKp/HKRSRvS+z05xGBQH4TwIZmNfKirj94jfjph6JZyKCdluXLH9fhiM="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1723,
+   "candidatesTokenCount": 73,
+   "totalTokenCount": 1796,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1723
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "gkzKao66GbywmNMP-IGWwAo"
+ },
+ "latency_ms": 1379.7,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:32:34+00:00"
+}

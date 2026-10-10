@@ -1,0 +1,50 @@
+{
+ "digest": "218943af38aaa61bf7893d5999427973a1d8de3fbff0c4136cc3b646d33809b0",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "ae17b6aacba999115cb59ff759f3caa16e4cc6597ea9eaa8f4dfd0a74abb2ea4",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"clause\":1,\"file\":\"van-chuyen\",\"text\":\"Chính sách vận chuyển – ShopMate Fashion\\nĐiều 1. Phạm vi giao hàng\\n1. ShopMate Fashion giao hàng trên toàn lãnh thổ Việt Nam.\\n2. Hiện chưa hỗ trợ giao hàng quốc tế.\\n3. Hàng được gửi đi từ kho tại Thành phố Hồ Chí Minh.\",\"title\":\"Phạm vi giao hàng\"},{\"clause\":4,\"file\":\"van-chuyen\",\"text\":\"Chính sách vận chuyển – ShopMate Fashion\\nĐiều 4. Theo dõi đơn hàng\\n1. Khi đơn hàng được giao cho đơn vị vận chuyển, khách hàng nhận được **mã vận đơn** để theo dõi.\\n2. Khách hàng có thể hỏi trạng thái đơn hàng qua trợ lý ShopMate bằng mã đơn hàng.\",\"title\":\"Theo dõi đơn hàng\"},{\"clause\":5,\"file\":\"van-chuyen\",\"text\":\"Chính sách vận chuyển – ShopMate Fashion\\nĐiều 5. Thanh toán khi nhận hàng (COD) và kiểm tra hàng\\n1. Hỗ trợ thanh toán khi nhận hàng (COD) cho đơn hàng có giá trị đến **5.000.000đ**.\\n2. Khách hàng được **kiểm tra hàng** (xem sản phẩm, không thử) trước khi thanh toán.\\n3. Nếu sản phẩm không đúng mẫu đã đặt, khách hàng có quyền từ chối nhận và không phải trả phí.\",\"title\":\"Thanh toán khi nhận hàng (COD) và kiểm tra hàng\"}]},\"kind\":\"policies\",\"question\":\"Shop có ship hàng ra nước ngoài ko ạ?\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"text\":\"Hiện tại ShopMate Fashion giao hàng trên toàn lãnh thổ Việt Nam và chưa hỗ trợ giao hàng quốc tế. Hàng được gửi đi từ kho tại Thành phố Hồ Chí Minh.\",\"cited_skus\":[],\"cited_clauses\":[{\"file\":\"van-chuyen\",\"clause\":1}]}",
+       "thoughtSignature": "EmAKXgFpFH0TOA9nqCMJU5n9Md2rYQgkZOiyjrqha50ND41paatoYZWQD006Vi0ab4NCWoaKmUvextUH6dD3+6wEZpvQwGhnjTJ0HRuhFk/fxBN05FZCQn04akI/jmiu/Xw="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1571,
+   "candidatesTokenCount": 62,
+   "totalTokenCount": 1633,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1571
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "rEzKarS2OqzRjuMPheuL2QY"
+ },
+ "latency_ms": 1542.0,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:33:17+00:00"
+}

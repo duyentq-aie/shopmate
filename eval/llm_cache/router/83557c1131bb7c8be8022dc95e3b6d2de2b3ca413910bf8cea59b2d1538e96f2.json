@@ -1,0 +1,50 @@
+{
+ "digest": "83557c1131bb7c8be8022dc95e3b6d2de2b3ca413910bf8cea59b2d1538e96f2",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "mình muốn khiếu nại đơn 89 giao thiếu hàng, email khachhang01@example.com",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"intent\": \"create_ticket\"}",
+       "thoughtSignature": "EmAKXgFpFH0TkhP7Ip3GSOEaoxYhlwL/Zxy0A7pkRd++8F2NWVKCp1l+6Ba5B7xY2WUZGTP5NgRlo3EpQsVXbtlszKdULIRVnh0wI06pefFGUrqIeLjzU2vv15h+NIL11GE="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 903,
+   "candidatesTokenCount": 8,
+   "totalTokenCount": 911,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 903
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "YE3KavOCLcOFg8UP-qiWiQc"
+ },
+ "latency_ms": 1374.8,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:36:17+00:00"
+}

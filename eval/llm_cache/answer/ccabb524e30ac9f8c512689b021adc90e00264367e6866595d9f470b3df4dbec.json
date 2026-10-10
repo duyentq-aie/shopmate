@@ -1,0 +1,50 @@
+{
+ "digest": "ccabb524e30ac9f8c512689b021adc90e00264367e6866595d9f470b3df4dbec",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "ae17b6aacba999115cb59ff759f3caa16e4cc6597ea9eaa8f4dfd0a74abb2ea4",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"color\":\"Trắng\",\"in_stock\":true,\"kind\":\"Dép quai ngang\",\"material\":\"EVA\",\"name\":\"Dép quai ngang in logo trắng\",\"price_vnd\":149000,\"sizes\":[\"36\",\"37\",\"38\",\"39\",\"40\"],\"sku\":\"SM-GIAY-0006\"}],\"relaxed\":[]},\"kind\":\"products\",\"question\":\"dép quai ngang trắng bn tiền vậy shop\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"text\": \"Dép quai ngang in logo trắng (SKU SM-GIAY-0006) có giá 149.000đ và hiện còn hàng.\",\n  \"cited_skus\": [\n    \"SM-GIAY-0006\"\n  ],\n  \"cited_clauses\": []\n}",
+       "thoughtSignature": "EmAKXgFpFH0T1BzqCL5YRL2cA3ReAzApJI9WpPUCT6Ke3GcKlANKzUHx28IC0J/DCP8rLVURTLuFaT3D/iSJadxWll4+RukeZHI6sZhD07AmuckyRIYNKFvFYbnyl3ytXLw="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1326,
+   "candidatesTokenCount": 82,
+   "totalTokenCount": 1408,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1326
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "QEzKasaSA8OvjuMP34D-kAk"
+ },
+ "latency_ms": 1281.7,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:31:28+00:00"
+}

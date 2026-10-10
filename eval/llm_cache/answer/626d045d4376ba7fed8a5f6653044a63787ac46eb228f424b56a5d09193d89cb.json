@@ -1,0 +1,50 @@
+{
+ "digest": "626d045d4376ba7fed8a5f6653044a63787ac46eb228f424b56a5d09193d89cb",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "ae17b6aacba999115cb59ff759f3caa16e4cc6597ea9eaa8f4dfd0a74abb2ea4",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"clause\":6,\"file\":\"doi-tra\",\"text\":\"Chính sách đổi trả – ShopMate Fashion\\nĐiều 6. Hoàn tiền\\n1. Tiền được hoàn trong vòng **5–7 ngày làm việc** kể từ khi kho xác nhận đã nhận lại sản phẩm đạt điều kiện tại Điều 3.\\n2. Đơn thanh toán khi nhận hàng (COD): hoàn tiền qua chuyển khoản ngân hàng theo thông tin khách hàng cung cấp.\\n3. Đơn thanh toán trực tuyến: hoàn tiền về đúng phương thức thanh toán ban đầu.\",\"title\":\"Hoàn tiền\"},{\"clause\":4,\"file\":\"bao-hanh\",\"text\":\"Chính sách bảo hành – ShopMate Fashion\\nĐiều 4. Hình thức bảo hành\\n1. Sửa chữa miễn phí lỗi thuộc phạm vi bảo hành.\\n2. Nếu không thể sửa chữa, ShopMate Fashion đổi sản phẩm mới cùng mẫu; nếu hết mẫu, đổi sang sản phẩm có giá trị tương đương hoặc hoàn tiền theo giá trị đơn hàng.\\n3. Sau thời hạn bảo hành, ShopMate Fashion hỗ trợ sửa chữa có tính phí; báo giá được gửi trước khi sửa.\",\"title\":\"Hình thức bảo hành\"},{\"clause\":7,\"file\":\"doi-tra\",\"text\":\"Chính sách đổi trả – ShopMate Fashion\\nĐiều 7. Quy trình yêu cầu đổi trả\\n1. Khách hàng gửi yêu cầu kèm mã đơn hàng, lý do và hình ảnh sản phẩm qua trợ lý ShopMate hoặc hotline.\\n2. Bộ phận chăm sóc khách hàng phản hồi trong vòng **24 giờ** làm việc.\\n3. Sau khi được xác nhận, khách hàng đóng gói và gửi sản phẩm về kho trong vòng **3 ngày**.\",\"title\":\"Quy trình yêu cầu đổi trả\"}]},\"kind\":\"policies\",\"question\":\"Hoàn tiền thì khoảng bao lâu mới nhận được vậy shop?\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"text\": \"Tiền được hoàn trong vòng 5–7 ngày làm việc kể từ khi kho xác nhận đã nhận lại sản phẩm đạt điều kiện tại Điều 3.\", \"cited_skus\": [], \"cited_clauses\": [{\"file\": \"doi-tra\", \"clause\": 6}]}",
+       "thoughtSignature": "EmAKXgFpFH0T8wQq5Uea3jWuIoVNqZTalPFYaIW4dCc+Fy4GpmD6boSTtUE47s7UVylmssZHiiErNmrhIbXTrerG2h2Sd9odGqTx6ICoJO2lnZLnmIYjptJgE3whBLsEyCo="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1619,
+   "candidatesTokenCount": 63,
+   "totalTokenCount": 1682,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1619
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "fUzKas-vMYvn4-EPo8Kw6As"
+ },
+ "latency_ms": 1092.8,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:32:29+00:00"
+}

@@ -1,0 +1,157 @@
+{
+  "provenance": {
+    "official_result_sha256": "952cace0ed70e05b7974478d35f5b7ccf7d4e13bb642f2a9eb8fab88b9b606e3",
+    "official_result_commit": "53f3c40da071f43c6c21b1bbf4123a7f86d53eff",
+    "git_commit": "53f3c40da071f43c6c21b1bbf4123a7f86d53eff",
+    "tracked_files_modified": false,
+    "live_calls": 0,
+    "this_file_is_a_reporting_analysis": "the claim detector is a heuristic that reads text; it is not a guardrail and not a score"
+  },
+  "replay_agrees_with_the_official_result": true,
+  "per_intent": {
+    "product_search": {
+      "items": 24,
+      "correct": 24,
+      "accuracy": 1.0,
+      "answers_written_by_the_model": 21,
+      "fallbacks": 4,
+      "fallback_rate_of_answers": 0.19047619047619047,
+      "fallback_rate_of_items": 0.16666666666666666,
+      "correct_by_source": {
+        "model_text": 17,
+        "fallback_answer": 4,
+        "fixed_reply": 3
+      },
+      "items_with_fallback": [
+        "gs-002",
+        "gs-009",
+        "gs-015",
+        "gs-112"
+      ]
+    },
+    "policy_question": {
+      "items": 14,
+      "correct": 13,
+      "accuracy": 0.9285714285714286,
+      "answers_written_by_the_model": 14,
+      "fallbacks": 2,
+      "fallback_rate_of_answers": 0.14285714285714285,
+      "fallback_rate_of_items": 0.14285714285714285,
+      "correct_by_source": {
+        "model_text": 12,
+        "fallback_answer": 1,
+        "fixed_reply": 0
+      },
+      "items_with_fallback": [
+        "gs-025",
+        "gs-027"
+      ]
+    },
+    "order_status": {
+      "items": 12,
+      "correct": 11,
+      "accuracy": 0.9166666666666666,
+      "answers_written_by_the_model": 4,
+      "fallbacks": 0,
+      "fallback_rate_of_answers": 0.0,
+      "fallback_rate_of_items": 0.0,
+      "correct_by_source": {
+        "model_text": 4,
+        "fallback_answer": 0,
+        "fixed_reply": 7
+      },
+      "items_with_fallback": []
+    },
+    "create_ticket": {
+      "items": 7,
+      "correct": 7,
+      "accuracy": 1.0,
+      "answers_written_by_the_model": 0,
+      "fallbacks": 0,
+      "fallback_rate_of_answers": null,
+      "fallback_rate_of_items": 0.0,
+      "correct_by_source": {
+        "model_text": 0,
+        "fallback_answer": 0,
+        "fixed_reply": 7
+      },
+      "items_with_fallback": []
+    },
+    "out_of_scope": {
+      "items": 7,
+      "correct": 7,
+      "accuracy": 1.0,
+      "answers_written_by_the_model": 0,
+      "fallbacks": 0,
+      "fallback_rate_of_answers": null,
+      "fallback_rate_of_items": 0.0,
+      "correct_by_source": {
+        "model_text": 0,
+        "fallback_answer": 0,
+        "fixed_reply": 7
+      },
+      "items_with_fallback": []
+    },
+    "smalltalk": {
+      "items": 7,
+      "correct": 7,
+      "accuracy": 1.0,
+      "answers_written_by_the_model": 0,
+      "fallbacks": 0,
+      "fallback_rate_of_answers": null,
+      "fallback_rate_of_items": 0.0,
+      "correct_by_source": {
+        "model_text": 0,
+        "fallback_answer": 0,
+        "fixed_reply": 7
+      },
+      "items_with_fallback": []
+    },
+    "all": {
+      "items": 71,
+      "correct": 69,
+      "accuracy": 0.971830985915493,
+      "answers_written_by_the_model": 39,
+      "fallbacks": 6,
+      "correct_by_source": {
+        "model_text": 33,
+        "fallback_answer": 5,
+        "fixed_reply": 31
+      },
+      "fallback_rate_of_answers": 0.15384615384615385
+    }
+  },
+  "multiturn_fallbacks": {
+    "answers": 6,
+    "fallbacks": 1,
+    "claims_unsupported": 0
+  },
+  "unsupported_claims": {
+    "dev_items": [],
+    "multiturn_cases": [],
+    "items_affected": [],
+    "detector": "size, colour, material and days patterns of eval/analyze_phase6.py"
+  },
+  "error_types": {
+    "E1_fallback_by_rule": {
+      "no_clause_cited": [
+        "gs-025"
+      ],
+      "price_mismatch": [
+        "gs-009"
+      ],
+      "stock_mismatch": [
+        "gs-002",
+        "gs-009",
+        "gs-015",
+        "gs-112"
+      ],
+      "unknown_clause": [
+        "gs-027"
+      ]
+    },
+    "E2_missing_sku_though_retrieved": [],
+    "E3_missing_citation_though_retrieved": []
+  },
+  "analysis_sha256": "7450b655b97aebf22c5f2c9e1703d7e575d0ad4f3dba1f5889f6b2f25f91c352"
+}

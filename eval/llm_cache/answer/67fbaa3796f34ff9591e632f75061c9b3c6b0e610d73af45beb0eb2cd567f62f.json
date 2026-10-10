@@ -1,0 +1,50 @@
+{
+ "digest": "67fbaa3796f34ff9591e632f75061c9b3c6b0e610d73af45beb0eb2cd567f62f",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "ae17b6aacba999115cb59ff759f3caa16e4cc6597ea9eaa8f4dfd0a74abb2ea4",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"color\":\"Trắng\",\"in_stock\":true,\"kind\":\"Áo thể thao nam\",\"material\":\"Thun lạnh\",\"name\":\"Áo thể thao nam tập gym trắng\",\"price_vnd\":279000,\"sizes\":[\"M\",\"L\",\"XL\",\"XXL\"],\"sku\":\"SM-TT-0001\"},{\"color\":\"Xám\",\"in_stock\":false,\"kind\":\"Áo thể thao nam\",\"material\":\"Vải lưới\",\"name\":\"Áo thể thao nam tập gym xám\",\"price_vnd\":189000,\"sizes\":[\"L\",\"XL\"],\"sku\":\"SM-TT-0026\"},{\"color\":\"Đỏ\",\"in_stock\":true,\"kind\":\"Áo thể thao nam\",\"material\":\"Polyester\",\"name\":\"Áo thể thao nam tập gym đỏ\",\"price_vnd\":329000,\"sizes\":[\"S\",\"M\",\"L\",\"XL\",\"XXL\"],\"sku\":\"SM-TT-0011\"},{\"color\":\"Xám\",\"in_stock\":true,\"kind\":\"Áo thể thao nam\",\"material\":\"Vải lưới\",\"name\":\"Áo thể thao nam ba lỗ xám\",\"price_vnd\":309000,\"sizes\":[\"S\",\"M\",\"L\"],\"sku\":\"SM-TT-0016\"},{\"color\":\"Đen\",\"in_stock\":true,\"kind\":\"Áo thể thao nam\",\"material\":\"Vải lưới\",\"name\":\"Áo thể thao nam chạy bộ đen\",\"price_vnd\":309000,\"sizes\":[\"S\",\"M\",\"L\",\"XL\",\"XXL\"],\"sku\":\"SM-TT-0021\"}],\"relaxed\":[]},\"kind\":\"products\",\"question\":\"shop có áo tập gym nam ko ạ\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"text\": \"Shop có các mẫu áo thể thao nam tập gym sau đây: Áo thể thao nam tập gym trắng (SKU SM-TT-0001) giá 279.000đ còn hàng, Áo thể thao nam tập gym xám (SKU SM-TT-0026) giá 189.000đ hết hàng, và Áo thể thao nam tập gym đỏ (SKU SM-TT-0011) giá 329.000đ còn hàng.\",\n  \"cited_skus\": [\n    \"SM-TT-0001\",\n    \"SM-TT-0026\",\n    \"SM-TT-0011\"\n  ],\n  \"cited_clauses\": []\n}",
+       "thoughtSignature": "EmAKXgFpFH0TfsGOrb+N/XZXv1Pfy9GrW47BPFzJapEA5LU9s7g9lGrbSSnBE3kXHKv6jI57gmLrLQhx74LIBn8Z50CQIYKjNkLtmeeduUwKzRh6rMI/mrGJ1Vx2PLJjAMA="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1591,
+   "candidatesTokenCount": 180,
+   "totalTokenCount": 1771,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1591
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "RkzKar-5ILGejuMPwejm-QQ"
+ },
+ "latency_ms": 1675.0,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:31:35+00:00"
+}

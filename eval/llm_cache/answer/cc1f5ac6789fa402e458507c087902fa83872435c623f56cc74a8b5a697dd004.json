@@ -1,0 +1,50 @@
+{
+ "digest": "cc1f5ac6789fa402e458507c087902fa83872435c623f56cc74a8b5a697dd004",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "ae17b6aacba999115cb59ff759f3caa16e4cc6597ea9eaa8f4dfd0a74abb2ea4",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"clause\":5,\"file\":\"doi-tra\",\"text\":\"Chính sách đổi trả – ShopMate Fashion\\nĐiều 5. Sản phẩm không áp dụng đổi trả\\n1. Tất và các sản phẩm đã mở bao bì vệ sinh.\\n2. Sản phẩm mua trong chương trình giảm giá từ **50%** trở lên, trừ khi sản phẩm bị lỗi do nhà sản xuất.\\n3. Quà tặng kèm theo đơn hàng.\",\"title\":\"Sản phẩm không áp dụng đổi trả\"},{\"clause\":3,\"file\":\"doi-tra\",\"text\":\"Chính sách đổi trả – ShopMate Fashion\\nĐiều 3. Điều kiện sản phẩm được đổi trả\\n1. Sản phẩm còn nguyên tem, mác, nhãn mác và bao bì gốc.\\n2. Sản phẩm chưa qua sử dụng, chưa giặt, không có mùi lạ, không bị bẩn hoặc hư hỏng do người dùng.\\n3. Có mã đơn hàng hoặc hóa đơn mua hàng.\\n4. Mỗi đơn hàng được đổi tối đa **1 lần**.\",\"title\":\"Điều kiện sản phẩm được đổi trả\"},{\"clause\":4,\"file\":\"doi-tra\",\"text\":\"Chính sách đổi trả – ShopMate Fashion\\nĐiều 4. Phí đổi trả\\n1. Sản phẩm lỗi do nhà sản xuất hoặc giao sai: ShopMate Fashion chịu **toàn bộ** phí vận chuyển hai chiều.\\n2. Đổi kích cỡ hoặc màu sắc lần đầu: **miễn phí** đổi, khách hàng chỉ trả phí gửi hàng về là **30.000đ**.\\n3. Trả hàng do đổi ý: khách hàng chịu phí vận chuyển hai chiều; phí giao hàng ban đầu không được hoàn lại.\",\"title\":\"Phí đổi trả\"}]},\"kind\":\"policies\",\"question\":\"Đồ sale 50% thì có đổi trả được ko?\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"text\": \"Sản phẩm mua trong chương trình giảm giá từ 50% trở lên không áp dụng đổi trả, trừ khi sản phẩm bị lỗi do nhà sản xuất. Bạn có thể tham khảo thêm chi tiết trong chính sách của chúng tôi.\",\n  \"cited_skus\": [],\n  \"cited_clauses\": [\n    {\n      \"file\": \"doi-tra\",\n      \"clause\": 5\n    }\n  ]\n}",
+       "thoughtSignature": "EmAKXgFpFH0TQ/uPmL6r9NjKz6gzAdxJkLbaGt67YzNBh8OwgOQ6PKMiiQB2Yb5/LNNW0VMPxfPujWhI+Y6P33F/I58ticwuMR8uY/mJD2RDnAjn5bVPS511pSYvLHchL9g="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1618,
+   "candidatesTokenCount": 102,
+   "totalTokenCount": 1720,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1618
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "fEzKarLlAZTFjuMPnNmMsAY"
+ },
+ "latency_ms": 1364.1,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T14:32:28+00:00"
+}
