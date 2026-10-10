@@ -1,0 +1,50 @@
+{
+ "digest": "7ead482b597c0ee8f1acf12547844e630317df8e474892f6b65310ab9186ea95",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "don 91 sao lau giao the shop oi, mail dat hang khachhang04@example.com nha",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"intent\": \"order_status\"}",
+       "thoughtSignature": "EmAKXgFpFH0TZhbM7r6mTRQ/V1sb7kVkP6awMmvlWAEtM7ddhZhShIO/AFXuG6cZaqMzna36oUR+hDMBwiB7NHFVrggCKLK+OkFtvoyCmqtlnA3L9UwvCaNeo7wHpSv+4js="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 902,
+   "candidatesTokenCount": 8,
+   "totalTokenCount": 910,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 902
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "QNvJasaCJZ_c4-EPzLT66AY"
+ },
+ "latency_ms": 1011.0,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:29:20+00:00"
+}

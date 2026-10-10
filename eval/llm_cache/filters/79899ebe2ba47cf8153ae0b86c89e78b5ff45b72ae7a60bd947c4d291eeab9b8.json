@@ -1,0 +1,50 @@
+{
+ "digest": "79899ebe2ba47cf8153ae0b86c89e78b5ff45b72ae7a60bd947c4d291eeab9b8",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "27e2ade227970c84db5ee5ec975c0aad4429fd2de698616d249357431672f74a",
+  "schema_sha256": "489fb422d325ff2d910238ab1144c01789bf3a76ffb48a375cac3691bb0d1bce",
+  "input": "co quan jean nam denim mau xanh dam size 31 k shop",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 512,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"category\": null,\n  \"kind\": \"Quần jean nam\",\n  \"color\": \"Xanh đậm\",\n  \"material\": \"Denim\",\n  \"size\": \"31\",\n  \"price_min\": null,\n  \"price_max\": null,\n  \"in_stock\": null\n}",
+       "thoughtSignature": "EmAKXgFpFH0TYFObT1xC5oaGu9wPeGYgOoNTaEOp/61G6AuKRsGfuVIKaqCXLovgNNgkvfy56xnBnp51NvDrMgKpYPrd1EnqNkOWoP6nzSSPDiJjxQEZkK9UvS89tbKQ5+E="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1536,
+   "candidatesTokenCount": 75,
+   "totalTokenCount": 1611,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1536
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "69vJauKmHMWzg8UP0MmkoAc"
+ },
+ "latency_ms": 1084.9,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:32:11+00:00"
+}

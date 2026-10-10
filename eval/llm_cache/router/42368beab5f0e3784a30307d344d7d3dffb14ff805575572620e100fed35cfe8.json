@@ -1,0 +1,50 @@
+{
+ "digest": "42368beab5f0e3784a30307d344d7d3dffb14ff805575572620e100fed35cfe8",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "kiem tra tinh trang don 88 giup minh voi",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"intent\": \"order_status\"\n}",
+       "thoughtSignature": "EmAKXgFpFH0TSbrBhTutTHamjlBheEjQJfaACJyVRJxfzishmxyD0LeGjjy26I5CgZion45P5GvNCUYa3d/9wfAWqKtOaGazhk3SRKkSxIrHAhsv0tYJrptdzbPoyJtfl8Y="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 890,
+   "candidatesTokenCount": 13,
+   "totalTokenCount": 903,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 890
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "PtvJatndF7GjjuMPmbHlmQU"
+ },
+ "latency_ms": 1254.6,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:29:18+00:00"
+}

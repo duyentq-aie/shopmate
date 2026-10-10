@@ -1,0 +1,50 @@
+{
+ "digest": "38d5331544ca5ccf21448ebc885ef79aed3574dcb1791b0f23068df601773ba6",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "thời tiết Hà Nội hôm nay sao vậy?",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"intent\": \"out_of_scope\"}",
+       "thoughtSignature": "EmAKXgFpFH0TrsSyQDxzO5qyam6Lm6oYD9xHo5U9iZicOrwaj/wVmjOYQ8St8nBCApWECl8tDwNKDKvzOFYnLGK7mUx2rNblhPRf7oOBewqBx0anqPbPnqKGGYwfZbPe6SE="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 888,
+   "candidatesTokenCount": 10,
+   "totalTokenCount": 898,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 888
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "xtrJauHNNYvn4-EPo8Kw6As"
+ },
+ "latency_ms": 1400.3,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:27:19+00:00"
+}

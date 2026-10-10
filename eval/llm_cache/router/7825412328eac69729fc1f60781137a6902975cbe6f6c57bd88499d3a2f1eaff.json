@@ -1,0 +1,50 @@
+{
+ "digest": "7825412328eac69729fc1f60781137a6902975cbe6f6c57bd88499d3a2f1eaff",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "tao ticket khieu nai giup mik don 98 nha, mail cua mik la khachhang02@example.com",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"intent\": \"create_ticket\"}",
+       "thoughtSignature": "EmAKXgFpFH0TaqfBX6cj5EtAm5JnOKl0pNebJ7VhsiwX3r1RpK/iBc0dQHpiwyrhB+o1r3zUFmfDbDZWpP0PJESI+Oz1uODbHiQ1DP4THeIYhpCeJnJySrFhHnA8bwcwrBg="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 905,
+   "candidatesTokenCount": 8,
+   "totalTokenCount": 913,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 905
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "c9vJarWzGJ2KjuMPiJrJqAc"
+ },
+ "latency_ms": 1786.9,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:30:12+00:00"
+}

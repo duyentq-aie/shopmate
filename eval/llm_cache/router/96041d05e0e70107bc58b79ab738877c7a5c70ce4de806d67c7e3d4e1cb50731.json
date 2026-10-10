@@ -1,0 +1,50 @@
+{
+ "digest": "96041d05e0e70107bc58b79ab738877c7a5c70ce4de806d67c7e3d4e1cb50731",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "co quan jean nam denim mau xanh dam size 31 k shop",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"intent\": \"product_search\"\n}",
+       "thoughtSignature": "EmAKXgFpFH0TPLpBLuvhzVhnAX6AdeQ8d9E5POAkQO7jTGf99VV2liVcTszTl06zqNMeV1qvNiQPeKQD6zb++jUJrQq2HgK2uFiARmyl5YCSkEVsFlsXf94mnpDr0yBUs2Q="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 892,
+   "candidatesTokenCount": 13,
+   "totalTokenCount": 905,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 892
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "ANvJav6YNoavg8UP74206Qc"
+ },
+ "latency_ms": 1227.4,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:28:17+00:00"
+}

@@ -1,0 +1,50 @@
+{
+ "digest": "994dfec7752dce78c418de49e447989aba7c1eabb3b0b8a702f786b507d43092",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "27e2ade227970c84db5ee5ec975c0aad4429fd2de698616d249357431672f74a",
+  "schema_sha256": "489fb422d325ff2d910238ab1144c01789bf3a76ffb48a375cac3691bb0d1bce",
+  "input": "shop có áo tập gym nam ko ạ",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 512,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"category\": null,\n  \"kind\": \"Áo thể thao nam\",\n  \"color\": null,\n  \"material\": null,\n  \"size\": null,\n  \"price_min\": null,\n  \"price_max\": null,\n  \"in_stock\": null\n}",
+       "thoughtSignature": "EmAKXgFpFH0TOCtlCib4Xtg8l0nU/6NMXz5HJLISWlBHfuQpAmJ8zwODBRfKkpWEj/Kb9MiHe/p0d1Hu9I7Q0TxwusvqSQmdcK7qIvb8ynt1lF4ATD7/Hik1HFETLZkemws="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1530,
+   "candidatesTokenCount": 69,
+   "totalTokenCount": 1599,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1530
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "uNvJarvAFYTh4-EPgKWgmQw"
+ },
+ "latency_ms": 1106.3,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:31:20+00:00"
+}

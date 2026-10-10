@@ -1,0 +1,50 @@
+{
+ "digest": "91bb613ead521bd29696abe62ea3a076e5a778b0719c99f8631d527898219596",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "shop có mũ bucket ko nhỉ",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"intent\": \"product_search\"\n}",
+       "thoughtSignature": "EmAKXgFpFH0TkYBsBCDG7wgtldwj4wJ/ftsilIi0JdPD18TfS/xZUCxJufbogRk6cCsaI9S3JapWBkRuDaVURZBtn8nYzEFQPPUAm6eXpWsNMzHM6zmCBBHy7T07ZJCTdKA="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 884,
+   "candidatesTokenCount": 13,
+   "totalTokenCount": 897,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 884
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "ftrJatmHNKqMjuMP-O-e2Qk"
+ },
+ "latency_ms": 911.1,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:26:06+00:00"
+}

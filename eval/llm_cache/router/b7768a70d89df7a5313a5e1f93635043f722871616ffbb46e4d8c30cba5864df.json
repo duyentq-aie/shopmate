@@ -1,0 +1,50 @@
+{
+ "digest": "b7768a70d89df7a5313a5e1f93635043f722871616ffbb46e4d8c30cba5864df",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "lam the nao de gui yeu cau doi tra do vay mn",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"intent\": \"policy_question\"\n}",
+       "thoughtSignature": "EmAKXgFpFH0TnbnJtdhXndMNttYRVYkw6UgglEpHVYQQdVf74feDTYVFQamx3talCCUsiT+WxwItuth/ftPJgJpPyResSq5kbLiCnqMgBwSdg1UakJ9WE60LX7ZxS8CGeag="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 891,
+   "candidatesTokenCount": 13,
+   "totalTokenCount": 904,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 891
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "OdvJasyvPLyAg8UPuYfOoAY"
+ },
+ "latency_ms": 1075.1,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:29:14+00:00"
+}

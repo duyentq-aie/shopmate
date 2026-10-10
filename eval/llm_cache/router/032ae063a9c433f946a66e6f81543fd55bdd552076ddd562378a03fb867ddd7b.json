@@ -1,0 +1,50 @@
+{
+ "digest": "032ae063a9c433f946a66e6f81543fd55bdd552076ddd562378a03fb867ddd7b",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "Shop xem giúp mình đơn 85 nha, email khachhang07@example.com",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"intent\": \"order_status\"\n}",
+       "thoughtSignature": "EmAKXgFpFH0TgVvoy5k6uOhGmjDJY4pSrF96yqL5W+TgRTQx/O2YSFGwqMyDikR9wRY7m6zHSgkx9n2FL4JnSTFvbdnNGqbMjgRQw6LOHJe5nOxak5MvMBzJnUNJzOyqdno="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 898,
+   "candidatesTokenCount": 13,
+   "totalTokenCount": 911,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 898
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "wtrJasPuMqiBg8UP7biokQU"
+ },
+ "latency_ms": 949.9,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:27:14+00:00"
+}

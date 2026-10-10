@@ -1,0 +1,50 @@
+{
+ "digest": "cf98fddfcd0c32be6284c42c9732de2fb679cc226d9a0d6783bf58186fb24914",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "27e2ade227970c84db5ee5ec975c0aad4429fd2de698616d249357431672f74a",
+  "schema_sha256": "489fb422d325ff2d910238ab1144c01789bf3a76ffb48a375cac3691bb0d1bce",
+  "input": "Cho mình xem kính mát gọng kim loại với",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 512,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"category\": null,\n  \"kind\": \"Kính mát\",\n  \"color\": null,\n  \"material\": \"Kim loại\",\n  \"size\": null,\n  \"price_min\": null,\n  \"price_max\": null,\n  \"in_stock\": null\n}",
+       "thoughtSignature": "EmAKXgFpFH0TCv77FhGpXJJtASM0W9HhuOCsExTK2yoMwY2ObDDH85IHFghJitKdRqV3q0gY48JdF7LAzfHtVeZndYpz5elHvxNfAnFtuOc9ZErUl6VcjIzfcKUdmwCuNUA="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1532,
+   "candidatesTokenCount": 69,
+   "totalTokenCount": 1601,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1532
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "tdvJaoXrEpS8mNMPscfN2As"
+ },
+ "latency_ms": 1392.7,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:31:17+00:00"
+}

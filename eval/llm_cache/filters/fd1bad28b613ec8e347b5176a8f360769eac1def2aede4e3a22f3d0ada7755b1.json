@@ -1,0 +1,50 @@
+{
+ "digest": "fd1bad28b613ec8e347b5176a8f360769eac1def2aede4e3a22f3d0ada7755b1",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "27e2ade227970c84db5ee5ec975c0aad4429fd2de698616d249357431672f74a",
+  "schema_sha256": "489fb422d325ff2d910238ab1144c01789bf3a76ffb48a375cac3691bb0d1bce",
+  "input": "mu freesize mau vang vai canvas gia tam 100k den 250k co k",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 512,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"category\": null,\n  \"kind\": \"Mũ\",\n  \"color\": \"Vàng\",\n  \"material\": \"Vải canvas\",\n  \"size\": \"Freesize\",\n  \"price_min\": 100000,\n  \"price_max\": 250000,\n  \"in_stock\": null\n}",
+       "thoughtSignature": "EmAKXgFpFH0TbuNH3uVXz6VlB7omDP/TCvi9n59+UmaBZcQNM5rzD5oRtGMXNqjhaJjKpOLcnoj+90E+qwFbp0z1MJB7/RWo4P6bw+IS9DifwnZm0+aIa/+bUYituLW6AA8="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1544,
+   "candidatesTokenCount": 86,
+   "totalTokenCount": 1630,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1544
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "9NvJaoPUE6iBg8UP7biokQU"
+ },
+ "latency_ms": 1137.9,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:32:20+00:00"
+}

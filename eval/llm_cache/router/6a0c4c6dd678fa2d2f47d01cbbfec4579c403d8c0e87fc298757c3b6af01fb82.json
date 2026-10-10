@@ -1,0 +1,50 @@
+{
+ "digest": "6a0c4c6dd678fa2d2f47d01cbbfec4579c403d8c0e87fc298757c3b6af01fb82",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "shop có áo tập gym nam ko ạ",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"intent\": \"product_search\"\n}",
+       "thoughtSignature": "EmAKXgFpFH0TUmy7VjfH95xfsswTyBeGy90BBjl6aztCwwjAsPQH+mQnQAItgE7bNeWeThjLHjnz0MPubfP3EbDgi8zUyCog6D2d7eHAfNo7fZoProHWGfPlzTIqbkAwSNk="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 886,
+   "candidatesTokenCount": 13,
+   "totalTokenCount": 899,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 886
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "TNrJavyTJYzQg8UPm9mcyQQ"
+ },
+ "latency_ms": 1087.0,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:25:16+00:00"
+}

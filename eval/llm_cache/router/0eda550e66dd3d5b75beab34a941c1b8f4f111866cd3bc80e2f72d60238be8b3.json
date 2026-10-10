@@ -1,0 +1,50 @@
+{
+ "digest": "0eda550e66dd3d5b75beab34a941c1b8f4f111866cd3bc80e2f72d60238be8b3",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "Mình cần mua giày sneaker nữ màu trắng size 37 giá từ 300000 đến 700000",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"intent\": \"product_search\"\n}",
+       "thoughtSignature": "EmAKXgFpFH0TBSXpY2jpPFY2GvDudsXy2v35BxtQMtgKh1TqzJTQb1xbVMPAGhCsNfFtHzkqAm98hcTKk42Z5LhY+3p9F9fxt6P8+CKYJs4MrClowI6oNsN4XIGKyVGK1Ks="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 907,
+   "candidatesTokenCount": 13,
+   "totalTokenCount": 920,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 907
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "A9vJasQNu9rj4Q-oh--hBQ"
+ },
+ "latency_ms": 781.8,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:28:18+00:00"
+}

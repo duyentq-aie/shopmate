@@ -1,0 +1,50 @@
+{
+ "digest": "0d9a1297ff050e3b8e62b63f9f21f6ef2652e45718de82c7501097ac93a98bfb",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "27e2ade227970c84db5ee5ec975c0aad4429fd2de698616d249357431672f74a",
+  "schema_sha256": "489fb422d325ff2d910238ab1144c01789bf3a76ffb48a375cac3691bb0d1bce",
+  "input": "tim sneaker nu size 37 shop oi",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 512,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"category\": null,\n  \"kind\": \"Giày sneaker nữ\",\n  \"color\": null,\n  \"material\": null,\n  \"size\": \"37\",\n  \"price_min\": null,\n  \"price_max\": null,\n  \"in_stock\": null\n}",
+       "thoughtSignature": "EmAKXgFpFH0TojfnGa+8ghHz5VHpmkGXBnPcDfLyJHtN2UFScDRa/5Hq2QrurFWehM0NCdtuwWvayX8B3NNLRf+rr1egjw2f5WWP7oYmjH23f+y/QaqRboPmPgNv7WlwNU0="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1531,
+   "candidatesTokenCount": 70,
+   "totalTokenCount": 1601,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1531
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "fdvJatmZMKiBg8UP7biokQU"
+ },
+ "latency_ms": 1738.9,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:30:22+00:00"
+}

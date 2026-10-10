@@ -1,0 +1,50 @@
+{
+ "digest": "964f29a09e42cbfa5eef4c3965689137f13af4711c2bbd0ccd6d0de982b666ad",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "27e2ade227970c84db5ee5ec975c0aad4429fd2de698616d249357431672f74a",
+  "schema_sha256": "489fb422d325ff2d910238ab1144c01789bf3a76ffb48a375cac3691bb0d1bce",
+  "input": "dép quai ngang trắng bn tiền vậy shop",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 512,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"category\": null,\n  \"kind\": \"Dép quai ngang\",\n  \"color\": \"Trắng\",\n  \"material\": null,\n  \"size\": null,\n  \"price_min\": null,\n  \"price_max\": null,\n  \"in_stock\": null\n}",
+       "thoughtSignature": "EmAKXgFpFH0Tgs1Y4ulqM638adftY2E2hr4PUqRSzcW/9xB8YVt528+ncl9mD0udFrTZqlN5Zgfb/4pi7p7rIgq7zw3gvUGuZO3QWUIXI2Xc0f0Yflgqve4uKuIgtsjYmsk="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1532,
+   "candidatesTokenCount": 71,
+   "totalTokenCount": 1603,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1532
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "stvJapX-Jf_rjuMPxPD6mAU"
+ },
+ "latency_ms": 1109.9,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:31:14+00:00"
+}

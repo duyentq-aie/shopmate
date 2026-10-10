@@ -1,0 +1,50 @@
+{
+ "digest": "ec3d8eccb5bb1528d174065fcc1f122bd7c991ce379ed6fd603acbf72d06ab59",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "Shop ơi đổi size trong mấy ngày vậy?",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"intent\": \"policy_question\"}",
+       "thoughtSignature": "EmAKXgFpFH0T7NC0lAyYiuyw4+iQd8Pm1xJyVp0b5xhkPHN1yVc3Txdm+bMR9oY0Rh6tHRhMONA8nBwv/bHf+gkUr6Hd6jCnSxu6Jf6+Wmog9HcnTOzb7xgc1x94QAsOUx4="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 887,
+   "candidatesTokenCount": 8,
+   "totalTokenCount": 895,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 887
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "hNrJauLuG-fp4-EPgMzI8Q4"
+ },
+ "latency_ms": 924.5,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:26:12+00:00"
+}

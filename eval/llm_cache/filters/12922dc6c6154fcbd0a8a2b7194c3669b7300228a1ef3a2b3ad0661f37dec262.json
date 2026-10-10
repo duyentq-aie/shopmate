@@ -1,0 +1,50 @@
+{
+ "digest": "12922dc6c6154fcbd0a8a2b7194c3669b7300228a1ef3a2b3ad0661f37dec262",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "27e2ade227970c84db5ee5ec975c0aad4429fd2de698616d249357431672f74a",
+  "schema_sha256": "489fb422d325ff2d910238ab1144c01789bf3a76ffb48a375cac3691bb0d1bce",
+  "input": "vi da nam mau den chat da bo bn tien vay mik can loai con hang",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 512,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"category\":null,\"kind\":\"Ví da nam\",\"color\":\"Đen\",\"material\":\"Da bò\",\"size\":null,\"price_min\":null,\"price_max\":null,\"in_stock\":true}",
+       "thoughtSignature": "EmAKXgFpFH0THYmRGrvphQZDO+vZyfBFnd6kF5PjXBmJbEbyjRe1yeHlYGiEPN4zKvntRgoNqpCWXQEN3R2R/sDIqrvGubdeA0TcF0lbRyjKBgT+lD9xcarup7VqaAKLM6g="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1539,
+   "candidatesTokenCount": 43,
+   "totalTokenCount": 1582,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1539
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "79vJaoDQMYzQg8UPm9mcyQQ"
+ },
+ "latency_ms": 1040.6,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:32:15+00:00"
+}

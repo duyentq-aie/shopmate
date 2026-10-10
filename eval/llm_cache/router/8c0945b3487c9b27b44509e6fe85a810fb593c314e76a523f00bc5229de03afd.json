@@ -1,0 +1,50 @@
+{
+ "digest": "8c0945b3487c9b27b44509e6fe85a810fb593c314e76a523f00bc5229de03afd",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "đơn 98 của e sao rồi shop ơi",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"intent\": \"order_status\"\n}",
+       "thoughtSignature": "EmAKXgFpFH0TAsdpBhJhloAiHHN0YGZq4BkqteV76pF1tvsgrTUg51X8ifZ1Xd8gEjTtenA4oY61RgMnDblC+qCe7nlK0yGygx2IYGFJtSVUxNQ5RaKjVbN6CzQbovDtzY4="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 889,
+   "candidatesTokenCount": 13,
+   "totalTokenCount": 902,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 889
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "_trJatSxN_bCjuMPgfLm2AQ"
+ },
+ "latency_ms": 986.6,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:28:15+00:00"
+}

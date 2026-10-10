@@ -1,0 +1,50 @@
+{
+ "digest": "743268584a1af0f24cd26eaa2edae9bd3fc2858865d10ae730ce192068f6ca24",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "27e2ade227970c84db5ee5ec975c0aad4429fd2de698616d249357431672f74a",
+  "schema_sha256": "489fb422d325ff2d910238ab1144c01789bf3a76ffb48a375cac3691bb0d1bce",
+  "input": "áo khoác len nữ còn mẫu nào ko shop?",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 512,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"category\": null,\n  \"kind\": \"Áo khoác nữ\",\n  \"color\": null,\n  \"material\": \"Len\",\n  \"size\": null,\n  \"price_min\": null,\n  \"price_max\": null,\n  \"in_stock\": null\n}",
+       "thoughtSignature": "EmAKXgFpFH0TNdXbJD/VSlvuy9aBSA0vRlm28VJ+irT8rn1D/fEfpewwmi+4DlvMCgBM4bOiRWd4lTJ27qMGzp353NyNJm4Ab2GvGG5EhnSZQtvno6YBcdyjHctawXOl5pQ="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1533,
+   "candidatesTokenCount": 70,
+   "totalTokenCount": 1603,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1533
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "s9vJauGNNZWzg8UP9a3MkQU"
+ },
+ "latency_ms": 1651.0,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:31:16+00:00"
+}

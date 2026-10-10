@@ -1,0 +1,50 @@
+{
+ "digest": "45e2b21937fc94cf15b85e7c800970afa5a40f95b9db14962148c3a7bce4aa99",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "27e2ade227970c84db5ee5ec975c0aad4429fd2de698616d249357431672f74a",
+  "schema_sha256": "489fb422d325ff2d910238ab1144c01789bf3a76ffb48a375cac3691bb0d1bce",
+  "input": "ao len nu do size XXL co ko shop",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 512,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"category\": null,\n  \"kind\": \"Áo len nữ\",\n  \"color\": \"Đỏ\",\n  \"material\": null,\n  \"size\": \"XXL\",\n  \"price_min\": null,\n  \"price_max\": null,\n  \"in_stock\": null\n}",
+       "thoughtSignature": "EmAKXgFpFH0T1O/blt+KkqhfzmC2ZAsMbN8sXoC/2Wx6ZjecWdjY50qpozwR7DYVHg33mcDpggWP8Tf0oN61IsM5vXdEvV7gmxu4Y3gkX0yKwTdG52lCdtehvU1eaP8+QYo="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1531,
+   "candidatesTokenCount": 72,
+   "totalTokenCount": 1603,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1531
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "6dvJaq7YHPXHjuMPx5S7mAU"
+ },
+ "latency_ms": 1092.9,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:32:09+00:00"
+}

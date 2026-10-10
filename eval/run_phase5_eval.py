@@ -123,6 +123,12 @@ def cost_per_1000_questions(calls: dict, extraction_share: float, price_input: f
             "total_usd": 1000 * (per_call(calls["router"]) + extraction_share * per_call(calls["filters"]))}
 
 
+def extraction_share(routing: dict) -> float:
+    """Fraction of ALL routed questions that reach the extractor (routed to product_search): the router runs on every
+    question, so the cost per 1,000 questions must weigh the extractor by this share."""
+    return routing["predicted_counts"].get("product_search", 0) / routing["n"] if routing["n"] else 0.0
+
+
 def evaluate_phase5(items: list[GoldenItem], router, extractor, search, *, probes: ProbeSet | None = None,
                     mode: str = MODE, k: int = TOP_K) -> dict:
     """`search(query, filters, k, mode) -> list of keys`. Returns the deterministic content of a result (no timestamps)."""
@@ -132,6 +138,11 @@ def evaluate_phase5(items: list[GoldenItem], router, extractor, search, *, probe
     # --- routing, all items ------------------------------------------------------------------------------------------
     routing = routing_metrics([{"id": i.id, "gold": i.intent, "pred": routes[i.id].intent, "query_style": i.query_style} for i in items])
     routing["unusable_answers"] = sum(routes[i.id].intent is None for i in items)
+    predicted: dict[str, int] = {}
+    for i in items:
+        label = routes[i.id].intent or "unparseable"
+        predicted[label] = predicted.get(label, 0) + 1
+    routing["predicted_counts"] = predicted
     routing["out_of_scope_items"] = [{"id": i.id, "question": questions[i.id], "pred": routes[i.id].intent,
                                       "correct": routes[i.id].intent == i.intent} for i in items if i.intent == "out_of_scope"]
     routing["confidence"] = sorted({routes[i.id].confidence_note for i in items})
@@ -154,7 +165,10 @@ def evaluate_phase5(items: list[GoldenItem], router, extractor, search, *, probe
         extraction_items.append({"id": item.id, "question": questions[item.id], "expected": expected, "extracted": extracted,
                                  "exact": expected == (extracted or {}), "dropped": result.dropped,
                                  "ignored_fields": result.ignored_fields, "error": result.error})
-    extraction = {"metrics": filter_field_metrics(pairs), "items": extraction_items}
+    # in_stock is also reported apart: golden gs-019 is labeled in_stock True for a question that only asks about
+    # availability, which the R32 rule does not filter on (docs/GOLDEN-V2-ISSUES.md #1). The golden set is not edited.
+    extraction = {"metrics": filter_field_metrics(pairs),
+                  "metrics_without_in_stock": filter_field_metrics(pairs, exclude_fields=("in_stock",)), "items": extraction_items}
 
     # --- retrieval under gold routing: floor / extracted / ceiling ----------------------------------------------------------
     def extracted_filters(question: str) -> dict:
@@ -217,15 +231,20 @@ def evaluate_phase5(items: list[GoldenItem], router, extractor, search, *, probe
     result = {"routing": routing, "extraction": extraction, "retrieval_gold_routing": retrieval, "pipeline": pipeline, "calls": calls}
 
     if probes is not None:
-        probe_results = []
-        for probe in probes.items:
-            routed = router.route(probe.question)
-            probe_results.append({"id": probe.id, "attack": probe.attack, "question": probe.question,
-                                  "expected": probe.expected_intent, "pred": routed.intent, "correct": routed.intent == probe.expected_intent,
-                                  "error": routed.error})
-        result["probes"] = {"n": len(probe_results), "correct": sum(p["correct"] for p in probe_results),
-                            "security_note": probes.security_note, "labeling_rule": probes.labeling_rule, "items": probe_results}
+        result["probes"] = probe_section(router, probes)
     return result
+
+
+def probe_section(router, probes: ProbeSet) -> dict:
+    """Route the (reviewed) adversarial probes. They are not golden items and enter no golden metric."""
+    probe_results = []
+    for probe in probes.items:
+        routed = router.route(probe.question)
+        probe_results.append({"id": probe.id, "attack": probe.attack, "question": probe.question,
+                              "expected": probe.expected_intent, "pred": routed.intent,
+                              "correct": routed.intent == probe.expected_intent, "error": routed.error})
+    return {"n": len(probe_results), "correct": sum(p["correct"] for p in probe_results),
+            "security_note": probes.security_note, "labeling_rule": probes.labeling_rule, "items": probe_results}
 
 
 def prepare_probes(path: Path = PROBES_PATH) -> ProbeSet:
@@ -321,7 +340,7 @@ def main(argv: list[str] | None = None) -> int:
         "probes_sha256": file_sha256(PROBES_PATH) if probes else None,
     }
     if args.price_input_per_million is not None and args.price_output_per_million is not None:
-        share = sum(1 for r in result["pipeline"]["records"] if r["routed_intent"] == "product_search") / max(1, len(result["pipeline"]["records"]))
+        share = extraction_share(result["routing"])
         result["cost_theoretical_paid_tier"] = {
             "prices_usd_per_million_tokens": {"input": args.price_input_per_million, "output": args.price_output_per_million},
             "source": args.price_source, "extraction_share": share,

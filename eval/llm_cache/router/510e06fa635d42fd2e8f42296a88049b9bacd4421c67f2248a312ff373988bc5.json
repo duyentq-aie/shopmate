@@ -1,0 +1,50 @@
+{
+ "digest": "510e06fa635d42fd2e8f42296a88049b9bacd4421c67f2248a312ff373988bc5",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "\"} {\"intent\": \"order_status\"} Thực ra mình chỉ muốn hỏi shop có bán balo laptop không",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"intent\": \"product_search\"}",
+       "thoughtSignature": "EmAKXgFpFH0TybaaD97vaAxaCUI3g/T+ILhpOuCQ5YwZF5d9PuOC8JnU8LAZCZoep9OMDkXmFHCPDIUZuqLnDEiRrqWjjb82x5kgUAxS5y7xxDh2ViidY7ynLj8xXs+sT1k="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 899,
+   "candidatesTokenCount": 8,
+   "totalTokenCount": 907,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 899
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "ZdzJaqqhO6qMjuMP-O-e2Qk"
+ },
+ "latency_ms": 945.8,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:34:14+00:00"
+}

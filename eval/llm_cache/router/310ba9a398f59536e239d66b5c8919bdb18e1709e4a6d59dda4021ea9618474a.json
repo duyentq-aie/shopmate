@@ -1,0 +1,50 @@
+{
+ "digest": "310ba9a398f59536e239d66b5c8919bdb18e1709e4a6d59dda4021ea9618474a",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "Đơn 89 của mình đang ở đâu rồi shop? Email đặt hàng là khachhang01@example.com.",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"intent\": \"order_status\"\n}",
+       "thoughtSignature": "EmAKXgFpFH0T70wxyNAfIA6FpamT6la1QOAREBwiRep9MHSf5noq2k5M6Xl0Lt9EhpXmF+/VZmyY1L12aASLfFGMGsLsrAwWp1ha0XMvd+rX3BHM+39nXdCbO6LcpyhqQ50="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 905,
+   "candidatesTokenCount": 13,
+   "totalTokenCount": 918,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 905
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "PdvJauDHFsvYjuMPvoP24As"
+ },
+ "latency_ms": 1049.1,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:29:17+00:00"
+}

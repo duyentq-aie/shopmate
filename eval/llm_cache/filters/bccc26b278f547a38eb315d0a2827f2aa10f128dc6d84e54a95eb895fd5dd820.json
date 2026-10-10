@@ -1,0 +1,50 @@
+{
+ "digest": "bccc26b278f547a38eb315d0a2827f2aa10f128dc6d84e54a95eb895fd5dd820",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "27e2ade227970c84db5ee5ec975c0aad4429fd2de698616d249357431672f74a",
+  "schema_sha256": "489fb422d325ff2d910238ab1144c01789bf3a76ffb48a375cac3691bb0d1bce",
+  "input": "tui deo cheo duoi 400k co ko shop",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 512,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"category\": null,\n  \"kind\": \"Túi đeo chéo\",\n  \"color\": null,\n  \"material\": null,\n  \"size\": null,\n  \"price_min\": null,\n  \"price_max\": 400000,\n  \"in_stock\": null\n}",
+       "thoughtSignature": "EmAKXgFpFH0TR5og99tmuPoBE3l+v9kz/CiEiGso58qPF3PtcS0AJw6ALFrzXHnavdwoVnDpycE24cDPgpGRwWAERbVWytge3CYXdhhvvU5gmRYc5Rzz5EulJQ7wBd8JTO0="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1537,
+   "candidatesTokenCount": 76,
+   "totalTokenCount": 1613,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1537
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "59vJao3CDeaumNMPze754As"
+ },
+ "latency_ms": 1581.1,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:32:07+00:00"
+}

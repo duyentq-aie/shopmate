@@ -1,0 +1,50 @@
+{
+ "digest": "ac4353a5f29e915e5773257525b1dd2fa6c71d86504b859af90d8e5c686bd254",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "nhan vien tu van thai do rat te, minh muon tao phieu khieu nai dich vu chung",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"intent\": \"create_ticket\"}",
+       "thoughtSignature": "EmAKXgFpFH0TslmlC3dAKZbVNR6v4F5jIwOAdo5p6+ZZOP6oXoDuenFsxRq3v46wXCZGCasoOSNDr1Pl7GaRvsu2LNZDG48mLiEvMag8gRzcVT7MiEm8O/I/jd3Vu7ZY/6M="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 899,
+   "candidatesTokenCount": 8,
+   "totalTokenCount": 907,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 899
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "cdvJasL8FbywmNMP-IGWwAo"
+ },
+ "latency_ms": 1031.5,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:30:09+00:00"
+}

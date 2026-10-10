@@ -1,0 +1,50 @@
+{
+ "digest": "32a8ea3371a7a0c7911f9a7459bc80f3e3f2cee18c273b1d80ecd58a85c1f424",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "phi van chuyen giao hang ben shop tinh the nao vay",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"intent\": \"policy_question\"\n}",
+       "thoughtSignature": "EmAKXgFpFH0TJNbQd+xWBih8C93zLt+gZkVsKPlERQ/VzIVWpDBeGFLQOPTvKMSUx/+Pbl+L0jYAaMylGu/gzymXY1jpdi8iHvlsuJ5ig4HXqPl+erwV70O5kq1L6PdHikA="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 890,
+   "candidatesTokenCount": 13,
+   "totalTokenCount": 903,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 890
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "ONvJao7YJ8a6mNMPhuDwmAU"
+ },
+ "latency_ms": 1038.8,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:29:12+00:00"
+}

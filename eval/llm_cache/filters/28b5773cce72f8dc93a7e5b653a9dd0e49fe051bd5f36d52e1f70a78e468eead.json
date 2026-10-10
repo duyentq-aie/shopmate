@@ -1,0 +1,50 @@
+{
+ "digest": "28b5773cce72f8dc93a7e5b653a9dd0e49fe051bd5f36d52e1f70a78e468eead",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "27e2ade227970c84db5ee5ec975c0aad4429fd2de698616d249357431672f74a",
+  "schema_sha256": "489fb422d325ff2d910238ab1144c01789bf3a76ffb48a375cac3691bb0d1bce",
+  "input": "Tìm cho mình giày chạy bộ màu xám size 42 trong danh mục đồ thể thao.",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 512,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"category\": \"do-the-thao\",\n  \"kind\": \"Giày chạy bộ\",\n  \"color\": \"Xám\",\n  \"material\": null,\n  \"size\": \"42\",\n  \"price_min\": null,\n  \"price_max\": null,\n  \"in_stock\": null\n}",
+       "thoughtSignature": "EmAKXgFpFH0THucBABgz/IRHt0YuaU0b7v6VY64xxSFPsmCfmMTecw/4BjLVv0NbYqqzlHthumCgrUfsJOwJ6Ncea7lC1dkqlfkcnPJfoTYcUJvK2JaKC6K0uVVG864niw0="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1542,
+   "candidatesTokenCount": 78,
+   "totalTokenCount": 1620,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1542
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "8tvJaojwN_bCjuMPgfLm2AQ"
+ },
+ "latency_ms": 1272.7,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:32:19+00:00"
+}

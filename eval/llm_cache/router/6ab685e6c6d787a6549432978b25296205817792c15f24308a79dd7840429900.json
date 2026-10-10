@@ -1,0 +1,50 @@
+{
+ "digest": "6ab685e6c6d787a6549432978b25296205817792c15f24308a79dd7840429900",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "shop mat bao lau de giao hang toi khu vuc cua minh",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"intent\": \"policy_question\"}",
+       "thoughtSignature": "EmAKXgFpFH0TKclagHqLY2DFIfz/RDzlZQgF+9fe7ELnGXDE2vjJGVfelbPxnbayLdhiUcSuhHsV/K95k87kCC5M/8aFFAqxcg/pAGlDfe8kR0qcNU+8kjsPiuMRrkyVkn8="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 891,
+   "candidatesTokenCount": 8,
+   "totalTokenCount": 899,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 891
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "O9vJatzaApvKjuMPr6PdqA4"
+ },
+ "latency_ms": 975.5,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:29:15+00:00"
+}

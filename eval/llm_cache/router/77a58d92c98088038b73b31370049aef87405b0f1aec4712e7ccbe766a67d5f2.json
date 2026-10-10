@@ -1,0 +1,50 @@
+{
+ "digest": "77a58d92c98088038b73b31370049aef87405b0f1aec4712e7ccbe766a67d5f2",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "dép quai ngang trắng bn tiền vậy shop",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"intent\": \"product_search\"}",
+       "thoughtSignature": "EmAKXgFpFH0TivdpgRAM/2a5cBGIIO5y+evGQVOpVP+Fm3P2FAwJ+mxgDX9Uv68RI+5AzlKJP/6F6iCHN2rz7zqiH8bZyoqpuE9fCP21QubQzagfxOPnVbMzrS6GxDfliYU="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 888,
+   "candidatesTokenCount": 8,
+   "totalTokenCount": 896,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 888
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "SNrJaq-WFcWzg8UP0MmkoAc"
+ },
+ "latency_ms": 1727.6,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:25:13+00:00"
+}

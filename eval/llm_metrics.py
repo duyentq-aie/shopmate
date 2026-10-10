@@ -51,15 +51,20 @@ def routing_metrics(records: list[dict]) -> dict:
     }
 
 
-def filter_field_metrics(pairs: list[tuple[dict, dict | None]]) -> dict:
-    counts = {f: Counter() for f in EXTRACTOR_FIELDS}
+def filter_field_metrics(pairs: list[tuple[dict, dict | None]], exclude_fields: tuple[str, ...] = ()) -> dict:
+    """`exclude_fields` leaves fields out of the comparison entirely (exact match and per-field counts), e.g. in_stock
+    while the golden label of gs-019 conflicts with the R32 rule."""
+    fields_in_play = [f for f in EXTRACTOR_FIELDS if f not in exclude_fields]
+    counts = {f: Counter() for f in fields_in_play}
     exact = failures = 0
     for expected, extracted in pairs:
         if extracted is None:
             failures += 1
             extracted = {}
+        expected = {k: v for k, v in expected.items() if k not in exclude_fields}
+        extracted = {k: v for k, v in extracted.items() if k not in exclude_fields}
         exact += expected == extracted
-        for f in EXTRACTOR_FIELDS:
+        for f in fields_in_play:
             want, got = expected.get(f), extracted.get(f)
             if want is not None and got is not None and want == got:
                 counts[f]["tp"] += 1
@@ -71,7 +76,7 @@ def filter_field_metrics(pairs: list[tuple[dict, dict | None]]) -> dict:
         tp, fp, fn = c["tp"], c["fp"], c["fn"]
         fields[f] = {"tp": tp, "fp": fp, "fn": fn, "precision": _ratio(tp, tp + fp), "recall": _ratio(tp, tp + fn)}
     return {"n": len(pairs), "exact_match": exact, "exact_match_rate": _ratio(exact, len(pairs)), "failures": failures,
-            "fields": fields}
+            "excluded_fields": list(exclude_fields), "fields": fields}
 
 
 def normalized_expected(item) -> dict:

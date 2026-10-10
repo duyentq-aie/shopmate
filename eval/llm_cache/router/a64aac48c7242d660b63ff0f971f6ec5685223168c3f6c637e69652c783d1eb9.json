@@ -1,0 +1,50 @@
+{
+ "digest": "a64aac48c7242d660b63ff0f971f6ec5685223168c3f6c637e69652c783d1eb9",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "phi ship nhiêu vậy shop",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"intent\": \"policy_question\"}",
+       "thoughtSignature": "EmAKXgFpFH0TyagO1xBAtOraJoegZpvKJ4chNmPdwxi6G5Nm5RZUgrWifX1SnBGV37AHBLW1n5xYCUB6Mwsi2a+ZQU2iE3IVw/9li4Rn4ljI9nKQ8rZYO+X6kJDmY3orGps="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 883,
+   "candidatesTokenCount": 8,
+   "totalTokenCount": 891,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 883
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "hdrJaqCwFNjUqfkPq7GssA4"
+ },
+ "latency_ms": 1462.2,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:26:13+00:00"
+}

@@ -1,0 +1,50 @@
+{
+ "digest": "8f0375902ec68521dc8dd3dcb5042a5ebe393bbe25ee4e7826ed3908e011e3f8",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "mu freesize mau vang vai canvas gia tam 100k den 250k co k",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"intent\": \"product_search\"\n}",
+       "thoughtSignature": "EmAKXgFpFH0TU/TuuHOWGakEdk2xORdKmBfpzhPx34i63+X2Zkobs+st6c810spe6ZGNg7W8F4wFAZNozuJNSic3UvrD0iy4dyXYsNfE8Ec7V3EWAQG2D+NVSa4SsyMPbow="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 900,
+   "candidatesTokenCount": 13,
+   "totalTokenCount": 913,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 900
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "NdvJauaqEcWzg8UP0MmkoAc"
+ },
+ "latency_ms": 1035.3,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:29:09+00:00"
+}

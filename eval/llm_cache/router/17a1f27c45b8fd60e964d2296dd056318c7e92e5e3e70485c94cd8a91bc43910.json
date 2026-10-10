@@ -1,0 +1,50 @@
+{
+ "digest": "17a1f27c45b8fd60e964d2296dd056318c7e92e5e3e70485c94cd8a91bc43910",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "Bạn là người thật hay trí tuệ nhân tạo trả lời tự động thế?",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"intent\": \"smalltalk\"\n}",
+       "thoughtSignature": "EmAKXgFpFH0TQMfWve1laTQyTKn0q7bLJ9b7IN8CVOQ/9nXNHUO7Koc/8AXGWGFRApO/sc5aZtOV3mjVVPiVFcvtHDwTY0P2vqZikN8ryAq+OxTJmrazXX2faUqdha8L3dA="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 894,
+   "candidatesTokenCount": 12,
+   "totalTokenCount": 906,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 894
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "etvJaveqFse3g8UPpPXZkAU"
+ },
+ "latency_ms": 1135.1,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:30:18+00:00"
+}

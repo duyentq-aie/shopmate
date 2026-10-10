@@ -261,3 +261,28 @@ def test_the_cli_refuses_a_results_dir_outside_eval_results_before_anything_else
     from eval.run_phase5_eval import main
 
     assert main(["--results-dir", "/tmp/elsewhere"]) == 1 and "eval/results" in capsys.readouterr().err
+
+
+def test_extraction_is_reported_with_and_without_the_in_stock_field_because_of_the_golden_label_conflict():
+    """gs-019-like: the golden label has in_stock True for a question that only asks about availability (R32)."""
+    conflict = _item("gs-301", "product_search", {"type": "skus", "skus": ["A"]}, filters={"kind": "Áo thun nam", "in_stock": True},
+                     question="q301")
+    plain = _item("gs-302", "product_search", {"type": "skus", "skus": ["B"]}, filters={"kind": "Mũ"}, question="q302")
+    extractor = FakeExtractor({"q301": SearchFilters(kind="Áo thun nam"), "q302": SearchFilters(kind="Mũ")})
+    result = evaluate_phase5([conflict, plain], FakeRouter({"q301": "product_search", "q302": "product_search"}), extractor,
+                             FakeSearch())
+    ext = result["extraction"]
+    assert ext["metrics"]["exact_match"] == 1 and ext["metrics"]["fields"]["in_stock"]["fn"] == 1
+    assert ext["metrics_without_in_stock"]["exact_match"] == 2 and "in_stock" not in ext["metrics_without_in_stock"]["fields"]
+    assert [i["exact"] for i in ext["items"]] == [False, True]  # the per-item record keeps the strict comparison
+
+
+def test_the_extractor_share_for_the_cost_estimate_is_taken_over_ALL_routed_questions():
+    from eval.run_phase5_eval import extraction_share
+
+    routing = run()[0]["routing"]
+    # 8 questions routed: product_search x2 (q201, q203), smalltalk x2, policy_question, order_status, out_of_scope, create_ticket
+    assert routing["predicted_counts"] == {"product_search": 2, "smalltalk": 2, "policy_question": 1, "order_status": 1,
+                                           "out_of_scope": 1, "create_ticket": 1}
+    assert extraction_share(routing) == 2 / 8  # the router runs on every question, the extractor only on those routed to product_search
+    assert extraction_share({"n": 0, "predicted_counts": {}}) == 0.0

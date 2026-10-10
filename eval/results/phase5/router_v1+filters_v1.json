@@ -1,0 +1,5558 @@
+{
+  "deterministic": {
+    "routing": {
+      "n": 71,
+      "accuracy": 1.0,
+      "macro_f1": 1.0,
+      "macro_f1_classes": 6,
+      "per_class": {
+        "product_search": {
+          "tp": 24,
+          "fp": 0,
+          "fn": 0,
+          "support": 24,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "policy_question": {
+          "tp": 14,
+          "fp": 0,
+          "fn": 0,
+          "support": 14,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "order_status": {
+          "tp": 12,
+          "fp": 0,
+          "fn": 0,
+          "support": 12,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "create_ticket": {
+          "tp": 7,
+          "fp": 0,
+          "fn": 0,
+          "support": 7,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "out_of_scope": {
+          "tp": 7,
+          "fp": 0,
+          "fn": 0,
+          "support": 7,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "smalltalk": {
+          "tp": 7,
+          "fp": 0,
+          "fn": 0,
+          "support": 7,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        }
+      },
+      "confusion": {
+        "create_ticket": {
+          "create_ticket": 7
+        },
+        "order_status": {
+          "order_status": 12
+        },
+        "out_of_scope": {
+          "out_of_scope": 7
+        },
+        "policy_question": {
+          "policy_question": 14
+        },
+        "product_search": {
+          "product_search": 24
+        },
+        "smalltalk": {
+          "smalltalk": 7
+        }
+      },
+      "by_style": {
+        "co_dau": {
+          "n": 23,
+          "accuracy": 1.0
+        },
+        "khong_dau": {
+          "n": 19,
+          "accuracy": 1.0
+        },
+        "teencode": {
+          "n": 29,
+          "accuracy": 1.0
+        }
+      },
+      "errors": [],
+      "unusable_answers": 0,
+      "out_of_scope_items": [
+        {
+          "id": "gs-049",
+          "question": "thời tiết Hà Nội hôm nay sao vậy?",
+          "pred": "out_of_scope",
+          "correct": true
+        },
+        {
+          "id": "gs-050",
+          "question": "giai giup minh bai toan lop 9 nay voi",
+          "pred": "out_of_scope",
+          "correct": true
+        },
+        {
+          "id": "gs-051",
+          "question": "Shop có bán iPhone ko vậy?",
+          "pred": "out_of_scope",
+          "correct": true
+        },
+        {
+          "id": "gs-053",
+          "question": "Tỷ giá đô hôm nay bao nhiêu vậy?",
+          "pred": "out_of_scope",
+          "correct": true
+        },
+        {
+          "id": "gs-132",
+          "question": "thoi tiet hom nay o ha noi the nao co mua khong ban",
+          "pred": "out_of_scope",
+          "correct": true
+        },
+        {
+          "id": "gs-134",
+          "question": "shop co biet cho nao sua may giat electrolux uy tin o hcm k",
+          "pred": "out_of_scope",
+          "correct": true
+        },
+        {
+          "id": "gs-135",
+          "question": "gia vang hom nay tang hay giam vay shop oi",
+          "pred": "out_of_scope",
+          "correct": true
+        }
+      ],
+      "confidence": [
+        "no calibrated confidence: the model exposes no log-probabilities and was not asked to rate itself"
+      ]
+    },
+    "extraction": {
+      "metrics": {
+        "n": 24,
+        "exact_match": 23,
+        "exact_match_rate": 0.9583333333333334,
+        "failures": 0,
+        "fields": {
+          "category": {
+            "tp": 1,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0
+          },
+          "kind": {
+            "tp": 24,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0
+          },
+          "color": {
+            "tp": 15,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0
+          },
+          "material": {
+            "tp": 8,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0
+          },
+          "size": {
+            "tp": 10,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0
+          },
+          "price_min": {
+            "tp": 2,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0
+          },
+          "price_max": {
+            "tp": 6,
+            "fp": 0,
+            "fn": 0,
+            "precision": 1.0,
+            "recall": 1.0
+          },
+          "in_stock": {
+            "tp": 2,
+            "fp": 0,
+            "fn": 1,
+            "precision": 1.0,
+            "recall": 0.6666666666666666
+          }
+        }
+      },
+      "items": [
+        {
+          "id": "gs-002",
+          "question": "tim sneaker nu size 37 shop oi",
+          "expected": {
+            "kind": "Giày sneaker nữ",
+            "size": "37"
+          },
+          "extracted": {
+            "kind": "Giày sneaker nữ",
+            "size": "37"
+          },
+          "exact": true,
+          "dropped": {},
+          "ignored_fields": [],
+          "error": null
+        },
+        {
+          "id": "gs-003",
+          "question": "jean nam màu đen còn ko shop?",
+          "expected": {
+            "kind": "Quần jean nam",
+            "color": "Đen"
+          },
+          "extracted": {
+            "kind": "Quần jean nam",
+            "color": "Đen"
+          },
+          "exact": true,
+          "dropped": {},
+          "ignored_fields": [],
+          "error": null
+        },
+        {
+          "id": "gs-004",
+          "question": "Có váy liền nào dưới 400k ko shop?",
+          "expected": {
+            "kind": "Váy liền nữ",
+            "price_max": 400000
+          },
+          "extracted": {
+            "kind": "Váy liền nữ",
+            "price_max": 400000
+          },
+          "exact": true,
+          "dropped": {},
+          "ignored_fields": [],
+          "error": null
+        },
+        {
+          "id": "gs-007",
+          "question": "shop ơi giày chạy bộ size 42 còn ko",
+          "expected": {
+            "kind": "Giày chạy bộ",
+            "size": "42"
+          },
+          "extracted": {
+            "kind": "Giày chạy bộ",
+            "size": "42"
+          },
+          "exact": true,
+          "dropped": {},
+          "ignored_fields": [],
+          "error": null
+        },
+        {
+          "id": "gs-008",
+          "question": "Có balo đen nào đẹp ko shop?",
+          "expected": {
+            "kind": "Balo",
+            "color": "Đen"
+          },
+          "extracted": {
+            "kind": "Balo",
+            "color": "Đen"
+          },
+          "exact": true,
+          "dropped": {},
+          "ignored_fields": [],
+          "error": null
+        },
+        {
+          "id": "gs-009",
+          "question": "ví da nam dưới 500k có mẫu nào ko",
+          "expected": {
+            "kind": "Ví da nam",
+            "price_max": 500000
+          },
+          "extracted": {
+            "kind": "Ví da nam",
+            "price_max": 500000
+          },
+          "exact": true,
+          "dropped": {},
+          "ignored_fields": [],
+          "error": null
+        },
+        {
+          "id": "gs-011",
+          "question": "dép quai ngang trắng bn tiền vậy shop",
+          "expected": {
+            "kind": "Dép quai ngang",
+            "color": "Trắng"
+          },
+          "extracted": {
+            "kind": "Dép quai ngang",
+            "color": "Trắng"
+          },
+          "exact": true,
+          "dropped": {},
+          "ignored_fields": [],
+          "error": null
+        },
+        {
+          "id": "gs-012",
+          "question": "áo khoác len nữ còn mẫu nào ko shop?",
+          "expected": {
+            "kind": "Áo khoác nữ",
+            "material": "Len"
+          },
+          "extracted": {
+            "kind": "Áo khoác nữ",
+            "material": "Len"
+          },
+          "exact": true,
+          "dropped": {},
+          "ignored_fields": [],
+          "error": null
+        },
+        {
+          "id": "gs-013",
+          "question": "Cho mình xem kính mát gọng kim loại với",
+          "expected": {
+            "kind": "Kính mát",
+            "material": "Kim loại"
+          },
+          "extracted": {
+            "kind": "Kính mát",
+            "material": "Kim loại"
+          },
+          "exact": true,
+          "dropped": {},
+          "ignored_fields": [],
+          "error": null
+        },
+        {
+          "id": "gs-014",
+          "question": "quan kaki nam mau be size 32 con ko",
+          "expected": {
+            "kind": "Quần kaki nam",
+            "color": "Be",
+            "size": "32"
+          },
+          "extracted": {
+            "kind": "Quần kaki nam",
+            "color": "Be",
+            "size": "32"
+          },
+          "exact": true,
+          "dropped": {},
+          "ignored_fields": [],
+          "error": null
+        },
+        {
+          "id": "gs-015",
+          "question": "shop có áo tập gym nam ko ạ",
+          "expected": {
+            "kind": "Áo thể thao nam"
+          },
+          "extracted": {
+            "kind": "Áo thể thao nam"
+          },
+          "exact": true,
+          "dropped": {},
+          "ignored_fields": [],
+          "error": null
+        },
+        {
+          "id": "gs-016",
+          "question": "Có giày tây nam màu nâu size 41 ko shop?",
+          "expected": {
+            "kind": "Giày tây nam",
+            "color": "Nâu",
+            "size": "41"
+          },
+          "extracted": {
+            "kind": "Giày tây nam",
+            "color": "Nâu",
+            "size": "41"
+          },
+          "exact": true,
+          "dropped": {},
+          "ignored_fields": [],
+          "error": null
+        },
+        {
+          "id": "gs-017",
+          "question": "shop có mũ bucket ko nhỉ",
+          "expected": {
+            "kind": "Mũ"
+          },
+          "extracted": {
+            "kind": "Mũ"
+          },
+          "exact": true,
+          "dropped": {},
+          "ignored_fields": [],
+          "error": null
+        },
+        {
+          "id": "gs-018",
+          "question": "tui deo cheo duoi 400k co ko shop",
+          "expected": {
+            "kind": "Túi đeo chéo",
+            "price_max": 400000
+          },
+          "extracted": {
+            "kind": "Túi đeo chéo",
+            "price_max": 400000
+          },
+          "exact": true,
+          "dropped": {},
+          "ignored_fields": [],
+          "error": null
+        },
+        {
+          "id": "gs-019",
+          "question": "bra thể thao hồng size M còn hàng k shop",
+          "expected": {
+            "kind": "Áo bra thể thao nữ",
+            "color": "Hồng",
+            "size": "M",
+            "in_stock": true
+          },
+          "extracted": {
+            "kind": "Áo bra thể thao nữ",
+            "color": "Hồng",
+            "size": "M"
+          },
+          "exact": false,
+          "dropped": {},
+          "ignored_fields": [],
+          "error": null
+        },
+        {
+          "id": "gs-021",
+          "question": "ao len nu do size XXL co ko shop",
+          "expected": {
+            "kind": "Áo len nữ",
+            "color": "Đỏ",
+            "size": "XXL"
+          },
+          "extracted": {
+            "kind": "Áo len nữ",
+            "color": "Đỏ",
+            "size": "XXL"
+          },
+          "exact": true,
+          "dropped": {},
+          "ignored_fields": [],
+          "error": null
+        },
+        {
+          "id": "gs-104",
+          "question": "co quan jean nam denim mau xanh dam size 31 k shop",
+          "expected": {
+            "kind": "Quần jean nam",
+            "color": "Xanh đậm",
+            "material": "Denim",
+            "size": "31"
+          },
+          "extracted": {
+            "kind": "Quần jean nam",
+            "color": "Xanh đậm",
+            "material": "Denim",
+            "size": "31"
+          },
+          "exact": true,
+          "dropped": {},
+          "ignored_fields": [],
+          "error": null
+        },
+        {
+          "id": "gs-105",
+          "question": "cho xem tui deo cheo da tong hop mau nau con hang",
+          "expected": {
+            "kind": "Túi đeo chéo",
+            "color": "Nâu",
+            "material": "Da tổng hợp",
+            "in_stock": true
+          },
+          "extracted": {
+            "kind": "Túi đeo chéo",
+            "color": "Nâu",
+            "material": "Da tổng hợp",
+            "in_stock": true
+          },
+          "exact": true,
+          "dropped": {},
+          "ignored_fields": [],
+          "error": null
+        },
+        {
+          "id": "gs-106",
+          "question": "Mình cần mua giày sneaker nữ màu trắng size 37 giá từ 300000 đến 700000",
+          "expected": {
+            "kind": "Giày sneaker nữ",
+            "color": "Trắng",
+            "size": "37",
+            "price_min": 300000,
+            "price_max": 700000
+          },
+          "extracted": {
+            "kind": "Giày sneaker nữ",
+            "color": "Trắng",
+            "size": "37",
+            "price_min": 300000,
+            "price_max": 700000
+          },
+          "exact": true,
+          "dropped": {},
+          "ignored_fields": [],
+          "error": null
+        },
+        {
+          "id": "gs-107",
+          "question": "vi da nam mau den chat da bo bn tien vay mik can loai con hang",
+          "expected": {
+            "kind": "Ví da nam",
+            "color": "Đen",
+            "material": "Da bò",
+            "in_stock": true
+          },
+          "extracted": {
+            "kind": "Ví da nam",
+            "color": "Đen",
+            "material": "Da bò",
+            "in_stock": true
+          },
+          "exact": true,
+          "dropped": {},
+          "ignored_fields": [],
+          "error": null
+        },
+        {
+          "id": "gs-108",
+          "question": "co ao khoac nu chat lieu tweed mau kem khong",
+          "expected": {
+            "kind": "Áo khoác nữ",
+            "color": "Kem",
+            "material": "Tweed"
+          },
+          "extracted": {
+            "kind": "Áo khoác nữ",
+            "color": "Kem",
+            "material": "Tweed"
+          },
+          "exact": true,
+          "dropped": {},
+          "ignored_fields": [],
+          "error": null
+        },
+        {
+          "id": "gs-109",
+          "question": "Tìm cho mình giày chạy bộ màu xám size 42 trong danh mục đồ thể thao.",
+          "expected": {
+            "category": "do-the-thao",
+            "kind": "Giày chạy bộ",
+            "color": "Xám",
+            "size": "42"
+          },
+          "extracted": {
+            "category": "do-the-thao",
+            "kind": "Giày chạy bộ",
+            "color": "Xám",
+            "size": "42"
+          },
+          "exact": true,
+          "dropped": {},
+          "ignored_fields": [],
+          "error": null
+        },
+        {
+          "id": "gs-110",
+          "question": "mu freesize mau vang vai canvas gia tam 100k den 250k co k",
+          "expected": {
+            "kind": "Mũ",
+            "color": "Vàng",
+            "material": "Vải canvas",
+            "size": "Freesize",
+            "price_min": 100000,
+            "price_max": 250000
+          },
+          "extracted": {
+            "kind": "Mũ",
+            "color": "Vàng",
+            "material": "Vải canvas",
+            "size": "Freesize",
+            "price_min": 100000,
+            "price_max": 250000
+          },
+          "exact": true,
+          "dropped": {},
+          "ignored_fields": [],
+          "error": null
+        },
+        {
+          "id": "gs-112",
+          "question": "kinh mat nhua acetate mau do gia duoi 500k co k a",
+          "expected": {
+            "kind": "Kính mát",
+            "color": "Đỏ",
+            "material": "Nhựa acetate",
+            "price_max": 500000
+          },
+          "extracted": {
+            "kind": "Kính mát",
+            "color": "Đỏ",
+            "material": "Nhựa acetate",
+            "price_max": 500000
+          },
+          "exact": true,
+          "dropped": {},
+          "ignored_fields": [],
+          "error": null
+        }
+      ]
+    },
+    "retrieval_gold_routing": {
+      "mode": "dense_folded",
+      "k": 10,
+      "arms": {
+        "floor": {
+          "aggregate": {
+            "counts": {
+              "product_answerable": 19,
+              "policy": 0,
+              "no_answer": 5
+            },
+            "product_search": {
+              "hit@1": {
+                "n": 19,
+                "excluded": 0,
+                "mean": 0.8947368421052632,
+                "ci_low": 0.7368421052631579,
+                "ci_high": 1.0
+              },
+              "hit@5": {
+                "n": 19,
+                "excluded": 0,
+                "mean": 1.0,
+                "ci_low": 1.0,
+                "ci_high": 1.0
+              },
+              "hit@10": {
+                "n": 19,
+                "excluded": 0,
+                "mean": 1.0,
+                "ci_low": 1.0,
+                "ci_high": 1.0
+              },
+              "precision@1": {
+                "n": 19,
+                "excluded": 0,
+                "mean": 0.8947368421052632,
+                "ci_low": 0.7368421052631579,
+                "ci_high": 1.0
+              },
+              "precision@5": {
+                "n": 19,
+                "excluded": 0,
+                "mean": 0.38947368421052636,
+                "ci_low": 0.28421052631578947,
+                "ci_high": 0.5157894736842106
+              },
+              "precision@10": {
+                "n": 19,
+                "excluded": 0,
+                "mean": 0.23157894736842108,
+                "ci_low": 0.15789473684210525,
+                "ci_high": 0.3105263157894737
+              },
+              "nrecall@1": {
+                "n": 19,
+                "excluded": 0,
+                "mean": 0.8947368421052632,
+                "ci_low": 0.7368421052631579,
+                "ci_high": 1.0
+              },
+              "nrecall@5": {
+                "n": 19,
+                "excluded": 0,
+                "mean": 0.9140350877192983,
+                "ci_low": 0.8403508771929825,
+                "ci_high": 0.9789473684210527
+              },
+              "nrecall@10": {
+                "n": 19,
+                "excluded": 0,
+                "mean": 1.0,
+                "ci_low": 1.0,
+                "ci_high": 1.0
+              },
+              "rr": {
+                "n": 19,
+                "excluded": 0,
+                "mean": 0.9385964912280701,
+                "ci_low": 0.8508771929824562,
+                "ci_high": 1.0
+              }
+            },
+            "policy_question": {
+              "hit@1": {
+                "n": 0,
+                "excluded": 0,
+                "mean": null,
+                "ci_low": null,
+                "ci_high": null
+              },
+              "hit@5": {
+                "n": 0,
+                "excluded": 0,
+                "mean": null,
+                "ci_low": null,
+                "ci_high": null
+              },
+              "hit@10": {
+                "n": 0,
+                "excluded": 0,
+                "mean": null,
+                "ci_low": null,
+                "ci_high": null
+              },
+              "rr": {
+                "n": 0,
+                "excluded": 0,
+                "mean": null,
+                "ci_low": null,
+                "ci_high": null
+              }
+            },
+            "returned_results": {
+              "mean_returned_answerable": 10.0,
+              "answerable_with_zero_results": 0
+            },
+            "breakdown_by_query_style": {
+              "product_search": {
+                "co_dau": {
+                  "n": 3,
+                  "too_small_to_interpret": true,
+                  "metrics": {
+                    "hit@1": 0.6666666666666666,
+                    "hit@5": 1.0,
+                    "hit@10": 1.0,
+                    "nrecall@10": 1.0,
+                    "rr": 0.7777777777777778
+                  }
+                },
+                "khong_dau": {
+                  "n": 3,
+                  "too_small_to_interpret": true,
+                  "metrics": {
+                    "hit@1": 0.6666666666666666,
+                    "hit@5": 1.0,
+                    "hit@10": 1.0,
+                    "nrecall@10": 1.0,
+                    "rr": 0.8333333333333334
+                  }
+                },
+                "teencode": {
+                  "n": 13,
+                  "too_small_to_interpret": false,
+                  "metrics": {
+                    "hit@1": 1.0,
+                    "hit@5": 1.0,
+                    "hit@10": 1.0,
+                    "nrecall@10": 1.0,
+                    "rr": 1.0
+                  }
+                }
+              },
+              "policy_question": {}
+            },
+            "filter_correctness_check": {
+              "note": "no_answer items: share of correctly EMPTY result lists. Under oracle filters this is true by construction; it checks filter correctness, it is NOT a quality metric.",
+              "n": 5,
+              "correct_empty": 0.0
+            }
+          },
+          "records": [
+            {
+              "id": "gs-002",
+              "intent": "product_search",
+              "query_style": "khong_dau",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-GIAY-0002",
+                  "product:SM-GIAY-0014",
+                  "product:SM-GIAY-0020",
+                  "product:SM-GIAY-0032",
+                  "product:SM-GIAY-0038"
+                ]
+              },
+              "filters": {
+                "doc_type": "product"
+              },
+              "retrieved": [
+                "product:SM-GIAY-0038",
+                "product:SM-GIAY-0043",
+                "product:SM-GIAY-0002",
+                "product:SM-GIAY-0032",
+                "product:SM-GIAY-0014",
+                "product:SM-GIAY-0019",
+                "product:SM-GIAY-0020",
+                "product:SM-GIAY-0031",
+                "product:SM-GIAY-0044",
+                "product:SM-GIAY-0013"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 10,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 0.8,
+                "nrecall@5": 0.8,
+                "hit@10": 1.0,
+                "precision@10": 0.5,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-003",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-NAM-0004"
+                ]
+              },
+              "filters": {
+                "doc_type": "product"
+              },
+              "retrieved": [
+                "product:SM-NAM-0004",
+                "product:SM-NU-0026",
+                "product:SM-NAM-0007",
+                "product:SM-NAM-0048",
+                "product:SM-NAM-0026",
+                "product:SM-NAM-0025",
+                "product:SM-NAM-0039",
+                "product:SM-NAM-0002",
+                "product:SM-NAM-0005",
+                "product:SM-NAM-0032"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 10,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 0.2,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 0.1,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-004",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-NU-0003",
+                  "product:SM-NU-0010"
+                ]
+              },
+              "filters": {
+                "doc_type": "product"
+              },
+              "retrieved": [
+                "product:SM-NU-0010",
+                "product:SM-NU-0038",
+                "product:SM-NU-0017",
+                "product:SM-NU-0024",
+                "product:SM-NU-0031",
+                "product:SM-NU-0045",
+                "product:SM-NU-0003",
+                "product:SM-NU-0046",
+                "product:SM-NU-0011",
+                "product:SM-NU-0018"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 10,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 0.2,
+                "nrecall@5": 0.5,
+                "hit@10": 1.0,
+                "precision@10": 0.2,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-007",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-TT-0005",
+                  "product:SM-TT-0010",
+                  "product:SM-TT-0015",
+                  "product:SM-TT-0020",
+                  "product:SM-TT-0025",
+                  "product:SM-TT-0030"
+                ]
+              },
+              "filters": {
+                "doc_type": "product"
+              },
+              "retrieved": [
+                "product:SM-TT-0030",
+                "product:SM-TT-0015",
+                "product:SM-TT-0020",
+                "product:SM-TT-0025",
+                "product:SM-TT-0010",
+                "product:SM-TT-0005",
+                "product:SM-TT-0035",
+                "product:SM-GIAY-0003",
+                "product:SM-GIAY-0037",
+                "product:SM-GIAY-0033"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 10,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 1.0,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 0.6,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-008",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-TUI-0008",
+                  "product:SM-TUI-0028"
+                ]
+              },
+              "filters": {
+                "doc_type": "product"
+              },
+              "retrieved": [
+                "product:SM-TUI-0008",
+                "product:SM-TUI-0028",
+                "product:SM-TUI-0033",
+                "product:SM-TUI-0003",
+                "product:SM-TUI-0027",
+                "product:SM-TUI-0013",
+                "product:SM-TUI-0001",
+                "product:SM-TUI-0018",
+                "product:SM-TUI-0010",
+                "product:SM-TUI-0023"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 10,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 0.4,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 0.2,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-009",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-TUI-0004",
+                  "product:SM-TUI-0009",
+                  "product:SM-TUI-0014",
+                  "product:SM-TUI-0019",
+                  "product:SM-TUI-0024"
+                ]
+              },
+              "filters": {
+                "doc_type": "product"
+              },
+              "retrieved": [
+                "product:SM-TUI-0024",
+                "product:SM-TUI-0004",
+                "product:SM-TUI-0034",
+                "product:SM-TUI-0009",
+                "product:SM-TUI-0029",
+                "product:SM-TUI-0019",
+                "product:SM-TUI-0014",
+                "product:SM-TUI-0030",
+                "product:SM-TUI-0025",
+                "product:SM-TUI-0035"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 10,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 0.6,
+                "nrecall@5": 0.6,
+                "hit@10": 1.0,
+                "precision@10": 0.5,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-011",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-GIAY-0006"
+                ]
+              },
+              "filters": {
+                "doc_type": "product"
+              },
+              "retrieved": [
+                "product:SM-GIAY-0006",
+                "product:SM-GIAY-0024",
+                "product:SM-GIAY-0036",
+                "product:SM-GIAY-0011",
+                "product:SM-GIAY-0018",
+                "product:SM-GIAY-0023",
+                "product:SM-GIAY-0030",
+                "product:SM-GIAY-0042",
+                "product:SM-GIAY-0004",
+                "product:SM-GIAY-0012"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 10,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 0.2,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 0.1,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-012",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-NU-0006",
+                  "product:SM-NU-0013",
+                  "product:SM-NU-0020",
+                  "product:SM-NU-0034",
+                  "product:SM-NU-0048"
+                ]
+              },
+              "filters": {
+                "doc_type": "product"
+              },
+              "retrieved": [
+                "product:SM-NU-0020",
+                "product:SM-NU-0048",
+                "product:SM-NU-0034",
+                "product:SM-NU-0013",
+                "product:SM-NU-0027",
+                "product:SM-NU-0049",
+                "product:SM-NU-0006",
+                "product:SM-NU-0041",
+                "product:SM-NU-0028",
+                "product:SM-NU-0021"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 10,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 0.8,
+                "nrecall@5": 0.8,
+                "hit@10": 1.0,
+                "precision@10": 0.5,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-013",
+              "intent": "product_search",
+              "query_style": "co_dau",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-PK-0013"
+                ]
+              },
+              "filters": {
+                "doc_type": "product"
+              },
+              "retrieved": [
+                "product:SM-PK-0013",
+                "product:SM-PK-0028",
+                "product:SM-PK-0023",
+                "product:SM-PK-0018",
+                "product:SM-PK-0008",
+                "product:SM-PK-0003",
+                "product:SM-PK-0033",
+                "product:SM-NU-0042",
+                "product:SM-NU-0028",
+                "product:SM-PK-0022"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 10,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 0.2,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 0.1,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-014",
+              "intent": "product_search",
+              "query_style": "khong_dau",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-NAM-0047"
+                ]
+              },
+              "filters": {
+                "doc_type": "product"
+              },
+              "retrieved": [
+                "product:SM-NAM-0040",
+                "product:SM-NAM-0047",
+                "product:SM-NAM-0026",
+                "product:SM-NAM-0005",
+                "product:SM-NAM-0033",
+                "product:SM-NAM-0012",
+                "product:SM-NAM-0019",
+                "product:SM-NAM-0046",
+                "product:SM-NAM-0006",
+                "product:SM-NAM-0011"
+              ],
+              "metrics": {
+                "first_gold_rank": 2,
+                "rr": 0.5,
+                "returned": 10,
+                "hit@1": 0.0,
+                "precision@1": 0.0,
+                "nrecall@1": 0.0,
+                "hit@5": 1.0,
+                "precision@5": 0.2,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 0.1,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-015",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-TT-0001",
+                  "product:SM-TT-0011",
+                  "product:SM-TT-0026"
+                ]
+              },
+              "filters": {
+                "doc_type": "product"
+              },
+              "retrieved": [
+                "product:SM-TT-0001",
+                "product:SM-TT-0026",
+                "product:SM-TT-0011",
+                "product:SM-TT-0016",
+                "product:SM-TT-0004",
+                "product:SM-TT-0009",
+                "product:SM-TT-0024",
+                "product:SM-TT-0034",
+                "product:SM-TT-0012",
+                "product:SM-TT-0022"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 10,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 0.6,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 0.3,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-016",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-GIAY-0009",
+                  "product:SM-GIAY-0039",
+                  "product:SM-GIAY-0045"
+                ]
+              },
+              "filters": {
+                "doc_type": "product"
+              },
+              "retrieved": [
+                "product:SM-GIAY-0039",
+                "product:SM-GIAY-0009",
+                "product:SM-GIAY-0045",
+                "product:SM-GIAY-0015",
+                "product:SM-GIAY-0033",
+                "product:SM-GIAY-0021",
+                "product:SM-GIAY-0003",
+                "product:SM-GIAY-0027",
+                "product:SM-GIAY-0041",
+                "product:SM-GIAY-0043"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 10,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 0.6,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 0.3,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-017",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-PK-0027"
+                ]
+              },
+              "filters": {
+                "doc_type": "product"
+              },
+              "retrieved": [
+                "product:SM-PK-0027",
+                "product:SM-PK-0007",
+                "product:SM-PK-0032",
+                "product:SM-NU-0010",
+                "product:SM-NAM-0021",
+                "product:SM-NU-0038",
+                "product:SM-PK-0018",
+                "product:SM-PK-0022",
+                "product:SM-PK-0030",
+                "product:SM-NAM-0042"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 10,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 0.2,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 0.1,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-018",
+              "intent": "product_search",
+              "query_style": "khong_dau",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-TUI-0022",
+                  "product:SM-TUI-0027",
+                  "product:SM-TUI-0032"
+                ]
+              },
+              "filters": {
+                "doc_type": "product"
+              },
+              "retrieved": [
+                "product:SM-TUI-0032",
+                "product:SM-GIAY-0006",
+                "product:SM-GIAY-0023",
+                "product:SM-TUI-0002",
+                "product:SM-TUI-0022",
+                "product:SM-GIAY-0035",
+                "product:SM-TUI-0027",
+                "product:SM-GIAY-0019",
+                "product:SM-GIAY-0041",
+                "product:SM-TUI-0012"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 10,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 0.4,
+                "nrecall@5": 0.6666666666666666,
+                "hit@10": 1.0,
+                "precision@10": 0.3,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-019",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-TT-0007"
+                ]
+              },
+              "filters": {
+                "doc_type": "product"
+              },
+              "retrieved": [
+                "product:SM-TT-0007",
+                "product:SM-TT-0032",
+                "product:SM-TT-0017",
+                "product:SM-TT-0012",
+                "product:SM-TT-0002",
+                "product:SM-TT-0027",
+                "product:SM-TT-0022",
+                "product:SM-TT-0024",
+                "product:SM-TT-0011",
+                "product:SM-NU-0008"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 10,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 0.2,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 0.1,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-021",
+              "intent": "product_search",
+              "query_style": "khong_dau",
+              "author": "agent_draft",
+              "gold": {
+                "type": "no_answer",
+                "keys": []
+              },
+              "filters": {
+                "doc_type": "product"
+              },
+              "retrieved": [
+                "product:SM-NU-0028",
+                "product:SM-NU-0048",
+                "product:SM-NU-0041",
+                "product:SM-NU-0007",
+                "product:SM-NU-0031",
+                "product:SM-NU-0014",
+                "product:SM-NU-0035",
+                "product:SM-NU-0045",
+                "product:SM-NU-0049",
+                "product:SM-NU-0024"
+              ],
+              "metrics": {
+                "returned": 10,
+                "correct_empty": 0.0
+              }
+            },
+            {
+              "id": "gs-104",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "human",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-NAM-0018"
+                ]
+              },
+              "filters": {
+                "doc_type": "product"
+              },
+              "retrieved": [
+                "product:SM-NAM-0018",
+                "product:SM-NAM-0032",
+                "product:SM-NAM-0039",
+                "product:SM-NU-0019",
+                "product:SM-NAM-0046",
+                "product:SM-NAM-0025",
+                "product:SM-NAM-0011",
+                "product:SM-NU-0033",
+                "product:SM-NAM-0004",
+                "product:SM-NAM-0033"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 10,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 0.2,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 0.1,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-105",
+              "intent": "product_search",
+              "query_style": "khong_dau",
+              "author": "human",
+              "gold": {
+                "type": "no_answer",
+                "keys": []
+              },
+              "filters": {
+                "doc_type": "product"
+              },
+              "retrieved": [
+                "product:SM-TUI-0002",
+                "product:SM-TUI-0032",
+                "product:SM-TUI-0007",
+                "product:SM-TUI-0022",
+                "product:SM-TUI-0012",
+                "product:SM-TUI-0027",
+                "product:SM-GIAY-0027",
+                "product:SM-TUI-0017",
+                "product:SM-GIAY-0045",
+                "product:SM-PK-0029"
+              ],
+              "metrics": {
+                "returned": 10,
+                "correct_empty": 0.0
+              }
+            },
+            {
+              "id": "gs-106",
+              "intent": "product_search",
+              "query_style": "co_dau",
+              "author": "human",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-GIAY-0002"
+                ]
+              },
+              "filters": {
+                "doc_type": "product"
+              },
+              "retrieved": [
+                "product:SM-GIAY-0014",
+                "product:SM-GIAY-0032",
+                "product:SM-GIAY-0002",
+                "product:SM-GIAY-0038",
+                "product:SM-GIAY-0019",
+                "product:SM-GIAY-0020",
+                "product:SM-GIAY-0043",
+                "product:SM-GIAY-0008",
+                "product:SM-GIAY-0004",
+                "product:SM-GIAY-0034"
+              ],
+              "metrics": {
+                "first_gold_rank": 3,
+                "rr": 0.3333333333333333,
+                "returned": 10,
+                "hit@1": 0.0,
+                "precision@1": 0.0,
+                "nrecall@1": 0.0,
+                "hit@5": 1.0,
+                "precision@5": 0.2,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 0.1,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-107",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "human",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-TUI-0009"
+                ]
+              },
+              "filters": {
+                "doc_type": "product"
+              },
+              "retrieved": [
+                "product:SM-TUI-0009",
+                "product:SM-TUI-0034",
+                "product:SM-TUI-0024",
+                "product:SM-TUI-0029",
+                "product:SM-TUI-0030",
+                "product:SM-NAM-0025",
+                "product:SM-TUI-0004",
+                "product:SM-TUI-0019",
+                "product:SM-NAM-0021",
+                "product:SM-TUI-0035"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 10,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 0.2,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 0.1,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-108",
+              "intent": "product_search",
+              "query_style": "khong_dau",
+              "author": "human",
+              "gold": {
+                "type": "no_answer",
+                "keys": []
+              },
+              "filters": {
+                "doc_type": "product"
+              },
+              "retrieved": [
+                "product:SM-NU-0046",
+                "product:SM-PK-0034",
+                "product:SM-NU-0025",
+                "product:SM-NU-0048",
+                "product:SM-NU-0027",
+                "product:SM-NU-0032",
+                "product:SM-NU-0034",
+                "product:SM-PK-0009",
+                "product:SM-PK-0029",
+                "product:SM-NU-0021"
+              ],
+              "metrics": {
+                "returned": 10,
+                "correct_empty": 0.0
+              }
+            },
+            {
+              "id": "gs-109",
+              "intent": "product_search",
+              "query_style": "co_dau",
+              "author": "human",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-TT-0025"
+                ]
+              },
+              "filters": {
+                "doc_type": "product"
+              },
+              "retrieved": [
+                "product:SM-TT-0025",
+                "product:SM-TT-0015",
+                "product:SM-TT-0005",
+                "product:SM-TT-0010",
+                "product:SM-TT-0020",
+                "product:SM-TT-0030",
+                "product:SM-TT-0035",
+                "product:SM-TT-0021",
+                "product:SM-TT-0019",
+                "product:SM-TT-0022"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 10,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 0.2,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 0.1,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-110",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "human",
+              "gold": {
+                "type": "no_answer",
+                "keys": []
+              },
+              "filters": {
+                "doc_type": "product"
+              },
+              "retrieved": [
+                "product:SM-TUI-0027",
+                "product:SM-PK-0009",
+                "product:SM-TUI-0031",
+                "product:SM-TUI-0022",
+                "product:SM-TUI-0008",
+                "product:SM-TUI-0028",
+                "product:SM-TUI-0001",
+                "product:SM-TUI-0033",
+                "product:SM-PK-0023",
+                "product:SM-GIAY-0008"
+              ],
+              "metrics": {
+                "returned": 10,
+                "correct_empty": 0.0
+              }
+            },
+            {
+              "id": "gs-112",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "human",
+              "gold": {
+                "type": "no_answer",
+                "keys": []
+              },
+              "filters": {
+                "doc_type": "product"
+              },
+              "retrieved": [
+                "product:SM-PK-0018",
+                "product:SM-PK-0023",
+                "product:SM-PK-0033",
+                "product:SM-PK-0003",
+                "product:SM-PK-0028",
+                "product:SM-PK-0008",
+                "product:SM-PK-0020",
+                "product:SM-PK-0030",
+                "product:SM-PK-0010",
+                "product:SM-PK-0013"
+              ],
+              "metrics": {
+                "returned": 10,
+                "correct_empty": 0.0
+              }
+            }
+          ]
+        },
+        "extracted": {
+          "aggregate": {
+            "counts": {
+              "product_answerable": 19,
+              "policy": 0,
+              "no_answer": 5
+            },
+            "product_search": {
+              "hit@1": {
+                "n": 19,
+                "excluded": 0,
+                "mean": 1.0,
+                "ci_low": 1.0,
+                "ci_high": 1.0
+              },
+              "hit@5": {
+                "n": 19,
+                "excluded": 0,
+                "mean": 1.0,
+                "ci_low": 1.0,
+                "ci_high": 1.0
+              },
+              "hit@10": {
+                "n": 19,
+                "excluded": 0,
+                "mean": 1.0,
+                "ci_low": 1.0,
+                "ci_high": 1.0
+              },
+              "precision@1": {
+                "n": 19,
+                "excluded": 0,
+                "mean": 1.0,
+                "ci_low": 1.0,
+                "ci_high": 1.0
+              },
+              "precision@5": {
+                "n": 19,
+                "excluded": 0,
+                "mean": 0.9368421052631579,
+                "ci_low": 0.8315789473684211,
+                "ci_high": 1.0
+              },
+              "precision@10": {
+                "n": 19,
+                "excluded": 0,
+                "mean": 0.9248120300751881,
+                "ci_low": 0.8045112781954887,
+                "ci_high": 1.0
+              },
+              "nrecall@1": {
+                "n": 19,
+                "excluded": 0,
+                "mean": 1.0,
+                "ci_low": 1.0,
+                "ci_high": 1.0
+              },
+              "nrecall@5": {
+                "n": 19,
+                "excluded": 0,
+                "mean": 1.0,
+                "ci_low": 1.0,
+                "ci_high": 1.0
+              },
+              "nrecall@10": {
+                "n": 19,
+                "excluded": 0,
+                "mean": 1.0,
+                "ci_low": 1.0,
+                "ci_high": 1.0
+              },
+              "rr": {
+                "n": 19,
+                "excluded": 0,
+                "mean": 1.0,
+                "ci_low": 1.0,
+                "ci_high": 1.0
+              }
+            },
+            "policy_question": {
+              "hit@1": {
+                "n": 0,
+                "excluded": 0,
+                "mean": null,
+                "ci_low": null,
+                "ci_high": null
+              },
+              "hit@5": {
+                "n": 0,
+                "excluded": 0,
+                "mean": null,
+                "ci_low": null,
+                "ci_high": null
+              },
+              "hit@10": {
+                "n": 0,
+                "excluded": 0,
+                "mean": null,
+                "ci_low": null,
+                "ci_high": null
+              },
+              "rr": {
+                "n": 0,
+                "excluded": 0,
+                "mean": null,
+                "ci_low": null,
+                "ci_high": null
+              }
+            },
+            "returned_results": {
+              "mean_returned_answerable": 2.8421052631578947,
+              "answerable_with_zero_results": 0
+            },
+            "breakdown_by_query_style": {
+              "product_search": {
+                "co_dau": {
+                  "n": 3,
+                  "too_small_to_interpret": true,
+                  "metrics": {
+                    "hit@1": 1.0,
+                    "hit@5": 1.0,
+                    "hit@10": 1.0,
+                    "nrecall@10": 1.0,
+                    "rr": 1.0
+                  }
+                },
+                "khong_dau": {
+                  "n": 3,
+                  "too_small_to_interpret": true,
+                  "metrics": {
+                    "hit@1": 1.0,
+                    "hit@5": 1.0,
+                    "hit@10": 1.0,
+                    "nrecall@10": 1.0,
+                    "rr": 1.0
+                  }
+                },
+                "teencode": {
+                  "n": 13,
+                  "too_small_to_interpret": false,
+                  "metrics": {
+                    "hit@1": 1.0,
+                    "hit@5": 1.0,
+                    "hit@10": 1.0,
+                    "nrecall@10": 1.0,
+                    "rr": 1.0
+                  }
+                }
+              },
+              "policy_question": {}
+            },
+            "filter_correctness_check": {
+              "note": "no_answer items: share of correctly EMPTY result lists. Under oracle filters this is true by construction; it checks filter correctness, it is NOT a quality metric.",
+              "n": 5,
+              "correct_empty": 1.0
+            }
+          },
+          "records": [
+            {
+              "id": "gs-002",
+              "intent": "product_search",
+              "query_style": "khong_dau",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-GIAY-0002",
+                  "product:SM-GIAY-0014",
+                  "product:SM-GIAY-0020",
+                  "product:SM-GIAY-0032",
+                  "product:SM-GIAY-0038"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Giày sneaker nữ",
+                "size": "37"
+              },
+              "retrieved": [
+                "product:SM-GIAY-0002",
+                "product:SM-GIAY-0032",
+                "product:SM-GIAY-0038",
+                "product:SM-GIAY-0014",
+                "product:SM-GIAY-0020"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 5,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 1.0,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 1.0,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-003",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-NAM-0004"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Quần jean nam",
+                "color": "Đen"
+              },
+              "retrieved": [
+                "product:SM-NAM-0004"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 1,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 1.0,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 1.0,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-004",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-NU-0003",
+                  "product:SM-NU-0010"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Váy liền nữ",
+                "price_max": 400000
+              },
+              "retrieved": [
+                "product:SM-NU-0010",
+                "product:SM-NU-0003"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 2,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 1.0,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 1.0,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-007",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-TT-0005",
+                  "product:SM-TT-0010",
+                  "product:SM-TT-0015",
+                  "product:SM-TT-0020",
+                  "product:SM-TT-0025",
+                  "product:SM-TT-0030"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Giày chạy bộ",
+                "size": "42"
+              },
+              "retrieved": [
+                "product:SM-TT-0030",
+                "product:SM-TT-0015",
+                "product:SM-TT-0020",
+                "product:SM-TT-0025",
+                "product:SM-TT-0010",
+                "product:SM-TT-0005"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 6,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 1.0,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 1.0,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-008",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-TUI-0008",
+                  "product:SM-TUI-0028"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Balo",
+                "color": "Đen"
+              },
+              "retrieved": [
+                "product:SM-TUI-0008",
+                "product:SM-TUI-0028"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 2,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 1.0,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 1.0,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-009",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-TUI-0004",
+                  "product:SM-TUI-0009",
+                  "product:SM-TUI-0014",
+                  "product:SM-TUI-0019",
+                  "product:SM-TUI-0024"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Ví da nam",
+                "price_max": 500000
+              },
+              "retrieved": [
+                "product:SM-TUI-0024",
+                "product:SM-TUI-0004",
+                "product:SM-TUI-0009",
+                "product:SM-TUI-0014",
+                "product:SM-TUI-0019"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 5,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 1.0,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 1.0,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-011",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-GIAY-0006"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Dép quai ngang",
+                "color": "Trắng"
+              },
+              "retrieved": [
+                "product:SM-GIAY-0006"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 1,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 1.0,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 1.0,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-012",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-NU-0006",
+                  "product:SM-NU-0013",
+                  "product:SM-NU-0020",
+                  "product:SM-NU-0034",
+                  "product:SM-NU-0048"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Áo khoác nữ",
+                "material": "Len"
+              },
+              "retrieved": [
+                "product:SM-NU-0020",
+                "product:SM-NU-0048",
+                "product:SM-NU-0034",
+                "product:SM-NU-0013",
+                "product:SM-NU-0006"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 5,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 1.0,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 1.0,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-013",
+              "intent": "product_search",
+              "query_style": "co_dau",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-PK-0013"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Kính mát",
+                "material": "Kim loại"
+              },
+              "retrieved": [
+                "product:SM-PK-0013"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 1,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 1.0,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 1.0,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-014",
+              "intent": "product_search",
+              "query_style": "khong_dau",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-NAM-0047"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Quần kaki nam",
+                "color": "Be",
+                "size": "32"
+              },
+              "retrieved": [
+                "product:SM-NAM-0047"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 1,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 1.0,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 1.0,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-015",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-TT-0001",
+                  "product:SM-TT-0011",
+                  "product:SM-TT-0026"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Áo thể thao nam"
+              },
+              "retrieved": [
+                "product:SM-TT-0001",
+                "product:SM-TT-0026",
+                "product:SM-TT-0011",
+                "product:SM-TT-0016",
+                "product:SM-TT-0021",
+                "product:SM-TT-0031",
+                "product:SM-TT-0006"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 7,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 0.6,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 0.42857142857142855,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-016",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-GIAY-0009",
+                  "product:SM-GIAY-0039",
+                  "product:SM-GIAY-0045"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Giày tây nam",
+                "color": "Nâu",
+                "size": "41"
+              },
+              "retrieved": [
+                "product:SM-GIAY-0039",
+                "product:SM-GIAY-0009",
+                "product:SM-GIAY-0045"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 3,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 1.0,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 1.0,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-017",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-PK-0027"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Mũ"
+              },
+              "retrieved": [
+                "product:SM-PK-0027",
+                "product:SM-PK-0007",
+                "product:SM-PK-0032",
+                "product:SM-PK-0022",
+                "product:SM-PK-0012",
+                "product:SM-PK-0017",
+                "product:SM-PK-0002"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 7,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 0.2,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 0.14285714285714285,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-018",
+              "intent": "product_search",
+              "query_style": "khong_dau",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-TUI-0022",
+                  "product:SM-TUI-0027",
+                  "product:SM-TUI-0032"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Túi đeo chéo",
+                "price_max": 400000
+              },
+              "retrieved": [
+                "product:SM-TUI-0022",
+                "product:SM-TUI-0032",
+                "product:SM-TUI-0027"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 3,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 1.0,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 1.0,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-019",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-TT-0007"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Áo bra thể thao nữ",
+                "color": "Hồng",
+                "size": "M"
+              },
+              "retrieved": [
+                "product:SM-TT-0007"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 1,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 1.0,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 1.0,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-021",
+              "intent": "product_search",
+              "query_style": "khong_dau",
+              "author": "agent_draft",
+              "gold": {
+                "type": "no_answer",
+                "keys": []
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Áo len nữ",
+                "color": "Đỏ",
+                "size": "XXL"
+              },
+              "retrieved": [],
+              "metrics": {
+                "returned": 0,
+                "correct_empty": 1.0
+              }
+            },
+            {
+              "id": "gs-104",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "human",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-NAM-0018"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Quần jean nam",
+                "color": "Xanh đậm",
+                "material": "Denim",
+                "size": "31"
+              },
+              "retrieved": [
+                "product:SM-NAM-0018"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 1,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 1.0,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 1.0,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-105",
+              "intent": "product_search",
+              "query_style": "khong_dau",
+              "author": "human",
+              "gold": {
+                "type": "no_answer",
+                "keys": []
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Túi đeo chéo",
+                "color": "Nâu",
+                "material": "Da tổng hợp",
+                "in_stock": true
+              },
+              "retrieved": [],
+              "metrics": {
+                "returned": 0,
+                "correct_empty": 1.0
+              }
+            },
+            {
+              "id": "gs-106",
+              "intent": "product_search",
+              "query_style": "co_dau",
+              "author": "human",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-GIAY-0002"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Giày sneaker nữ",
+                "color": "Trắng",
+                "size": "37",
+                "price_min": 300000,
+                "price_max": 700000
+              },
+              "retrieved": [
+                "product:SM-GIAY-0002"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 1,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 1.0,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 1.0,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-107",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "human",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-TUI-0009"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Ví da nam",
+                "color": "Đen",
+                "material": "Da bò",
+                "in_stock": true
+              },
+              "retrieved": [
+                "product:SM-TUI-0009"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 1,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 1.0,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 1.0,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-108",
+              "intent": "product_search",
+              "query_style": "khong_dau",
+              "author": "human",
+              "gold": {
+                "type": "no_answer",
+                "keys": []
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Áo khoác nữ",
+                "color": "Kem",
+                "material": "Tweed"
+              },
+              "retrieved": [],
+              "metrics": {
+                "returned": 0,
+                "correct_empty": 1.0
+              }
+            },
+            {
+              "id": "gs-109",
+              "intent": "product_search",
+              "query_style": "co_dau",
+              "author": "human",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-TT-0025"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "category": "do-the-thao",
+                "kind": "Giày chạy bộ",
+                "color": "Xám",
+                "size": "42"
+              },
+              "retrieved": [
+                "product:SM-TT-0025"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 1,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 1.0,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 1.0,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-110",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "human",
+              "gold": {
+                "type": "no_answer",
+                "keys": []
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Mũ",
+                "color": "Vàng",
+                "material": "Vải canvas",
+                "size": "Freesize",
+                "price_min": 100000,
+                "price_max": 250000
+              },
+              "retrieved": [],
+              "metrics": {
+                "returned": 0,
+                "correct_empty": 1.0
+              }
+            },
+            {
+              "id": "gs-112",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "human",
+              "gold": {
+                "type": "no_answer",
+                "keys": []
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Kính mát",
+                "color": "Đỏ",
+                "material": "Nhựa acetate",
+                "price_max": 500000
+              },
+              "retrieved": [],
+              "metrics": {
+                "returned": 0,
+                "correct_empty": 1.0
+              }
+            }
+          ]
+        },
+        "ceiling": {
+          "aggregate": {
+            "counts": {
+              "product_answerable": 19,
+              "policy": 0,
+              "no_answer": 5
+            },
+            "product_search": {
+              "hit@1": {
+                "n": 19,
+                "excluded": 0,
+                "mean": 1.0,
+                "ci_low": 1.0,
+                "ci_high": 1.0
+              },
+              "hit@5": {
+                "n": 19,
+                "excluded": 0,
+                "mean": 1.0,
+                "ci_low": 1.0,
+                "ci_high": 1.0
+              },
+              "hit@10": {
+                "n": 19,
+                "excluded": 0,
+                "mean": 1.0,
+                "ci_low": 1.0,
+                "ci_high": 1.0
+              },
+              "precision@1": {
+                "n": 19,
+                "excluded": 0,
+                "mean": 1.0,
+                "ci_low": 1.0,
+                "ci_high": 1.0
+              },
+              "precision@5": {
+                "n": 19,
+                "excluded": 0,
+                "mean": 0.9368421052631579,
+                "ci_low": 0.8315789473684211,
+                "ci_high": 1.0
+              },
+              "precision@10": {
+                "n": 19,
+                "excluded": 0,
+                "mean": 0.9248120300751881,
+                "ci_low": 0.8045112781954887,
+                "ci_high": 1.0
+              },
+              "nrecall@1": {
+                "n": 19,
+                "excluded": 0,
+                "mean": 1.0,
+                "ci_low": 1.0,
+                "ci_high": 1.0
+              },
+              "nrecall@5": {
+                "n": 19,
+                "excluded": 0,
+                "mean": 1.0,
+                "ci_low": 1.0,
+                "ci_high": 1.0
+              },
+              "nrecall@10": {
+                "n": 19,
+                "excluded": 0,
+                "mean": 1.0,
+                "ci_low": 1.0,
+                "ci_high": 1.0
+              },
+              "rr": {
+                "n": 19,
+                "excluded": 0,
+                "mean": 1.0,
+                "ci_low": 1.0,
+                "ci_high": 1.0
+              }
+            },
+            "policy_question": {
+              "hit@1": {
+                "n": 0,
+                "excluded": 0,
+                "mean": null,
+                "ci_low": null,
+                "ci_high": null
+              },
+              "hit@5": {
+                "n": 0,
+                "excluded": 0,
+                "mean": null,
+                "ci_low": null,
+                "ci_high": null
+              },
+              "hit@10": {
+                "n": 0,
+                "excluded": 0,
+                "mean": null,
+                "ci_low": null,
+                "ci_high": null
+              },
+              "rr": {
+                "n": 0,
+                "excluded": 0,
+                "mean": null,
+                "ci_low": null,
+                "ci_high": null
+              }
+            },
+            "returned_results": {
+              "mean_returned_answerable": 2.8421052631578947,
+              "answerable_with_zero_results": 0
+            },
+            "breakdown_by_query_style": {
+              "product_search": {
+                "co_dau": {
+                  "n": 3,
+                  "too_small_to_interpret": true,
+                  "metrics": {
+                    "hit@1": 1.0,
+                    "hit@5": 1.0,
+                    "hit@10": 1.0,
+                    "nrecall@10": 1.0,
+                    "rr": 1.0
+                  }
+                },
+                "khong_dau": {
+                  "n": 3,
+                  "too_small_to_interpret": true,
+                  "metrics": {
+                    "hit@1": 1.0,
+                    "hit@5": 1.0,
+                    "hit@10": 1.0,
+                    "nrecall@10": 1.0,
+                    "rr": 1.0
+                  }
+                },
+                "teencode": {
+                  "n": 13,
+                  "too_small_to_interpret": false,
+                  "metrics": {
+                    "hit@1": 1.0,
+                    "hit@5": 1.0,
+                    "hit@10": 1.0,
+                    "nrecall@10": 1.0,
+                    "rr": 1.0
+                  }
+                }
+              },
+              "policy_question": {}
+            },
+            "filter_correctness_check": {
+              "note": "no_answer items: share of correctly EMPTY result lists. Under oracle filters this is true by construction; it checks filter correctness, it is NOT a quality metric.",
+              "n": 5,
+              "correct_empty": 1.0
+            }
+          },
+          "records": [
+            {
+              "id": "gs-002",
+              "intent": "product_search",
+              "query_style": "khong_dau",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-GIAY-0002",
+                  "product:SM-GIAY-0014",
+                  "product:SM-GIAY-0020",
+                  "product:SM-GIAY-0032",
+                  "product:SM-GIAY-0038"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Giày sneaker nữ",
+                "size": "37"
+              },
+              "retrieved": [
+                "product:SM-GIAY-0002",
+                "product:SM-GIAY-0032",
+                "product:SM-GIAY-0038",
+                "product:SM-GIAY-0014",
+                "product:SM-GIAY-0020"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 5,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 1.0,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 1.0,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-003",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-NAM-0004"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Quần jean nam",
+                "color": "Đen"
+              },
+              "retrieved": [
+                "product:SM-NAM-0004"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 1,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 1.0,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 1.0,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-004",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-NU-0003",
+                  "product:SM-NU-0010"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Váy liền nữ",
+                "price_max": 400000
+              },
+              "retrieved": [
+                "product:SM-NU-0010",
+                "product:SM-NU-0003"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 2,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 1.0,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 1.0,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-007",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-TT-0005",
+                  "product:SM-TT-0010",
+                  "product:SM-TT-0015",
+                  "product:SM-TT-0020",
+                  "product:SM-TT-0025",
+                  "product:SM-TT-0030"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Giày chạy bộ",
+                "size": "42"
+              },
+              "retrieved": [
+                "product:SM-TT-0030",
+                "product:SM-TT-0015",
+                "product:SM-TT-0020",
+                "product:SM-TT-0025",
+                "product:SM-TT-0010",
+                "product:SM-TT-0005"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 6,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 1.0,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 1.0,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-008",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-TUI-0008",
+                  "product:SM-TUI-0028"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Balo",
+                "color": "Đen"
+              },
+              "retrieved": [
+                "product:SM-TUI-0008",
+                "product:SM-TUI-0028"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 2,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 1.0,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 1.0,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-009",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-TUI-0004",
+                  "product:SM-TUI-0009",
+                  "product:SM-TUI-0014",
+                  "product:SM-TUI-0019",
+                  "product:SM-TUI-0024"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Ví da nam",
+                "price_max": 500000
+              },
+              "retrieved": [
+                "product:SM-TUI-0024",
+                "product:SM-TUI-0004",
+                "product:SM-TUI-0009",
+                "product:SM-TUI-0014",
+                "product:SM-TUI-0019"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 5,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 1.0,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 1.0,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-011",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-GIAY-0006"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Dép quai ngang",
+                "color": "Trắng"
+              },
+              "retrieved": [
+                "product:SM-GIAY-0006"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 1,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 1.0,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 1.0,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-012",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-NU-0006",
+                  "product:SM-NU-0013",
+                  "product:SM-NU-0020",
+                  "product:SM-NU-0034",
+                  "product:SM-NU-0048"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Áo khoác nữ",
+                "material": "Len"
+              },
+              "retrieved": [
+                "product:SM-NU-0020",
+                "product:SM-NU-0048",
+                "product:SM-NU-0034",
+                "product:SM-NU-0013",
+                "product:SM-NU-0006"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 5,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 1.0,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 1.0,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-013",
+              "intent": "product_search",
+              "query_style": "co_dau",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-PK-0013"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Kính mát",
+                "material": "Kim loại"
+              },
+              "retrieved": [
+                "product:SM-PK-0013"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 1,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 1.0,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 1.0,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-014",
+              "intent": "product_search",
+              "query_style": "khong_dau",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-NAM-0047"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Quần kaki nam",
+                "color": "Be",
+                "size": "32"
+              },
+              "retrieved": [
+                "product:SM-NAM-0047"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 1,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 1.0,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 1.0,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-015",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-TT-0001",
+                  "product:SM-TT-0011",
+                  "product:SM-TT-0026"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Áo thể thao nam"
+              },
+              "retrieved": [
+                "product:SM-TT-0001",
+                "product:SM-TT-0026",
+                "product:SM-TT-0011",
+                "product:SM-TT-0016",
+                "product:SM-TT-0021",
+                "product:SM-TT-0031",
+                "product:SM-TT-0006"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 7,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 0.6,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 0.42857142857142855,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-016",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-GIAY-0009",
+                  "product:SM-GIAY-0039",
+                  "product:SM-GIAY-0045"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Giày tây nam",
+                "color": "Nâu",
+                "size": "41"
+              },
+              "retrieved": [
+                "product:SM-GIAY-0039",
+                "product:SM-GIAY-0009",
+                "product:SM-GIAY-0045"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 3,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 1.0,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 1.0,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-017",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-PK-0027"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Mũ"
+              },
+              "retrieved": [
+                "product:SM-PK-0027",
+                "product:SM-PK-0007",
+                "product:SM-PK-0032",
+                "product:SM-PK-0022",
+                "product:SM-PK-0012",
+                "product:SM-PK-0017",
+                "product:SM-PK-0002"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 7,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 0.2,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 0.14285714285714285,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-018",
+              "intent": "product_search",
+              "query_style": "khong_dau",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-TUI-0022",
+                  "product:SM-TUI-0027",
+                  "product:SM-TUI-0032"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Túi đeo chéo",
+                "price_max": 400000
+              },
+              "retrieved": [
+                "product:SM-TUI-0022",
+                "product:SM-TUI-0032",
+                "product:SM-TUI-0027"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 3,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 1.0,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 1.0,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-019",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "agent_draft",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-TT-0007"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Áo bra thể thao nữ",
+                "color": "Hồng",
+                "size": "M",
+                "in_stock": true
+              },
+              "retrieved": [
+                "product:SM-TT-0007"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 1,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 1.0,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 1.0,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-021",
+              "intent": "product_search",
+              "query_style": "khong_dau",
+              "author": "agent_draft",
+              "gold": {
+                "type": "no_answer",
+                "keys": []
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Áo len nữ",
+                "color": "Đỏ",
+                "size": "XXL"
+              },
+              "retrieved": [],
+              "metrics": {
+                "returned": 0,
+                "correct_empty": 1.0
+              }
+            },
+            {
+              "id": "gs-104",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "human",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-NAM-0018"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Quần jean nam",
+                "color": "Xanh đậm",
+                "material": "Denim",
+                "size": "31"
+              },
+              "retrieved": [
+                "product:SM-NAM-0018"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 1,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 1.0,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 1.0,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-105",
+              "intent": "product_search",
+              "query_style": "khong_dau",
+              "author": "human",
+              "gold": {
+                "type": "no_answer",
+                "keys": []
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Túi đeo chéo",
+                "color": "Nâu",
+                "material": "Da tổng hợp",
+                "in_stock": true
+              },
+              "retrieved": [],
+              "metrics": {
+                "returned": 0,
+                "correct_empty": 1.0
+              }
+            },
+            {
+              "id": "gs-106",
+              "intent": "product_search",
+              "query_style": "co_dau",
+              "author": "human",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-GIAY-0002"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Giày sneaker nữ",
+                "color": "Trắng",
+                "size": "37",
+                "price_min": 300000,
+                "price_max": 700000
+              },
+              "retrieved": [
+                "product:SM-GIAY-0002"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 1,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 1.0,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 1.0,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-107",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "human",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-TUI-0009"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Ví da nam",
+                "color": "Đen",
+                "material": "Da bò",
+                "in_stock": true
+              },
+              "retrieved": [
+                "product:SM-TUI-0009"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 1,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 1.0,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 1.0,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-108",
+              "intent": "product_search",
+              "query_style": "khong_dau",
+              "author": "human",
+              "gold": {
+                "type": "no_answer",
+                "keys": []
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Áo khoác nữ",
+                "color": "Kem",
+                "material": "Tweed"
+              },
+              "retrieved": [],
+              "metrics": {
+                "returned": 0,
+                "correct_empty": 1.0
+              }
+            },
+            {
+              "id": "gs-109",
+              "intent": "product_search",
+              "query_style": "co_dau",
+              "author": "human",
+              "gold": {
+                "type": "skus",
+                "keys": [
+                  "product:SM-TT-0025"
+                ]
+              },
+              "filters": {
+                "doc_type": "product",
+                "category": "do-the-thao",
+                "kind": "Giày chạy bộ",
+                "color": "Xám",
+                "size": "42"
+              },
+              "retrieved": [
+                "product:SM-TT-0025"
+              ],
+              "metrics": {
+                "first_gold_rank": 1,
+                "rr": 1.0,
+                "returned": 1,
+                "hit@1": 1.0,
+                "precision@1": 1.0,
+                "nrecall@1": 1.0,
+                "hit@5": 1.0,
+                "precision@5": 1.0,
+                "nrecall@5": 1.0,
+                "hit@10": 1.0,
+                "precision@10": 1.0,
+                "nrecall@10": 1.0
+              }
+            },
+            {
+              "id": "gs-110",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "human",
+              "gold": {
+                "type": "no_answer",
+                "keys": []
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Mũ",
+                "color": "Vàng",
+                "material": "Vải canvas",
+                "size": "Freesize",
+                "price_min": 100000,
+                "price_max": 250000
+              },
+              "retrieved": [],
+              "metrics": {
+                "returned": 0,
+                "correct_empty": 1.0
+              }
+            },
+            {
+              "id": "gs-112",
+              "intent": "product_search",
+              "query_style": "teencode",
+              "author": "human",
+              "gold": {
+                "type": "no_answer",
+                "keys": []
+              },
+              "filters": {
+                "doc_type": "product",
+                "kind": "Kính mát",
+                "color": "Đỏ",
+                "material": "Nhựa acetate",
+                "price_max": 500000
+              },
+              "retrieved": [],
+              "metrics": {
+                "returned": 0,
+                "correct_empty": 1.0
+              }
+            }
+          ]
+        }
+      },
+      "paired": {
+        "extracted_vs_floor": {
+          "rr": {
+            "n_pairs": 19,
+            "mean_diff": 0.06140350877192983,
+            "ci_low": 0.0,
+            "ci_high": 0.14912280701754388,
+            "distinguishable_from_noise": false,
+            "items_better": 2,
+            "items_worse": 0,
+            "items_equal": 17
+          },
+          "hit@1": {
+            "n_pairs": 19,
+            "mean_diff": 0.10526315789473684,
+            "ci_low": 0.0,
+            "ci_high": 0.2631578947368421,
+            "distinguishable_from_noise": false,
+            "items_better": 2,
+            "items_worse": 0,
+            "items_equal": 17
+          },
+          "hit@5": {
+            "n_pairs": 19,
+            "mean_diff": 0.0,
+            "ci_low": 0.0,
+            "ci_high": 0.0,
+            "distinguishable_from_noise": false,
+            "items_better": 0,
+            "items_worse": 0,
+            "items_equal": 19
+          },
+          "hit@10": {
+            "n_pairs": 19,
+            "mean_diff": 0.0,
+            "ci_low": 0.0,
+            "ci_high": 0.0,
+            "distinguishable_from_noise": false,
+            "items_better": 0,
+            "items_worse": 0,
+            "items_equal": 19
+          }
+        },
+        "extracted_vs_ceiling": {
+          "rr": {
+            "n_pairs": 19,
+            "mean_diff": 0.0,
+            "ci_low": 0.0,
+            "ci_high": 0.0,
+            "distinguishable_from_noise": false,
+            "items_better": 0,
+            "items_worse": 0,
+            "items_equal": 19
+          },
+          "hit@1": {
+            "n_pairs": 19,
+            "mean_diff": 0.0,
+            "ci_low": 0.0,
+            "ci_high": 0.0,
+            "distinguishable_from_noise": false,
+            "items_better": 0,
+            "items_worse": 0,
+            "items_equal": 19
+          },
+          "hit@5": {
+            "n_pairs": 19,
+            "mean_diff": 0.0,
+            "ci_low": 0.0,
+            "ci_high": 0.0,
+            "distinguishable_from_noise": false,
+            "items_better": 0,
+            "items_worse": 0,
+            "items_equal": 19
+          },
+          "hit@10": {
+            "n_pairs": 19,
+            "mean_diff": 0.0,
+            "ci_low": 0.0,
+            "ci_high": 0.0,
+            "distinguishable_from_noise": false,
+            "items_better": 0,
+            "items_worse": 0,
+            "items_equal": 19
+          }
+        }
+      },
+      "no_answer": {
+        "n": 5,
+        "floor": {
+          "correct_empty": 0.0
+        },
+        "extracted": {
+          "correct_empty": 1.0,
+          "note": "real measurement: the filters come from the LLM, so an empty result is not true by construction"
+        },
+        "ceiling": {
+          "correct_empty": 1.0,
+          "note": "tautology: the oracle filters are the very filters that define 'no match' (Phase 3B)"
+        }
+      },
+      "extraction_failures": 0
+    },
+    "pipeline": {
+      "aggregate": {
+        "counts": {
+          "product_answerable": 19,
+          "policy": 14,
+          "no_answer": 5
+        },
+        "product_search": {
+          "hit@1": {
+            "n": 19,
+            "excluded": 0,
+            "mean": 1.0,
+            "ci_low": 1.0,
+            "ci_high": 1.0
+          },
+          "hit@5": {
+            "n": 19,
+            "excluded": 0,
+            "mean": 1.0,
+            "ci_low": 1.0,
+            "ci_high": 1.0
+          },
+          "hit@10": {
+            "n": 19,
+            "excluded": 0,
+            "mean": 1.0,
+            "ci_low": 1.0,
+            "ci_high": 1.0
+          },
+          "precision@1": {
+            "n": 19,
+            "excluded": 0,
+            "mean": 1.0,
+            "ci_low": 1.0,
+            "ci_high": 1.0
+          },
+          "precision@5": {
+            "n": 19,
+            "excluded": 0,
+            "mean": 0.9368421052631579,
+            "ci_low": 0.8315789473684211,
+            "ci_high": 1.0
+          },
+          "precision@10": {
+            "n": 19,
+            "excluded": 0,
+            "mean": 0.9248120300751881,
+            "ci_low": 0.8045112781954887,
+            "ci_high": 1.0
+          },
+          "nrecall@1": {
+            "n": 19,
+            "excluded": 0,
+            "mean": 1.0,
+            "ci_low": 1.0,
+            "ci_high": 1.0
+          },
+          "nrecall@5": {
+            "n": 19,
+            "excluded": 0,
+            "mean": 1.0,
+            "ci_low": 1.0,
+            "ci_high": 1.0
+          },
+          "nrecall@10": {
+            "n": 19,
+            "excluded": 0,
+            "mean": 1.0,
+            "ci_low": 1.0,
+            "ci_high": 1.0
+          },
+          "rr": {
+            "n": 19,
+            "excluded": 0,
+            "mean": 1.0,
+            "ci_low": 1.0,
+            "ci_high": 1.0
+          }
+        },
+        "policy_question": {
+          "hit@1": {
+            "n": 14,
+            "excluded": 0,
+            "mean": 0.7142857142857143,
+            "ci_low": 0.5,
+            "ci_high": 0.9285714285714286
+          },
+          "hit@5": {
+            "n": 14,
+            "excluded": 0,
+            "mean": 1.0,
+            "ci_low": 1.0,
+            "ci_high": 1.0
+          },
+          "hit@10": {
+            "n": 14,
+            "excluded": 0,
+            "mean": 1.0,
+            "ci_low": 1.0,
+            "ci_high": 1.0
+          },
+          "rr": {
+            "n": 14,
+            "excluded": 0,
+            "mean": 0.8392857142857143,
+            "ci_low": 0.6964285714285714,
+            "ci_high": 0.9642857142857143
+          }
+        },
+        "returned_results": {
+          "mean_returned_answerable": 5.878787878787879,
+          "answerable_with_zero_results": 0
+        },
+        "breakdown_by_query_style": {
+          "product_search": {
+            "co_dau": {
+              "n": 3,
+              "too_small_to_interpret": true,
+              "metrics": {
+                "hit@1": 1.0,
+                "hit@5": 1.0,
+                "hit@10": 1.0,
+                "nrecall@10": 1.0,
+                "rr": 1.0
+              }
+            },
+            "khong_dau": {
+              "n": 3,
+              "too_small_to_interpret": true,
+              "metrics": {
+                "hit@1": 1.0,
+                "hit@5": 1.0,
+                "hit@10": 1.0,
+                "nrecall@10": 1.0,
+                "rr": 1.0
+              }
+            },
+            "teencode": {
+              "n": 13,
+              "too_small_to_interpret": false,
+              "metrics": {
+                "hit@1": 1.0,
+                "hit@5": 1.0,
+                "hit@10": 1.0,
+                "nrecall@10": 1.0,
+                "rr": 1.0
+              }
+            }
+          },
+          "policy_question": {
+            "co_dau": {
+              "n": 6,
+              "too_small_to_interpret": true,
+              "metrics": {
+                "hit@1": 0.8333333333333334,
+                "hit@5": 1.0,
+                "rr": 0.9166666666666666
+              }
+            },
+            "khong_dau": {
+              "n": 3,
+              "too_small_to_interpret": true,
+              "metrics": {
+                "hit@1": 0.3333333333333333,
+                "hit@5": 1.0,
+                "rr": 0.6666666666666666
+              }
+            },
+            "teencode": {
+              "n": 5,
+              "too_small_to_interpret": true,
+              "metrics": {
+                "hit@1": 0.8,
+                "hit@5": 1.0,
+                "rr": 0.85
+              }
+            }
+          }
+        },
+        "filter_correctness_check": {
+          "note": "no_answer items: share of correctly EMPTY result lists. Under oracle filters this is true by construction; it checks filter correctness, it is NOT a quality metric.",
+          "n": 5,
+          "correct_empty": 1.0
+        }
+      },
+      "records": [
+        {
+          "id": "gs-002",
+          "intent": "product_search",
+          "query_style": "khong_dau",
+          "author": "agent_draft",
+          "gold": {
+            "type": "skus",
+            "keys": [
+              "product:SM-GIAY-0002",
+              "product:SM-GIAY-0014",
+              "product:SM-GIAY-0020",
+              "product:SM-GIAY-0032",
+              "product:SM-GIAY-0038"
+            ]
+          },
+          "filters": {
+            "doc_type": "product",
+            "kind": "Giày sneaker nữ",
+            "size": "37"
+          },
+          "retrieved": [
+            "product:SM-GIAY-0002",
+            "product:SM-GIAY-0032",
+            "product:SM-GIAY-0038",
+            "product:SM-GIAY-0014",
+            "product:SM-GIAY-0020"
+          ],
+          "metrics": {
+            "first_gold_rank": 1,
+            "rr": 1.0,
+            "returned": 5,
+            "hit@1": 1.0,
+            "precision@1": 1.0,
+            "nrecall@1": 1.0,
+            "hit@5": 1.0,
+            "precision@5": 1.0,
+            "nrecall@5": 1.0,
+            "hit@10": 1.0,
+            "precision@10": 1.0,
+            "nrecall@10": 1.0
+          },
+          "routed_intent": "product_search"
+        },
+        {
+          "id": "gs-003",
+          "intent": "product_search",
+          "query_style": "teencode",
+          "author": "agent_draft",
+          "gold": {
+            "type": "skus",
+            "keys": [
+              "product:SM-NAM-0004"
+            ]
+          },
+          "filters": {
+            "doc_type": "product",
+            "kind": "Quần jean nam",
+            "color": "Đen"
+          },
+          "retrieved": [
+            "product:SM-NAM-0004"
+          ],
+          "metrics": {
+            "first_gold_rank": 1,
+            "rr": 1.0,
+            "returned": 1,
+            "hit@1": 1.0,
+            "precision@1": 1.0,
+            "nrecall@1": 1.0,
+            "hit@5": 1.0,
+            "precision@5": 1.0,
+            "nrecall@5": 1.0,
+            "hit@10": 1.0,
+            "precision@10": 1.0,
+            "nrecall@10": 1.0
+          },
+          "routed_intent": "product_search"
+        },
+        {
+          "id": "gs-004",
+          "intent": "product_search",
+          "query_style": "teencode",
+          "author": "agent_draft",
+          "gold": {
+            "type": "skus",
+            "keys": [
+              "product:SM-NU-0003",
+              "product:SM-NU-0010"
+            ]
+          },
+          "filters": {
+            "doc_type": "product",
+            "kind": "Váy liền nữ",
+            "price_max": 400000
+          },
+          "retrieved": [
+            "product:SM-NU-0010",
+            "product:SM-NU-0003"
+          ],
+          "metrics": {
+            "first_gold_rank": 1,
+            "rr": 1.0,
+            "returned": 2,
+            "hit@1": 1.0,
+            "precision@1": 1.0,
+            "nrecall@1": 1.0,
+            "hit@5": 1.0,
+            "precision@5": 1.0,
+            "nrecall@5": 1.0,
+            "hit@10": 1.0,
+            "precision@10": 1.0,
+            "nrecall@10": 1.0
+          },
+          "routed_intent": "product_search"
+        },
+        {
+          "id": "gs-007",
+          "intent": "product_search",
+          "query_style": "teencode",
+          "author": "agent_draft",
+          "gold": {
+            "type": "skus",
+            "keys": [
+              "product:SM-TT-0005",
+              "product:SM-TT-0010",
+              "product:SM-TT-0015",
+              "product:SM-TT-0020",
+              "product:SM-TT-0025",
+              "product:SM-TT-0030"
+            ]
+          },
+          "filters": {
+            "doc_type": "product",
+            "kind": "Giày chạy bộ",
+            "size": "42"
+          },
+          "retrieved": [
+            "product:SM-TT-0030",
+            "product:SM-TT-0015",
+            "product:SM-TT-0020",
+            "product:SM-TT-0025",
+            "product:SM-TT-0010",
+            "product:SM-TT-0005"
+          ],
+          "metrics": {
+            "first_gold_rank": 1,
+            "rr": 1.0,
+            "returned": 6,
+            "hit@1": 1.0,
+            "precision@1": 1.0,
+            "nrecall@1": 1.0,
+            "hit@5": 1.0,
+            "precision@5": 1.0,
+            "nrecall@5": 1.0,
+            "hit@10": 1.0,
+            "precision@10": 1.0,
+            "nrecall@10": 1.0
+          },
+          "routed_intent": "product_search"
+        },
+        {
+          "id": "gs-008",
+          "intent": "product_search",
+          "query_style": "teencode",
+          "author": "agent_draft",
+          "gold": {
+            "type": "skus",
+            "keys": [
+              "product:SM-TUI-0008",
+              "product:SM-TUI-0028"
+            ]
+          },
+          "filters": {
+            "doc_type": "product",
+            "kind": "Balo",
+            "color": "Đen"
+          },
+          "retrieved": [
+            "product:SM-TUI-0008",
+            "product:SM-TUI-0028"
+          ],
+          "metrics": {
+            "first_gold_rank": 1,
+            "rr": 1.0,
+            "returned": 2,
+            "hit@1": 1.0,
+            "precision@1": 1.0,
+            "nrecall@1": 1.0,
+            "hit@5": 1.0,
+            "precision@5": 1.0,
+            "nrecall@5": 1.0,
+            "hit@10": 1.0,
+            "precision@10": 1.0,
+            "nrecall@10": 1.0
+          },
+          "routed_intent": "product_search"
+        },
+        {
+          "id": "gs-009",
+          "intent": "product_search",
+          "query_style": "teencode",
+          "author": "agent_draft",
+          "gold": {
+            "type": "skus",
+            "keys": [
+              "product:SM-TUI-0004",
+              "product:SM-TUI-0009",
+              "product:SM-TUI-0014",
+              "product:SM-TUI-0019",
+              "product:SM-TUI-0024"
+            ]
+          },
+          "filters": {
+            "doc_type": "product",
+            "kind": "Ví da nam",
+            "price_max": 500000
+          },
+          "retrieved": [
+            "product:SM-TUI-0024",
+            "product:SM-TUI-0004",
+            "product:SM-TUI-0009",
+            "product:SM-TUI-0014",
+            "product:SM-TUI-0019"
+          ],
+          "metrics": {
+            "first_gold_rank": 1,
+            "rr": 1.0,
+            "returned": 5,
+            "hit@1": 1.0,
+            "precision@1": 1.0,
+            "nrecall@1": 1.0,
+            "hit@5": 1.0,
+            "precision@5": 1.0,
+            "nrecall@5": 1.0,
+            "hit@10": 1.0,
+            "precision@10": 1.0,
+            "nrecall@10": 1.0
+          },
+          "routed_intent": "product_search"
+        },
+        {
+          "id": "gs-011",
+          "intent": "product_search",
+          "query_style": "teencode",
+          "author": "agent_draft",
+          "gold": {
+            "type": "skus",
+            "keys": [
+              "product:SM-GIAY-0006"
+            ]
+          },
+          "filters": {
+            "doc_type": "product",
+            "kind": "Dép quai ngang",
+            "color": "Trắng"
+          },
+          "retrieved": [
+            "product:SM-GIAY-0006"
+          ],
+          "metrics": {
+            "first_gold_rank": 1,
+            "rr": 1.0,
+            "returned": 1,
+            "hit@1": 1.0,
+            "precision@1": 1.0,
+            "nrecall@1": 1.0,
+            "hit@5": 1.0,
+            "precision@5": 1.0,
+            "nrecall@5": 1.0,
+            "hit@10": 1.0,
+            "precision@10": 1.0,
+            "nrecall@10": 1.0
+          },
+          "routed_intent": "product_search"
+        },
+        {
+          "id": "gs-012",
+          "intent": "product_search",
+          "query_style": "teencode",
+          "author": "agent_draft",
+          "gold": {
+            "type": "skus",
+            "keys": [
+              "product:SM-NU-0006",
+              "product:SM-NU-0013",
+              "product:SM-NU-0020",
+              "product:SM-NU-0034",
+              "product:SM-NU-0048"
+            ]
+          },
+          "filters": {
+            "doc_type": "product",
+            "kind": "Áo khoác nữ",
+            "material": "Len"
+          },
+          "retrieved": [
+            "product:SM-NU-0020",
+            "product:SM-NU-0048",
+            "product:SM-NU-0034",
+            "product:SM-NU-0013",
+            "product:SM-NU-0006"
+          ],
+          "metrics": {
+            "first_gold_rank": 1,
+            "rr": 1.0,
+            "returned": 5,
+            "hit@1": 1.0,
+            "precision@1": 1.0,
+            "nrecall@1": 1.0,
+            "hit@5": 1.0,
+            "precision@5": 1.0,
+            "nrecall@5": 1.0,
+            "hit@10": 1.0,
+            "precision@10": 1.0,
+            "nrecall@10": 1.0
+          },
+          "routed_intent": "product_search"
+        },
+        {
+          "id": "gs-013",
+          "intent": "product_search",
+          "query_style": "co_dau",
+          "author": "agent_draft",
+          "gold": {
+            "type": "skus",
+            "keys": [
+              "product:SM-PK-0013"
+            ]
+          },
+          "filters": {
+            "doc_type": "product",
+            "kind": "Kính mát",
+            "material": "Kim loại"
+          },
+          "retrieved": [
+            "product:SM-PK-0013"
+          ],
+          "metrics": {
+            "first_gold_rank": 1,
+            "rr": 1.0,
+            "returned": 1,
+            "hit@1": 1.0,
+            "precision@1": 1.0,
+            "nrecall@1": 1.0,
+            "hit@5": 1.0,
+            "precision@5": 1.0,
+            "nrecall@5": 1.0,
+            "hit@10": 1.0,
+            "precision@10": 1.0,
+            "nrecall@10": 1.0
+          },
+          "routed_intent": "product_search"
+        },
+        {
+          "id": "gs-014",
+          "intent": "product_search",
+          "query_style": "khong_dau",
+          "author": "agent_draft",
+          "gold": {
+            "type": "skus",
+            "keys": [
+              "product:SM-NAM-0047"
+            ]
+          },
+          "filters": {
+            "doc_type": "product",
+            "kind": "Quần kaki nam",
+            "color": "Be",
+            "size": "32"
+          },
+          "retrieved": [
+            "product:SM-NAM-0047"
+          ],
+          "metrics": {
+            "first_gold_rank": 1,
+            "rr": 1.0,
+            "returned": 1,
+            "hit@1": 1.0,
+            "precision@1": 1.0,
+            "nrecall@1": 1.0,
+            "hit@5": 1.0,
+            "precision@5": 1.0,
+            "nrecall@5": 1.0,
+            "hit@10": 1.0,
+            "precision@10": 1.0,
+            "nrecall@10": 1.0
+          },
+          "routed_intent": "product_search"
+        },
+        {
+          "id": "gs-015",
+          "intent": "product_search",
+          "query_style": "teencode",
+          "author": "agent_draft",
+          "gold": {
+            "type": "skus",
+            "keys": [
+              "product:SM-TT-0001",
+              "product:SM-TT-0011",
+              "product:SM-TT-0026"
+            ]
+          },
+          "filters": {
+            "doc_type": "product",
+            "kind": "Áo thể thao nam"
+          },
+          "retrieved": [
+            "product:SM-TT-0001",
+            "product:SM-TT-0026",
+            "product:SM-TT-0011",
+            "product:SM-TT-0016",
+            "product:SM-TT-0021",
+            "product:SM-TT-0031",
+            "product:SM-TT-0006"
+          ],
+          "metrics": {
+            "first_gold_rank": 1,
+            "rr": 1.0,
+            "returned": 7,
+            "hit@1": 1.0,
+            "precision@1": 1.0,
+            "nrecall@1": 1.0,
+            "hit@5": 1.0,
+            "precision@5": 0.6,
+            "nrecall@5": 1.0,
+            "hit@10": 1.0,
+            "precision@10": 0.42857142857142855,
+            "nrecall@10": 1.0
+          },
+          "routed_intent": "product_search"
+        },
+        {
+          "id": "gs-016",
+          "intent": "product_search",
+          "query_style": "teencode",
+          "author": "agent_draft",
+          "gold": {
+            "type": "skus",
+            "keys": [
+              "product:SM-GIAY-0009",
+              "product:SM-GIAY-0039",
+              "product:SM-GIAY-0045"
+            ]
+          },
+          "filters": {
+            "doc_type": "product",
+            "kind": "Giày tây nam",
+            "color": "Nâu",
+            "size": "41"
+          },
+          "retrieved": [
+            "product:SM-GIAY-0039",
+            "product:SM-GIAY-0009",
+            "product:SM-GIAY-0045"
+          ],
+          "metrics": {
+            "first_gold_rank": 1,
+            "rr": 1.0,
+            "returned": 3,
+            "hit@1": 1.0,
+            "precision@1": 1.0,
+            "nrecall@1": 1.0,
+            "hit@5": 1.0,
+            "precision@5": 1.0,
+            "nrecall@5": 1.0,
+            "hit@10": 1.0,
+            "precision@10": 1.0,
+            "nrecall@10": 1.0
+          },
+          "routed_intent": "product_search"
+        },
+        {
+          "id": "gs-017",
+          "intent": "product_search",
+          "query_style": "teencode",
+          "author": "agent_draft",
+          "gold": {
+            "type": "skus",
+            "keys": [
+              "product:SM-PK-0027"
+            ]
+          },
+          "filters": {
+            "doc_type": "product",
+            "kind": "Mũ"
+          },
+          "retrieved": [
+            "product:SM-PK-0027",
+            "product:SM-PK-0007",
+            "product:SM-PK-0032",
+            "product:SM-PK-0022",
+            "product:SM-PK-0012",
+            "product:SM-PK-0017",
+            "product:SM-PK-0002"
+          ],
+          "metrics": {
+            "first_gold_rank": 1,
+            "rr": 1.0,
+            "returned": 7,
+            "hit@1": 1.0,
+            "precision@1": 1.0,
+            "nrecall@1": 1.0,
+            "hit@5": 1.0,
+            "precision@5": 0.2,
+            "nrecall@5": 1.0,
+            "hit@10": 1.0,
+            "precision@10": 0.14285714285714285,
+            "nrecall@10": 1.0
+          },
+          "routed_intent": "product_search"
+        },
+        {
+          "id": "gs-018",
+          "intent": "product_search",
+          "query_style": "khong_dau",
+          "author": "agent_draft",
+          "gold": {
+            "type": "skus",
+            "keys": [
+              "product:SM-TUI-0022",
+              "product:SM-TUI-0027",
+              "product:SM-TUI-0032"
+            ]
+          },
+          "filters": {
+            "doc_type": "product",
+            "kind": "Túi đeo chéo",
+            "price_max": 400000
+          },
+          "retrieved": [
+            "product:SM-TUI-0022",
+            "product:SM-TUI-0032",
+            "product:SM-TUI-0027"
+          ],
+          "metrics": {
+            "first_gold_rank": 1,
+            "rr": 1.0,
+            "returned": 3,
+            "hit@1": 1.0,
+            "precision@1": 1.0,
+            "nrecall@1": 1.0,
+            "hit@5": 1.0,
+            "precision@5": 1.0,
+            "nrecall@5": 1.0,
+            "hit@10": 1.0,
+            "precision@10": 1.0,
+            "nrecall@10": 1.0
+          },
+          "routed_intent": "product_search"
+        },
+        {
+          "id": "gs-019",
+          "intent": "product_search",
+          "query_style": "teencode",
+          "author": "agent_draft",
+          "gold": {
+            "type": "skus",
+            "keys": [
+              "product:SM-TT-0007"
+            ]
+          },
+          "filters": {
+            "doc_type": "product",
+            "kind": "Áo bra thể thao nữ",
+            "color": "Hồng",
+            "size": "M"
+          },
+          "retrieved": [
+            "product:SM-TT-0007"
+          ],
+          "metrics": {
+            "first_gold_rank": 1,
+            "rr": 1.0,
+            "returned": 1,
+            "hit@1": 1.0,
+            "precision@1": 1.0,
+            "nrecall@1": 1.0,
+            "hit@5": 1.0,
+            "precision@5": 1.0,
+            "nrecall@5": 1.0,
+            "hit@10": 1.0,
+            "precision@10": 1.0,
+            "nrecall@10": 1.0
+          },
+          "routed_intent": "product_search"
+        },
+        {
+          "id": "gs-021",
+          "intent": "product_search",
+          "query_style": "khong_dau",
+          "author": "agent_draft",
+          "gold": {
+            "type": "no_answer",
+            "keys": []
+          },
+          "filters": {
+            "doc_type": "product",
+            "kind": "Áo len nữ",
+            "color": "Đỏ",
+            "size": "XXL"
+          },
+          "retrieved": [],
+          "metrics": {
+            "returned": 0,
+            "correct_empty": 1.0
+          },
+          "routed_intent": "product_search"
+        },
+        {
+          "id": "gs-104",
+          "intent": "product_search",
+          "query_style": "teencode",
+          "author": "human",
+          "gold": {
+            "type": "skus",
+            "keys": [
+              "product:SM-NAM-0018"
+            ]
+          },
+          "filters": {
+            "doc_type": "product",
+            "kind": "Quần jean nam",
+            "color": "Xanh đậm",
+            "material": "Denim",
+            "size": "31"
+          },
+          "retrieved": [
+            "product:SM-NAM-0018"
+          ],
+          "metrics": {
+            "first_gold_rank": 1,
+            "rr": 1.0,
+            "returned": 1,
+            "hit@1": 1.0,
+            "precision@1": 1.0,
+            "nrecall@1": 1.0,
+            "hit@5": 1.0,
+            "precision@5": 1.0,
+            "nrecall@5": 1.0,
+            "hit@10": 1.0,
+            "precision@10": 1.0,
+            "nrecall@10": 1.0
+          },
+          "routed_intent": "product_search"
+        },
+        {
+          "id": "gs-105",
+          "intent": "product_search",
+          "query_style": "khong_dau",
+          "author": "human",
+          "gold": {
+            "type": "no_answer",
+            "keys": []
+          },
+          "filters": {
+            "doc_type": "product",
+            "kind": "Túi đeo chéo",
+            "color": "Nâu",
+            "material": "Da tổng hợp",
+            "in_stock": true
+          },
+          "retrieved": [],
+          "metrics": {
+            "returned": 0,
+            "correct_empty": 1.0
+          },
+          "routed_intent": "product_search"
+        },
+        {
+          "id": "gs-106",
+          "intent": "product_search",
+          "query_style": "co_dau",
+          "author": "human",
+          "gold": {
+            "type": "skus",
+            "keys": [
+              "product:SM-GIAY-0002"
+            ]
+          },
+          "filters": {
+            "doc_type": "product",
+            "kind": "Giày sneaker nữ",
+            "color": "Trắng",
+            "size": "37",
+            "price_min": 300000,
+            "price_max": 700000
+          },
+          "retrieved": [
+            "product:SM-GIAY-0002"
+          ],
+          "metrics": {
+            "first_gold_rank": 1,
+            "rr": 1.0,
+            "returned": 1,
+            "hit@1": 1.0,
+            "precision@1": 1.0,
+            "nrecall@1": 1.0,
+            "hit@5": 1.0,
+            "precision@5": 1.0,
+            "nrecall@5": 1.0,
+            "hit@10": 1.0,
+            "precision@10": 1.0,
+            "nrecall@10": 1.0
+          },
+          "routed_intent": "product_search"
+        },
+        {
+          "id": "gs-107",
+          "intent": "product_search",
+          "query_style": "teencode",
+          "author": "human",
+          "gold": {
+            "type": "skus",
+            "keys": [
+              "product:SM-TUI-0009"
+            ]
+          },
+          "filters": {
+            "doc_type": "product",
+            "kind": "Ví da nam",
+            "color": "Đen",
+            "material": "Da bò",
+            "in_stock": true
+          },
+          "retrieved": [
+            "product:SM-TUI-0009"
+          ],
+          "metrics": {
+            "first_gold_rank": 1,
+            "rr": 1.0,
+            "returned": 1,
+            "hit@1": 1.0,
+            "precision@1": 1.0,
+            "nrecall@1": 1.0,
+            "hit@5": 1.0,
+            "precision@5": 1.0,
+            "nrecall@5": 1.0,
+            "hit@10": 1.0,
+            "precision@10": 1.0,
+            "nrecall@10": 1.0
+          },
+          "routed_intent": "product_search"
+        },
+        {
+          "id": "gs-108",
+          "intent": "product_search",
+          "query_style": "khong_dau",
+          "author": "human",
+          "gold": {
+            "type": "no_answer",
+            "keys": []
+          },
+          "filters": {
+            "doc_type": "product",
+            "kind": "Áo khoác nữ",
+            "color": "Kem",
+            "material": "Tweed"
+          },
+          "retrieved": [],
+          "metrics": {
+            "returned": 0,
+            "correct_empty": 1.0
+          },
+          "routed_intent": "product_search"
+        },
+        {
+          "id": "gs-109",
+          "intent": "product_search",
+          "query_style": "co_dau",
+          "author": "human",
+          "gold": {
+            "type": "skus",
+            "keys": [
+              "product:SM-TT-0025"
+            ]
+          },
+          "filters": {
+            "doc_type": "product",
+            "category": "do-the-thao",
+            "kind": "Giày chạy bộ",
+            "color": "Xám",
+            "size": "42"
+          },
+          "retrieved": [
+            "product:SM-TT-0025"
+          ],
+          "metrics": {
+            "first_gold_rank": 1,
+            "rr": 1.0,
+            "returned": 1,
+            "hit@1": 1.0,
+            "precision@1": 1.0,
+            "nrecall@1": 1.0,
+            "hit@5": 1.0,
+            "precision@5": 1.0,
+            "nrecall@5": 1.0,
+            "hit@10": 1.0,
+            "precision@10": 1.0,
+            "nrecall@10": 1.0
+          },
+          "routed_intent": "product_search"
+        },
+        {
+          "id": "gs-110",
+          "intent": "product_search",
+          "query_style": "teencode",
+          "author": "human",
+          "gold": {
+            "type": "no_answer",
+            "keys": []
+          },
+          "filters": {
+            "doc_type": "product",
+            "kind": "Mũ",
+            "color": "Vàng",
+            "material": "Vải canvas",
+            "size": "Freesize",
+            "price_min": 100000,
+            "price_max": 250000
+          },
+          "retrieved": [],
+          "metrics": {
+            "returned": 0,
+            "correct_empty": 1.0
+          },
+          "routed_intent": "product_search"
+        },
+        {
+          "id": "gs-112",
+          "intent": "product_search",
+          "query_style": "teencode",
+          "author": "human",
+          "gold": {
+            "type": "no_answer",
+            "keys": []
+          },
+          "filters": {
+            "doc_type": "product",
+            "kind": "Kính mát",
+            "color": "Đỏ",
+            "material": "Nhựa acetate",
+            "price_max": 500000
+          },
+          "retrieved": [],
+          "metrics": {
+            "returned": 0,
+            "correct_empty": 1.0
+          },
+          "routed_intent": "product_search"
+        },
+        {
+          "id": "gs-023",
+          "intent": "policy_question",
+          "query_style": "co_dau",
+          "author": "agent_draft",
+          "gold": {
+            "type": "policy_clause",
+            "keys": [
+              "policy:doi-tra:2"
+            ]
+          },
+          "filters": {
+            "doc_type": "policy"
+          },
+          "retrieved": [
+            "policy:doi-tra:2",
+            "policy:doi-tra:7",
+            "policy:doi-tra:6",
+            "policy:bao-hanh:1",
+            "policy:van-chuyen:3",
+            "policy:doi-tra:4",
+            "policy:doi-tra:5",
+            "policy:bao-hanh:5",
+            "policy:doi-tra:3",
+            "policy:doi-tra:1"
+          ],
+          "metrics": {
+            "first_gold_rank": 1,
+            "rr": 1.0,
+            "returned": 10,
+            "hit@1": 1.0,
+            "hit@5": 1.0,
+            "hit@10": 1.0
+          },
+          "routed_intent": "policy_question"
+        },
+        {
+          "id": "gs-024",
+          "intent": "policy_question",
+          "query_style": "co_dau",
+          "author": "agent_draft",
+          "gold": {
+            "type": "policy_clause",
+            "keys": [
+              "policy:van-chuyen:2"
+            ]
+          },
+          "filters": {
+            "doc_type": "policy"
+          },
+          "retrieved": [
+            "policy:doi-tra:4",
+            "policy:van-chuyen:2",
+            "policy:bao-hanh:5",
+            "policy:van-chuyen:5",
+            "policy:bao-hanh:4",
+            "policy:doi-tra:3",
+            "policy:doi-tra:1",
+            "policy:doi-tra:7",
+            "policy:doi-tra:6",
+            "policy:doi-tra:5"
+          ],
+          "metrics": {
+            "first_gold_rank": 2,
+            "rr": 0.5,
+            "returned": 10,
+            "hit@1": 0.0,
+            "hit@5": 1.0,
+            "hit@10": 1.0
+          },
+          "routed_intent": "policy_question"
+        },
+        {
+          "id": "gs-025",
+          "intent": "policy_question",
+          "query_style": "teencode",
+          "author": "agent_draft",
+          "gold": {
+            "type": "policy_clause",
+            "keys": [
+              "policy:van-chuyen:2"
+            ]
+          },
+          "filters": {
+            "doc_type": "policy"
+          },
+          "retrieved": [
+            "policy:doi-tra:2",
+            "policy:van-chuyen:5",
+            "policy:van-chuyen:1",
+            "policy:van-chuyen:2",
+            "policy:doi-tra:3",
+            "policy:van-chuyen:4",
+            "policy:doi-tra:4",
+            "policy:doi-tra:5",
+            "policy:van-chuyen:3",
+            "policy:bao-hanh:2"
+          ],
+          "metrics": {
+            "first_gold_rank": 4,
+            "rr": 0.25,
+            "returned": 10,
+            "hit@1": 0.0,
+            "hit@5": 1.0,
+            "hit@10": 1.0
+          },
+          "routed_intent": "policy_question"
+        },
+        {
+          "id": "gs-026",
+          "intent": "policy_question",
+          "query_style": "teencode",
+          "author": "agent_draft",
+          "gold": {
+            "type": "policy_clause",
+            "keys": [
+              "policy:doi-tra:5"
+            ]
+          },
+          "filters": {
+            "doc_type": "policy"
+          },
+          "retrieved": [
+            "policy:doi-tra:5",
+            "policy:doi-tra:3",
+            "policy:doi-tra:4",
+            "policy:doi-tra:1",
+            "policy:doi-tra:2",
+            "policy:doi-tra:7",
+            "policy:bao-hanh:1",
+            "policy:doi-tra:6",
+            "policy:van-chuyen:5",
+            "policy:bao-hanh:5"
+          ],
+          "metrics": {
+            "first_gold_rank": 1,
+            "rr": 1.0,
+            "returned": 10,
+            "hit@1": 1.0,
+            "hit@5": 1.0,
+            "hit@10": 1.0
+          },
+          "routed_intent": "policy_question"
+        },
+        {
+          "id": "gs-027",
+          "intent": "policy_question",
+          "query_style": "co_dau",
+          "author": "agent_draft",
+          "gold": {
+            "type": "policy_clause",
+            "keys": [
+              "policy:doi-tra:6"
+            ]
+          },
+          "filters": {
+            "doc_type": "policy"
+          },
+          "retrieved": [
+            "policy:doi-tra:6",
+            "policy:bao-hanh:4",
+            "policy:doi-tra:7",
+            "policy:bao-hanh:5",
+            "policy:doi-tra:2",
+            "policy:doi-tra:1",
+            "policy:van-chuyen:2",
+            "policy:van-chuyen:3",
+            "policy:van-chuyen:6",
+            "policy:doi-tra:3"
+          ],
+          "metrics": {
+            "first_gold_rank": 1,
+            "rr": 1.0,
+            "returned": 10,
+            "hit@1": 1.0,
+            "hit@5": 1.0,
+            "hit@10": 1.0
+          },
+          "routed_intent": "policy_question"
+        },
+        {
+          "id": "gs-029",
+          "intent": "policy_question",
+          "query_style": "co_dau",
+          "author": "agent_draft",
+          "gold": {
+            "type": "policy_clause",
+            "keys": [
+              "policy:van-chuyen:3"
+            ]
+          },
+          "filters": {
+            "doc_type": "policy"
+          },
+          "retrieved": [
+            "policy:van-chuyen:3",
+            "policy:doi-tra:7",
+            "policy:bao-hanh:5",
+            "policy:bao-hanh:6",
+            "policy:doi-tra:2",
+            "policy:van-chuyen:2",
+            "policy:van-chuyen:1",
+            "policy:doi-tra:6",
+            "policy:doi-tra:4",
+            "policy:van-chuyen:6"
+          ],
+          "metrics": {
+            "first_gold_rank": 1,
+            "rr": 1.0,
+            "returned": 10,
+            "hit@1": 1.0,
+            "hit@5": 1.0,
+            "hit@10": 1.0
+          },
+          "routed_intent": "policy_question"
+        },
+        {
+          "id": "gs-030",
+          "intent": "policy_question",
+          "query_style": "teencode",
+          "author": "agent_draft",
+          "gold": {
+            "type": "policy_clause",
+            "keys": [
+              "policy:van-chuyen:5"
+            ]
+          },
+          "filters": {
+            "doc_type": "policy"
+          },
+          "retrieved": [
+            "policy:van-chuyen:5",
+            "policy:van-chuyen:4",
+            "policy:van-chuyen:2",
+            "policy:van-chuyen:6",
+            "policy:van-chuyen:3",
+            "policy:doi-tra:3",
+            "policy:doi-tra:6",
+            "policy:doi-tra:7",
+            "policy:bao-hanh:5",
+            "policy:doi-tra:2"
+          ],
+          "metrics": {
+            "first_gold_rank": 1,
+            "rr": 1.0,
+            "returned": 10,
+            "hit@1": 1.0,
+            "hit@5": 1.0,
+            "hit@10": 1.0
+          },
+          "routed_intent": "policy_question"
+        },
+        {
+          "id": "gs-031",
+          "intent": "policy_question",
+          "query_style": "co_dau",
+          "author": "agent_draft",
+          "gold": {
+            "type": "policy_clause",
+            "keys": [
+              "policy:bao-hanh:1"
+            ]
+          },
+          "filters": {
+            "doc_type": "policy"
+          },
+          "retrieved": [
+            "policy:bao-hanh:1",
+            "policy:bao-hanh:5",
+            "policy:bao-hanh:6",
+            "policy:bao-hanh:3",
+            "policy:bao-hanh:2",
+            "policy:bao-hanh:4",
+            "policy:van-chuyen:3",
+            "policy:doi-tra:7",
+            "policy:doi-tra:6",
+            "policy:van-chuyen:1"
+          ],
+          "metrics": {
+            "first_gold_rank": 1,
+            "rr": 1.0,
+            "returned": 10,
+            "hit@1": 1.0,
+            "hit@5": 1.0,
+            "hit@10": 1.0
+          },
+          "routed_intent": "policy_question"
+        },
+        {
+          "id": "gs-032",
+          "intent": "policy_question",
+          "query_style": "khong_dau",
+          "author": "agent_draft",
+          "gold": {
+            "type": "policy_clause",
+            "keys": [
+              "policy:bao-hanh:3"
+            ]
+          },
+          "filters": {
+            "doc_type": "policy"
+          },
+          "retrieved": [
+            "policy:bao-hanh:3",
+            "policy:bao-hanh:1",
+            "policy:van-chuyen:6",
+            "policy:doi-tra:3",
+            "policy:bao-hanh:4",
+            "policy:bao-hanh:5",
+            "policy:van-chuyen:5",
+            "policy:bao-hanh:2",
+            "policy:doi-tra:5",
+            "policy:doi-tra:1"
+          ],
+          "metrics": {
+            "first_gold_rank": 1,
+            "rr": 1.0,
+            "returned": 10,
+            "hit@1": 1.0,
+            "hit@5": 1.0,
+            "hit@10": 1.0
+          },
+          "routed_intent": "policy_question"
+        },
+        {
+          "id": "gs-034",
+          "intent": "policy_question",
+          "query_style": "teencode",
+          "author": "agent_draft",
+          "gold": {
+            "type": "policy_clause",
+            "keys": [
+              "policy:van-chuyen:1"
+            ]
+          },
+          "filters": {
+            "doc_type": "policy"
+          },
+          "retrieved": [
+            "policy:van-chuyen:1",
+            "policy:van-chuyen:4",
+            "policy:van-chuyen:5",
+            "policy:van-chuyen:3",
+            "policy:van-chuyen:2",
+            "policy:doi-tra:2",
+            "policy:van-chuyen:6",
+            "policy:doi-tra:4",
+            "policy:bao-hanh:5",
+            "policy:bao-hanh:3"
+          ],
+          "metrics": {
+            "first_gold_rank": 1,
+            "rr": 1.0,
+            "returned": 10,
+            "hit@1": 1.0,
+            "hit@5": 1.0,
+            "hit@10": 1.0
+          },
+          "routed_intent": "policy_question"
+        },
+        {
+          "id": "gs-113",
+          "intent": "policy_question",
+          "query_style": "khong_dau",
+          "author": "human",
+          "gold": {
+            "type": "policy_clause",
+            "keys": [
+              "policy:van-chuyen:2"
+            ]
+          },
+          "filters": {
+            "doc_type": "policy"
+          },
+          "retrieved": [
+            "policy:van-chuyen:6",
+            "policy:van-chuyen:2",
+            "policy:van-chuyen:4",
+            "policy:doi-tra:4",
+            "policy:bao-hanh:5",
+            "policy:van-chuyen:3",
+            "policy:van-chuyen:5",
+            "policy:van-chuyen:1",
+            "policy:doi-tra:6",
+            "policy:bao-hanh:1"
+          ],
+          "metrics": {
+            "first_gold_rank": 2,
+            "rr": 0.5,
+            "returned": 10,
+            "hit@1": 0.0,
+            "hit@5": 1.0,
+            "hit@10": 1.0
+          },
+          "routed_intent": "policy_question"
+        },
+        {
+          "id": "gs-118",
+          "intent": "policy_question",
+          "query_style": "teencode",
+          "author": "human",
+          "gold": {
+            "type": "policy_clause",
+            "keys": [
+              "policy:doi-tra:7"
+            ]
+          },
+          "filters": {
+            "doc_type": "policy"
+          },
+          "retrieved": [
+            "policy:doi-tra:7",
+            "policy:van-chuyen:6",
+            "policy:bao-hanh:1",
+            "policy:bao-hanh:6",
+            "policy:van-chuyen:5",
+            "policy:doi-tra:4",
+            "policy:doi-tra:1",
+            "policy:van-chuyen:3",
+            "policy:doi-tra:6",
+            "policy:doi-tra:2"
+          ],
+          "metrics": {
+            "first_gold_rank": 1,
+            "rr": 1.0,
+            "returned": 10,
+            "hit@1": 1.0,
+            "hit@5": 1.0,
+            "hit@10": 1.0
+          },
+          "routed_intent": "policy_question"
+        },
+        {
+          "id": "gs-119",
+          "intent": "policy_question",
+          "query_style": "khong_dau",
+          "author": "human",
+          "gold": {
+            "type": "policy_clause",
+            "keys": [
+              "policy:van-chuyen:3"
+            ]
+          },
+          "filters": {
+            "doc_type": "policy"
+          },
+          "retrieved": [
+            "policy:van-chuyen:1",
+            "policy:van-chuyen:3",
+            "policy:van-chuyen:6",
+            "policy:doi-tra:2",
+            "policy:bao-hanh:1",
+            "policy:doi-tra:3",
+            "policy:bao-hanh:2",
+            "policy:doi-tra:1",
+            "policy:van-chuyen:4",
+            "policy:bao-hanh:6"
+          ],
+          "metrics": {
+            "first_gold_rank": 2,
+            "rr": 0.5,
+            "returned": 10,
+            "hit@1": 0.0,
+            "hit@5": 1.0,
+            "hit@10": 1.0
+          },
+          "routed_intent": "policy_question"
+        },
+        {
+          "id": "gs-120",
+          "intent": "policy_question",
+          "query_style": "co_dau",
+          "author": "human",
+          "gold": {
+            "type": "policy_clause",
+            "keys": [
+              "policy:bao-hanh:5"
+            ]
+          },
+          "filters": {
+            "doc_type": "policy"
+          },
+          "retrieved": [
+            "policy:bao-hanh:5",
+            "policy:van-chuyen:3",
+            "policy:bao-hanh:6",
+            "policy:bao-hanh:1",
+            "policy:doi-tra:4",
+            "policy:doi-tra:7",
+            "policy:van-chuyen:2",
+            "policy:bao-hanh:4",
+            "policy:bao-hanh:2",
+            "policy:doi-tra:2"
+          ],
+          "metrics": {
+            "first_gold_rank": 1,
+            "rr": 1.0,
+            "returned": 10,
+            "hit@1": 1.0,
+            "hit@5": 1.0,
+            "hit@10": 1.0
+          },
+          "routed_intent": "policy_question"
+        }
+      ],
+      "n_answerable": 33,
+      "misrouted_answerable": 0,
+      "no_answer": {
+        "n": 5,
+        "correct": 5,
+        "rate": 1.0,
+        "rule": "routed to product_search AND an empty result"
+      },
+      "paired_vs_gold_routing": {
+        "product_search": {
+          "rr": {
+            "n_pairs": 19,
+            "mean_diff": 0.0,
+            "ci_low": 0.0,
+            "ci_high": 0.0,
+            "distinguishable_from_noise": false,
+            "items_better": 0,
+            "items_worse": 0,
+            "items_equal": 19
+          },
+          "hit@1": {
+            "n_pairs": 19,
+            "mean_diff": 0.0,
+            "ci_low": 0.0,
+            "ci_high": 0.0,
+            "distinguishable_from_noise": false,
+            "items_better": 0,
+            "items_worse": 0,
+            "items_equal": 19
+          },
+          "hit@5": {
+            "n_pairs": 19,
+            "mean_diff": 0.0,
+            "ci_low": 0.0,
+            "ci_high": 0.0,
+            "distinguishable_from_noise": false,
+            "items_better": 0,
+            "items_worse": 0,
+            "items_equal": 19
+          },
+          "hit@10": {
+            "n_pairs": 19,
+            "mean_diff": 0.0,
+            "ci_low": 0.0,
+            "ci_high": 0.0,
+            "distinguishable_from_noise": false,
+            "items_better": 0,
+            "items_worse": 0,
+            "items_equal": 19
+          }
+        },
+        "policy_question": {
+          "rr": {
+            "n_pairs": 14,
+            "mean_diff": 0.0,
+            "ci_low": 0.0,
+            "ci_high": 0.0,
+            "distinguishable_from_noise": false,
+            "items_better": 0,
+            "items_worse": 0,
+            "items_equal": 14
+          },
+          "hit@1": {
+            "n_pairs": 14,
+            "mean_diff": 0.0,
+            "ci_low": 0.0,
+            "ci_high": 0.0,
+            "distinguishable_from_noise": false,
+            "items_better": 0,
+            "items_worse": 0,
+            "items_equal": 14
+          },
+          "hit@5": {
+            "n_pairs": 14,
+            "mean_diff": 0.0,
+            "ci_low": 0.0,
+            "ci_high": 0.0,
+            "distinguishable_from_noise": false,
+            "items_better": 0,
+            "items_worse": 0,
+            "items_equal": 14
+          },
+          "hit@10": {
+            "n_pairs": 14,
+            "mean_diff": 0.0,
+            "ci_low": 0.0,
+            "ci_high": 0.0,
+            "distinguishable_from_noise": false,
+            "items_better": 0,
+            "items_worse": 0,
+            "items_equal": 14
+          }
+        }
+      }
+    },
+    "calls": {
+      "router": {
+        "n": 71,
+        "cache_hits": 0,
+        "input_tokens": 63342,
+        "output_tokens": 815,
+        "thought_tokens": 0,
+        "latency_ms": {
+          "p50": 1031.5,
+          "p95": 1530.5
+        },
+        "model_versions": [
+          "gemini-3.5-flash-lite"
+        ]
+      },
+      "filters": {
+        "n": 24,
+        "cache_hits": 0,
+        "input_tokens": 36840,
+        "output_tokens": 1725,
+        "thought_tokens": 0,
+        "latency_ms": {
+          "p50": 1238.2,
+          "p95": 1738.9
+        },
+        "model_versions": [
+          "gemini-3.5-flash-lite"
+        ]
+      }
+    },
+    "provenance": {
+      "git_commit": "05053510da39cfcc62e375a512e6e619c03571c4",
+      "git_dirty": false,
+      "model_id": "gemini-3.5-flash-lite",
+      "model_versions": [
+        "gemini-3.5-flash-lite"
+      ],
+      "router_prompt": {
+        "name": "router_v1",
+        "sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c"
+      },
+      "filters_prompt": {
+        "name": "filters_v1",
+        "sha256": "27e2ade227970c84db5ee5ec975c0aad4429fd2de698616d249357431672f74a"
+      },
+      "vocabulary_sha256": "b238cec96174229fdbbe5385d03dd175ab033af444dd17c9c7bca449f08f41b8",
+      "router_schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+      "filters_schema_sha256": "489fb422d325ff2d910238ab1144c01789bf3a76ffb48a375cac3691bb0d1bce",
+      "router_generation_config": {
+        "temperature": 0,
+        "maxOutputTokens": 256,
+        "thinkingConfig": {
+          "thinkingLevel": "minimal"
+        }
+      },
+      "filters_generation_config": {
+        "temperature": 0,
+        "maxOutputTokens": 512,
+        "thinkingConfig": {
+          "thinkingLevel": "minimal"
+        }
+      },
+      "retrieval": {
+        "mode": "dense_folded",
+        "k": 10,
+        "index_manifest_sha256": "8bee3a76b734c9d245e81f8a0727d7975e675e02b1b7ba8e0e32956712a7fb38"
+      },
+      "dev_split_sha256": "c925ddaffd23d9d895cc4e2576575cf9d3f07c24c78519efac0f504cf2df5fc0",
+      "golden_file_sha256": "89f0dd2deff438b09e7849c0f6c2bed022a347ce12e3ec97b93514bf9631bd81",
+      "probes_sha256": null
+    },
+    "cost_theoretical_paid_tier": {
+      "prices_usd_per_million_tokens": {
+        "input": 0.3,
+        "output": 2.5
+      },
+      "source": "https://ai.google.dev/gemini-api/docs/pricing, Gemini 3.5 Flash-Lite, paid tier, Standard; page says 'Last updated 2026-10-09 UTC'; read 2026-10-10",
+      "extraction_share": 0.631578947368421,
+      "per_1000_questions": {
+        "router_usd": 0.2963394366197183,
+        "extractor_usd": 0.40432894736842107,
+        "total_usd": 0.7006683839881394
+      },
+      "free_tier_cost_usd": 0
+    }
+  },
+  "deterministic_sha256": "adc8ad669179907e4e3462de289fac1f09a86d80a3520e1d88c2026f0ec2b640",
+  "measurements": {
+    "live_calls_this_run": 95,
+    "cache_hits_this_run": 0,
+    "wall_seconds": 458.2
+  }
+}

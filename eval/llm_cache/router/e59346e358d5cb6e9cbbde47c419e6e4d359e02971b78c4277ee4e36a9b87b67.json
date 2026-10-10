@@ -1,0 +1,50 @@
+{
+ "digest": "e59346e358d5cb6e9cbbde47c419e6e4d359e02971b78c4277ee4e36a9b87b67",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "Mình muốn xem tiến độ giao hàng mã 84, email là khachhang10@example.com.",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"intent\": \"order_status\"\n}",
+       "thoughtSignature": "EmAKXgFpFH0TEdjDTjCDwn+qtjq1FTPdRSE767uGn3QI7h4IXkJyPeZ3hgx119FjXwvLjqBLEkFpBJIrveuWtT3S7rYaS7fJI81WOjs3rmDIls4jiPQh9U2YsFEHN/AIGcg="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 902,
+   "candidatesTokenCount": 13,
+   "totalTokenCount": 915,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 902
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "P9vJapX6KKTJjuMPv5uHyQ4"
+ },
+ "latency_ms": 898.5,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:29:19+00:00"
+}

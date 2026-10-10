@@ -1,0 +1,50 @@
+{
+ "digest": "269e9edbb2a9c6555af3722d39440e605420d53419208e9d6a0f28da6c2033cb",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "Shop kiểm tra giúp mình đơn 88 với, email đặt hàng là khachhang10@example.com.",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"intent\": \"order_status\"\n}",
+       "thoughtSignature": "EmAKXgFpFH0TTXNFP5w7btttAAyaOtX7lIPXu9h45H6g5RUJoEuabqKfeHgyhKak85zfcTvmhlGoQt+wRkYn9o7aN3dlMj37jGTWnm3vCx5vvpGvS5PMPZzdvfy9tiLL2tA="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 903,
+   "candidatesTokenCount": 13,
+   "totalTokenCount": 916,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 903
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "vdrJaqnNFL-1g8UP_NOAwQ4"
+ },
+ "latency_ms": 1049.9,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:27:09+00:00"
+}

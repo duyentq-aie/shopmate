@@ -1,0 +1,50 @@
+{
+ "digest": "705b5cf3e04f43499f761e866fb76e68b80ddc20ecea29a8ac261a849988e64e",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "ví da nam dưới 500k có mẫu nào ko",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"intent\": \"product_search\"}",
+       "thoughtSignature": "EmAKXgFpFH0TvVrKga040BnGgbxr3KFN8xIiKRnsTp9TLwZr6BzvJPYbBwDY0wmi7Kmjie7v/D+0p4MXbylTo2rz6N1QQmjf4bm/B1GA7luQlfM3/R951JfhKTO8+zc+Ln8="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 891,
+   "candidatesTokenCount": 8,
+   "totalTokenCount": 899,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 891
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "R9rJaqnFC6D6juMPjaay-Qs"
+ },
+ "latency_ms": 1256.8,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:25:11+00:00"
+}

@@ -1,0 +1,50 @@
+{
+ "digest": "249d40fccc869f17d38c457ce5906a7c6a297f87fcd15d85fce7f453e4c26412",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "do da bi moc vi de am thi co duoc bao hanh ko shop",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"intent\": \"policy_question\"\n}",
+       "thoughtSignature": "EmAKXgFpFH0TcX4TzFlTo8TKNWnGVrP2t1gWFUN4sMKQZrlliA4gcLToDfI3jQ7dJ4mnmNXLgUEOSCb8EXn8Nx41vKhDoXcBZFZlw/WPm0e/pQhCilgnYWBfL8Ym+K7U9KU="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 894,
+   "candidatesTokenCount": 13,
+   "totalTokenCount": 907,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 894
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "utrJat6CM5LcjuMP0-v3gA8"
+ },
+ "latency_ms": 1157.8,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:27:07+00:00"
+}

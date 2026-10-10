@@ -1,0 +1,50 @@
+{
+ "digest": "e96397298ed419fec716a5e2d5ec1724da43723ed7dad57c4e1cd3aee0366303",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "tim sneaker nu size 37 shop oi",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"intent\": \"product_search\"}",
+       "thoughtSignature": "EmAKXgFpFH0THGnrYBF8aZeipOz0xB+Vsq8BnPD3qMYDe/GP2juDZKWdL5j7VtDcyH45yoyfTJc5G5bOMwLdOx61uB71pedBjDV9Lf/lo1MX0owBX1rzWT81D/tC8i54Syc="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 887,
+   "candidatesTokenCount": 8,
+   "totalTokenCount": 895,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 887
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "QtrJasaaMbGljuMPy9Op6Ac"
+ },
+ "latency_ms": 1056.8,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:25:06+00:00"
+}

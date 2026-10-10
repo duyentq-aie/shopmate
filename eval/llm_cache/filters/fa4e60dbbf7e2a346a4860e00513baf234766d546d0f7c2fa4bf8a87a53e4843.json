@@ -1,0 +1,50 @@
+{
+ "digest": "fa4e60dbbf7e2a346a4860e00513baf234766d546d0f7c2fa4bf8a87a53e4843",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "27e2ade227970c84db5ee5ec975c0aad4429fd2de698616d249357431672f74a",
+  "schema_sha256": "489fb422d325ff2d910238ab1144c01789bf3a76ffb48a375cac3691bb0d1bce",
+  "input": "Có váy liền nào dưới 400k ko shop?",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 512,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"category\": null,\n  \"kind\": \"Váy liền nữ\",\n  \"color\": null,\n  \"material\": null,\n  \"size\": null,\n  \"price_min\": null,\n  \"price_max\": 400000,\n  \"in_stock\": null\n}",
+       "thoughtSignature": "EmAKXgFpFH0TjNfRH9RhmoAe4XUynhFc1T1PDTz7Gj198xcH93KlhsgW7cw3yx1MtylgOOpOwN6V0S08HoufHHDr0HDEjKcZxxo60+WNdC50ZYFKX+1H82A6Qoyf7oaxUtc="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1535,
+   "candidatesTokenCount": 74,
+   "totalTokenCount": 1609,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1535
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "rNvJarKPEPzEg8UPy9GyiQU"
+ },
+ "latency_ms": 1129.7,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:31:08+00:00"
+}

@@ -1,0 +1,50 @@
+{
+ "digest": "4037a0a873344be7f1c17fcc47fdf538908db746d12e3cb629c6e3702cd74080",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "quan kaki nam mau be size 32 con ko",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"intent\": \"product_search\"}",
+       "thoughtSignature": "EmAKXgFpFH0TBha9Fd5Ecvs4HEYYVIk3JJ8bW6Lp1ZXc8592m04iO9eSp82GM08zrImlFCm0pY/YntF1o8ZCTGUKkM6sh7N88kaZdZM9rveVkApkXnyYYfWAZC3voGCdmfU="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 889,
+   "candidatesTokenCount": 8,
+   "totalTokenCount": 897,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 889
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "S9rJave9NdDx4-EPku3I4QY"
+ },
+ "latency_ms": 738.9,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:25:15+00:00"
+}

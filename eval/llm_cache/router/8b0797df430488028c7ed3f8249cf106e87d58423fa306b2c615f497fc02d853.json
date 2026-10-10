@@ -1,0 +1,50 @@
+{
+ "digest": "8b0797df430488028c7ed3f8249cf106e87d58423fa306b2c615f497fc02d853",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "shop check giúp e đơn 84 với ạ",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"intent\": \"order_status\"}",
+       "thoughtSignature": "EmAKXgFpFH0TLqTeq1B5iOltih22v1cXwljqb+Uje6Cg2GKRo/9sIZ0VsVkujc9L1eS1+MADT/JIMxW/AkP1w4KyFDHPPSa0cUXxj2PFqlDXHUByF4xEyuNHayTanYec6ow="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 888,
+   "candidatesTokenCount": 8,
+   "totalTokenCount": 896,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 888
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "v9rJavu-G_CbjuMPxJ3vwQ8"
+ },
+ "latency_ms": 913.1,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:27:11+00:00"
+}

@@ -1,0 +1,50 @@
+{
+ "digest": "d5137f25b126ee41ca01d896c4480ace7f850fa9e96880d69d9de9736ed9ffe3",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "mo ticket ho tro cho don 87 giup voi, giao thieu do roi",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"intent\": \"create_ticket\"\n}",
+       "thoughtSignature": "EmAKXgFpFH0Tt2oa88Nju8h8rSP5nQ1g+69EaG6GEIUVH5CeP2o+fXOig3WFl4JdVVPZz2GEQ0rxwJmmMhQOaU5T8d+s9kggBIfeYKqACaCJBqyp8xRuQu9YUioG3Mp/3F4="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 896,
+   "candidatesTokenCount": 13,
+   "totalTokenCount": 909,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 896
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "cNvJapz3EOfp4-EPgMzI8Q4"
+ },
+ "latency_ms": 1103.8,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:30:08+00:00"
+}

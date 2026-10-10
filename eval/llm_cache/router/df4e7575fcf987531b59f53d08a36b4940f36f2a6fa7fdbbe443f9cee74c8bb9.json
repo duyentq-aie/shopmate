@@ -1,0 +1,50 @@
+{
+ "digest": "df4e7575fcf987531b59f53d08a36b4940f36f2a6fa7fdbbe443f9cee74c8bb9",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "tui deo cheo duoi 400k co ko shop",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"intent\": \"product_search\"\n}",
+       "thoughtSignature": "EmAKXgFpFH0TESe6jL83ApRIt/mAhp0rIhMrWY1xPms1G29O9Y9i/aH2YDHuFroPj9dSS0t6vRGcya+3dHV26rOOMK0SBBCgpS+demoApRIvE9mT3BATvZDYTRMHzkur/Fo="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 893,
+   "candidatesTokenCount": 13,
+   "totalTokenCount": 906,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 893
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "f9rJapGJL6D6juMPjaay-Qs"
+ },
+ "latency_ms": 894.2,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-10T06:26:07+00:00"
+}

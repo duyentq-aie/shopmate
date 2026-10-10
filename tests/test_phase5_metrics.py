@@ -87,3 +87,14 @@ def test_keyword_is_removed_from_the_expected_filters_like_in_the_phase_3b_oracl
 def test_extracted_filters_are_normalised_to_the_fields_that_are_set():
     assert normalized_extracted(SearchFilters(kind="Mũ", price_max=250000)) == {"kind": "Mũ", "price_max": 250000}
     assert normalized_extracted(None) == {} and normalized_extracted(SearchFilters()) == {}
+
+
+def test_a_field_can_be_left_out_of_the_comparison_entirely():
+    # the golden label says in_stock True, the extractor (by the R32 rule) says nothing: a miss WITH the field, an exact match WITHOUT it
+    pairs = [({"kind": "A", "in_stock": True}, {"kind": "A"}), ({"kind": "B"}, {"kind": "B"})]
+    with_field = filter_field_metrics(pairs)
+    without = filter_field_metrics(pairs, exclude_fields=("in_stock",))
+    assert with_field["exact_match"] == 1 and with_field["fields"]["in_stock"]["fn"] == 1
+    assert without["exact_match"] == 2 and without["exact_match_rate"] == 1.0 and "in_stock" not in without["fields"]
+    assert without["fields"]["kind"]["tp"] == 2 and without["excluded_fields"] == ["in_stock"]
+    assert with_field["excluded_fields"] == []
