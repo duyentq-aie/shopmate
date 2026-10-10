@@ -243,6 +243,12 @@ def test_the_real_pages_fetch_is_relative_and_resolves_to_the_traces_route_of_th
         assert client.get(resolved.removeprefix("http://127.0.0.1:8765")).status_code == 200, resolved
 
 
+def test_the_example_address_in_the_real_pages_help_text_is_the_monitors_default_address():
+    html = DASHBOARD_PAGE.read_text(encoding="utf-8")
+    ports = set(re.findall(r"http://[\w.]+:(\d+)/monitor/", html))
+    assert ports == {str(monitor.DEFAULT_PORT)}, f"the page's help text names ports {sorted(ports)}, the monitor listens on {monitor.DEFAULT_PORT}"
+
+
 def _page_loads_only_what_the_csp_allows(html: str) -> list[str]:
     """What in the real page would break under CSP; [] when everything it loads is allowed."""
     problems = []
