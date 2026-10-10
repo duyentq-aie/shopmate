@@ -13,7 +13,17 @@ import dataclasses
 import pytest
 
 from app.retrieval.folding import FOLDING_VERSION
-from app.retrieval.lexical import LexicalConfig, TokenIdCollision, check_no_collisions, doc_vector, query_vector, token_id
+from app.retrieval.lexical import (
+    LexicalConfig,
+    TieBreakResolution,
+    TokenIdCollision,
+    check_no_collisions,
+    check_tie_resolution,
+    doc_vector,
+    query_vector,
+    tie_factor,
+    token_id,
+)
 
 # avg_len 4 makes a 4-token document "average length": the length normaliser is 1 - b + b * 4/4 = 1.
 CFG = LexicalConfig(k1=1.2, b=0.75, avg_len=4.0)
@@ -77,11 +87,12 @@ def test_fingerprint_is_stable_and_covers_every_setting():
     base = LexicalConfig()
     assert base.fingerprint() == LexicalConfig().fingerprint() and len(base.fingerprint()) == 16
     for change in ({"k1": 1.5}, {"b": 0.5}, {"avg_len": 80.0}, {"folding_version": 99}, {"tokenizer": "other"},
-                   {"token_id": "other"}):
+                   {"token_id": "other"}, {"tie_delta": 5e-4}, {"tie_break": "other"}):
         assert dataclasses.replace(base, **change).fingerprint() != base.fingerprint(), change
 
 
-@pytest.mark.parametrize("bad", [{"k1": -0.1}, {"b": 1.1}, {"b": -0.1}, {"avg_len": 0.0}])
+@pytest.mark.parametrize("bad", [{"k1": -0.1}, {"b": 1.1}, {"b": -0.1}, {"avg_len": 0.0}, {"tie_delta": -0.1},
+                                 {"tie_delta": 1.0}])
 def test_invalid_parameters_are_rejected(bad):
     with pytest.raises(ValueError):
         LexicalConfig(**bad)
@@ -92,3 +103,33 @@ def test_collision_between_distinct_tokens_is_detected():
     with pytest.raises(TokenIdCollision, match="w52890.*w55286"):
         check_no_collisions(["tui", *COLLIDING, "ao"])
     check_no_collisions(["tui", "ao", "tui"])  # repeats of one token are not collisions
+
+
+# --- the deterministic tie-break --------------------------------------------------------------------------
+# Exact score ties inside the folded branch are common (equal-length documents with the same matching
+# tokens) and Qdrant orders them arbitrarily, differently for every build and every `limit`. The folded
+# weights of the document ranked r of n (by the R16 stable key) are therefore scaled by 1 - tie_delta*r/n:
+# ties then resolve to the smaller stable key, whatever Qdrant does internally.
+
+
+def test_tie_factor_by_hand():
+    cfg = LexicalConfig(tie_delta=1e-3)
+    assert tie_factor(0, 4, cfg) == 1.0  # the first stable key is not scaled at all
+    assert tie_factor(1, 4, cfg) == pytest.approx(0.99975)  # 1 - 1e-3 * 1/4
+    assert tie_factor(3, 4, cfg) == pytest.approx(0.99925)  # 1 - 1e-3 * 3/4
+    assert tie_factor(3, 4, LexicalConfig(tie_delta=0.0)) == 1.0  # tie_delta 0 switches it off
+
+
+def test_tie_factor_strictly_decreases_with_the_rank():
+    factors = [tie_factor(r, 269, LexicalConfig()) for r in range(269)]
+    assert factors == sorted(factors, reverse=True) and len(set(factors)) == 269
+    assert min(factors) > 1 - LexicalConfig().tie_delta  # never moves a weight by more than tie_delta
+
+
+def test_the_tie_break_must_stay_above_float32_resolution():
+    cfg = LexicalConfig(tie_delta=1e-3)
+    check_tie_resolution(269, cfg)  # gap between neighbouring ranks 1e-3/269 = 3.7e-6
+    check_tie_resolution(500, cfg)
+    with pytest.raises(TieBreakResolution, match="2000"):
+        check_tie_resolution(2000, cfg)  # 5e-7 relative gap would drown in float32 noise (~1e-7)
+    check_tie_resolution(10**6, LexicalConfig(tie_delta=0.0))  # nothing to resolve when it is off

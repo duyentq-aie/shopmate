@@ -1,5 +1,5 @@
 {
-  "collection": "shopmate_vn",
+  "collection": "shopmate_vn_v2",
   "embedding": {
     "model_id": "BAAI/bge-m3",
     "revision": "5617a9f61b028005a4858fdac845db406aefb181",
@@ -20,6 +20,9 @@
     },
     "sparse": {
       "modifier": "none"
+    },
+    "folded": {
+      "modifier": "idf"
     }
   },
   "filterable_payload": [
@@ -68,5 +71,23 @@
     "torch": "2.14.1+cpu",
     "transformers": "5.19.0"
   },
-  "built_at": "2026-10-09T14:26:42+00:00"
+  "built_at": "2026-10-10T02:35:28+00:00",
+  "lexical": {
+    "folding_version": 1,
+    "tokenizer": "alnum-syllable",
+    "token_id": "blake2b-32",
+    "weighting": "bm25-tf",
+    "idf": "qdrant-modifier",
+    "k1": 1.2,
+    "b": 0.75,
+    "avg_len": 70.9,
+    "tie_break": "stable-key-rank",
+    "tie_delta": 0.001,
+    "fingerprint": "149b5e12e83a3ffc"
+  },
+  "derived_from": {
+    "collection": "shopmate_vn",
+    "vectors_digest": "bef623a22aa134b5620cecd57c59b4726209025238b0a5a06f1f2bedc66c365e"
+  },
+  "vectors_digest": "bef623a22aa134b5620cecd57c59b4726209025238b0a5a06f1f2bedc66c365e"
 }

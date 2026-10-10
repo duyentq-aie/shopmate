@@ -21,6 +21,7 @@ from app.policies import POLICY_DOCUMENTS, clauses
 from app.retrieval.documents import fetch_product_documents, policy_documents
 from app.retrieval.embedder import EmbeddingConfig
 from app.retrieval.indexer import index_documents
+from app.retrieval.lexical import query_vector
 from app.retrieval.manifest import file_sha256, load_manifest
 from app.retrieval.search import Retriever, SearchFilters
 from app.retrieval.store import (
@@ -30,6 +31,7 @@ from app.retrieval.store import (
     connect,
     count_by_doc_type,
     lexical_fingerprint_counts,
+    to_sparse_vector,
     vectors_digest,
 )
 from app.saleor.readonly_client import ReadOnlySaleorClient
@@ -112,6 +114,42 @@ def test_v2_manifest_matches_the_folded_vector_and_the_baseline_vectors(client):
     source = manifest["derived_from"]["collection"]
     if client.collection_exists(source):  # the frozen Phase 3A/3B collection: baseline vectors must be untouched
         assert vectors_digest(client, source) == manifest["derived_from"]["vectors_digest"] == manifest["vectors_digest"]
+
+
+# Hand-written, unaccented and accented, none taken from the golden set.
+TIE_QUERIES = ["ao thun nam", "quan jean nam", "giay the thao nu", "vi da nam", "tui xach nu", "balo laptop",
+               "dong ho nam", "kinh mat", "that lung da", "mu luoi trai", "doi tra hang", "phi van chuyen",
+               "bao hanh san pham", "ao khoac", "dam cong so", "vay lien", "ao so mi nam", "quan short", "giay sandal",
+               "dep quai ngang", "ao len", "size m", "size 40", "mau den", "mau trang", "chat lieu cotton", "free ship",
+               "hoan tien", "áo thun nam", "giày thể thao nữ", "túi xách nữ", "phí vận chuyển", "bảo hành sản phẩm",
+               "đồng hồ nam", "quần short"]
+
+
+@pytest.mark.skipif(LEXICAL is None, reason="the committed manifest is layout v1: there is no folded vector yet")
+def test_the_live_index_passes_every_check_the_evaluation_runner_makes(client):
+    from eval.run_retrieval_eval import index_problems
+
+    assert index_problems(client, load_manifest(), EmbeddingConfig(), query_lexical=LEXICAL) == []
+
+
+@pytest.mark.skipif(LEXICAL is None, reason="the committed manifest is layout v1: there is no folded vector yet")
+def test_folded_branch_has_no_exact_score_ties_and_does_not_depend_on_the_limit(client):
+    """Measured on the real server without the tie-break: exact ties in the folded branch, ordered
+    differently per build and per limit. With the stable-key-rank scaling every score is distinct, so the
+    order cannot depend on Qdrant's internals (the 50 here is the retriever's prefetch limit)."""
+    returned = []
+    for query in TIE_QUERIES:
+        vector = to_sparse_vector(query_vector(query))
+        top50 = client.query_points(ACTIVE, query=vector, using=FOLDED, limit=50).points
+        scores = [p.score for p in top50]
+        returned.append(len(scores))  # a query with no matching token ("free ship") legitimately returns nothing
+        assert len(set(scores)) == len(scores), (query, "exact score tie in the top 50")
+        top100 = client.query_points(ACTIVE, query=vector, using=FOLDED, limit=100).points
+        assert [p.id for p in top100[:50]] == [p.id for p in top50], (query, "order depends on limit")
+        again = client.query_points(ACTIVE, query=vector, using=FOLDED, limit=50).points
+        assert [p.id for p in again] == [p.id for p in top50], (query, "order differs between calls")
+    # not vacuous: most queries match several documents, many fill the whole prefetch window where ties occur
+    assert sum(n >= 2 for n in returned) >= 30 and sum(n == 50 for n in returned) >= 20, returned
 
 
 def test_reindexing_leaves_point_counts_unchanged(client):

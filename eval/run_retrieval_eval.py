@@ -133,6 +133,13 @@ def index_problems(client, manifest: dict, query_config: EmbeddingConfig, collec
         if wrong_lexical:
             problems.append(f"points with another lexical fingerprint than the manifest ({expected_lexical}): "
                             f"{wrong_lexical}")
+        if lexical.get("tie_delta", 0) > 0:
+            from app.retrieval.indexer import lexical_tie_mismatches
+
+            stale = lexical_tie_mismatches(client, collection)
+            if stale:
+                problems.append(f"{stale} points whose lexical tie rank does not match their stable-key rank "
+                                f"(their folded vectors were scaled for another document set)")
     elif folded is not None:
         problems.append(f"collection {collection!r} has a folded vector but the manifest declares no lexical config")
     if "vectors_digest" in manifest:

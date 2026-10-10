@@ -160,6 +160,23 @@ def test_a_single_point_with_another_lexical_fingerprint_is_reported():
         f"points with another lexical fingerprint than the manifest ({LEX.fingerprint()}): {{'stale': 1}}"]
 
 
+def test_a_point_whose_tie_rank_does_not_match_its_stable_key_rank_is_reported():
+    client, docs, manifest = _v2()
+    manifest["lexical"]["tie_delta"] = LEX.tie_delta
+    by_key = {d.key: d for d in docs}
+    a, b = by_key["product:SM-NAM-0001"], by_key["product:SM-NAM-0002"]  # neighbouring ranks 4 and 5
+    client.set_payload("t", payload={"lexical_tie": "5/43"}, points=[a.point_id])
+    client.set_payload("t", payload={"lexical_tie": "4/43"}, points=[b.point_id])
+    problems = run.index_problems(client, manifest, FAKE_CONFIG, query_lexical=LEX)
+    assert len(problems) == 1 and "2 points" in problems[0] and "tie rank" in problems[0]
+
+
+def test_a_consistent_tie_rank_layout_passes_with_the_tie_break_on():
+    client, _, manifest = _v2()
+    manifest["lexical"]["tie_delta"] = LEX.tie_delta
+    assert run.index_problems(client, manifest, FAKE_CONFIG, query_lexical=LEX) == []
+
+
 def test_a_query_side_lexical_config_that_differs_from_the_manifest_is_reported():
     client, _, manifest = _v2()
     problems = run.index_problems(client, manifest, FAKE_CONFIG, query_lexical=LexicalConfig(k1=2.0))
