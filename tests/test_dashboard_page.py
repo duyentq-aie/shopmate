@@ -262,6 +262,17 @@ def test_the_sample_tells_every_story_the_dashboard_has_to_draw():
 
 
 @needs_node
+def test_no_sku_of_the_sample_exists_in_the_real_catalogue():
+    """The sample products are invented, so their SKUs must be too: a real trace and the sample can never show one SKU as two products (D7.35)."""
+    catalogue = {p["sku"] for p in json.loads((REPO / "data" / "seed" / "catalog.vi.json").read_text(encoding="utf-8"))["products"]}
+    text = json.dumps(js(f"api.makeSample({NOW})"), ensure_ascii=False)
+    seen = set(re.findall(r"SM-[A-Z]+-\d{4}", text)) | set(re.findall(r"SM-[A-Z]+-\d{4}", HTML))  # in the traces the sample writes, and anywhere in the page (the example line, the product table)
+    assert len(seen) >= 20, seen  # the sample does mention its products: the check is not empty
+    assert not seen & catalogue, sorted(seen & catalogue)
+    assert all(re.fullmatch(r"SM-DEMO-\d{4}", sku) for sku in seen), sorted(seen)
+
+
+@needs_node
 def test_the_sample_contains_no_email_phone_or_secret():
     sample = js(f"api.makeSample({NOW})")
     text = json.dumps([{k: v for k, v in r.items() if k not in ("trace_id", "session_id")} for r in sample], ensure_ascii=False)  # ids are hex, not phone numbers

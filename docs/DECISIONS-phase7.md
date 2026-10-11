@@ -393,7 +393,7 @@ catalogue has no black Dù jacket under 500k and no white or Linen men's shirt),
 - **Conclusion: no error.** The `kind` filter is present and right in both conversations. What can look like a mix is two conversations next to each other in the monitor list or in one widget window.
 - **One real thing found on the way, not fixed:** the dashboard's *sample data* (`dashboard/index.html`, `CATALOG`) uses real-looking SKUs for invented products: `SM-NAM-0002` is "Áo khoác dù nam đen" there and `SM-NAM-0001` "Áo khoác dù nam xanh rêu",
   while in the real catalogue SM-NAM-0002 is the black office **shirt** and SM-NAM-0001 a T-shirt (tests/fake_agent.py reuses the same invented names). Anyone who reads a real trace next to the sample sees the same SKU as two different
-  products. **Proposal:** give the sample products SKUs that cannot exist (`SM-DEMO-0001` ...) and mark the sample as such in the retrieval hits; two lines in `makeSample` and in `test_dashboard_page.py`. Not done: you asked for no change before the freeze.
+  products. **Proposal:** give the sample products SKUs that cannot exist (`SM-DEMO-0001` ...); two lines in `makeSample` and in `test_dashboard_page.py`. Not done when it was written (no change before the freeze); **done in D7.38**.
 
 ### D7.36 One look for the widget and the demo shop, one function for the thumbnails
 
@@ -422,7 +422,7 @@ catalogue has no black Dù jacket under 500k and no white or Linen men's shirt),
   honours "dưới 500k", returns only the best matches (so "áo khoác nam" is never a T-shirt) and, for the jacket question of the Phase 7.5 smoke, makes the offer the real agent made, so the offer buttons can be shown without the stack.
 - **The chips and the data.** Each chip has an answer in the data (`test_every_suggestion_chip_has_a_real_answer_in_the_catalogue_or_the_policies`): "Áo khoác nam dưới 500k" finds exactly two in-stock jackets (the two of the offer); "Đổi hàng
   trong bao nhiêu ngày?" is answered by Điều 2 of the return policy (7 and 30 days); "Giao hàng mất mấy ngày?" by Điều 3 of the delivery policy (1-2 and 2-5 working days); "Tra đơn #84" exists in the seed orders, but the agent asks for the order's
-  email before it says anything (by design, D6), so that chip opens a question, not an answer.
+  email before it says anything (by design, D6), so that chip opens a question, not an answer. *(Changed in D7.38: the chip is now "Kiểm tra đơn hàng", with no number.)*
 - **Looked at, criticised, changed (two rounds, fake mode, Edge, 1440 px and 390 px).** Round 1: the product cards were cut at the bottom of the log because the flex items of the log shrank (fixed: they no longer shrink); the chips wrapped in
   a ragged way (now one per line); the focus ring of the text box doubled the border (now one 2 px indigo line); the footer line left one word alone on its second line (balanced); a smooth scroll left the screenshots half-way (instant);
   the dress looked like a lampshade and the trousers like two sticks (redrawn), the denim and leather weaves were too heavy (lighter). Round 2: an answer with product cards always scrolls to the end so the cards are whole; the cards are
@@ -430,7 +430,7 @@ catalogue has no black Dù jacket under 500k and no white or Linen men's shirt),
 - **Screenshots** (`docs/screenshots/phase7/`, all fake mode): `demo-page-desktop.png`, `demo-page-mobile.png`, `widget-greeting-*`, `widget-products-*`, `widget-offer-*`, `widget-confirm-*` (desktop and mobile), `widget-error-mobile.png`.
 - **Undo.** `git checkout` the files of this change; the API fields are additive, an older widget ignores them.
 
-### D7.37 Live smoke of the redesigned widget: not run
+### D7.37 Live smoke of the redesigned widget: not run (superseded by D7.38, which ran it)
 
 - **Planned.** At most 6 Gemini requests: press two chips through the real API (`--live --max-live-calls 6`), one screenshot of the widget with the real answers. The counter file of the Pacific day 2026-10-11 does not exist yet (0 used; the last
   file, 2026-10-10, ended at 151 of 450).
@@ -439,4 +439,25 @@ catalogue has no black Dù jacket under 500k and no white or Linen men's shirt),
   above do not need it.
 - **To do when the stack is up** (Docker Desktop on, `docker compose up -d qdrant`, the Saleor stack): `uv run python -m app.chat_api --live --max-live-calls 6`, press "Đổi hàng trong bao nhiêu ngày?" (about 2 requests) and "Áo khoác nam
   dưới 500k" (about 3), photograph the widget, then stop the API.
+
+### D7.38 Sample SKUs that cannot collide, the order chip, locked button texts, and the live smoke of the widget
+
+- **Sample SKUs (D7.35).** The 20 invented products of the dashboard sample are now `SM-DEMO-0001` to `SM-DEMO-0020` (in the order of the table, so the product of the example trace line is `SM-DEMO-0002`). `test_no_sku_of_the_sample_exists_in_the_real_catalogue`
+  reads every SKU the sample writes (hits, replies, error messages) and every SKU in the page, requires at least 20 of them, all of the form `SM-DEMO-dddd`, none in `data/seed/catalog.vi.json`. `tests/fake_agent.py` keeps its own invented names
+  (a test fixture, never shown next to a real trace).
+- **The order chip.** "Tra đơn #84" is now **"Kiểm tra đơn hàng"**: no number, so the agent has to ask for the number and the email (`templates.ASK_NUMBER_AND_EMAIL`) and looks nothing up. Tests: the fake backend and the real `Agent` (router
+  fake, `tools.lookups == []`) both answer with that sentence; the chip test requires that the chip carries no digit and that the seed orders exist.
+- **The texts the buttons send are locked.** "Có, cho mình xem" sends `có`, "Không cần" sends `không cần` (read from the widget source by a regular expression that fails loudly if the code is reshaped): `parse_yes_no("có") == "yes"`, `parse_yes_no("không cần") == "no"` and
+  `is_plain_decline("không cần")`; with the real agent the yes runs the accepted search without a second router call and the refusal gets `OFFER_DECLINED` without any router call. The label "Có, cho mình xem" is *not* a yes for the parser (it is a request), which
+  is why the button does not send its own label. The ticket buttons send no text: the widget posts `confirm: true/false` and `AgentBackend.confirm` turns it into `có` / `không`, which `parse_yes_no` reads as yes / no (also locked).
+- **Live smoke, 6 Gemini requests (the cap of the run; counter of the Pacific day 2026-10-11: 0 -> 6 of 450).** The chat API ran with `--live --max-live-calls 6` on 127.0.0.1:8766, Qdrant and the read-only Saleor up; each chip was pressed in the real widget
+  (Edge, a page on port 8777 allowed as the storefront origin) and the page text and cards were read back from the DOM:
+  1. "Đổi hàng trong bao nhiêu ngày?": 2 requests (router, answer). Answer: 7 days for size or colour, 30 days for a defective or wrong item, "Nguồn: doi-tra, Điều 2". Correct against `data/policies/doi-tra.md`.
+  2. "Áo khoác nam dưới 500k": 3 requests (router, extractor, answer). Answer and cards: SM-NAM-0014 (479.000₫) and SM-NAM-0042 (439.000₫), both in stock, drawn as jackets with a plain weave (their material is polyester); the search found them directly, so **there was no offer
+     to accept** and the "Có, cho mình xem" button did not come up in the live run (it is shown, and tested, in fake mode and with the real agent over fake components).
+  3. "Kiểm tra đơn hàng": 1 request (router, the sixth and last). Answer: "Để kiểm tra, bạn cho mình xin số đơn hàng và email đặt hàng nhé." (the fixed template; nothing was looked up).
+  The two screenshots were taken after, from the answers the chat API had cached (no new request: the counter stayed at 6): `docs/screenshots/phase7/widget-live-products-desktop.png`, `widget-live-policy-desktop.png`. Criticism of the first take: the real answer is long, so the
+  top line of its bubble was cut by the header when the cards were shown; the card is now 16 px shorter (swatch 92 px, tighter padding) and bubble and cards fit the log. Retaken because of this change or the SKU change: `widget-products-*`, `widget-greeting-*` (the chip text),
+  `dashboard-flow-desktop`, `dashboard-journey-desktop`, `dashboard-journey-mobile` (they show the sample SKUs).
+- **Undo.** Revert the commit of this change; nothing else depends on the sample SKUs or the chip text.
 

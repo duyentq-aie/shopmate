@@ -296,12 +296,73 @@ def test_with_the_real_agent_awaiting_offer_is_true_exactly_while_the_offer_is_o
     assert all(p["kind"] == "Áo khoác nam" and p["color"] and p["material"] for p in answered["products"])
 
 
+def test_the_order_chip_makes_the_real_agent_ask_for_the_number_and_the_email_and_look_nothing_up():
+    question = "Kiểm tra đơn hàng"
+    tools = FakeTools()
+    agent = Agent(router=FakeRouter({question: "order_status"}), extractor=FakeExtractor({}), tools=tools, answerer=FakeAnswerer(), catch_errors=True)
+    body = say(client(AgentBackend(agent, slugs={})), sid(), question).json()
+    assert body["reply"] == T.ASK_NUMBER_AND_EMAIL and body["reply_source"] == "clarify" and body["products"] == [] and tools.lookups == []
+
+
+# --- what the buttons send is what the parsers understand ------------------------------------------------------------------------------------------
+
+
+def _widget_sends() -> tuple[str, str]:
+    """The two texts the offer buttons send as the customer's next message, read from the widget source."""
+    source = (REPO / "widget" / "shopmate-chat.js").read_text(encoding="utf-8")
+    match = re.search(r"_buttons\(T\.offerYes, function \(\) \{ self\._dispatch\('([^']+)', T\.offerYes\); \}, function \(\) \{ self\._dispatch\('([^']+)', T\.no\); \}\)", source)
+    assert match, "the offer buttons no longer have the form this test reads: update the test with the widget, and keep the two checks below"
+    return match.group(1), match.group(2)
+
+
+def test_the_text_of_the_offer_buttons_is_a_yes_and_a_plain_refusal_for_the_parsers_of_the_agent():
+    from app.agent.parsing import is_plain_decline, parse_yes_no
+
+    yes, no = _widget_sends()
+    assert (yes, no) == ("có", "không cần")
+    assert parse_yes_no(yes) == "yes" and is_plain_decline(yes) is False  # accepted: the search without the dropped constraints
+    assert parse_yes_no(no) == "no" and is_plain_decline(no) is True  # refused: the fixed reply, no router
+    # why the buttons do not send their own labels: "Có, cho mình xem" is a request, not an answer, and the agent would send it to the router
+    assert parse_yes_no("Có, cho mình xem") != "yes" and "Có, cho mình xem" in (REPO / "widget" / "shopmate-chat.js").read_text(encoding="utf-8")
+
+
+def test_the_text_the_ticket_buttons_stand_for_is_a_yes_and_a_no_for_the_parser_and_the_widget_posts_a_boolean():
+    from app.agent.parsing import parse_yes_no
+
+    api = (REPO / "app" / "chat_api.py").read_text(encoding="utf-8")
+    sent = re.search(r'self\.agent\.turn\(session_id, "([^"]+)" if confirm else "([^"]+)"\)', api)
+    assert sent, "AgentBackend.confirm no longer turns the boolean into a typed answer: update this test"
+    assert (parse_yes_no(sent.group(1)), parse_yes_no(sent.group(2))) == ("yes", "no")
+    widget = (REPO / "widget" / "shopmate-chat.js").read_text(encoding="utf-8")
+    assert "this._run('/api/chat/confirm', { session_id: sessionId(), confirm: yes })" in widget  # the widget sends true or false, never a label
+
+
+def test_with_the_real_agent_the_offer_buttons_do_what_their_labels_say(tmp_path):
+    yes, no = _widget_sends()
+    question, filters = "áo khoác nam đỏ size XL", {"kind": "Áo khoác nam", "color": "Đỏ", "size": "XL"}
+
+    def conversation():
+        router = FakeRouter({question: "product_search"})
+        agent = Agent(router=router, extractor=FakeExtractor({question: filters}), tools=FakeTools(offers=True), answerer=FakeAnswerer(), catch_errors=True)
+        c, mine = client(AgentBackend(agent, slugs={})), sid()
+        assert say(c, mine, question).json()["awaiting_offer"] is True
+        return c, mine, router
+
+    c, mine, router = conversation()
+    accepted = say(c, mine, yes).json()
+    assert accepted["reply"].startswith("Không khớp hoàn toàn") and accepted["products"] and router.calls == [question]  # no second router call: the yes was read as a yes
+    c, mine, router = conversation()
+    declined = say(c, mine, no).json()
+    assert declined["reply"] == T.OFFER_DECLINED and declined["products"] == [] and router.calls == [question]  # the refusal never reached the router
+
+
 def test_the_fake_backend_answers_the_chips_of_the_widget_with_the_real_policy_facts():
     c = client()
     assert "7 ngày" in say(c, sid(), "Đổi hàng trong bao nhiêu ngày?").json()["reply"]
     shipping = say(c, sid(), "Giao hàng mất mấy ngày?").json()["reply"]
     assert "1–2 ngày" in shipping and "2–5 ngày" in shipping and "500.000đ" in shipping
-    assert say(c, sid(), "Tra đơn #84").json()["reply_source"] == "clarify"
+    order = say(c, sid(), "Kiểm tra đơn hàng").json()  # no number in the question: the assistant asks for the number and the email
+    assert order["reply"] == T.ASK_NUMBER_AND_EMAIL and order["reply_source"] == "clarify" and order["products"] == []
     cheap = say(c, sid(), "Áo khoác nam dưới 500k").json()["products"]
     assert cheap and all(p["price_vnd"] <= 500000 and p["kind"] == "Áo khoác nam" for p in cheap)
 

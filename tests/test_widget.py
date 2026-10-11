@@ -247,7 +247,7 @@ def test_the_widget_has_the_parts_of_the_brief():
     for needle in ("'S'", "Thường trả lời trong vài giây", "Thu nhỏ cửa sổ trò chuyện", "this._fab.hidden = open", "MAX_ROWS = 4", "scroll-snap-type:x mandatory", "Xem sản phẩm",
                    "role: 'log'", "e.key === 'Escape'", "function fillText", "/^\\s*-\\s+(.*)$/", "T.retry", "T.wait", "class: 'bubble typing'", "inset:0"):
         assert needle in SOURCE, needle
-    for chip in ("Áo khoác nam dưới 500k", "Đổi hàng trong bao nhiêu ngày?", "Tra đơn #84", "Giao hàng mất mấy ngày?"):
+    for chip in ("Áo khoác nam dưới 500k", "Đổi hàng trong bao nhiêu ngày?", "Kiểm tra đơn hàng", "Giao hàng mất mấy ngày?"):
         assert f"'{chip}'" in SOURCE, chip
     assert SOURCE.count("function thumbnail") == 1 and "thumbnail(p, { decorative: true })" in SOURCE  # the card uses the shared function
     assert re.search(r"@media \(prefers-reduced-motion:no-preference\)\{\.typing i\{animation", SOURCE)  # the dots only move where motion is welcome
@@ -255,15 +255,15 @@ def test_the_widget_has_the_parts_of_the_brief():
 
 def test_every_suggestion_chip_has_a_real_answer_in_the_catalogue_or_the_policies():
     chips = re.findall(r"'([^']+)'", re.search(r"var CHIPS = \[(.*?)\];", SOURCE, re.S).group(1))
-    assert chips == ["Áo khoác nam dưới 500k", "Đổi hàng trong bao nhiêu ngày?", "Tra đơn #84", "Giao hàng mất mấy ngày?"]
+    assert chips == ["Áo khoác nam dưới 500k", "Đổi hàng trong bao nhiêu ngày?", "Kiểm tra đơn hàng", "Giao hàng mất mấy ngày?"]
     jackets = {p["sku"] for p in CATALOG if p["kind"] == "Áo khoác nam" and p["price"] <= 500000 and p["stock"] > 0}
     assert jackets == {"SM-NAM-0014", "SM-NAM-0042"}  # chip 1 finds exactly the two jackets of the offer, both in stock
     returns = (REPO / "data" / "policies" / "doi-tra.md").read_text(encoding="utf-8")
     article_2 = returns.split("## Điều 2.")[1].split("## Điều 3.")[0]
     assert "**7 ngày**" in article_2 and "**30 ngày**" in article_2  # chip 2: the return article answers "how many days"
+    assert "#" not in chips[2] and not re.search(r"\d", chips[2])  # chip 3 carries no order number: the agent asks for the number and the email (templates.ASK_NUMBER_AND_EMAIL)
     orders = json.loads((REPO / "data" / "seed" / "orders.vi.json").read_text(encoding="utf-8"))["orders"]
-    order = next(o for o in orders if o["number"] == "84")
-    assert order["customer"]["email"].endswith("@example.com")  # chip 3: order 84 exists; the agent asks for its (synthetic) email before it says anything
+    assert orders and all(o["customer"]["email"].endswith("@example.com") for o in orders)  # and there are (synthetic) orders it can then look up
     shipping = (REPO / "data" / "policies" / "van-chuyen.md").read_text(encoding="utf-8").split("## Điều 3.")[1].split("## Điều 4.")[0]
     assert "**1–2 ngày**" in shipping and "**2–5 ngày**" in shipping  # chip 4: the delivery-time article
 

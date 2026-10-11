@@ -201,7 +201,7 @@
   var memorySession = null;
 
   var GREETING = 'Chào bạn! Mình là trợ lý của ShopMate Fashion. Bạn cần tìm sản phẩm, hỏi về size, chất liệu, đổi trả hay tra đơn hàng?';
-  var CHIPS = ['Áo khoác nam dưới 500k', 'Đổi hàng trong bao nhiêu ngày?', 'Tra đơn #84', 'Giao hàng mất mấy ngày?'];
+  var CHIPS = ['Áo khoác nam dưới 500k', 'Đổi hàng trong bao nhiêu ngày?', 'Kiểm tra đơn hàng', 'Giao hàng mất mấy ngày?'];
   var T = {
     open: 'Mở trò chuyện với trợ lý ShopMate', minimize: 'Thu nhỏ cửa sổ trò chuyện', name: 'Trợ lý ShopMate', status: 'Thường trả lời trong vài giây',
     dialog: 'Trò chuyện với trợ lý ShopMate', log: 'Cuộc trò chuyện', suggestions: 'Gợi ý câu hỏi', placeholder: 'Nhập tin nhắn…', label: 'Tin nhắn của bạn',
@@ -248,10 +248,10 @@
     '.chip{background:#fff;border:1px solid var(--indigo);color:var(--indigo);border-radius:999px;padding:7px 13px;font-size:13px;font-weight:500;text-align:left;max-width:100%}',
     '.chip:hover{background:var(--tint)}',
     '.chip:disabled{opacity:.55;cursor:default}',
-    '.rail{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 14px;margin:0 -14px;padding:2px 14px 10px;align-self:stretch;scrollbar-width:thin;scrollbar-color:var(--field) transparent}',
+    '.rail{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 14px;margin:0 -14px;padding:2px 14px 6px;align-self:stretch;scrollbar-width:thin;scrollbar-color:var(--field) transparent}',
     '.card{flex:0 0 164px;scroll-snap-align:start;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}',
-    '.thumb{background:var(--tint);height:108px;display:block}.thumb svg{width:100%;height:100%;display:block}',
-    '.info{padding:10px 11px 11px;display:flex;flex-direction:column;gap:6px;flex:1}',
+    '.thumb{background:var(--tint);height:92px;display:block}.thumb svg{width:100%;height:100%;display:block}',
+    '.info{padding:9px 10px 10px;display:flex;flex-direction:column;gap:5px;flex:1}',
     '.name{font-weight:600;font-size:13.5px;line-height:1.35;min-height:2.7em;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}',
     '.price{font-weight:700;font-size:15px;color:var(--indigo)}',
     '.stock{align-self:flex-start;display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:2px 9px;border-radius:999px}',
