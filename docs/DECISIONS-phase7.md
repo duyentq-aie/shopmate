@@ -379,3 +379,64 @@ catalogue has no black Dù jacket under 500k and no white or Linen men's shirt),
   the help text still lists the same ones; the monitor's port is still 8765. Screenshots in `docs/screenshots/phase7/` were taken again (desktop 1440 px, mobile 390 px, the four "live" ones from the real monitor
   reading the recorded Phase 7 and 7.5 traces).
 - **Undo.** Restore `dashboard/index.html` and the two test files from the previous commit; nothing else depends on the language of the page.
+
+## The widget and the demo page, redesigned
+
+### D7.35 Diagnosis before the redesign: a shirt next to jackets in one answer (no bug in the logs)
+
+- **Asked.** Find the turn whose reply holds "Áo sơ mi nam tay dài công sở đen" together with jackets; print the question, the extractor's filters and the retrieval hits; if the `kind` filter is missing or wrong for a jacket
+  question, report the cause and a fix, change nothing.
+- **Found, in `logs/traces.jsonl` (26 lines).** The phrase is in **one** reply only: line 20, the turn "có nhé" of the conversation that began with "Shop có áo sơ mi nam màu trắng chất liệu linen không?" (line 19).
+  Filters of line 19: `{"kind": "Áo sơ mi nam", "color": "Trắng", "material": "Linen"}`, relaxed `color`, offer drops `color, material`. Hits of line 20: SM-NAM-0037, 0030, 0009, **0002** (the black long-sleeve
+  office shirt), 0023: five men's shirts, the `kind` was kept, as D7.25 says it must be. That reply names no jacket and no trace holds a shirt and a jacket together (checked in the replies and in the hits of all 26).
+  The jacket conversation (line 17, filters `kind: Áo khoác nam, color: Đen, material: Dù, size: L, price_max: 500000`; line 18, the accepted offer) returned two jackets, SM-NAM-0042 and SM-NAM-0014, and nothing else.
+- **Conclusion: no error.** The `kind` filter is present and right in both conversations. What can look like a mix is two conversations next to each other in the monitor list or in one widget window.
+- **One real thing found on the way, not fixed:** the dashboard's *sample data* (`dashboard/index.html`, `CATALOG`) uses real-looking SKUs for invented products: `SM-NAM-0002` is "Áo khoác dù nam đen" there and `SM-NAM-0001` "Áo khoác dù nam xanh rêu",
+  while in the real catalogue SM-NAM-0002 is the black office **shirt** and SM-NAM-0001 a T-shirt (tests/fake_agent.py reuses the same invented names). Anyone who reads a real trace next to the sample sees the same SKU as two different
+  products. **Proposal:** give the sample products SKUs that cannot exist (`SM-DEMO-0001` ...) and mark the sample as such in the retrieval hits; two lines in `makeSample` and in `test_dashboard_page.py`. Not done: you asked for no change before the freeze.
+
+### D7.36 One look for the widget and the demo shop, one function for the thumbnails
+
+- **Before.** The widget was teal (`#0e7c86`), used the system font and plain text cards (name, price, badge); only the ticket question had buttons, the offer had to be typed ("có"); the demo page had a cream background,
+  four grey gradient boxes with hand-typed prices and a dashed "Thử hỏi" box with `<code>` examples.
+- **After (the design system of the brief).** Indigo `#1F2A5C`, cool white `#F7F8FA`, ink `#1A1D24`, light indigo `#E8EAF4` for accents, green `#2E7D5B` for in stock, lacquer red `#B3261E` **only** for out of stock and errors;
+  Be Vietnam Pro 400 to 700 with the system font as the fallback (the widget loads nothing itself; the demo page loads the one family from Google Fonts, so its CSP now allows `fonts.googleapis.com` and `fonts.gstatic.com`
+  and nothing else); radii 12 (cards) / 10 (buttons) / pill (chips); a shadow only on the floating panel; no gradient and no monospace in what the customer sees. All of this is checked as text in `tests/test_widget.py`.
+- **The one accent: fabric-swatch thumbnails.** `ShopMateChat.thumbnail(product)` in `widget/shopmate-chat.js` draws an SVG: one of **8 silhouettes** by kind (jacket, shirt, T-shirt, dress, trousers, shoe, bag, accessory; all 35
+  catalogue kinds map to one), the product's **own colour** (the 18 catalogue colours, a neutral grey for an unknown one) and a **weave by material**: ripstop grid for dù, diagonal twill for denim, coarse horizontal thread for linen,
+  fine grain for leather (da bò, da tổng hợp, da lộn), plain for cotton and everything else. The widget cards and the demo page call the same function (the demo page asks `window.ShopMateChat.thumbnail`, it has no drawing code of
+  its own). It is built from created SVG nodes, never parsed from text. Found by its test: the first linen rule also matched "thun lạnh" (cooling jersey), because of "lạnh"; it now needs `linen` or `vải lanh`.
+- **The demo shop.** `widget/demo.html` (Vietnamese, ShopMate Fashion): header with the wordmark and a nav that wraps instead of being cut, a short hero with one sentence about the shop and a button that opens the assistant, a grid
+  of **12 real catalogue products** (the two jackets SM-NAM-0014 and SM-NAM-0042 of the offer, a shirt from a real answer, and products that answer dev items gs-002, gs-004, gs-009, gs-013, gs-016, gs-018, gs-104, gs-106 and gs-107), and a
+  footer with the return, delivery and warranty rules taken from `data/policies` (each figure is checked against the policy file by a test) and the line "Trang demo — sản phẩm và đơn hàng là dữ liệu hư cấu". The list is static:
+  `scripts/build_demo_products.py` writes `widget/demo-products.json` from `data/seed/catalog.vi.json` (in stock only, with a `--check` mode; a test fails when the file is not what the script builds), the page only reads it. The nav
+  filters the grid by category. The dev items were read only through `load_split("dev")`.
+- **The widget.** Shadow DOM, no dependency, text as `textContent` and created nodes. A round indigo launcher that is hidden while the panel is open; a 380 x 620 panel (full screen up to 480 px); header with an "S" avatar, "Trợ lý
+  ShopMate", "Thường trả lời trong vài giây" and a minimise button; a greeting with four suggestion chips; customer bubbles on the right in indigo, assistant bubbles on the left in white with a light indigo edge, lines that start
+  with "- " as a real list; a horizontal scroll-snap carousel of product cards (swatch, two-line name, price, in stock / out of stock, "Xem sản phẩm"); typing dots (still when motion is reduced); a textarea that grows to 4 lines, an
+  icon send button, an indigo focus ring; the line "Trợ lý AI có thể nhầm — vui lòng kiểm tra lại trước khi đặt hàng."; Tab through chips, buttons and cards, Esc closes the panel and gives the focus back to the launcher
+  (driven in a real Edge: tab order, Esc, re-opening keeps the conversation). Errors say what to do: no network, timeout and 5xx offer a "Thử lại" button, a 429 says how many seconds to wait (from `retry_after`).
+- **The two buttons.** `awaiting_offer` is new in the chat API (true while the agent waits for the answer to its offer). The offer shows "Có, cho mình xem" / "Không cần"; they send a plain "có" / "không cần" through `/api/chat`, because that is
+  what the agent reads (a yes by `parse_yes_no`, a refusal by `is_plain_decline`, D7.27 and D7.33): no new route, no change in the agent. The ticket question keeps its own endpoint and now says "Có, tạo yêu cầu" / "Không cần".
+- **The API.** `products[]` also carries `kind`, `color`, `material` (already in the hits, no Saleor call); `FakeBackend` returns them from the catalogue, answers the policy questions with the real figures (return, delivery, warranty),
+  honours "dưới 500k", returns only the best matches (so "áo khoác nam" is never a T-shirt) and, for the jacket question of the Phase 7.5 smoke, makes the offer the real agent made, so the offer buttons can be shown without the stack.
+- **The chips and the data.** Each chip has an answer in the data (`test_every_suggestion_chip_has_a_real_answer_in_the_catalogue_or_the_policies`): "Áo khoác nam dưới 500k" finds exactly two in-stock jackets (the two of the offer); "Đổi hàng
+  trong bao nhiêu ngày?" is answered by Điều 2 of the return policy (7 and 30 days); "Giao hàng mất mấy ngày?" by Điều 3 of the delivery policy (1-2 and 2-5 working days); "Tra đơn #84" exists in the seed orders, but the agent asks for the order's
+  email before it says anything (by design, D6), so that chip opens a question, not an answer.
+- **Looked at, criticised, changed (two rounds, fake mode, Edge, 1440 px and 390 px).** Round 1: the product cards were cut at the bottom of the log because the flex items of the log shrank (fixed: they no longer shrink); the chips wrapped in
+  a ragged way (now one per line); the focus ring of the text box doubled the border (now one 2 px indigo line); the footer line left one word alone on its second line (balanced); a smooth scroll left the screenshots half-way (instant);
+  the dress looked like a lampshade and the trousers like two sticks (redrawn), the denim and leather weaves were too heavy (lighter). Round 2: an answer with product cards always scrolls to the end so the cards are whole; the cards are
+  a little shorter; the mobile nav fits on one row. Not fixed, on purpose: "kính mát" and the other accessories share one generic swatch (a folded fabric corner), as eight silhouettes were asked for.
+- **Screenshots** (`docs/screenshots/phase7/`, all fake mode): `demo-page-desktop.png`, `demo-page-mobile.png`, `widget-greeting-*`, `widget-products-*`, `widget-offer-*`, `widget-confirm-*` (desktop and mobile), `widget-error-mobile.png`.
+- **Undo.** `git checkout` the files of this change; the API fields are additive, an older widget ignores them.
+
+### D7.37 Live smoke of the redesigned widget: not run
+
+- **Planned.** At most 6 Gemini requests: press two chips through the real API (`--live --max-live-calls 6`), one screenshot of the widget with the real answers. The counter file of the Pacific day 2026-10-11 does not exist yet (0 used; the last
+  file, 2026-10-10, ended at 151 of 450).
+- **Why not done.** When the step was reached, Qdrant (`127.0.0.1:6333`) and Saleor (`localhost:8000`) did not answer, and Docker is not reachable from this WSL distro (`docker` is not found; Docker Desktop's WSL integration is off).
+  The real agent will not start without both, and containers are not touched from here. **0 Gemini requests were made by this work.** Nothing in the widget or the API depends on the stack being up; the offline suite and the fake-mode screenshots
+  above do not need it.
+- **To do when the stack is up** (Docker Desktop on, `docker compose up -d qdrant`, the Saleor stack): `uv run python -m app.chat_api --live --max-live-calls 6`, press "Đổi hàng trong bao nhiêu ngày?" (about 2 requests) and "Áo khoác nam
+  dưới 500k" (about 3), photograph the widget, then stop the API.
+

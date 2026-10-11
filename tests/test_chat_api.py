@@ -41,11 +41,12 @@ def say(c: TestClient, session: str, message: str, **kwargs):
 
 def test_a_chat_answer_has_exactly_the_agreed_fields():
     body = say(client(), sid(), "áo khoác nam").json()
-    assert set(body) == {"reply", "reply_source", "trace_id", "awaiting_confirmation", "products"}
-    assert body["awaiting_confirmation"] is False and body["reply_source"] == "llm" and body["trace_id"]
-    assert 1 <= len(body["products"]) <= 3
+    assert set(body) == {"reply", "reply_source", "trace_id", "awaiting_confirmation", "awaiting_offer", "products"}
+    assert body["awaiting_confirmation"] is False and body["awaiting_offer"] is False and body["reply_source"] == "llm" and body["trace_id"]
+    assert 1 <= len(body["products"]) <= 5
     for product in body["products"]:
-        assert set(product) == {"name", "price_vnd", "in_stock", "slug", "url"} and isinstance(product["price_vnd"], int)
+        assert set(product) == {"name", "price_vnd", "in_stock", "kind", "color", "material", "slug", "url"} and isinstance(product["price_vnd"], int)
+        assert product["kind"] == "Áo khoác nam" and product["color"] and product["material"]  # what the widget needs to draw the swatch of the card
         assert product["url"] == f"http://localhost:3000/en/vn/products/{product['slug']}"
 
 
@@ -242,11 +243,14 @@ def test_with_the_real_agent_the_no_button_writes_nothing(tmp_path):
 
 
 def test_product_cards_come_from_the_hits_the_reply_names_and_carry_the_storefront_link():
-    hits = [{"key": "product:SM-NAM-0002", "sku": "SM-NAM-0002", "name": "Áo khoác dù nam đen", "price_vnd": 429000, "in_stock": True},
-            {"key": "product:SM-NAM-0001", "sku": "SM-NAM-0001", "name": "Áo khoác dù nam xanh rêu", "price_vnd": 459000, "in_stock": False},
+    hits = [{"key": "product:SM-NAM-0002", "sku": "SM-NAM-0002", "name": "Áo khoác dù nam đen", "kind": "Áo khoác nam", "color": "Đen", "material": "Dù",
+             "price_vnd": 429000, "in_stock": True},
+            {"key": "product:SM-NAM-0001", "sku": "SM-NAM-0001", "name": "Áo khoác dù nam xanh rêu", "kind": "Áo khoác nam", "color": "Xanh rêu", "material": "Dù",
+             "price_vnd": 459000, "in_stock": False},
             {"key": "policy:doi-tra:2", "sku": "SM-X", "name": "not a product", "price_vnd": 1, "in_stock": True}]
     cards = product_cards(hits, "Mình gợi ý SM-NAM-0002 (429.000đ).", {"SM-NAM-0002": "ao-khoac-du-nam-den"}, "https://shop.test/p/{slug}")
-    assert cards == [{"name": "Áo khoác dù nam đen", "price_vnd": 429000, "in_stock": True, "slug": "ao-khoac-du-nam-den", "url": "https://shop.test/p/ao-khoac-du-nam-den"}]
+    assert cards == [{"name": "Áo khoác dù nam đen", "price_vnd": 429000, "in_stock": True, "kind": "Áo khoác nam", "color": "Đen", "material": "Dù",
+                      "slug": "ao-khoac-du-nam-den", "url": "https://shop.test/p/ao-khoac-du-nam-den"}]
     unknown = product_cards(hits[:1], "SM-NAM-0002", {}, "https://shop.test/p/{slug}")
     assert unknown[0]["slug"] is None and unknown[0]["url"] is None  # no slug known: a card without a link, never a made-up one
 
@@ -258,6 +262,48 @@ def test_the_real_agent_answer_shows_cards_only_for_the_skus_it_names():
     names = {p["name"] for p in body["products"]}
     assert names == {"Áo khoác dù nam xanh rêu", "Áo khoác dù nam đen"} and all(p["price_vnd"] > 0 for p in body["products"])
     assert {p["name"]: p["url"] for p in body["products"]}["Áo khoác dù nam đen"].endswith("/products/ao-khoac-du-nam-den")
+
+
+def test_the_fake_backend_makes_the_offer_the_real_agent_made_and_the_two_buttons_answer_it():
+    c, mine = client(), sid()
+    question = "Mình cần áo khoác dù nam màu đen dưới 500k, còn size L không shop?"
+    asked = say(c, mine, question).json()
+    assert asked["awaiting_offer"] is True and asked["awaiting_confirmation"] is False and asked["reply_source"] == "template" and asked["products"] == []
+    assert asked["reply"].endswith("bạn muốn xem không?") and "chất liệu dù" in asked["reply"]
+    yes = say(c, mine, "có").json()  # what the button "Có, cho mình xem" sends
+    assert yes["awaiting_offer"] is False and yes["reply"].startswith(T.offer_label(["size", "color", "material"])) and len(yes["products"]) == 2
+    assert {p["name"] for p in yes["products"]} == {"Áo khoác nam nỉ có mũ xanh navy", "Áo khoác nam jean xanh rêu"} and all(p["kind"] == "Áo khoác nam" for p in yes["products"])
+    say(c, mine, question)
+    no = say(c, mine, "không cần").json()  # what the button "Không cần" sends
+    assert no["reply"] == T.OFFER_DECLINED and no["awaiting_offer"] is False and no["products"] == []
+
+
+def test_the_offer_lives_for_one_message_in_the_fake_backend_too():
+    c, mine = client(), sid()
+    say(c, mine, "Mình cần áo khoác dù nam màu đen dưới 500k, còn size L không shop?")
+    say(c, mine, "giao hàng mất mấy ngày")  # something else: the offer is spent
+    assert "TCK-" not in say(c, mine, "có").json()["reply"] and say(c, mine, "có").json()["products"] == []
+
+
+def test_with_the_real_agent_awaiting_offer_is_true_exactly_while_the_offer_is_open():
+    question, filters = "áo khoác nam đỏ size XL", {"kind": "Áo khoác nam", "color": "Đỏ", "size": "XL"}  # no red jacket: the search and its relaxation are empty, the colour alone blocks
+    agent = Agent(router=FakeRouter({question: "product_search"}), extractor=FakeExtractor({question: filters}), tools=FakeTools(offers=True), answerer=FakeAnswerer(), catch_errors=True)
+    c, mine = client(AgentBackend(agent, slugs={})), sid()
+    asked = say(c, mine, question).json()
+    assert asked["awaiting_offer"] is True and asked["awaiting_confirmation"] is False and asked["products"] == []
+    answered = say(c, mine, "có").json()
+    assert answered["awaiting_offer"] is False and answered["reply"].startswith("Không khớp hoàn toàn") and answered["products"]
+    assert all(p["kind"] == "Áo khoác nam" and p["color"] and p["material"] for p in answered["products"])
+
+
+def test_the_fake_backend_answers_the_chips_of_the_widget_with_the_real_policy_facts():
+    c = client()
+    assert "7 ngày" in say(c, sid(), "Đổi hàng trong bao nhiêu ngày?").json()["reply"]
+    shipping = say(c, sid(), "Giao hàng mất mấy ngày?").json()["reply"]
+    assert "1–2 ngày" in shipping and "2–5 ngày" in shipping and "500.000đ" in shipping
+    assert say(c, sid(), "Tra đơn #84").json()["reply_source"] == "clarify"
+    cheap = say(c, sid(), "Áo khoác nam dưới 500k").json()["products"]
+    assert cheap and all(p["price_vnd"] <= 500000 and p["kind"] == "Áo khoác nam" for p in cheap)
 
 
 # --- nothing internal reaches the customer ---------------------------------------------------------------------------------------------------
@@ -328,8 +374,22 @@ def test_the_demo_page_is_html_with_a_strict_csp_and_says_it_is_a_demo():
     response = client().get("/widget/demo")
     assert response.status_code == 200 and response.headers["content-type"].startswith("text/html")
     assert "script-src 'self'" in response.headers["content-security-policy"] and "frame-ancestors 'none'" in response.headers["content-security-policy"]
-    assert "Trang demo" in response.text and '<script src="/widget/shopmate-chat.js">' in response.text
+    assert "Trang demo" in response.text and '<script src="/widget/shopmate-chat.js">' in response.text and '<script src="/widget/demo.js">' in response.text
     assert "<script>" not in response.text  # no inline script: the CSP would block it
+
+
+def test_the_demo_csp_lets_through_the_one_font_family_and_nothing_else():
+    csp = client().get("/widget/demo").headers["content-security-policy"]
+    assert "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;" in csp and "font-src https://fonts.gstatic.com;" in csp
+    assert "default-src 'self'" in csp and "connect-src 'self'" in csp and "script-src 'self';" in csp and "object-src" not in csp
+    assert re.findall(r"https?://[\w.]+", csp) == ["https://fonts.googleapis.com", "https://fonts.gstatic.com"]
+
+
+def test_the_demo_script_and_the_product_list_are_served_as_the_files_in_the_repo():
+    c = client()
+    script, products = c.get("/widget/demo.js"), c.get("/widget/demo-products.json")
+    assert script.status_code == 200 and script.headers["content-type"].startswith("text/javascript") and script.content == (REPO / "widget" / "demo.js").read_bytes()
+    assert products.status_code == 200 and products.headers["content-type"].startswith("application/json") and products.content == (REPO / "widget" / "demo-products.json").read_bytes()
 
 
 def test_a_missing_widget_file_is_a_404_that_names_no_path(tmp_path):
@@ -347,8 +407,10 @@ def test_the_widget_never_turns_server_text_into_html():
 
 def test_the_widget_has_the_behaviour_of_the_brief():
     source = (REPO / "widget" / "shopmate-chat.js").read_text(encoding="utf-8")
-    for needle in ("attachShadow", "aria-live", "'api-base'", "ShopMate đang trả lời…", "Có, tạo yêu cầu", "'Không'", "/api/chat/confirm", "e.shiftKey", "e.isComposing",
-                   "Intl.NumberFormat('vi-VN')", "'₫'", "noopener noreferrer", "this._send.disabled = this._pending"):
+    for needle in ("attachShadow", "aria-live", "'api-base'", "Trợ lý ShopMate", "Thường trả lời trong vài giây", "Có, tạo yêu cầu", "Có, cho mình xem", "Không cần",
+                   "/api/chat/confirm", "e.shiftKey", "e.isComposing", "e.key === 'Escape'", "awaiting_offer", "Intl.NumberFormat('vi-VN')", "'₫'", "noopener noreferrer",
+                   "this._send.disabled = this._pending", "scroll-snap-type:x mandatory", "prefers-reduced-motion:no-preference",
+                   "Trợ lý AI có thể nhầm — vui lòng kiểm tra lại trước khi đặt hàng."):
         assert needle in source, needle
 
 

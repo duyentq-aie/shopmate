@@ -1,0 +1,199 @@
+{
+  "synthetic": true,
+  "source": "data/seed/catalog.vi.json",
+  "built_by": "scripts/build_demo_products.py",
+  "products": [
+    {
+      "sku": "SM-NAM-0014",
+      "slug": "ao-khoac-nam-jean-xanh-reu-sm-nam-0014",
+      "name": "Áo khoác nam jean xanh rêu",
+      "kind": "Áo khoác nam",
+      "category": "thoi-trang-nam",
+      "color": "Xanh rêu",
+      "material": "Polyester",
+      "sizes": [
+        "S",
+        "M"
+      ],
+      "price_vnd": 479000,
+      "in_stock": true
+    },
+    {
+      "sku": "SM-NAM-0042",
+      "slug": "ao-khoac-nam-ni-co-mu-xanh-navy-sm-nam-0042",
+      "name": "Áo khoác nam nỉ có mũ xanh navy",
+      "kind": "Áo khoác nam",
+      "category": "thoi-trang-nam",
+      "color": "Xanh navy",
+      "material": "Polyester",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "price_vnd": 439000,
+      "in_stock": true
+    },
+    {
+      "sku": "SM-NAM-0002",
+      "slug": "ao-so-mi-nam-tay-dai-cong-so-den-sm-nam-0002",
+      "name": "Áo sơ mi nam tay dài công sở đen",
+      "kind": "Áo sơ mi nam",
+      "category": "thoi-trang-nam",
+      "color": "Đen",
+      "material": "Kate",
+      "sizes": [
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price_vnd": 369000,
+      "in_stock": true
+    },
+    {
+      "sku": "SM-NAM-0018",
+      "slug": "quan-jean-nam-ong-dung-xanh-dam-sm-nam-0018",
+      "name": "Quần jean nam ống đứng xanh đậm",
+      "kind": "Quần jean nam",
+      "category": "thoi-trang-nam",
+      "color": "Xanh đậm",
+      "material": "Denim",
+      "sizes": [
+        "29",
+        "30",
+        "31",
+        "32",
+        "33",
+        "34"
+      ],
+      "price_vnd": 559000,
+      "in_stock": true
+    },
+    {
+      "sku": "SM-NU-0041",
+      "slug": "ao-khoac-nu-blazer-be-sm-nu-0041",
+      "name": "Áo khoác nữ blazer be",
+      "kind": "Áo khoác nữ",
+      "category": "thoi-trang-nu",
+      "color": "Be",
+      "material": "Dù",
+      "sizes": [
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "price_vnd": 379000,
+      "in_stock": true
+    },
+    {
+      "sku": "SM-NU-0003",
+      "slug": "vay-lien-nu-cong-so-xanh-duong-sm-nu-0003",
+      "name": "Váy liền nữ công sở xanh dương",
+      "kind": "Váy liền nữ",
+      "category": "thoi-trang-nu",
+      "color": "Xanh dương",
+      "material": "Linen",
+      "sizes": [
+        "S",
+        "M",
+        "L"
+      ],
+      "price_vnd": 389000,
+      "in_stock": true
+    },
+    {
+      "sku": "SM-NU-0001",
+      "slug": "ao-thun-nu-oversize-vang-sm-nu-0001",
+      "name": "Áo thun nữ oversize vàng",
+      "kind": "Áo thun nữ",
+      "category": "thoi-trang-nu",
+      "color": "Vàng",
+      "material": "Cotton",
+      "sizes": [
+        "XL",
+        "XXL"
+      ],
+      "price_vnd": 189000,
+      "in_stock": true
+    },
+    {
+      "sku": "SM-GIAY-0002",
+      "slug": "giay-sneaker-nu-slip-on-trang-sm-giay-0002",
+      "name": "Giày sneaker nữ slip-on trắng",
+      "kind": "Giày sneaker nữ",
+      "category": "giay-dep",
+      "color": "Trắng",
+      "material": "Vải canvas",
+      "sizes": [
+        "35",
+        "36",
+        "37",
+        "38"
+      ],
+      "price_vnd": 559000,
+      "in_stock": true
+    },
+    {
+      "sku": "SM-GIAY-0009",
+      "slug": "giay-tay-nam-derby-nau-sm-giay-0009",
+      "name": "Giày tây nam derby nâu",
+      "kind": "Giày tây nam",
+      "category": "giay-dep",
+      "color": "Nâu",
+      "material": "Da tổng hợp",
+      "sizes": [
+        "39",
+        "40",
+        "41",
+        "42",
+        "43"
+      ],
+      "price_vnd": 899000,
+      "in_stock": true
+    },
+    {
+      "sku": "SM-TUI-0027",
+      "slug": "tui-deo-cheo-hop-den-sm-tui-0027",
+      "name": "Túi đeo chéo hộp đen",
+      "kind": "Túi đeo chéo",
+      "category": "tui-vi",
+      "color": "Đen",
+      "material": "Vải canvas",
+      "sizes": [
+        "Freesize"
+      ],
+      "price_vnd": 369000,
+      "in_stock": true
+    },
+    {
+      "sku": "SM-TUI-0009",
+      "slug": "vi-da-nam-dang-dung-den-sm-tui-0009",
+      "name": "Ví da nam dáng đứng đen",
+      "kind": "Ví da nam",
+      "category": "tui-vi",
+      "color": "Đen",
+      "material": "Da bò",
+      "sizes": [
+        "Freesize"
+      ],
+      "price_vnd": 379000,
+      "in_stock": true
+    },
+    {
+      "sku": "SM-PK-0013",
+      "slug": "kinh-mat-phi-cong-nau-sm-pk-0013",
+      "name": "Kính mát phi công nâu",
+      "kind": "Kính mát",
+      "category": "phu-kien",
+      "color": "Nâu",
+      "material": "Kim loại",
+      "sizes": [
+        "Freesize"
+      ],
+      "price_vnd": 309000,
+      "in_stock": true
+    }
+  ]
+}

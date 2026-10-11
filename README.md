@@ -6,9 +6,9 @@
 
 | The dashboard: the journey of one real request (live traces of a run on synthetic data) | The chat widget on a demo shop page |
 |---|---|
-| ![Dashboard, tab Request flow: intent routing, filter extraction, retrieval, grounded answer, guardrail check, reply](docs/screenshots/phase7/dashboard-live-product-desktop.png) | ![Chat widget with product cards](docs/screenshots/phase7/widget-products-desktop.png) |
+| ![Dashboard, tab Request flow: intent routing, filter extraction, retrieval, grounded answer, guardrail check, reply](docs/screenshots/phase7/dashboard-live-product-desktop.png) | ![The ShopMate Fashion demo page with the chat widget showing two product cards](docs/screenshots/phase7/widget-products-desktop.png) |
 
-More screenshots (sample data, desktop and phone): [`docs/screenshots/phase7/`](docs/screenshots/phase7/).
+More screenshots (sample data and the demo shop, desktop and phone): [`docs/screenshots/phase7/`](docs/screenshots/phase7/).
 
 ## What is in it
 
@@ -16,7 +16,7 @@ More screenshots (sample data, desktop and phone): [`docs/screenshots/phase7/`](
 - **An agent with bounds on every loop.** Intent router and filter extractor (Gemini Flash-Lite, free tier, structured output), read-only Saleor tools (order lookup needs the order number *and* the owner's email), a ticket written only after an explicit yes. Two clarifying questions, one relaxed search (and then, if still empty, an offer the customer must accept: "no match; X blocks; N products without it; want to see them?"), three failed verifications, eight steps per turn, never more ([design](docs/AGENT-DESIGN.md)).
 - **Grounded answers with code guardrails.** The LLM writes the text from tool results; code then checks every price, stock claim, order status, SKU and clause against those results and replaces a rejected text with a fixed one ([results and an honest account of what that proves](docs/RESULTS-phase6.md)).
 - **Traces and a monitor.** One JSON line per request (question, router decision, filters, hits, tool results, guardrail verdict, the reply the customer got, masked for emails, phone numbers and keys); a loopback-only dashboard draws the journey of a request, the flow of all requests and the error board ([decisions](docs/DECISIONS-phase7.md)).
-- **A storefront widget and API** (`<shopmate-chat>`, FastAPI, rate limited, CORS-locked, loopback only) with a patch for the Saleor storefront that you apply yourself ([how](docs/STOREFRONT-INTEGRATION.md)).
+- **A storefront widget and API** (`<shopmate-chat>`, FastAPI, rate limited, CORS-locked, loopback only): suggestion chips, product carousels whose thumbnails are fabric swatches drawn from each product's kind, colour and material, and yes/no buttons for the offer and the ticket question. A fictional shop page ("ShopMate Fashion", products from the real catalogue) shows it at `/widget/demo`. A patch for the Saleor storefront is there for you to apply yourself ([how](docs/STOREFRONT-INTEGRATION.md)).
 - **CI that needs no secret and no network** (unit tests, integrity of the committed results, gitleaks over the history).
 
 ## Architecture

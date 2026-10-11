@@ -4,11 +4,11 @@
     uv run python -m app.chat_api --live        # the real agent: Gemini (free tier, guarded), Qdrant, read-only Saleor
     uv run python -m app.chat_api               # the real agent, offline: LLM answers come from the cache or fail as llm_cache_miss_offline
 
-  POST /api/chat          {session_id, message}  -> {reply, reply_source, trace_id, awaiting_confirmation, products}
+  POST /api/chat          {session_id, message}  -> {reply, reply_source, trace_id, awaiting_confirmation, awaiting_offer, products}
   POST /api/chat/confirm  {session_id, confirm}  -> the same; resumes the pending "create a ticket?" question (409 if none is pending)
   GET  /api/health        {"ok": true, "mode": "fake" | "live" | "offline"}
   GET  /widget/shopmate-chat.js   the <shopmate-chat> web component
-  GET  /widget/demo               a tiny fake shop page that embeds it
+  GET  /widget/demo               a fake shop page (ShopMate Fashion) that embeds it, with /widget/demo.js and /widget/demo-products.json (built by scripts/build_demo_products.py)
 
 Rules of the API (each one has a test):
 - session_id is a UUID, message is 1 to 1000 characters, nothing else is accepted (422 with a short Vietnamese message that does not echo the input).
@@ -17,7 +17,10 @@ Rules of the API (each one has a test):
   origin. A request that carries any other `Origin` is refused with 403, not just left without CORS headers.
 - The customer never sees a stack trace, an exception text or a trace detail: only a fixed Vietnamese text and the `trace_id` to look the request up
   in the monitor. The agent is built with catch_errors=True, so a failure inside it is traced as before and the customer gets the technical-problem text.
-- `products` holds only what the turn already had in its state (name, price in VND, in stock) plus the storefront link; no Saleor call is made for it.
+- `products` holds only what the turn already had in its state (name, kind, color, material, price in VND, in stock) plus the storefront link; no Saleor call is made
+  for it. kind, color and material are what the widget needs to draw the fabric-swatch thumbnail of a card.
+- `awaiting_offer` is true while the agent has asked "drop these constraints to see close matches?" (D7.25): the widget then shows two buttons, which send a plain
+  "có" or "không cần" as the next message; nothing else is needed on the server.
   The link comes from the slug in the versioned seed catalog (data/seed/catalog.vi.json, by SKU): the index payload has no slug.
 - The ticket rule is unchanged: a ticket is written only after an explicit yes, here the button "Có, tạo yêu cầu" (confirm=true) or a typed yes.
 - Binds 127.0.0.1 only (the launcher refuses any other host), and every call into the agent is serialised by one lock (one embedder, one limiter, a demo load).
@@ -74,8 +77,9 @@ MSG_FORBIDDEN_ORIGIN = "Trang này không được phép dùng trợ lý ShopMat
 MSG_TOO_BIG = "Tin nhắn quá dài."
 MSG_NOT_FOUND = "Không tìm thấy."
 SECURITY_HEADERS = {"X-Content-Type-Options": "nosniff", "Cross-Origin-Resource-Policy": "cross-origin"}
-DEMO_CSP = ("default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; "
-            "base-uri 'none'; form-action 'none'; frame-ancestors 'none'")
+# the demo page loads one font family (Be Vietnam Pro) from Google Fonts; nothing else leaves the origin
+DEMO_CSP = ("default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; "
+            "connect-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'; frame-ancestors 'none'")
 
 
 # --- what goes over the wire ----------------------------------------------------------------------------------------------------
@@ -106,6 +110,9 @@ class ProductCard(BaseModel):
     name: str
     price_vnd: int
     in_stock: bool
+    kind: str | None = None
+    color: str | None = None
+    material: str | None = None
     slug: str | None = None
     url: str | None = None
 
@@ -115,6 +122,7 @@ class ChatResponse(BaseModel):
     reply_source: str | None
     trace_id: str | None
     awaiting_confirmation: bool
+    awaiting_offer: bool = False
     products: list[ProductCard] = []
 
 
@@ -132,6 +140,7 @@ class BackendReply:
     trace_id: str | None = None
     awaiting_confirmation: bool = False
     products: list[dict] = field(default_factory=list)
+    awaiting_offer: bool = False
 
 
 class ChatBackend(Protocol):
@@ -159,8 +168,9 @@ def product_cards(hits: list[dict], reply: str, slugs: Mapping[str, str], url_te
         sku = hit.get("sku")
         if hit.get("key", "").startswith("product:") and sku and sku in reply:
             slug = slugs.get(sku)
-            cards.append({"name": str(hit["name"]), "price_vnd": int(hit["price_vnd"]), "in_stock": bool(hit["in_stock"]), "slug": slug,
-                          "url": url_template.format(slug=slug) if slug else None})
+            cards.append({"name": str(hit["name"]), "price_vnd": int(hit["price_vnd"]), "in_stock": bool(hit["in_stock"]),
+                          "kind": hit.get("kind"), "color": hit.get("color"), "material": hit.get("material"),
+                          "slug": slug, "url": url_template.format(slug=slug) if slug else None})
         if len(cards) >= MAX_PRODUCTS:
             break
     return cards
@@ -175,7 +185,7 @@ class AgentBackend:
 
     def _wrap(self, result) -> BackendReply:
         return BackendReply(reply=result.reply, reply_source=result.reply_source, trace_id=result.trace_id,
-                            awaiting_confirmation=result.awaiting == "ticket_confirmation",
+                            awaiting_confirmation=result.awaiting == "ticket_confirmation", awaiting_offer=result.awaiting == "offer_confirmation",
                             products=product_cards(result.hits, result.reply, self.slugs, self.url_template))
 
     def reply(self, session_id: str, message: str) -> BackendReply:
@@ -191,34 +201,78 @@ class AgentBackend:
 
 class FakeBackend:
     """Canned answers by keyword: no agent, no LLM, no network, no ticket file. For the demo, the tests and CI.
-    A complaint ("khiếu nại", "lỗi", "giao nhầm") makes it ask for a confirmation, as the real agent does before it writes a ticket."""
+    A complaint ("khiếu nại", "lỗi", "giao nhầm") makes it ask for a confirmation, as the real agent does before it writes a ticket.
+    The one jacket question of the live smoke ("áo khoác dù ... size L") gets the offer the real agent made for it, so the widget's offer buttons can be shown."""
 
     mode = "fake"
     PRODUCT_WORDS = frozenset({"ao", "quan", "giay", "tui", "vay", "mu", "vi", "balo", "dep", "kinh", "that", "lung"})
-    STOP = frozenset({"co", "khong", "shop", "ban", "cho", "minh", "xem", "mau", "nao", "dang", "can", "tim", "mua", "gia"})
+    STOP = frozenset({"co", "khong", "shop", "ban", "cho", "minh", "xem", "mau", "nao", "dang", "can", "tim", "mua", "gia", "duoi"})
     CREATED = "Mình đã tạo phiếu hỗ trợ TCK-DEMO000001 (đây là bản demo, không có phiếu thật). Nhân viên sẽ liên hệ với bạn qua email."
+    POLICY_RETURN = ("Bạn được đổi kích cỡ hoặc màu sắc trong vòng 7 ngày kể từ ngày nhận hàng; sản phẩm lỗi hoặc giao sai thì trong 30 ngày.\n"
+                     "Nguồn: doi-tra, Điều 2")
+    POLICY_SHIPPING = ("Phí giao hàng tiêu chuẩn là 30.000đ mỗi đơn, miễn phí cho đơn từ 500.000đ. Nội thành TP.HCM giao trong 1–2 ngày làm việc; "
+                       "Hà Nội, Đà Nẵng và các tỉnh khác trong 2–5 ngày làm việc.\nNguồn: van-chuyen, Điều 2 và Điều 3")
+    POLICY_WARRANTY = ("Giày dép được bảo hành 6 tháng đối với lỗi bong keo, tuột chỉ, gãy đế; túi, ví và thắt lưng da bò 12 tháng; "
+                       "kính mát và phụ kiện kim loại 3 tháng.\nNguồn: bao-hanh, Điều 1")
+    OFFER = (T.NO_FULL_MATCH + " Điều kiện đang chặn kết quả: chất liệu dù (cùng với kích cỡ L và màu đen). "
+             "Hiện có 2 áo khoác nam mức giá tối đa 500.000đ nếu bỏ các điều kiện này — bạn muốn xem không?")
+    OFFER_SKUS = ("SM-NAM-0042", "SM-NAM-0014")
 
     def __init__(self, catalog: list[dict] | None = None, url_template: str = DEFAULT_PRODUCT_URL) -> None:
         self.catalog = catalog if catalog is not None else load_catalog()
         self.url_template = url_template
         self._awaiting: set[str] = set()
+        self._offers: set[str] = set()
         self._lock = threading.Lock()
 
     @staticmethod
     def _id() -> str:
         return uuid.uuid4().hex
 
-    def _products(self, tokens: set[str]) -> list[dict]:
+    def _card(self, p: dict) -> dict:
+        return {"name": p["name"], "price_vnd": int(p["price"]), "in_stock": int(p.get("stock", 0)) > 0, "kind": p.get("kind"), "color": p.get("color"),
+                "material": p.get("material"), "slug": p["slug"], "url": self.url_template.format(slug=p["slug"])}
+
+    @staticmethod
+    def _price_cap(folded: str) -> int | None:
+        match = re.search(r"duoi\s*(\d+)\s*(k|tr|trieu|nghin|ngan)?\b", folded)
+        if not match:
+            return None
+        return int(match.group(1)) * {"k": 1_000, "nghin": 1_000, "ngan": 1_000, "tr": 1_000_000, "trieu": 1_000_000}.get(match.group(2) or "", 1)
+
+    def _products(self, tokens: set[str], cap: int | None = None) -> list[dict]:
         wanted = tokens - self.STOP
-        scored = [(len(wanted & set(re.findall(r"[a-z0-9]+", fold(f"{p['kind']} {p['name']}")))), i, p) for i, p in enumerate(self.catalog)]
-        best = [p for score, _, p in sorted(scored, key=lambda t: (-t[0], t[1])) if score > 0][:3]
-        return [{"name": p["name"], "price_vnd": int(p["price"]), "in_stock": int(p.get("stock", 0)) > 0, "slug": p["slug"],
-                 "url": self.url_template.format(slug=p["slug"])} for p in best]
+        pool = [p for p in self.catalog if int(p.get("stock", 0)) > 0 and (cap is None or int(p["price"]) <= cap)]
+        scored = [(len(wanted & set(re.findall(r"[a-z0-9]+", fold(f"{p['kind']} {p['name']}")))), i, p) for i, p in enumerate(pool)]
+        ranked = sorted(scored, key=lambda t: (-t[0], t[1]))
+        best = ranked[0][0] if ranked else 0
+        return [self._card(p) for score, _, p in ranked if score > 0 and score == best][:MAX_PRODUCTS]  # only the best matches: "áo khoác nam" never returns a T-shirt
+
+    @staticmethod
+    def _lines(cards: list[dict]) -> str:
+        return "\n".join(f"- {c['name']}: " + f"{c['price_vnd']:,}".replace(",", ".") + "đ, " + ("còn hàng" if c["in_stock"] else "hết hàng") for c in cards)
+
+    def _offer_answer(self, session_id: str, message: str) -> BackendReply | None:
+        """The answer to the offer asked in the last turn (this is the only turn the offer lives, as in the real agent), or None when the message is something else."""
+        from app.agent.parsing import is_plain_decline, parse_yes_no
+
+        self._offers.discard(session_id)
+        if parse_yes_no(message) == "yes":
+            by_sku = {p["sku"]: p for p in self.catalog}
+            cards = [self._card(by_sku[sku]) for sku in self.OFFER_SKUS if sku in by_sku]
+            return BackendReply(T.offer_label(["size", "color", "material"]) + "\nBên mình gợi ý cho bạn:\n" + self._lines(cards), "llm", self._id(), False, cards)
+        if is_plain_decline(message):
+            return BackendReply(T.OFFER_DECLINED, "template", self._id())
+        return None
 
     def reply(self, session_id: str, message: str) -> BackendReply:
         folded = fold(message)
         tokens = set(re.findall(r"[a-z0-9]+", folded))
         with self._lock:
+            if session_id in self._offers:
+                answered = self._offer_answer(session_id, message)
+                if answered is not None:
+                    return answered
             if session_id in self._awaiting:  # the question is still open: a typed answer is read like the real agent reads it
                 if tokens & {"khong", "ko", "thoi", "huy"}:
                     self._awaiting.discard(session_id)
@@ -230,16 +284,21 @@ class FakeBackend:
                 self._awaiting.add(session_id)
                 return BackendReply('Mình sẽ tạo phiếu hỗ trợ với nội dung sau:\nNội dung: "' + " ".join(message.split())[:120] +
                                     '"\nBạn xác nhận tạo phiếu này không? (trả lời "có" để tạo, "không" để hủy)', "clarify", self._id(), True)
-        if re.search(r"doi tra|doi hang|tra hang|bao hanh|van chuyen|phi ship|freeship|giao hang", folded):
-            return BackendReply("Bạn được đổi kích cỡ hoặc màu sắc trong vòng 7 ngày kể từ ngày nhận hàng; sản phẩm lỗi hoặc giao sai thì trong 30 ngày.\nNguồn: doi-tra, Điều 2",
-                                "llm", self._id())
+            if "khoac" in tokens and "du" in tokens and "size" in tokens:  # the jacket question that has no exact match: the offer
+                self._offers.add(session_id)
+                return BackendReply(self.OFFER, "template", self._id(), awaiting_offer=True)
+        if re.search(r"bao hanh", folded):
+            return BackendReply(self.POLICY_WARRANTY, "llm", self._id())
+        if re.search(r"van chuyen|phi ship|freeship|giao hang|\bship\b", folded):
+            return BackendReply(self.POLICY_SHIPPING, "llm", self._id())
+        if re.search(r"doi tra|doi hang|tra hang", folded):
+            return BackendReply(self.POLICY_RETURN, "llm", self._id())
         if tokens & {"don", "order"}:
             return BackendReply(T.ASK_NUMBER_AND_EMAIL, "clarify", self._id())
         if tokens & self.PRODUCT_WORDS:
-            cards = self._products(tokens)
+            cards = self._products(tokens, self._price_cap(folded))
             if cards:
-                lines = "\n".join(f"- {c['name']}: " + f"{c['price_vnd']:,}".replace(",", ".") + "đ, " + ("còn hàng" if c["in_stock"] else "hết hàng") for c in cards)
-                return BackendReply("Mình tìm được vài sản phẩm phù hợp (dữ liệu demo):\n" + lines, "llm", self._id(), False, cards)
+                return BackendReply("Mình tìm được vài sản phẩm phù hợp (dữ liệu demo):\n" + self._lines(cards), "llm", self._id(), False, cards)
             return BackendReply(T.NO_RESULTS, "template", self._id())
         if tokens & {"chao", "hello", "hi", "alo", "cam"}:
             return BackendReply(T.SMALLTALK, "template", self._id())
@@ -330,7 +389,7 @@ def create_app(backend: ChatBackend, *, storefront_origin: str = DEFAULT_STOREFR
         if result is None:
             return JSONResponse(error_body("nothing_to_confirm", MSG_NOTHING_TO_CONFIRM), status_code=409)
         body = ChatResponse(reply=result.reply, reply_source=result.reply_source, trace_id=result.trace_id, awaiting_confirmation=result.awaiting_confirmation,
-                            products=[ProductCard(**p) for p in result.products])
+                            awaiting_offer=result.awaiting_offer, products=[ProductCard(**p) for p in result.products])
         return JSONResponse(body.model_dump())
 
     @app.post("/api/chat")
@@ -363,6 +422,14 @@ def create_app(backend: ChatBackend, *, storefront_origin: str = DEFAULT_STOREFR
     @app.get("/widget/demo")
     def widget_demo() -> Response:
         return static("demo.html", "text/html; charset=utf-8", DEMO_CSP)
+
+    @app.get("/widget/demo.js")
+    def widget_demo_script() -> Response:
+        return static("demo.js", "text/javascript; charset=utf-8")
+
+    @app.get("/widget/demo-products.json")
+    def widget_demo_products() -> Response:
+        return static("demo-products.json", "application/json; charset=utf-8")
 
     return app
 

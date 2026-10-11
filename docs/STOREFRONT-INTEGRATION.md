@@ -65,8 +65,12 @@ Other limits:
 - The widget keeps only a session id in `sessionStorage`; a reload keeps the agent's memory of the conversation (on the API side, in memory) but not the messages on the screen.
 - The chat API is rate limited to 6 messages a minute per session; the Gemini free tier is guarded by the same counters as the evaluation (450 requests a day, shared).
 
+## The look, and the font
+
+The widget is drawn in the ShopMate indigo (`#1F2A5C`) on a cool white, with the product cards' thumbnails drawn by the widget itself (`ShopMateChat.thumbnail`: a silhouette by product kind, the product's own colour, a weave by material), so a card costs no image request. It asks for the font **Be Vietnam Pro** and falls back to the system font when the page does not load it. The Saleor Paper storefront does not load it, and the patch does not add it (that would touch more storefront files): without it the widget looks the same in `system-ui`. To get the font, load it on the page, for example `<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">` (then a CSP needs `style-src https://fonts.googleapis.com` and `font-src https://fonts.gstatic.com`; the demo page does exactly this). The widget's own attributes: `api-base`, `title` (default "Trợ lý ShopMate"), `open` (start with the panel open); methods `open()`, `close()` and `ask(text)`.
+
 ## Files
 
-- `widget/shopmate-chat.js`: the component. `widget/demo.html`: a tiny fake shop page ("Trang demo") that embeds it.
-- `app/chat_api.py`: the API (`--fake` / `--live`), `tests/test_chat_api.py`: its tests (offline).
+- `widget/shopmate-chat.js`: the component. `widget/demo.html`, `widget/demo.js`, `widget/demo-products.json`: a fake shop page ("Trang demo", ShopMate Fashion) that embeds it; the product list is built from the real catalogue by `scripts/build_demo_products.py`.
+- `app/chat_api.py`: the API (`--fake` / `--live`), `tests/test_chat_api.py`: its tests; `tests/test_widget.py`: the thumbnail, the demo products and the design rules (offline).
 - `docs/storefront-integration.patch`: the storefront change. This file: how to use it.
