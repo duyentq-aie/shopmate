@@ -1,6 +1,6 @@
 # Agent design (Phase 6)
 
-A LangGraph state machine in which the LLM is used only at fuzzy steps and every loop has an explicit bound and exit. Decisions and their reasons: `docs/DECISIONS-phase6.md` (A1 to A16). Code: `app/agent/`. This file is checked against the code: the node table and the diagram below are compared with the compiled graph by `tests/test_agent_design_doc.py`.
+A LangGraph state machine in which the LLM is used only at fuzzy steps and every loop has an explicit bound and exit. Decisions and their reasons: `docs/DECISIONS-phase6.md` (A1 to A16) and, for the offer after an empty search, `docs/DECISIONS-phase7.md` (D7.25 to D7.33). Code: `app/agent/`. This file is checked against the code: the node table and the diagram below are compared with the compiled graph by `tests/test_agent_design_doc.py`.
 
 ## 1. A conversation, a turn, a request
 
@@ -25,6 +25,8 @@ graph TD;
 	check_product(check_product)
 	search_products(search_products)
 	relax_search(relax_search)
+	suggest(suggest)
+	search_offer(search_offer)
 	search_policies(search_policies)
 	check_slots(check_slots)
 	lookup_order(lookup_order)
@@ -49,7 +51,9 @@ graph TD;
 	extract -.-> check_product;
 	intake -.-> __end__;
 	intake -.-> check_slots;
+	intake -.-> reply;
 	intake -.-> route;
+	intake -.-> search_offer;
 	lookup_order -.-> __end__;
 	lookup_order -.-> compose;
 	lookup_order -.-> propose_ticket;
@@ -58,20 +62,25 @@ graph TD;
 	propose_ticket -.-> await_confirmation;
 	relax_search -.-> __end__;
 	relax_search -.-> compose;
+	relax_search -.-> suggest;
 	route -.-> __end__;
 	route -.-> check_slots;
 	route -.-> extract;
 	route -.-> reply;
 	route -.-> search_policies;
+	search_offer -.-> __end__;
+	search_offer -.-> compose;
 	search_policies -.-> __end__;
 	search_policies -.-> compose;
 	search_products -.-> __end__;
 	search_products -.-> compose;
 	search_products -.-> relax_search;
+	search_products -.-> suggest;
 	write_ticket -.-> __end__;
 	write_ticket -.-> reply;
 	compose --> __end__;
 	reply --> __end__;
+	suggest --> __end__;
 	await_confirmation -.-> await_confirmation;
 	classDef default fill:#f2f0ff,line-height:1.2
 	classDef first fill-opacity:0
@@ -86,12 +95,14 @@ graph TD;
 <!-- nodes:start -->
 | Node | Kind | Span | Targets | Bound |
 |---|---|---|---|---|
-| `intake` | rule | none | `route`, `check_slots` | none |
+| `intake` | rule | none | `route`, `check_slots`, `search_offer`, `reply` | an offer is valid for the next message only |
 | `route` | LLM (router) | `router` | `extract`, `search_policies`, `check_slots`, `reply` | none |
 | `extract` | LLM (extractor) | `extractor` | `check_product` | none |
 | `check_product` | rule | none | `search_products`, `reply` | clarify at most 2 times |
-| `search_products` | tool | `retrieval` | `relax_search`, `compose` | none |
-| `relax_search` | tool | `retrieval` | `compose` | runs at most once per request |
+| `search_products` | tool | `retrieval` | `relax_search`, `suggest`, `compose` | none |
+| `relax_search` | tool | `retrieval` | `suggest`, `compose` | runs at most once per request |
+| `suggest` | tool + rule | `retrieval` or `reply` | none | at most 4 Qdrant counts; asks, never searches |
+| `search_offer` | tool | `retrieval` | `compose` | only from `intake`, only after an explicit yes |
 | `search_policies` | tool | `retrieval` | `compose` | none |
 | `check_slots` | rule | none | `lookup_order`, `propose_ticket`, `reply` | clarify at most 2 times; lookup disabled after 3 failures |
 | `lookup_order` | tool | `order_lookup` | `compose`, `propose_ticket`, `reply` | none |
@@ -108,9 +119,12 @@ graph TD;
 
 - **smalltalk / out_of_scope:** `intake`, `route`, `reply` (3 steps). No tool, no LLM beyond the router. A fixed polite reply.
 - **policy_question:** `intake`, `route`, `search_policies`, `compose` (4). No hit: a fixed "the shop has no information" reply, no LLM.
-- **product_search:** `intake`, `route`, `extract`, `check_product`, `search_products`, [`relax_search`], `compose` (6 or 7). The longest legitimate path is **7**.
+- **product_search:** `intake`, `route`, `extract`, `check_product`, `search_products`, [`relax_search`], `compose` or `suggest` (6 or 7). The longest legitimate path is **7**.
   - `check_product`: no `kind` and no `category` in the filters: ask what kind of item (`reply`), counted as a clarifying turn.
-  - `search_products`: 0 hits and a relaxable constraint: `relax_search`. 0 hits and nothing to relax: `compose` sends the fixed "nothing found" reply.
+  - `search_products`: 0 hits and a relaxable constraint: `relax_search`. 0 hits and nothing to relax: `suggest`.
+  - `relax_search`: hits: `compose`. Still 0 hits: `suggest`.
+  - `suggest` (docs/DECISIONS-phase7.md, D7.25 and D7.32): counts in Qdrant, without any LLM, which constraints would have to go for there to be products. It tries each of `size`, `color`, `material`, `price` **alone, in that order**, and takes the first that leaves a count above 0 (it names only that one); if none does, it drops them **cumulatively** in the same order (size, size and color, ...) and takes the first step with a count above 0. At most 7 counts. `kind` (and category, in_stock) is never dropped. Found: a fixed question ("nothing matches; X blocks; N products if X goes; do you want to see them?"), no product listed, the turn ends and the offer is kept in the conversation. Not found: the fixed "nothing found" reply, as before.
+- **The turn after an offer:** `intake` reads the message with the ticket's yes/no parser. An explicit yes: `search_offer`, `compose` (3 steps): the same search without the dropped constraints, answered like any search, with the first line "Không khớp hoàn toàn: khác ...". A message that is nothing but a refusal ("không", "thôi", "không cần đâu", `is_plain_decline`): `intake`, `reply` (2 steps), a fixed reply, no router, no search, no LLM (D7.33). Anything else, "không, cho mình xem áo khoác" included, is a new message for the router. In every case the offer is spent: it is valid for the next message only. Price is only ever offered, never dropped by the agent on its own.
 - **order_status:** `intake`, `route`, `check_slots`, `lookup_order`, `compose` (5). Verified: the LLM writes the answer from the minimal order data. Not verified: the fixed refusal through `reply`.
 - **create_ticket:** `intake`, `route`, `check_slots`, `lookup_order` (only when an order number is given), `propose_ticket`, `await_confirmation` (5 or 6, the turn ends paused). The next turn, `await_confirmation`, `write_ticket`, `reply` (3).
 - **A follow-up turn** that gives the awaited email or order number: `intake` goes straight to `check_slots` and skips the router.
@@ -120,7 +134,8 @@ graph TD;
 | Loop or risk | Bound | Exit when reached | Test |
 |---|---|---|---|
 | Clarifying turns for one request | **2** | product: search with what is known; order, ticket: a polite hand-off to staff. Never a third question | `tests/test_agent_bounds.py` |
-| Filter relaxation | **1** retry, dropping the first present of `size`, `color`, `material`; never `kind`, `category`, price or `in_stock` | the reply says nothing matches all the constraints and names what was dropped; if still 0 hits, "nothing found". It never loops | same |
+| Filter relaxation | **1** retry, dropping the first present of `size`, `color`, `material`; never `kind`, `category`, price or `in_stock` | the reply says nothing matches all the constraints and names what was dropped; if still 0 hits, `suggest` counts and offers (below) or says "nothing found". It never loops | same |
+| Offer after an empty search | **1** offer per empty search; counts only (at most 4), no search, no LLM; never drops `kind`; price only as the last step | the offer is a question: it changes nothing until an explicit yes, and it is valid for the next message only. A yes runs ONE search (`search_offer`); no second offer is made from it | `tests/test_agent_offer.py` |
 | Failed verifications | **3** per conversation | order lookup is disabled for the rest of the conversation; the tool is not called again, even with correct credentials | same |
 | Ticket confirmation | **2** asks | only an explicit yes writes a ticket; an unclear answer is asked once more, then the ticket is cancelled | same |
 | Steps per turn | **8** (`max_steps`), LangGraph `recursion_limit` 10 as a backstop | a fixed safe reply, request error `agent_step_cap_reached` | same |

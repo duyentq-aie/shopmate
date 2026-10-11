@@ -9,6 +9,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Protocol
 
+from app.agent.relax import Offer
+
 
 @dataclass(frozen=True)
 class OrderLookup:
@@ -29,12 +31,20 @@ class Answer:
     fallback_reason: str | None = None
     generation: object | None = None  # the GenResult of the LLM call, if there was one: the answer span records its tokens from it
     declined: bool = False
+    prompt_version: str | None = None  # for the trace: the prompt template that wrote the text (None without an LLM)
+    checked: int | None = None  # for the trace: sentences the code guardrails went through (None: no guardrail ran)
+    violations: tuple[str, ...] = ()  # for the trace: the rule names that fired (the part of each problem before the colon)
 
 
 class AgentTools(Protocol):
     def search_products(self, query: str, filters: dict) -> list[dict]: ...
 
     def search_policies(self, query: str) -> list[dict]: ...
+
+    def offer_for(self, filters: dict) -> Offer | None:
+        """After an empty product search: the offer of docs/DECISIONS-phase7.md D7.25 (which constraints to drop for there to be products, and how many), found by
+        COUNTING, never by searching; None if no step finds anything. Never drops `kind`."""
+        ...
 
     def lookup_order(self, order_number: str, email: str) -> OrderLookup: ...
 

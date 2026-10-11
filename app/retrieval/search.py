@@ -123,6 +123,20 @@ class Hit:
     payload: dict
 
 
+TRACE_HITS = 5  # hits named in a trace summary
+TRACE_TITLE = 80
+
+
+def trace_hits(hits: list[Hit]) -> list[dict]:
+    """The hits as a trace summary names them: id, kind, a short title and the score. No text, so no policy clause ever reaches a trace."""
+    named = []
+    for hit in hits[:TRACE_HITS]:
+        kind = hit.payload.get("doc_type") or ("policy" if hit.key.startswith("policy:") else "product")
+        title = hit.payload.get("name") if kind == "product" else hit.payload.get("title")
+        named.append({"id": hit.key or hit.point_id, "kind": kind, "title": str(title or "")[:TRACE_TITLE], "score": round(hit.score, 5)})
+    return named
+
+
 class Retriever:
     """Holds the Qdrant client and the (loaded once) embedder."""
 
@@ -158,12 +172,21 @@ class Retriever:
         return self.branch_ranking(branch, query, filters.to_qdrant() if filters else None,
                                    self.embedder.encode_query(query), self.client.count(self.collection, exact=True).count)
 
+    def count(self, filters: SearchFilters | dict | None = None) -> int:
+        """How many documents match `filters` (exact, applied inside Qdrant like in a search). No embedding, no ranking, no LLM."""
+        if isinstance(filters, dict):
+            filters = SearchFilters.model_validate(filters)
+        flt = filters.to_qdrant() if filters else None
+        return self.client.count(self.collection, count_filter=flt, exact=True).count
+
     def search(self, query: str, filters: SearchFilters | dict | None = None, k: int = 10,
                mode: Mode | None = None) -> list[Hit]:
         """`mode=None` means the configured default (app.config.DEFAULT_RETRIEVAL_MODE)."""
         model_id = getattr(getattr(self.embedder, "config", None), "model_id", None)
-        with span("retrieval", model=model_id):  # a no-op outside a traced request
-            return self._search(query, filters, k, mode)
+        with span("retrieval", model=model_id) as recorded:  # a no-op outside a traced request
+            hits = self._search(query, filters, k, mode)
+            recorded.set_summary(mode=mode or config.DEFAULT_RETRIEVAL_MODE, k=k, hits=trace_hits(hits))
+            return hits
 
     def _search(self, query: str, filters: SearchFilters | dict | None, k: int, mode: Mode | None) -> list[Hit]:
         if k < 1:

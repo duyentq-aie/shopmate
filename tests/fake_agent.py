@@ -6,6 +6,7 @@ from __future__ import annotations
 from types import SimpleNamespace
 
 from app.agent.protocols import Answer, OrderLookup
+from app.agent.relax import plan_offer
 from app.retrieval.search import SearchFilters
 
 PRODUCTS = [
@@ -53,9 +54,10 @@ class FakeExtractor:
 
 
 class FakeTools:
-    def __init__(self, products=PRODUCTS, policies=POLICIES, orders=ORDERS, fail_ticket: Exception | None = None):
-        self.products, self.policies, self.orders, self.fail_ticket = list(products), list(policies), orders, fail_ticket
-        self.product_searches, self.policy_searches, self.lookups, self.tickets = [], [], [], []
+    def __init__(self, products=PRODUCTS, policies=POLICIES, orders=ORDERS, fail_ticket: Exception | None = None, offers: bool = False):
+        """`offers`: make the offer after an empty search (Phase 7.5). Off by default, so the tests of the older behaviour keep the plain "nothing found"."""
+        self.products, self.policies, self.orders, self.fail_ticket, self.offers = list(products), list(policies), orders, fail_ticket, offers
+        self.product_searches, self.policy_searches, self.lookups, self.tickets, self.offer_requests, self.counts = [], [], [], [], [], []
 
     @staticmethod
     def _matches(product: dict, filters: dict) -> bool:
@@ -73,6 +75,14 @@ class FakeTools:
     def search_policies(self, query: str) -> list[dict]:
         self.policy_searches.append(query)
         return list(self.policies)
+
+    def count(self, filters: dict) -> int:
+        self.counts.append(dict(filters))
+        return sum(1 for p in self.products if self._matches(p, filters))
+
+    def offer_for(self, filters: dict):
+        self.offer_requests.append(dict(filters))
+        return plan_offer(filters, self.count)[0] if self.offers else None
 
     def lookup_order(self, order_number: str, email: str) -> OrderLookup:
         self.lookups.append((order_number, email))

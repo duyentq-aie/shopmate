@@ -6,7 +6,7 @@ from __future__ import annotations
 
 import pytest
 
-from app.agent.parsing import mask_contacts, mask_email, parse_emails, parse_order_number, parse_phone, parse_yes_no
+from app.agent.parsing import is_plain_decline, mask_contacts, mask_email, parse_emails, parse_order_number, parse_phone, parse_yes_no
 from app.agent.relax import NEVER_RELAXED, RELAX_ORDER, relax
 
 # --- email -----------------------------------------------------------------------------------------------------------------
@@ -159,6 +159,28 @@ def test_mixed_answers_resolve_to_no_never_to_yes():
 def test_a_yes_buried_in_a_long_message_is_not_a_yes_but_a_long_run_of_pure_affirmations_is():
     assert parse_yes_no("có " + "lan man " * 12) == "unclear"
     assert parse_yes_no("ok tạo đi shop nhé nha ạ giúp mình luôn nhé shop ơi") == "yes"  # every word is an affirmation or a courtesy
+
+
+# --- a refusal that is nothing but a refusal (the answer to an offer, docs/DECISIONS-phase7.md D7.33) ------------------------------------------
+
+
+@pytest.mark.parametrize("text", ["không", "Không", "KHÔNG!", "ko", "no", "thôi", "Thôi!", "không cần", "không cần đâu", "không cần đâu shop", "thôi khỏi", "thôi khỏi nhé",
+                                  "không, cảm ơn", "Không cảm ơn bạn nhé", "đừng", "thôi không cần nhé", "không muốn", "Thôi mình không cần nữa", "khong can dau", "k"])
+def test_a_message_that_is_only_a_refusal_is_a_plain_decline(text):
+    assert is_plain_decline(text) is True
+
+
+@pytest.mark.parametrize("text", ["", "   ", "có", "ok", "vâng", "không, cho mình xem áo khoác", "thôi, mình tìm áo thun nhé", "không có size L thì thôi", "có ai không",
+                                  "có hàng không shop", "không phải áo khoác", "không biết", "đúng rồi", "cho mình xem đi", "không, tìm giày", "hết hàng thì thôi"])
+def test_a_refusal_that_says_anything_else_or_is_not_one_is_left_to_the_router(text):
+    assert is_plain_decline(text) is False
+
+
+def test_a_bare_decline_never_counts_as_a_yes_and_a_yes_never_as_a_decline():
+    for text in ("có", "ok", "vâng", "đồng ý", "có nhé"):
+        assert parse_yes_no(text) == "yes" and is_plain_decline(text) is False
+    for text in ("không", "thôi khỏi", "không cần đâu"):
+        assert parse_yes_no(text) == "no" and is_plain_decline(text) is True
 
 
 # --- relaxation --------------------------------------------------------------------------------------------------------------

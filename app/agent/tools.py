@@ -23,6 +23,7 @@ import threading
 from pathlib import Path
 
 from app.agent.protocols import OrderLookup
+from app.agent.relax import Offer, droppable, plan_offer
 from app.config import REPO_ROOT
 from app.tracing import span
 
@@ -108,19 +109,36 @@ class RealTools:
     def search_policies(self, query: str) -> list[dict]:
         return [_policy(h) for h in self.retriever.search(query, {"doc_type": "policy"}, k=self.policy_k)]
 
+    def offer_for(self, filters: dict) -> Offer | None:
+        """One `retrieval` span of mode "count": a handful of Qdrant counts, no embedding and no LLM. Its summary says which constraint blocks and how many
+        products there would be (`blocking_constraint`, `offer_count`), plus what was dropped and every count made (`offer_drops`, `probes`)."""
+        if not droppable(filters):
+            return None
+        with span("retrieval") as recorded:
+            offer, probes = plan_offer(filters, lambda found: self.retriever.count({**found, "doc_type": "product"}))
+            recorded.set_summary(mode="count", k=0, hits=[], blocking_constraint=offer.blocking if offer else None, offer_count=offer.count if offer else 0,
+                                 offer_drops=list(offer.dropped) if offer else [], probes=probes)
+        return offer
+
     def lookup_order(self, order_number: str, email: str) -> OrderLookup:
         if self.saleor is None:
             raise RuntimeError("order lookup is not configured (no Saleor client): this is not a failed verification")
-        with span("order_lookup"):  # a refusal is a normal outcome and leaves the span clean; a Saleor failure is recorded by span()
+        with span("order_lookup") as recorded:  # a refusal is a normal outcome and leaves the span clean; a Saleor failure is recorded by span()
+            # The summary is for the operator only: `found` (an order of the shop channel has this number) never reaches the answer, which cannot
+            # tell an unknown number from a wrong email (D28). No email, address or phone is ever put in it.
             if not ORDER_NUMBER.fullmatch(order_number or "") or not EMAIL_SHAPE.fullmatch((email or "").strip()):
+                recorded.set_summary(verified=False, found=False)
                 return OrderLookup(verified=False)  # not even asked: such a value can only be a mistake or an attack
             edges = (self.saleor.execute("OrderByNumber", {"number": order_number}).get("orders") or {}).get("edges") or []
             node = edges[0]["node"] if edges else None
             if node is None or str(node.get("number")) != order_number or (node.get("channel") or {}).get("slug") != SHOP_CHANNEL:
+                recorded.set_summary(verified=False, found=False)
                 return OrderLookup(verified=False)
             owner = (node.get("userEmail") or "").strip().lower()
             if not owner or not hmac.compare_digest(owner.encode("utf-8"), email.strip().lower().encode("utf-8")):
+                recorded.set_summary(verified=False, found=True)
                 return OrderLookup(verified=False)
+            recorded.set_summary(verified=True, found=True)
             return OrderLookup(verified=True, order=_minimal_order(node))
 
     def create_ticket(self, *, conversation_id: str, summary: str, order_number: str | None, contact_email: str) -> dict:

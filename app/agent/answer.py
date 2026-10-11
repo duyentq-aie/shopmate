@@ -13,7 +13,7 @@ import json
 from dataclasses import dataclass, field
 
 from app.agent import templates as T
-from app.agent.guardrails import bounded_fallback, check_answer, citation_footer, fallback_text, is_decline
+from app.agent.guardrails import bounded_fallback, check_answer, citation_footer, fallback_text, is_decline, sentences
 from app.agent.protocols import Answer
 from app.llm.generator import CachedGenerator
 from app.llm.prompts import PromptTemplate, render_prompt
@@ -69,17 +69,18 @@ class GeminiAnswerer:
         problems, text, skus, clauses = self._read(result)
         if not problems:
             problems = check_answer(kind, text, evidence, question, cited_skus=skus, cited_clauses=clauses, instructions=self._system)
+        seen = dict(prompt_version=self.template.name, checked=len(sentences(text)), violations=tuple(sorted({p.split(":")[0] for p in problems})))
         if problems:
             self.stats.fallbacks += 1
             self.stats.reasons.append(sorted({p.split(":")[0] for p in problems}))
             return Answer(text=bounded_fallback(kind, text, evidence, cited_skus=skus, cited_clauses=clauses), fallback_reason="; ".join(problems)[:300],
-                          generation=result)
+                          generation=result, **seen)
         if kind == "policies" and is_decline(text, clauses):  # sent as the fixed reply, so that nothing said next to the decline reaches the customer
             self.stats.declines += 1
-            return Answer(text=T.NO_POLICY_INFO, generation=result, declined=True)
+            return Answer(text=T.NO_POLICY_INFO, generation=result, declined=True, **seen)
         if kind == "policies":  # the citation is written by the code, from clauses that were checked against the evidence
             text = text.rstrip() + "\n" + citation_footer(sorted({(c["file"], c["clause"]) for c in clauses}))
-        return Answer(text=text.strip(), generation=result)
+        return Answer(text=text.strip(), generation=result, **seen)
 
     @staticmethod
     def _read(result) -> tuple[list[str], str, list, list]:

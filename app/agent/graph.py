@@ -1,7 +1,7 @@
 """The agent's LangGraph state machine (docs/AGENT-DESIGN.md).
 
 The LLM is used only at fuzzy steps: `route`, `extract`, `compose`. Everything else is rules and tools. Every loop has a bound:
-clarify 2, relax 1, failed verifications 3, confirmation asks 2, steps per turn 8. The per-turn graph has no cycle except the
+clarify 2, relax 1 (then one offer, asked, never taken without a yes), failed verifications 3, confirmation asks 2, steps per turn 8. The per-turn graph has no cycle except the
 bounded self-loop of `await_confirmation`. `NODE_TARGETS` is the single list of nodes and edges: the graph is built from it, a
 node that asks to go anywhere else fails, and a test compares it with the table of docs/AGENT-DESIGN.md.
 
@@ -18,11 +18,11 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.types import interrupt
 
 from app.agent import templates as T
-from app.agent.parsing import mask_contacts, mask_email, parse_emails, parse_order_number, parse_phone, parse_yes_no
+from app.agent.parsing import is_plain_decline, mask_contacts, mask_email, parse_emails, parse_order_number, parse_phone, parse_yes_no
 from app.agent.protocols import Answerer, AgentTools
-from app.agent.relax import relax
+from app.agent.relax import OFFER_ORDER, is_present, keys_of, relax
 from app.agent.state import AgentState
-from app.tracing import current_trace, record_intent, span
+from app.tracing import annotate_span, current_trace, record_intent, span
 
 MAX_STEPS = 8  # graph steps per turn
 MAX_CLARIFY = 2  # clarifying questions for one request
@@ -31,12 +31,14 @@ MAX_CONFIRM_ASKS = 2  # times the agent asks whether to create the ticket
 SUMMARY_TEXT_LIMIT = 300
 
 NODE_TARGETS: dict[str, tuple[str, ...]] = {
-    "intake": ("route", "check_slots"),
+    "intake": ("route", "check_slots", "search_offer", "reply"),
     "route": ("extract", "search_policies", "check_slots", "reply"),
     "extract": ("check_product",),
     "check_product": ("search_products", "reply"),
-    "search_products": ("relax_search", "compose"),
-    "relax_search": ("compose",),
+    "search_products": ("relax_search", "suggest", "compose"),
+    "relax_search": ("suggest", "compose"),
+    "suggest": (),  # ends the turn: an offer to the customer, or the plain "nothing found"
+    "search_offer": ("compose",),
     "search_policies": ("compose",),
     "check_slots": ("lookup_order", "propose_ticket", "reply"),
     "lookup_order": ("compose", "propose_ticket", "reply"),
@@ -64,6 +66,11 @@ def next_after(state: AgentState) -> str:
 def _say(kind: str, **args) -> dict:
     """Ask the `reply` node to render a fixed reply."""
     return {"reply_kind": kind, "reply_args": args, "goto": "reply"}
+
+
+def no_results_reply(relaxed: list) -> tuple[str, str]:
+    """(text, template name) of the plain "nothing found" reply of a product search, which says what the relaxation dropped if it dropped something."""
+    return (T.no_results_relaxed(relaxed[0]), "no_results_relaxed") if relaxed else (T.NO_RESULTS, "no_results")
 
 
 def _finished(state: AgentState) -> dict:
@@ -98,6 +105,8 @@ def build_graph(deps: Deps, *, max_steps: int = MAX_STEPS, checkpointer=None):
 
     def intake(state: AgentState) -> dict:
         message, pending = state["message"], state.get("pending")
+        offer = state.get("offer")
+        spent = {"offer": None} if offer else {}  # an offer is good for the next message only, whatever that message is
         need = (pending or {}).get("need", [])
         slots = dict(state.get("slots") or {})
         emails, phone = parse_emails(message), parse_phone(message)
@@ -111,8 +120,16 @@ def build_graph(deps: Deps, *, max_steps: int = MAX_STEPS, checkpointer=None):
         answers_the_question = bool(pending and pending["intent"] in ("order_status", "create_ticket")
                                     and (("email" in need and (len(emails) == 1 or phone)) or ("order_number" in need and number)))
         if answers_the_question:
-            return {"slots": slots, "intent": pending["intent"], "goto": "check_slots"}
-        return {"slots": slots, "goto": "route"}
+            record_intent(pending["intent"])  # no router call in this turn: the trace still says what the request is about
+            return {"slots": slots, "intent": pending["intent"], "goto": "check_slots", **spent}
+        if offer and parse_yes_no(message) == "yes":  # an explicit yes (the same parser as the ticket): search again, without what the offer named
+            record_intent("product_search")
+            return {"slots": slots, "intent": "product_search", "query": offer["query"], "filters": offer["filters"], "offer_dropped": list(offer["dropped"]),
+                    "goto": "search_offer", **spent}
+        if offer and is_plain_decline(message):  # nothing but a refusal ("không", "thôi", "không cần đâu"): a fixed reply, no router, no search
+            record_intent("product_search")
+            return {"slots": slots, "intent": "product_search", **_say("offer_declined"), **spent}
+        return {"slots": slots, "goto": "route", **spent}  # anything else, "không, cho mình xem áo khoác" included, is a new message for the router
 
     def route(state: AgentState) -> dict:
         result = deps.router.route(state["message"])
@@ -162,14 +179,45 @@ def build_graph(deps: Deps, *, max_steps: int = MAX_STEPS, checkpointer=None):
     def search_products(state: AgentState) -> dict:
         filters = state.get("filters") or {}
         hits = tools.search_products(state["query"], filters)
-        if not hits and not state.get("relaxed_once") and relax(filters) is not None:
+        if hits:
+            return {"hits": hits, "goto": "compose"}
+        if not state.get("relaxed_once") and relax(filters) is not None:
             return {"hits": hits, "goto": "relax_search"}
-        return {"hits": hits, "goto": "compose"}
+        return {"hits": hits, "goto": "suggest"}
 
     def relax_search(state: AgentState) -> dict:
         relaxed_filters, dropped = relax(state.get("filters") or {})
+        annotate_span("extractor", relaxed=[dropped])  # the trace says which of the extracted filters the second search left out
         hits = tools.search_products(state["query"], relaxed_filters)
-        return {"hits": hits, "relaxed": [dropped], "relaxed_once": True, "goto": "compose"}
+        return {"hits": hits, "relaxed": [dropped], "relaxed_once": True, "goto": "compose" if hits else "suggest"}
+
+    def suggest(state: AgentState) -> dict:
+        """Still nothing after the one relaxation (or nothing to relax): count, in Qdrant, which constraints would have to go, and ASK the customer. Nothing is
+        searched here, no LLM is called, and `kind` is never offered away. No offer to make: the plain "nothing found" reply, as before."""
+        filters = state.get("filters") or {}
+        offer = tools.offer_for(filters)
+        if offer is None:
+            text, template = no_results_reply(state.get("relaxed") or [])
+            source = "template"
+        else:
+            remaining = {name: {key: offer.filters[key] for key in keys_of(name) if offer.filters.get(key) is not None}
+                         for name in OFFER_ORDER if is_present(offer.filters, name)}
+            text = T.offer_invite(kind=filters.get("kind"), dropped=list(offer.dropped), values=offer.values, remaining=remaining, count=offer.count)
+            template, source = "offer_invite", "template"
+        with span("reply") as recorded:
+            recorded.set_summary(template=template)
+        update = {"reply": text, "reply_source": source, **_finished(state)}
+        if offer is not None:  # the offer lives in the conversation and only for the next message (intake)
+            update.update(offer={"query": state.get("query") or state["message"], "filters": offer.filters, "dropped": list(offer.dropped), "count": offer.count},
+                          awaiting="offer_confirmation")
+        return update
+
+    def search_offer(state: AgentState) -> dict:
+        """The customer said yes to the offer: the same search, without the constraints the offer named. Answered by `compose` like any search, with the first
+        line "Không khớp hoàn toàn: khác ...". Only reached from `intake`, so an offer can be taken once, at the next message."""
+        hits = tools.search_products(state["query"], state.get("filters") or {})
+        annotate_span("retrieval", offer_drops=list(state["offer_dropped"]))
+        return {"hits": hits, "relaxed": list(state["offer_dropped"]), "goto": "compose"}
 
     def search_policies(state: AgentState) -> dict:
         return {"hits": tools.search_policies(state["query"]), "goto": "compose"}
@@ -201,6 +249,7 @@ def build_graph(deps: Deps, *, max_steps: int = MAX_STEPS, checkpointer=None):
     def lookup_order(state: AgentState) -> dict:
         slots = state["slots"]
         result = tools.lookup_order(slots["order_number"], slots["email"])
+        annotate_span("order_lookup", attempts=state.get("verify_failures", 0) + 1)  # this verification attempt, counting the failed ones before
         if result.verified:
             return {"order": result.order, "goto": "compose" if state["intent"] == "order_status" else "propose_ticket"}
         failures = state.get("verify_failures", 0) + 1
@@ -212,7 +261,8 @@ def build_graph(deps: Deps, *, max_steps: int = MAX_STEPS, checkpointer=None):
     def propose_ticket(state: AgentState) -> dict:
         slots = state.get("slots") or {}
         order_number = slots.get("order_number") if state.get("order") else None  # only an order that was verified is named
-        with span("ticket_confirm"):
+        with span("ticket_confirm") as recorded:
+            recorded.set_summary(state="asked")
             text = mask_contacts(" ".join((state.get("ticket_text") or state["message"]).split()))[:SUMMARY_TEXT_LIMIT]
             lines = [f'Nội dung: "{text}"']
             if order_number:
@@ -249,6 +299,7 @@ def build_graph(deps: Deps, *, max_steps: int = MAX_STEPS, checkpointer=None):
                 if trace is not None:
                     trace.fail("ticket_write_failed", message)
                 return _say("ticket_failed")
+            recorded.set_summary(state="written")
         return {"ticket_result": result, **_say("ticket_created", ticket_id=result["ticket_id"])}
 
     # --- the answer and the fixed replies ---------------------------------------------------------------------------------------
@@ -261,34 +312,41 @@ def build_graph(deps: Deps, *, max_steps: int = MAX_STEPS, checkpointer=None):
         if kind == "products":
             evidence["relaxed"] = relaxed
         if not (order if kind == "order" else hits):  # nothing to ground an answer on: say so, without the LLM
-            text = (T.no_results_relaxed(relaxed[0]) if relaxed else T.NO_RESULTS) if kind == "products" else T.NO_POLICY_INFO
-            with span("reply"):
-                pass
-            return {"reply": text, **_finished(state)}
+            text, template = no_results_reply(relaxed) if kind == "products" else (T.NO_POLICY_INFO, "no_policy_info")
+            with span("reply") as recorded:
+                recorded.set_summary(template=template)
+            return {"reply": text, "reply_source": "template", **_finished(state)}
         with span("answer", model=getattr(answerer, "model", None)) as recorded:
             answer = answerer.compose(kind, state.get("query") or state["message"], evidence)
             if answer.generation is not None:
                 recorded.record_response(answer.generation)
+            guardrail = None if answer.checked is None else {"checked": answer.checked, "violations": list(answer.violations),
+                                                              "fallback_used": bool(answer.fallback_reason)}
+            recorded.set_summary(prompt_version=answer.prompt_version, guardrail=guardrail)
             if answer.fallback_reason:
                 recorded.fail("answer_guardrail_fallback", answer.fallback_reason)
+        # where the text came from: a guardrail rejection, the LLM's own text, or a fixed one (no LLM, or the LLM said it had no information)
+        source = "guardrail_fallback" if answer.fallback_reason else ("llm" if answer.generation is not None and not answer.declined else "template")
         text = answer.text
         if kind == "products" and relaxed:  # the notice is code, not the LLM: it comes before any suggestion
+            lead = T.offer_label(state["offer_dropped"]) if state.get("offer_dropped") else f"{T.NO_FULL_MATCH} {T.relaxed_note(relaxed[0])}"  # an accepted offer, or the relaxation
             if text == T.NO_INFORMATION:  # the fallback named no product: no suggestion follows, so there is nothing to announce
                 text = f"{T.NO_FULL_MATCH} {text}"
             else:
-                text = f"{T.NO_FULL_MATCH} {T.relaxed_note(relaxed[0])}\n{text}"
-        return {"reply": text, **_finished(state)}
+                text = f"{lead}\n{text}"
+        return {"reply": text, "reply_source": source, **_finished(state)}
 
     def reply(state: AgentState) -> dict:
         kind = state["reply_kind"]
-        with span("reply"):
+        with span("reply") as recorded:
+            recorded.set_summary(template=kind)
             text = T.render(kind, **(state.get("reply_args") or {}))
         if kind in T.AWAITING:  # a question: the request is not over
-            return {"reply": text, "awaiting": T.AWAITING[kind]}
-        return {"reply": text, **_finished(state)}
+            return {"reply": text, "reply_source": T.source_of(kind), "awaiting": T.AWAITING[kind]}
+        return {"reply": text, "reply_source": T.source_of(kind), **_finished(state)}
 
     nodes = {"intake": intake, "route": route, "extract": extract, "check_product": check_product, "search_products": search_products,
-             "relax_search": relax_search, "search_policies": search_policies, "check_slots": check_slots, "lookup_order": lookup_order,
+             "relax_search": relax_search, "suggest": suggest, "search_offer": search_offer, "search_policies": search_policies, "check_slots": check_slots, "lookup_order": lookup_order,
              "propose_ticket": propose_ticket, "await_confirmation": await_confirmation, "write_ticket": write_ticket,
              "compose": compose, "reply": reply}
     assert set(nodes) == set(NODE_TARGETS)

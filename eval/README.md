@@ -10,3 +10,4 @@ Evaluation for ShopMate.
 - `results/` – committed result files (`eval/results/*.json` Phase 3B, `eval/results/phase4-exp1/` Phase 4).
 
 Decisions and results: `docs/DECISIONS-phase4.md`, `docs/RESULTS-phase3b.md`.
+- `verify_committed_results.py` – Phase 7: the offline integrity check of the committed results (hashes, the Phase 3B comparison recomputed, the Phase 6 analysis against the official result); run by CI (`uv run python -m eval.verify_committed_results`).

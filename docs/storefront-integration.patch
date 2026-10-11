@@ -1,0 +1,25 @@
+--- a/src/app/(storefront)/[locale]/layout.tsx
++++ b/src/app/(storefront)/[locale]/layout.tsx
+@@ -4,6 +4,7 @@
+ import { NextIntlClientProvider } from "next-intl";
+ import { getMessages, setRequestLocale } from "next-intl/server";
+ import { SpeedInsights } from "@vercel/speed-insights/next";
++import Script from "next/script";
+ import { rootMetadata } from "@/lib/seo";
+ import { getConfiguredLocaleChannelPairs } from "@/config/locale-channel";
+ import {
+@@ -92,6 +93,14 @@
+ 					{webAnalyticsEnabled() && <WebAnalytics />}
+ 				</NextIntlClientProvider>
+ 				<AnalyticsMount />
++				{/* ShopMate chat widget: off unless NEXT_PUBLIC_SHOPMATE_WIDGET_URL is set (see shopmate/docs/STOREFRONT-INTEGRATION.md). */}
++				{process.env.NEXT_PUBLIC_SHOPMATE_WIDGET_URL && (
++					<Script
++						src={process.env.NEXT_PUBLIC_SHOPMATE_WIDGET_URL}
++						data-api-base={process.env.NEXT_PUBLIC_SHOPMATE_API_BASE ?? ""}
++						strategy="afterInteractive"
++					/>
++				)}
+ 			</body>
+ 		</html>
+ 	);

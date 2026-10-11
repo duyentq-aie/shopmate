@@ -106,6 +106,7 @@ class FilterExtractor:
                                              generation_config=EXTRACTOR_GENERATION_CONFIG)
             recorded.record_response(result)
             extraction = self._interpret(result)
+            recorded.set_summary(filters=None if extraction.filters is None else extraction.filters.model_dump(exclude_none=True, exclude={"doc_type"}))
             if extraction.error:
                 recorded.fail("llm_invalid_output", extraction.error)
             elif extraction.dropped:  # field names only: the dropped values are model output, not needed in a trace

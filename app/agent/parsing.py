@@ -80,6 +80,25 @@ def parse_order_number(text: str, *, bare_ok: bool = False) -> str | None:
     return None
 
 
+# what may stand next to a no-word in a refusal that says nothing else: "không cần đâu shop", "thôi khỏi nhé", "không, cảm ơn bạn"
+_DECLINE_FILLER = {"can", "dau", "nhe", "nha", "nhen", "a", "ah", "ak", "oi", "shop", "ban", "minh", "cam", "on", "roi", "day", "nua", "muon", "luon", "thanks",
+                   "xin", "loi", "vay", "ha"}
+
+
+def is_plain_decline(text: str) -> bool:
+    """True only for a refusal that is NOTHING BUT a refusal ("không", "thôi", "không cần đâu", "không, cảm ơn"): at least one no-word, and every other word a
+    courtesy. "không, cho mình xem áo khoác" is not one (it asks for something), nor is any message with a word this does not know: the router reads those.
+    (`parse_yes_no` calls such messages "no" too, and also every message that merely contains a no-word, which is right for a ticket and too eager here.)"""
+    raw = (text or "").lower()
+    tokens = tokenize(raw)
+    if not tokens:
+        return False
+    spoken_dung = "đừng" in set(re.findall(r"\w+", raw))  # folded it is "dung", the same as "đúng" (correct): only the spelled form counts
+    if not (_NO_TOKENS & set(tokens) or spoken_dung):
+        return False
+    return all(t in _NO_TOKENS or t in _DECLINE_FILLER or (t == "dung" and spoken_dung) for t in tokens)
+
+
 def parse_yes_no(text: str) -> str:
     """"yes", "no" or "unclear". Only a message made entirely of affirmations and courtesies is a yes; any no-word makes it a no,
     even next to a yes-word; everything else is unclear. Unclear is never treated as a yes."""

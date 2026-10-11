@@ -13,12 +13,14 @@ class AgentState(TypedDict, total=False):
     capped: bool  # the turn hit the step cap
     goto: str  # the node a node asks to run next
     reply: str | None  # the final text of the turn
+    reply_source: str | None  # where the reply came from, for the trace: llm | template | guardrail_fallback | clarify | error_template
     reply_kind: str | None  # a fixed template to render (app/agent/templates.py) and its arguments
     reply_args: dict
     filters: dict
     hits: list
     relaxed: list  # the constraint dropped by the one relaxed search, if any
     relaxed_once: bool
+    offer_dropped: list  # the constraints of an accepted offer that this turn's search left out (names; empty on every other turn)
     extract_failed: bool
     order: dict | None  # the verified order of this turn (minimal)
     ticket_result: dict | None
@@ -35,3 +37,4 @@ class AgentState(TypedDict, total=False):
     confirm_attempts: int  # confirmation questions asked (bound: 2)
     verify_failures: int  # failed order verifications in this conversation (bound: 3)
     lookup_disabled: bool
+    offer: dict | None  # an offer to search again without some constraints (query, filters, dropped, count): valid for the next message only

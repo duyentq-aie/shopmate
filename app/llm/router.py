@@ -85,6 +85,7 @@ class GeminiRouter:
                 recorded.fail("llm_invalid_output", error)
             else:
                 record_intent(intent)
+                recorded.set_summary(intent=intent)  # no confidence: the model has no log-probabilities (see the module docstring)
             return RouteResult(intent=intent, raw_response=result.raw, usage=result.usage, confidence=None,
                                confidence_note=NO_CONFIDENCE_NOTE, cached=result.cached, latency_ms=result.latency_ms,
                                error=error)

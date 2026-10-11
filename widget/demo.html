@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trang demo · ShopMate Fashion</title>
+<style>
+  :root { color-scheme: light; }
+  body { margin: 0; font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; color: #1c2b33; background: #faf7f2; }
+  .demo-bar { background: #1c2b33; color: #fff; padding: 8px 16px; font-size: 14px; text-align: center; }
+  .demo-bar b { color: #ffd479; }
+  header.shop { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 24px; background: #fff; border-bottom: 1px solid #e6dfd3; }
+  header.shop strong { font-size: 22px; letter-spacing: .04em; }
+  header.shop nav { display: flex; gap: 18px; font-size: 15px; color: #4a5c66; flex-wrap: wrap; }
+  main { max-width: 960px; margin: 0 auto; padding: 24px 16px 120px; }
+  h1 { font-size: 26px; margin: 8px 0 4px; }
+  .lead { color: #4a5c66; margin: 0 0 20px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+  .item { background: #fff; border: 1px solid #e6dfd3; border-radius: 10px; padding: 12px; }
+  .item .img { height: 120px; border-radius: 8px; background: linear-gradient(135deg, #d9cfbf, #efe7da); margin-bottom: 10px; }
+  .item b { display: block; }
+  .item span { color: #0b5e66; font-weight: 600; }
+  .try { margin-top: 28px; background: #fff; border: 1px dashed #b9ab94; border-radius: 10px; padding: 14px 18px; }
+  .try code { background: #f1ebe0; padding: 1px 6px; border-radius: 4px; }
+</style>
+</head>
+<body>
+  <div class="demo-bar"><b>Trang demo</b>: đây không phải cửa hàng thật. Trang chỉ có để thử khung chat ShopMate ở góc phải bên dưới.</div>
+  <header class="shop"><strong>SHOPMATE FASHION</strong><nav><span>Nam</span><span>Nữ</span><span>Giày dép</span><span>Phụ kiện</span><span>Chính sách</span></nav></header>
+  <main>
+    <h1>Bộ sưu tập mới</h1>
+    <p class="lead">Các sản phẩm dưới đây chỉ là hình minh họa cho trang demo.</p>
+    <div class="grid" aria-hidden="true">
+      <div class="item"><div class="img"></div><b>Áo khoác dù nam</b><span>429.000₫</span></div>
+      <div class="item"><div class="img"></div><b>Giày sneaker nữ</b><span>699.000₫</span></div>
+      <div class="item"><div class="img"></div><b>Túi đeo chéo da</b><span>520.000₫</span></div>
+      <div class="item"><div class="img"></div><b>Váy liền thun</b><span>389.000₫</span></div>
+    </div>
+    <section class="try">
+      <b>Thử hỏi:</b> <code>áo khoác nam</code>, <code>đổi hàng trong bao nhiêu ngày</code>, <code>giao nhầm màu rồi shop</code> (khung chat sẽ hỏi xác nhận trước khi tạo yêu cầu).
+    </section>
+  </main>
+  <script src="/widget/shopmate-chat.js"></script>
+  <shopmate-chat api-base=""></shopmate-chat>
+</body>
+</html>

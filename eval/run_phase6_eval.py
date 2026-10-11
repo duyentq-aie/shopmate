@@ -91,6 +91,9 @@ class InstrumentedTools:
         self.policy_searches += 1
         return self.inner.search_policies(query)
 
+    def offer_for(self, filters):  # counts only (Qdrant count, no search): not a product search, so not part of what the scoring observes
+        return self.inner.offer_for(filters)
+
     def lookup_order(self, order_number, email):
         result = self.inner.lookup_order(order_number, email)
         self.lookups.append(result.verified)

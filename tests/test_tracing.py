@@ -72,14 +72,17 @@ def test_a_request_writes_exactly_one_line_with_exactly_the_agreed_keys(tmp_path
             sp.set_usage(tokens_in=700, tokens_out=8, cache_hit=False)
         trace.intent = "product_search"
     (line,) = _lines(tracer)
-    assert set(line) == {"trace_id", "ts", "question", "intent", "status", "spans", "error"}
-    assert set(line["spans"][0]) == {"stage", "start_ms", "duration_ms", "model", "tokens_in", "tokens_out", "cache_hit", "error"}
+    assert set(line) == {"schema_version", "trace_id", "ts", "session_id", "turn", "question", "intent", "status", "reply", "reply_truncated",
+                         "reply_source", "spans", "error"}
+    assert set(line["spans"][0]) == {"stage", "start_ms", "duration_ms", "model", "tokens_in", "tokens_out", "cache_hit", "error", "summary"}
+    assert line["schema_version"] == 2 and line["turn"] is None and line["session_id"] is None  # no conversation was given
+    assert line["reply"] is None and line["reply_source"] is None and line["reply_truncated"] is False  # the customer saw nothing
     assert line["question"] == "shop oi co ao khoac nam khong" and line["intent"] == "product_search"
     assert line["status"] == "ok" and line["error"] is None and validate_trace_line(line) == []
     assert re.fullmatch(r"[0-9a-f]{32}", line["trace_id"]) and line["ts"] == "2026-10-10T12:30:45.123Z"  # ISO UTC, milliseconds
     assert line["spans"][0] | {"start_ms": 0, "duration_ms": 0} == {
         "stage": "router", "start_ms": 0, "duration_ms": 0, "model": "gemini-3.5-flash-lite", "tokens_in": 700,
-        "tokens_out": 8, "cache_hit": False, "error": None}
+        "tokens_out": 8, "cache_hit": False, "error": None, "summary": {}}
 
 
 def test_the_file_gets_one_line_per_request_across_requests_and_tracer_instances(tmp_path):

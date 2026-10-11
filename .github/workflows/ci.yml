@@ -1,0 +1,72 @@
+# CI for ShopMate: everything here runs offline and without any secret of ours.
+#   test       the unit suite (no Qdrant, no Saleor, no Gemini, no bge-m3: those tests carry the `integration` / `live_llm` markers)
+#   integrity  the committed evaluation results still hash and recompute to the committed numbers
+#   secrets    gitleaks over the whole history
+# docs/DECISIONS-phase7.md (D7.20 to D7.23) says why each choice was made and what is deliberately not checked here.
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # No job needs the network except to fetch dependencies and the repository. These make "offline" a fact and not a habit:
+  GEMINI_API_KEY: ""              # no key: the Gemini client cannot even be built (it is only created for --live runs)
+  HF_HUB_OFFLINE: "1"             # never download bge-m3
+  TRANSFORMERS_OFFLINE: "1"
+  SHOPMATE_CHAT_FAKE: "1"
+  SHOPMATE_BLOCK_NETWORK: "1"     # tests/conftest.py: a test that connects to a public address fails at once
+
+jobs:
+  test:
+    name: unit tests (offline)
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v7
+        with:
+          python-version: "3.12"
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+      - name: "Install the locked dependencies (CPU torch included, about 270 MB, cached after the first run)"
+        run: uv sync --frozen
+      - name: Unit tests
+        run: uv run pytest -q -m "not integration and not live_llm"
+
+  integrity:
+    name: committed results reproduce
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v7
+        with:
+          python-version: "3.12"
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+      - run: uv sync --frozen
+      - name: Hashes, the Phase 3B comparison and the Phase 6 analysis, recomputed from the committed files
+        run: uv run python -m eval.verify_committed_results
+
+  secrets:
+    name: gitleaks (full history)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}   # the token GitHub creates for this run (read only here); not a secret of ours

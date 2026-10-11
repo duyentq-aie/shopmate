@@ -224,8 +224,10 @@ def test_a_live_run_sends_each_question_through_the_pipeline_and_writes_one_vali
     for q in QUESTIONS:
         head = {"product_search": ["router", "extractor", "retrieval"], "policy_question": ["router", "retrieval"]}.get(q.expected_intent)
         if head:  # a search ends in an answer (the model's) or, when nothing was found, in the fixed "nothing found" reply
-            body = stages[q.text][:-1]  # a product search that found nothing is tried once more with one constraint dropped: a second retrieval
-            assert body in (head, head + ["retrieval"] if q.expected_intent == "product_search" else head) and stages[q.text][-1] in ("answer", "reply"), q.text
+            body = stages[q.text][:-1]  # a product search that found nothing is tried once more with one constraint dropped (a second retrieval), and then the counts of
+            # the offer (a third `retrieval` span, mode "count", Phase 7.5) when there is something to offer
+            allowed = (head, head + ["retrieval"], head + ["retrieval", "retrieval"]) if q.expected_intent == "product_search" else (head,)
+            assert body in allowed and stages[q.text][-1] in ("answer", "reply"), q.text
         else:  # orders and tickets ask for the email, the rest is small talk or out of scope: a fixed reply, no tool, no LLM answer
             assert stages[q.text] == ["router", "reply"], q.text
     assert all(l["status"] == "ok" for l in lines) and all(s["cache_hit"] is False for l in lines for s in l["spans"] if s["stage"] in ("router", "extractor", "answer"))
@@ -438,6 +440,7 @@ def test_the_ten_questions_run_through_the_real_index_and_model_with_a_scripted_
     assert main(["--live", "--traces", str(rig.traces)], build=build) == 0
     lines = rig.lines()
     assert len(lines) == 10 and all(validate_trace_line(l) == [] for l in lines)
-    retrieval_models = {s["model"] for l in lines for s in l["spans"] if s["stage"] == "retrieval"}
-    assert retrieval_models == {"BAAI/bge-m3"}
+    retrieval = [s for l in lines for s in l["spans"] if s["stage"] == "retrieval"]
+    assert {s["model"] for s in retrieval if s["summary"].get("mode") != "count"} == {"BAAI/bge-m3"}  # the searches embed the query with bge-m3
+    assert all(s["model"] is None for s in retrieval if s["summary"].get("mode") == "count")  # the counts of an offer (Phase 7.5) embed nothing
     assert "hits=" in capsys.readouterr().out

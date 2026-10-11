@@ -7,7 +7,7 @@ constant or a function of a few safe arguments, so a refusal can never leak anyt
 
 from __future__ import annotations
 
-CONSTRAINT_LABELS = {"size": "kích cỡ", "color": "màu sắc", "material": "chất liệu"}
+CONSTRAINT_LABELS = {"size": "kích cỡ", "color": "màu sắc", "material": "chất liệu", "price": "mức giá"}  # price only appears in an offer, never in a relaxation
 
 SMALLTALK = ("Chào bạn! Mình là trợ lý của ShopMate Fashion. Bạn cần tìm sản phẩm, hỏi về chính sách đổi trả, vận chuyển, bảo hành "
              "hay kiểm tra đơn hàng, cứ nhắn mình nhé.")
@@ -42,6 +42,8 @@ NO_POLICY_INFO = ("Mình chưa có thông tin về nội dung này trong chính 
 NO_INFORMATION = ("Mình chưa trả lời chính xác được câu hỏi này từ dữ liệu của cửa hàng. "
                   "Bạn vui lòng liên hệ nhân viên của ShopMate Fashion để được hỗ trợ nhé.")
 
+OFFER_DECLINED = ("Dạ, mình giữ nguyên yêu cầu ban đầu của bạn nên chưa có sản phẩm nào để gợi ý. "
+                  "Khi muốn tìm món khác hoặc mô tả lại, bạn cứ nhắn mình nhé.")
 TICKET_REASK = 'Mình chưa rõ bạn muốn tạo phiếu hay không. Bạn trả lời "có" để tạo hoặc "không" để hủy nhé.'
 TICKET_CANCELLED = "Mình đã hủy, không tạo phiếu nào. Cần gì thêm bạn cứ nhắn mình nhé."
 TICKET_NOT_CONFIRMED = "Vì mình chưa nhận được xác nhận rõ ràng nên không tạo phiếu. Khi cần, bạn cứ nhắn lại, mình sẽ hỗ trợ."
@@ -55,6 +57,43 @@ def relaxed_note(constraint: str) -> str:
 
 def no_results_relaxed(constraint: str) -> str:
     return f"{NO_FULL_MATCH} Mình cũng đã thử bỏ điều kiện {CONSTRAINT_LABELS[constraint]} nhưng vẫn không có kết quả."
+
+
+def _money(vnd: int) -> str:
+    return f"{vnd:,}".replace(",", ".") + "đ"
+
+
+def _join(parts: list[str]) -> str:
+    return parts[0] if len(parts) == 1 else ", ".join(parts[:-1]) + " và " + parts[-1]
+
+
+def constraint_phrase(name: str, values: dict) -> str:
+    """The customer's own constraint as a phrase: "kích cỡ L", "màu đen", "chất liệu dù", "mức giá tối đa 500.000đ". `values` = {key: value} of that constraint."""
+    if name == "size":
+        return f"kích cỡ {values['size']}"
+    if name in ("color", "material"):
+        return f"{'màu' if name == 'color' else 'chất liệu'} {str(values[name]).lower()}"
+    low, high = values.get("price_min"), values.get("price_max")
+    if low is not None and high is not None:
+        return f"mức giá từ {_money(int(low))} đến {_money(int(high))}"
+    return f"mức giá tối đa {_money(int(high))}" if high is not None else f"mức giá từ {_money(int(low))}"
+
+
+def offer_invite(*, kind: str | None, dropped: list[str], values: dict, remaining: dict, count: int) -> str:
+    """The question that follows an empty search (docs/DECISIONS-phase7.md, D7.25): nothing matches, which constraint blocks, how many products there are
+    without it, and the invitation. No product is listed in it. `dropped` is in the order the constraints were dropped; the last one is the blocking one.
+    `values` maps each dropped constraint to the customer's {key: value}; `remaining` maps each constraint still kept (size, color, material, price) the same way."""
+    noun = kind.lower() if kind else "sản phẩm"
+    earlier = [constraint_phrase(name, values[name]) for name in dropped[:-1]]
+    blocking = constraint_phrase(dropped[-1], values[dropped[-1]]) + (f" (cùng với {_join(earlier)})" if earlier else "")
+    kept = " ".join(constraint_phrase(name, remaining[name]) for name in remaining)
+    return (f"{NO_FULL_MATCH} Điều kiện đang chặn kết quả: {blocking}. Hiện có {count} {noun}{' ' + kept if kept else ''} "
+            f"nếu bỏ {'điều kiện này' if len(dropped) == 1 else 'các điều kiện này'} — bạn muốn xem không?")
+
+
+def offer_label(dropped: list[str]) -> str:
+    """The first line of the answer to an accepted offer: it was not a full match, and where it differs."""
+    return f"Không khớp hoàn toàn: khác {_join([CONSTRAINT_LABELS[name] for name in dropped])}."
 
 
 def ticket_proposal(summary: str) -> str:
@@ -73,11 +112,22 @@ _FIXED = {
     "ask_email": ASK_EMAIL, "ask_email_for_phone": ASK_EMAIL_FOR_PHONE, "ask_contact_email": ASK_CONTACT_EMAIL, "handoff": HANDOFF,
     "refuse_verification": REFUSE_VERIFICATION, "refuse_verification_locked": REFUSE_VERIFICATION_LOCKED, "lookup_disabled": LOOKUP_DISABLED,
     "no_results": NO_RESULTS, "no_policy_info": NO_POLICY_INFO,
-    "ticket_cancelled": TICKET_CANCELLED, "ticket_not_confirmed": TICKET_NOT_CONFIRMED, "ticket_failed": TICKET_FAILED,
+    "offer_declined": OFFER_DECLINED, "ticket_cancelled": TICKET_CANCELLED, "ticket_not_confirmed": TICKET_NOT_CONFIRMED, "ticket_failed": TICKET_FAILED,
 }
 # what the agent is waiting for after each question; every other kind ends the request
 AWAITING = {"ask_product_type": "product_type", "ask_number_and_email": "order_number_and_email", "ask_order_number": "order_number",
             "ask_email": "email", "ask_email_for_phone": "email", "ask_contact_email": "email"}
+
+
+# reply kinds that tell the customer something went wrong on our side (reply_source "error_template" in the trace)
+ERROR_KINDS = frozenset({"technical_problem", "step_cap", "ticket_failed"})
+
+
+def source_of(kind: str) -> str:
+    """The reply_source of a fixed reply: a question to the customer is `clarify`, a failure notice `error_template`, the rest `template`."""
+    if kind in AWAITING:
+        return "clarify"
+    return "error_template" if kind in ERROR_KINDS else "template"
 
 
 def render(kind: str, **args) -> str:
