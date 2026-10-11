@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="vi">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap">
 <style>
-/* Four tabs: Luồng xử lý (the journey of one request), Tổng quan, Lỗi, Đánh giá.
+/* Four tabs: Request flow (the journey of one request), Overview, Errors, Evaluation.
    Single deliberate dark look (operator console); colors are tokens on :root. Trace data (customer text!) only ever goes in
    through textContent / created nodes, never as HTML. */
 :root{
@@ -62,6 +62,7 @@ select,input[type=text],input[type=search],input[type=number]{background:var(--p
 .banner[data-mode=live],.banner[data-mode=file]{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
 .banner[data-mode=lost]{border-color:var(--err);color:var(--err);background:var(--err-soft)}
 .banner .mono{font-size:12px}
+#bannerHead::after{content:" ·";font-weight:400;opacity:.7}
 .tabs{display:flex;gap:4px;border-bottom:1px solid var(--line-strong);overflow-x:auto}
 .tab{background:none;border:0;border-bottom:3px solid transparent;padding:10px 16px 9px;font-family:var(--f-display);font-size:14px;font-weight:600;letter-spacing:.03em;color:var(--muted);cursor:pointer;white-space:nowrap;flex:0 0 auto}
 .tab:hover{color:var(--fg)}
@@ -82,7 +83,7 @@ select,input[type=text],input[type=search],input[type=number]{background:var(--p
 .chip.c-cache{border-color:var(--violet);color:var(--violet)}
 .chip .code{font-family:var(--f-mono);font-size:11px;color:var(--muted)}
 
-/* ---- tab: Luồng xử lý ---- */
+/* ---- tab: Request flow ---- */
 .flow{display:grid;grid-template-columns:minmax(300px,360px) minmax(0,1fr);gap:16px;align-items:start}
 .reqs{display:flex;flex-direction:column;gap:10px;position:sticky;top:8px;max-height:calc(100vh - 24px)}
 .reqs .filters{display:grid;grid-template-columns:1fr 1fr;gap:6px}
@@ -169,7 +170,7 @@ td.r,th.r{text-align:right}
   .step,.bubble{transition:opacity .25s,box-shadow .25s}
 }
 
-/* ---- tab: Tổng quan ---- */
+/* ---- tab: Overview ---- */
 .kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
 .kpi{border-left:2px solid var(--line-strong);padding:2px 0 2px 12px;display:flex;flex-direction:column;gap:2px;min-width:0}
 .kpi .v{font-family:var(--f-display);font-size:24px;font-weight:600;line-height:1.15}
@@ -194,7 +195,7 @@ td.r,th.r{text-align:right}
 .sankey-legend{display:flex;gap:16px;flex-wrap:wrap;font-family:var(--f-mono);font-size:11.5px;color:var(--muted);margin-top:8px}
 .sankey-legend i{display:inline-block;width:12px;height:12px;margin-right:6px;vertical-align:-2px;border-radius:2px}
 
-/* ---- tab: Lỗi ---- */
+/* ---- tab: Errors ---- */
 .err-list{display:flex;flex-direction:column;gap:8px}
 .err-row{display:grid;grid-template-columns:4px minmax(0,1fr) auto;gap:12px;background:var(--panel-2);border:1px solid var(--line);border-radius:4px;padding:10px 12px 10px 0;cursor:pointer;text-align:left;width:100%}
 .err-row:hover{border-color:var(--line-strong)}
@@ -205,7 +206,7 @@ td.r,th.r{text-align:right}
 .err-row .c{font-family:var(--f-display);font-size:22px;font-weight:600;text-align:right;line-height:1}
 .err-row .c small{display:block;font-family:var(--f-mono);font-size:10.5px;color:var(--dim);font-weight:400;margin-top:4px}
 
-/* ---- tab: Đánh giá ---- */
+/* ---- tab: Evaluation ---- */
 .eval-grid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:14px;align-items:start}
 .eval-side{display:flex;flex-direction:column;gap:14px}
 .evals{display:flex;flex-direction:column}
@@ -247,7 +248,7 @@ pre.code{background:var(--panel-2);border:1px solid var(--line);border-radius:4p
 </style>
 </head>
 <body>
-<a class="skip" href="#main">Bỏ qua, tới nội dung</a>
+<a class="skip" href="#main" data-s="app.skip"></a>
 <div class="wrap">
 
   <header class="topbar">
@@ -260,139 +261,118 @@ pre.code{background:var(--panel-2);border:1px solid var(--line);border-radius:4p
     </div>
     <div class="source">
       <span id="windowLabel" class="mono hint">—</span>
-      <label class="btn" for="fileInput">Tải file trace</label>
+      <label class="btn" for="fileInput" data-s="app.loadFile"></label>
       <input id="fileInput" type="file" accept=".jsonl,.json,.ndjson,.txt" hidden>
-      <button id="resetSample" class="btn" type="button" hidden>Bỏ file đã tải</button>
+      <button id="resetSample" class="btn" type="button" hidden data-s="app.closeFile"></button>
     </div>
   </header>
 
   <div id="banner" class="banner" data-mode="sample" role="status">
-    <span><b id="bannerHead">DỮ LIỆU MẪU.</b> <span id="bannerBody"></span></span>
+    <span><b id="bannerHead"></b> <span id="bannerBody"></span></span>
     <span class="mono" id="bannerMeta"></span>
   </div>
 
-  <div class="tabs" role="tablist" aria-label="Màn hình theo dõi">
-    <button class="tab" role="tab" id="tab-flow" data-tab="flow" aria-controls="panel-flow" aria-selected="true">Luồng xử lý</button>
-    <button class="tab" role="tab" id="tab-overview" data-tab="overview" aria-controls="panel-overview" aria-selected="false" tabindex="-1">Tổng quan</button>
-    <button class="tab" role="tab" id="tab-errors" data-tab="errors" aria-controls="panel-errors" aria-selected="false" tabindex="-1">Lỗi<span class="count" id="errCount"></span></button>
-    <button class="tab" role="tab" id="tab-eval" data-tab="eval" aria-controls="panel-eval" aria-selected="false" tabindex="-1">Đánh giá</button>
+  <div class="tabs" role="tablist" data-s-aria-label="tabs.label">
+    <button class="tab" role="tab" id="tab-flow" data-tab="flow" aria-controls="panel-flow" aria-selected="true"><span data-s="tabs.flow"></span></button>
+    <button class="tab" role="tab" id="tab-overview" data-tab="overview" aria-controls="panel-overview" aria-selected="false" tabindex="-1"><span data-s="tabs.overview"></span></button>
+    <button class="tab" role="tab" id="tab-errors" data-tab="errors" aria-controls="panel-errors" aria-selected="false" tabindex="-1"><span data-s="tabs.errors"></span><span class="count" id="errCount"></span></button>
+    <button class="tab" role="tab" id="tab-eval" data-tab="eval" aria-controls="panel-eval" aria-selected="false" tabindex="-1"><span data-s="tabs.eval"></span></button>
   </div>
 
   <main id="main">
 
-    <!-- ============ Luồng xử lý ============ -->
+    <!-- ============ Request flow ============ -->
     <section id="panel-flow" role="tabpanel" aria-labelledby="tab-flow">
       <div class="flow">
-        <aside class="reqs" aria-label="Danh sách request">
+        <aside class="reqs" data-s-aria-label="flow.listLabel">
           <div class="filters">
-            <input id="fQuery" type="search" placeholder="Tìm câu hỏi hoặc trace id" aria-label="Tìm trong danh sách request">
-            <select id="fStatus" aria-label="Lọc theo trạng thái">
-              <option value="all">mọi trạng thái</option><option value="ok">ổn</option><option value="warn">cảnh báo</option><option value="fallback">dự phòng</option><option value="error">lỗi</option>
+            <input id="fQuery" type="search" data-s-placeholder="flow.search" data-s-aria-label="flow.searchLabel">
+            <select id="fStatus" data-s-aria-label="flow.statusLabel">
+              <option value="all" data-s="flow.allStatuses"></option><option value="ok" data-s="outcome.ok"></option><option value="warn" data-s="outcome.warn"></option><option value="fallback" data-s="outcome.fallback"></option><option value="error" data-s="outcome.error"></option>
             </select>
-            <select id="fIntent" aria-label="Lọc theo ý định"><option value="all">mọi ý định</option></select>
+            <select id="fIntent" data-s-aria-label="flow.intentLabel"><option value="all" data-s="flow.allIntents"></option></select>
           </div>
-          <div class="filters-row"><span class="count" id="listCount"></span><button id="fClear" class="btn" type="button">Xóa lọc</button></div>
-          <div class="rows" id="rows" role="listbox" aria-label="Request mới nhất, mới nhất ở trên"></div>
+          <div class="filters-row"><span class="count" id="listCount"></span><button id="fClear" class="btn" type="button" data-s="flow.clear"></button></div>
+          <div class="rows" id="rows" role="listbox" data-s-aria-label="flow.rowsLabel"></div>
         </aside>
 
-        <section class="journey" id="journey" aria-label="Hành trình của request đã chọn" tabindex="-1">
-          <div class="empty">Chưa có request nào.</div>
+        <section class="journey" id="journey" data-s-aria-label="flow.journeyLabel" tabindex="-1">
+          <div class="empty" data-s="journey.none"></div>
         </section>
       </div>
     </section>
 
-    <!-- ============ Tổng quan ============ -->
+    <!-- ============ Overview ============ -->
     <section id="panel-overview" role="tabpanel" aria-labelledby="tab-overview" hidden>
       <div style="display:flex;flex-direction:column;gap:14px">
-        <div class="kpis" id="kpis" aria-label="Chỉ số tổng"></div>
+        <div class="kpis" id="kpis" data-s-aria-label="overview.kpisLabel"></div>
         <div class="panel sankey">
-          <div class="panel-head"><h2>Luồng tổng hợp</h2><span class="hint">Độ dày đường tỉ lệ số request · bấm một đường hoặc một nhánh để xem các request đó ở tab Luồng xử lý</span></div>
+          <div class="panel-head"><h2 data-s="overview.flowTitle"></h2><span class="hint" data-s="overview.flowHint"></span></div>
           <div id="sankey"></div>
           <div class="sankey-legend" id="sankeyLegend"></div>
         </div>
         <div class="charts">
           <div class="panel chart">
-            <div class="panel-head"><h2>Request theo giờ</h2>
-              <div class="chart-legend"><span><i style="background:var(--accent)"></i>ổn</span><span><i style="background:var(--warn)"></i>cảnh báo</span><span><i style="background:var(--err)"></i>lỗi</span></div></div>
+            <div class="panel-head"><h2 data-s="charts.requests"></h2>
+              <div class="chart-legend"><span><i style="background:var(--accent)"></i><span data-s="outcome.ok"></span></span><span><i style="background:var(--warn)"></i><span data-s="outcome.warn"></span></span><span><i style="background:var(--err)"></i><span data-s="outcome.error"></span></span></div></div>
             <div id="chReq"></div>
           </div>
           <div class="panel chart">
-            <div class="panel-head"><h2>Độ trễ đầu cuối</h2>
-              <div class="chart-legend"><span><i style="background:var(--accent)"></i>p50</span><span><i style="background:var(--violet)"></i>p95</span></div></div>
+            <div class="panel-head"><h2 data-s="charts.latency"></h2>
+              <div class="chart-legend"><span><i style="background:var(--accent)"></i><span data-s="charts.p50"></span></span><span><i style="background:var(--violet)"></i><span data-s="charts.p95"></span></span></div></div>
             <div id="chLat"></div>
           </div>
           <div class="panel chart">
-            <div class="panel-head"><h2>Chi phí cộng dồn</h2><span class="hint">nếu bậc trả phí</span></div>
+            <div class="panel-head"><h2 data-s="charts.cost"></h2><span class="hint" data-s="charts.costHint"></span></div>
             <div id="chCost"></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ============ Lỗi ============ -->
+    <!-- ============ Errors ============ -->
     <section id="panel-errors" role="tabpanel" aria-labelledby="tab-errors" hidden>
       <div class="panel">
-        <div class="panel-head"><h2>Lỗi và cảnh báo</h2><span class="hint">Bấm một dòng để xem các request đó ở tab Luồng xử lý</span></div>
+        <div class="panel-head"><h2 data-s="errors.title"></h2><span class="hint" data-s="errors.hint"></span></div>
         <div class="err-list" id="errList"></div>
       </div>
     </section>
 
-    <!-- ============ Đánh giá ============ -->
+    <!-- ============ Evaluation ============ -->
     <section id="panel-eval" role="tabpanel" aria-labelledby="tab-eval" hidden>
       <div class="eval-grid">
         <div class="panel">
-          <div class="panel-head"><h2>Chất lượng · số đo thật</h2><span class="hint">eval trên tập dev, không phải tập test</span></div>
-          <div class="evals">
-            <div class="ev"><span class="k">Router · đúng ý định</span><span class="v"><b>71/71</b></span><span class="n">dev đã bão hòa; prompt viết sau khi đọc dev nên lạc quan · số cuối từ tập test</span></div>
-            <div class="ev"><span class="k">Trích bộ lọc · khớp trọn</span><span class="v">23/24 <span class="hint">(24/24 bỏ in_stock)</span></span><span class="n">lỗi duy nhất là xung đột nhãn gs-019</span></div>
-            <div class="ev"><span class="k">Truy hồi sản phẩm · MRR</span><span class="v">0,939 → <b>1,000</b></span><span class="n">sàn chỉ định tuyến → bộ lọc do LLM trích · +0,061 [0,000; +0,149]</span></div>
-            <div class="ev"><span class="k">Câu không có đáp án · trả rỗng đúng</span><span class="v"><b>5/5</b></span><span class="n">sàn 0/5 · đây là phép đo thật, không phải tautology như oracle</span></div>
-            <div class="ev"><span class="k">Chính sách · MRR toàn luồng</span><span class="v">0,839</span><span class="n">router → doc_type → truy hồi</span></div>
-            <div class="ev"><span class="k">Câu gõ không dấu · MRR</span><span class="v"><b>+0,430</b></span><span class="n">nhánh BM25 bỏ dấu · CI [+0,271; +0,583] trên 33 câu nhiễu loạn</span></div>
-            <div class="ev"><span class="k">Probe prompt injection · đúng nhãn</span><span class="v">7/8</span><span class="n">routing không phải hàng rào bảo mật; bảo vệ thật là client chỉ đọc + khớp email</span></div>
-            <div class="ev"><span class="k">Trả lời có căn cứ (answer_v2) · đúng trên dev</span><span class="v"><b>70/71</b></span><span class="n">69/71 trước khi sửa bộ đọc số đơn; 70 chưa phải ước lượng độc lập vì sửa khi đã thấy mục dev đó · 13/13 hội thoại nhiều lượt</span></div>
-            <div class="ev"><span class="k">Guardrail · câu bị thay bằng câu dự phòng</span><span class="v">2,2% <span class="hint">(1/45)</span></span><span class="n">mọi lần kích hoạt trên dev đều là báo động giả; recall chưa đo vì mô hình chưa bịa lần nào</span></div>
-            <div class="ev"><span class="k">Chi phí lý thuyết bậc trả phí</span><span class="v">0,978 USD</span><span class="n">mỗi 1.000 hội thoại (router + trích lọc + trả lời) · free tier thực tế $0</span></div>
-            <div class="ev"><span class="k">Độ trễ đo · router / trích lọc</span><span class="v">1,03 / 1,24 s</span><span class="n">p50 · p95 lần lượt 1,53 / 1,74 s · truy hồi fused p50 192–219 ms</span></div>
-          </div>
-          <p class="foot">nguồn: eval/results/phase5/router_v1+filters_v1.json · docs/RESULTS-phase5.md · docs/RESULTS-phase4-exp1.md · docs/RESULTS-phase6.md</p>
+          <div class="panel-head"><h2 data-s="eval.title"></h2><span class="hint" data-s="eval.hint"></span></div>
+          <div class="evals" id="evalRows"></div>
+          <p class="foot" data-s="eval.sources"></p>
         </div>
         <div class="eval-side">
           <div class="panel">
-            <div class="panel-head"><h2>Quota Gemini</h2></div>
-            <div class="kv"><span>Lời gọi LLM thật (trong cửa sổ)</span><span id="qCalls" class="num">—</span></div>
-            <div class="meter" title="Vạch đỏ: trần an toàn 450; giới hạn free tier 500 request/ngày"><i id="qBar" style="width:0%"></i><u id="qMark" style="left:90%"></u></div>
-            <div class="hint">Trần an toàn <span class="mono">450</span> · free tier <span class="mono">500</span>/ngày. Reset lúc 14:00 giờ Việt Nam.</div>
-            <div class="kv"><span>Giới hạn phía client</span><span>12 / phút</span></div>
-            <div class="kv"><span>Cache hit</span><span id="qCache" class="num">—</span></div>
-            <div class="kv"><span>429 theo phút</span><span id="q429" class="num">—</span></div>
+            <div class="panel-head"><h2 data-s="eval.quotaTitle"></h2></div>
+            <div class="kv"><span data-s="eval.quotaCalls"></span><span id="qCalls" class="num">—</span></div>
+            <div class="meter" data-s-title="eval.quotaMeter"><i id="qBar" style="width:0%"></i><u id="qMark" style="left:90%"></u></div>
+            <div class="hint" data-s="eval.quotaHint"></div>
+            <div class="kv"><span data-s="eval.quotaClient"></span><span data-s="eval.quotaClientValue"></span></div>
+            <div class="kv"><span data-s="eval.quotaCache"></span><span id="qCache" class="num">—</span></div>
+            <div class="kv"><span data-s="eval.quota429"></span><span id="q429" class="num">—</span></div>
           </div>
           <div class="panel">
-            <div class="panel-head"><h2>Chi phí</h2></div>
-            <div class="kv"><span>Thực tế (free tier)</span><span>$0</span></div>
-            <div class="kv"><span>Nếu bậc trả phí</span><span id="cWin" class="num">—</span></div>
-            <div class="kv"><span>Mỗi 1.000 câu hỏi</span><span id="cPer1k" class="num">—</span></div>
-            <div class="kv"><span>Token vào / ra</span><span id="cTok" class="num">—</span></div>
+            <div class="panel-head"><h2 data-s="eval.costTitle"></h2></div>
+            <div class="kv"><span data-s="eval.costActual"></span><span>$0</span></div>
+            <div class="kv"><span data-s="eval.costPaid"></span><span id="cWin" class="num">—</span></div>
+            <div class="kv"><span data-s="eval.costPer1k"></span><span id="cPer1k" class="num">—</span></div>
+            <div class="kv"><span data-s="eval.costTokens"></span><span id="cTok" class="num">—</span></div>
             <div class="filters-row" style="margin-top:6px">
-              <label class="label" for="pIn">$ / triệu vào</label>
+              <label class="label" for="pIn" data-s="eval.priceIn"></label>
               <input id="pIn" type="number" step="0.01" min="0" value="0.30" style="width:74px">
-              <label class="label" for="pOut">ra</label>
+              <label class="label" for="pOut" data-s="eval.priceOut"></label>
               <input id="pOut" type="number" step="0.01" min="0" value="2.50" style="width:74px">
             </div>
-            <div class="hint" style="margin-top:6px">Giá mặc định theo trang giá chính thức, ghi ngày 09/10/2026.</div>
+            <div class="hint" style="margin-top:6px" data-s="eval.priceNote"></div>
           </div>
           <div class="panel">
-            <div class="panel-head"><h2>Phiên bản đã ghim</h2></div>
-            <div class="pins">
-              <span>llm <b>gemini-3.5-flash-lite</b> · 07-2026</span>
-              <span>embed <b>bge-m3</b> @5617a9f</span>
-              <span>vector <b>Qdrant 1.19.1</b></span>
-              <span>index <b>shopmate_vn_v2</b> · 269 điểm</span>
-              <span>lexical fp <b>9c2ab3e2</b></span>
-              <span>commerce <b>Saleor 3.23.40</b> · kênh vn</span>
-              <span>prompt answer <b>answer_v2</b></span>
-              <span>golden test <b>4070dc68…</b> · đã khóa</span>
-            </div>
+            <div class="panel-head"><h2 data-s="eval.pinsTitle"></h2></div>
+            <div class="pins" id="pins"></div>
           </div>
         </div>
       </div>
@@ -402,9 +382,10 @@ pre.code{background:var(--panel-2);border:1px solid var(--line);border-radius:4p
 
   <section class="panel">
     <details class="contract">
-      <summary>Định dạng trace để nối dữ liệu thật</summary>
-      <p class="hint" style="margin-top:10px">Mỗi request là một dòng JSON trong <span class="mono">logs/traces.jsonl</span>. Tải file đó lên bằng nút “Tải file trace”: mọi số trên trang được tính lại trong trình duyệt, không gửi đi đâu. Chi phí tính từ token và giá ở tab Đánh giá; span có <span class="mono">cache_hit: true</span> không tính tiền. Dòng cũ (v1, không có <span class="mono">schema_version</span>) vẫn đọc được: hành trình hiện không có câu trả lời và bộ lọc.</p>
-      <p class="hint">Chế độ trực tiếp: khi ShopMate phục vụ chính trang này (ví dụ <span class="mono">http://127.0.0.1:8765/monitor/</span>) và có <span class="mono">GET api/traces?limit=5000</span> trả về các dòng JSONL cuối file, trang tự chuyển sang “TRỰC TIẾP” và làm mới mỗi 5 giây.</p>
+      <summary data-s="help.summary"></summary>
+      <p class="hint" style="margin-top:10px" data-s="help.p1"></p>
+      <p class="hint" data-s="help.p2"></p>
+      <!-- @vi-data begin: an example trace line exactly as the tracer writes it, with Vietnamese customer text, filter values and product names -->
       <pre class="code" id="schema">{"schema_version": 2, "trace_id": "8f2c41d09a3b47e5b1c6a07d2e9f3a10",
  "ts": "2026-10-11T06:05:22.481Z", "session_id": "3b9f0c1e5d2a4c7e8a61f04b7d3c9e22", "turn": 1,
  "question": "ao khoac den duoi 500k con size L ko",
@@ -426,11 +407,12 @@ pre.code{background:var(--panel-2);border:1px solid var(--line);border-radius:4p
    "summary": {"prompt_version": "answer_v2", "guardrail": {"checked": 3, "violations": [], "fallback_used": false}}}
  ],
  "error": null}</pre>
+      <!-- @vi-data end -->
       <div class="filters-row">
-        <button id="copySchema" class="btn" type="button">Chép mẫu</button>
+        <button id="copySchema" class="btn" type="button" data-s="help.copy"></button>
         <span class="hint mono" id="copyMsg"></span>
       </div>
-      <p class="hint">stage: router · extractor · retrieval · order_lookup · ticket_confirm · reply · answer. reply_source: llm · template · guardrail_fallback · clarify · error_template. error.type đã biết: llm_429_minute · llm_rate_limited · llm_429_daily · llm_unavailable · llm_request_error · llm_invalid_output · llm_cache_miss_offline · budget_cap_reached · filter_out_of_vocab · qdrant_unreachable · saleor_timeout · saleor_error · readonly_violation · request_interrupted · answer_guardrail_fallback · agent_step_cap_reached · ticket_write_failed · internal_error. Loại lạ vẫn hiển thị, xếp vào nhóm lỗi.</p>
+      <p class="hint" data-s="help.types"></p>
     </details>
   </section>
 
@@ -443,94 +425,234 @@ pre.code{background:var(--panel-2);border:1px solid var(--line);border-radius:4p
 /* ================================================================================================================
    Part 1: data. Pure functions only (no DOM), so they can be tested under Node (window.__SHOPMATE_TEST__).
    ================================================================================================================ */
+
+/* ---------- every piece of interface text is here ----------
+   One object, English only. Elements of the markup that carry text are marked data-s="path" (or data-s-aria-label, data-s-placeholder, data-s-title for
+   attributes) and are filled from it at start-up; the code below reads the rest through S.
+   What is NOT here: trace data. Customer questions, replies, product names, filter values and error messages are shown as they were recorded.
+   Markup in a string: `code` becomes a monospace span, **bold** becomes <b>; {name} is replaced by fmt(). Avoid apostrophes (the tests read this block as text). */
+const STRINGS = {
+  app: {
+    title: 'ShopMate Monitor', skip: 'Skip to content', loadFile: 'Load trace file', closeFile: 'Close file', noData: 'No data yet', timezone: 'UTC+7', empty: '(empty)'
+  },
+  unit: {
+    request: ['request', 'requests'], turn: ['turn', 'turns'], error: ['error', 'errors'], warning: ['warning', 'warnings'], span: ['span', 'spans'],
+    sentence: ['sentence', 'sentences'], violation: ['violation', 'violations'], invalidLine: ['invalid line', 'invalid lines'], product: ['product', 'products']
+  },
+  banner: {
+    sampleHead: 'SAMPLE DATA',
+    sampleBody: 'No real traffic yet: these requests are generated, with latencies from the phase 5 evaluation. The Evaluation tab shows real measurements.',
+    sampleMeta: '{requests} (sample)',
+    liveHead: 'LIVE', liveBody: 'Reading logs/traces.jsonl through ShopMate, refreshed every 5 seconds.', liveMeta: '{requests} · updated {time}',
+    lostHead: 'DISCONNECTED', lostBody: 'Cannot read api/traces ({reason}). Keeping the last data and retrying in 5 seconds.',
+    fileHead: 'VIEWING FILE', fileBody: '{name} · everything is computed in your browser.', fileMeta: '{requests}', fileMetaBad: '{requests} · skipped {skipped}',
+    badHead: 'CANNOT READ FILE', badBody: '{name} has no valid trace lines. Each line needs a trace_id, a ts (ISO) and a spans array; see the example at the bottom of the page.',
+    badParse: '{name}: {error}. Use JSONL (one trace per line) or a JSON array.', notArray: 'A JSON file must be an array of traces.',
+    reasonTimeout: 'timed out after 3 s', reasonNetwork: 'network error', reasonNotTrace: 'the response is not trace data'
+  },
+  tabs: {label: 'Monitor views', flow: 'Request flow', overview: 'Overview', errors: 'Errors', eval: 'Evaluation'},
+  flow: {
+    listLabel: 'Request list', search: 'Search question or trace id', searchLabel: 'Search the request list', statusLabel: 'Filter by status', allStatuses: 'all statuses',
+    intentLabel: 'Filter by intent', allIntents: 'all intents', clear: 'Clear filters', rowsLabel: 'Requests, newest first', journeyLabel: 'Journey of the selected request',
+    noMatch: 'No requests match. Click “Clear filters”.', errFilter: 'error: {label}', group: 'Conversation {id} · {turns} · {time}', turn: 'Turn {n}', more: 'Show 60 more'
+  },
+  outcome: {ok: 'OK', warn: 'Warning', fallback: 'Fallback', error: 'Error'},
+  intent: {
+    product_search: 'Product search', policy_question: 'Policy question', order_status: 'Order status', create_ticket: 'Support ticket',
+    out_of_scope: 'Out of scope', smalltalk: 'Small talk', unknown: 'Unknown'
+  },
+  stage: {
+    router: 'Intent routing', extractor: 'Filter extraction', retrieval: 'Retrieval', order_lookup: 'Order lookup', ticket_confirm: 'Ticket confirmation',
+    reply: 'Fixed reply', answer: 'Answer', guardrail: 'Guardrail check', offer: 'Offer', offerSearch: 'Retrieval (offer accepted)', retrievalAgain: 'Retrieval {n} (relaxed)',
+    laterSteps: 'Remaining steps'
+  },
+  source: {
+    llm: 'AI-written answer, checked by the guardrail', template: 'Fixed reply (not AI-written)', guardrail_fallback: 'Guardrail fallback answer',
+    clarify: 'Clarifying question to the customer', error_template: 'Error message to the customer'
+  },
+  template: {
+    smalltalk: 'greeting', out_of_scope: 'refusal: out of scope', technical_problem: 'technical error notice', step_cap: 'step limit reached',
+    ask_product_type: 'asks for the product type', ask_number_and_email: 'asks for the order number and email', ask_order_number: 'asks for the order number',
+    ask_email: 'asks for the order email', ask_email_for_phone: 'asks for an email instead of a phone number', ask_contact_email: 'asks for a contact email',
+    handoff: 'handoff to staff', refuse_verification: 'refusal: details do not match', refuse_verification_locked: 'refusal: order lookup temporarily locked',
+    lookup_disabled: 'order lookup is turned off', no_results: 'no results', no_results_relaxed: 'no results even after relaxing the search',
+    no_policy_info: 'no policy information', ticket_cancelled: 'customer declined the ticket', ticket_not_confirmed: 'ticket not created: not confirmed',
+    ticket_failed: 'ticket creation failed', ticket_created: 'support ticket created', offer_invite: 'asks whether to drop constraints to see close matches',
+    offer_declined: 'customer declined the offer: request kept as it was'
+  },
+  rule: {
+    price_mismatch: 'Wrong price', price_not_in_evidence: 'Price not in the data', unknown_sku: 'Unknown SKU', no_sku_cited: 'No SKU cited', stock_mismatch: 'Wrong stock status',
+    unknown_clause: 'Unknown clause', no_clause_cited: 'No clause cited', order_status_mismatch: 'Wrong order status', order_number_mismatch: 'Wrong order number',
+    email: 'Email leaked', phone: 'Phone number leaked', address: 'Address leaked', prompt_leak: 'Prompt leaked', empty: 'Empty answer', unusable: 'Unusable answer', kind: 'Unknown product type'
+  },
+  offer: {size: 'size', color: 'color', material: 'material', price: 'price'},
+  field: {
+    category: 'category', kind: 'type', color: 'color', material: 'material', size: 'size', price_min: 'minimum price', price_max: 'maximum price', in_stock: 'in stock'
+  },
+  chip: {
+    kind: 'Type: {v}', category: 'Category: {v}', color: 'Color {v}', material: 'Material {v}', size: 'Size {v}', priceMin: 'price ≥ {v}', priceMax: 'price ≤ {v}',
+    inStock: 'in stock', outOfStock: 'out of stock'
+  },
+  journey: {
+    title: 'Request journey', total: 'total', conversation: 'conversation', turn: 'turn', ifBilled: '{usd} if billed', replay: 'Replay', stop: 'Stop',
+    replayShown: 'The whole journey is shown (reduced motion is on).', none: 'No request to draw a journey for yet.',
+    legendLlm: 'LLM · Gemini', legendRet: 'retrieval · Qdrant', legendTool: 'tools and fixed replies', customer: 'Customer', shop: 'ShopMate',
+    oldReply: 'Old trace (v1): the reply text was not recorded', noReply: 'The customer got no reply: an error stopped the request before a message was sent.',
+    cut: 'Cut at 800 characters when the trace was written.', stepsLabel: 'Steps that ran', tech: 'Technical details of {spans}',
+    cols: ['step', 'model', 'start', 'duration', 'tokens in/out', 'cache', 'error'], yes: 'yes', no: 'no'
+  },
+  step: {
+    warning: 'warning', error: 'error', skipped: 'skipped', cacheHit: 'cache hit', inside: 'runs inside the step above',
+    barTitle: 'position and length relative to the whole request', share: '{pct}% of total time · starts at {start}', model: 'model', tokens: 'tokens in/out',
+    liveCall: 'real LLM call · {usd} if billed', unknownIntent: 'Did not run: the intent was never determined, so the next step is unknown.', earlierFailed: 'Did not run because an earlier step failed.'
+  },
+  body: {
+    intent: 'Intent: ', intentUnknown: 'Intent not determined',
+    oldFilters: 'Old trace: filters were not recorded.', noFilters: 'No filters could be extracted; searching with the question as written.',
+    emptyFilters: 'No filters; searching by the content of the question.', relaxedChip: 'Relaxed: dropped {field}',
+    relaxedWhy: 'Nothing matched every filter, so the search was repeated once without this one.',
+    oldSearch: 'Old trace: search results were not recorded.', noSummary: 'No result summary.',
+    countHint: 'Counting products in Qdrant, no LLM call · tries dropping each constraint alone (size, color, material, price), then several together; never drops the product type',
+    countTag: 'COUNT', probe: 'Drop {names}', blocking: 'Blocking constraint: {name}', offers: 'Offers {products} without {names}',
+    noOffer: 'No product is left whichever constraint is dropped, so no offer was made.', offerSearch: 'Following the offer the customer accepted: dropped {names}',
+    mode: 'Mode {mode} · up to {k} results · {found}', top: 'top {n}', none: 'no results', scoreTitle: 'RRF score', product: 'PROD', policy: 'POL',
+    hitsCut: 'Results trimmed so the trace summary fits in 4 KB.',
+    oldLookup: 'Old trace: the lookup result was not recorded.', verified: 'Email matched, verified', notVerified: 'Could not verify, refused', attempt: 'Attempt {n}',
+    operator: 'For operators: the order number {found}. The customer is not told this.', found: 'was found', notFound: 'was not found',
+    ticketWritten: 'The customer agreed: the support ticket was written.', ticketAsked: 'The ticket text was sent and the customer was asked to confirm.',
+    ticketStep: 'Ticket confirmation step.', fixedReply: 'Fixed reply: ', fixedNoLlm: 'Fixed reply, no LLM call.',
+    oldAnswer: 'Old trace: the prompt and the guardrail were not recorded.', promptPre: 'Prompt ', promptPost: ' wrote this from the search results.',
+    answerTemplate: 'Answer built from a template, no LLM call.', noCheck: 'No check: this answer was not written by an LLM.', checked: '{sentences} checked — {violations}',
+    fallback: 'The guardrail rejected the AI-written answer and sent a fallback built from store data.'
+  },
+  overview: {
+    kpisLabel: 'Summary metrics', flowTitle: 'Aggregate flow',
+    flowHint: 'Line thickness is proportional to the number of requests · click a line or a node to see those requests in the Request flow tab',
+    requests: 'Requests', requestsSample: 'last 24 h · sample', requestsLive: 'live · most recent', requestsFile: 'in file',
+    errorRate: 'Error rate', errorSub: '{errors} · {warnings}', p50: 'End-to-end p50', p95: 'p95 {v}', tokens: 'Tokens per request', tokensSub: 'in {in} · out {out}',
+    cost: 'Cost per request', costSub: 'per 1,000: {usd}', llmCalls: 'Real LLM calls', llmSub: 'cache {cache} · 429 {r429}', empty: 'No requests yet.'
+  },
+  sankey: {
+    label: 'Flow diagram: customer question, router, intent, outcome', customer: 'Customer', router: 'Router', toRouter: 'Customer → Router: {requests}',
+    toIntent: 'Router → {intent}: {requests}', toOutcome: '{intent} → {outcome}: {requests}', node: '{name}: {requests}', pair: '{intent}, {outcome}: {requests}'
+  },
+  charts: {
+    requests: 'Requests over time', latency: 'End-to-end latency', cost: 'Cumulative cost', costHint: 'if on a paid tier', p50: 'p50', p95: 'p95',
+    tipRequests: '{time} · OK {ok} · warning {warn} · error {err}', ariaRequests: 'Requests over time, by outcome',
+    ariaLatency: 'End-to-end latency, p50 and p95 over time', ariaCost: 'Cumulative cost if billed'
+  },
+  errors: {
+    title: 'Errors and warnings', hint: 'Click a row to see those requests in the Request flow tab', empty: 'No errors or warnings in this window.',
+    sev: {security: 'security', warn: 'warning', error: 'error'}, last: 'last seen {time}', time: 'time', times: 'times',
+    unknown: 'This error type is not in the catalog yet.'
+  },
+  eval: {
+    title: 'Quality · measured numbers', hint: 'Evaluation on the dev split, not the test split',
+    rows: [
+      {k: 'Router · correct intent', v: '**71/71**', n: 'saturated on dev; the prompt was written after reading dev, so this is optimistic · the final number comes from the test split'},
+      {k: 'Filter extraction · exact match', v: '23/24', hint: '(24/24 without in_stock)', n: 'the only miss is the gs-019 label conflict'},
+      {k: 'Product retrieval · MRR', v: '0.939 → **1.000**', n: 'baseline with routing only → filters extracted by the LLM · +0.061 [0.000, +0.149]'},
+      {k: 'Questions with no answer · correctly empty', v: '**5/5**', n: 'baseline 0/5 · a real measurement, not a tautology like the oracle'},
+      {k: 'Policy · end-to-end MRR', v: '0.839', n: 'router → doc_type → retrieval'},
+      {k: 'Queries typed without accents · MRR', v: '**+0.430**', n: 'diacritic-folded BM25 branch · CI [+0.271, +0.583] on 33 perturbed queries'},
+      {k: 'Prompt-injection probes · labeled correctly', v: '7/8', n: 'routing is not a security barrier; the real protection is the read-only client plus email matching'},
+      {k: 'Grounded answers (answer_v2) · correct on dev', v: '**70/71**', n: '69/71 before the order-number parser fix; 70 is not an independent estimate because the fix was made after seeing that dev item · 13/13 multi-turn conversations'},
+      {k: 'Guardrail · answers replaced by the fallback', v: '2.2%', hint: '(1/45)', n: 'every trigger on dev was a false alarm; recall is not measured because the model never made anything up'},
+      {k: 'Theoretical paid-tier cost', v: '0.978 USD', n: 'per 1,000 conversations (router + filter extraction + answer) · the free tier actually cost $0'},
+      {k: 'Measured latency · router / extractor', v: '1.03 / 1.24 s', n: 'p50 · p95 are 1.53 / 1.74 s respectively · fused retrieval p50 192–219 ms'}
+    ],
+    sources: 'Sources: eval/results/phase5/router_v1+filters_v1.json · docs/RESULTS-phase5.md · docs/RESULTS-phase4-exp1.md · docs/RESULTS-phase6.md',
+    quotaTitle: 'Gemini quota', quotaCalls: 'Real LLM calls (in window)', quotaMeter: 'Red mark: safety ceiling of 450; the free tier allows 500 requests per day',
+    quotaHint: 'Safety ceiling `450` · free tier `500` per day. Resets at 14:00 Vietnam time.', quotaClient: 'Client-side limit', quotaClientValue: '12 / minute',
+    quotaCache: 'Cache hits', quota429: 'Per-minute 429s',
+    costTitle: 'Cost', costActual: 'Actual (free tier)', costPaid: 'If on a paid tier', costPer1k: 'Per 1,000 questions', costTokens: 'Tokens in / out',
+    priceIn: '$ per million tokens: in', priceOut: 'out', priceNote: 'Default prices are from the official pricing page, dated 2026-10-09.',
+    pinsTitle: 'Pinned versions',
+    pins: [['llm', 'gemini-3.5-flash-lite', '· 07-2026'], ['embed', 'bge-m3', '@5617a9f'], ['vector', 'Qdrant 1.19.1', ''], ['index', 'shopmate_vn_v2', '· 269 points'],
+           ['lexical fp', '9c2ab3e2', ''], ['commerce', 'Saleor 3.23.40', '· channel vn'], ['answer prompt', 'answer_v2', ''], ['golden test', '4070dc68…', '· locked']]
+  },
+  help: {
+    summary: 'Trace format for connecting real data',
+    p1: 'Each request is one JSON line in `logs/traces.jsonl`. Load that file with the “Load trace file” button: every number on the page is recomputed in the browser and sent nowhere. Cost is computed from the tokens and the prices on the Evaluation tab; spans with `cache_hit: true` cost nothing. Old lines (v1, no `schema_version`) still load: their journey has no reply and no filters.',
+    p2: 'Live mode: when ShopMate serves this page itself (for example `http://127.0.0.1:8765/monitor/`) and `GET api/traces?limit=5000` returns the last JSONL lines of the file, the page switches to “LIVE” and refreshes every 5 seconds.',
+    copy: 'Copy example', copied: 'Copied.', selected: 'Selected, press Ctrl+C.',
+    types: 'stage: router · extractor · retrieval · order_lookup · ticket_confirm · reply · answer. reply_source: llm · template · guardrail_fallback · clarify · error_template. Known error.type values: llm_429_minute · llm_rate_limited · llm_429_daily · llm_unavailable · llm_request_error · llm_invalid_output · llm_cache_miss_offline · budget_cap_reached · filter_out_of_vocab · qdrant_unreachable · saleor_timeout · saleor_error · readonly_violation · request_interrupted · answer_guardrail_fallback · agent_step_cap_reached · ticket_write_failed · internal_error. Unknown types are still shown, grouped as errors.'
+  },
+  /* one sentence for each error type the tracer can write: what it is (short, shown in the journey) and what to do (fix, shown on the Errors tab) */
+  err: {
+    llm_429_minute: {label: 'Gemini 429 (per minute)', short: 'Gemini hit its per-minute limit; ShopMate waited and the retry succeeded.', fix: 'Nothing to do unless it keeps growing; then lower the client-side limit below 12 requests per minute.'},
+    llm_429_daily: {label: 'Gemini daily quota exhausted', short: 'Gemini has no quota left today, so no more calls can be made until the reset.', fix: 'Stop calling until the reset at 14:00 Vietnam time, and do not retry.'},
+    llm_invalid_output: {label: 'Invalid LLM output', short: 'The LLM returned something unusable, so the request stopped instead of guessing a label.', fix: 'Read the raw response in eval/llm_cache to see what the model returned.'},
+    filter_out_of_vocab: {label: 'Value outside the vocabulary', short: 'The LLM extracted a value outside the catalog vocabulary; that field was dropped and the search went on.', fix: 'If it keeps happening, add the missing value to the catalog vocabulary.'},
+    qdrant_unreachable: {label: 'Qdrant unreachable', short: 'Qdrant could not be reached, so no products or policies could be searched.', fix: 'Restart the container with docker compose up -d qdrant, then run the integration tests.'},
+    saleor_timeout: {label: 'Saleor timed out', short: 'Saleor did not answer in time, so the order could not be looked up.', fix: 'Check the API on port 8000 with check_saleor --wait 60.'},
+    readonly_violation: {label: 'Mutation blocked', short: 'The read-only client blocked a write operation before it was sent.', fix: 'Open the trace to find where the write came from; it should never happen in normal use.'},
+    llm_rate_limited: {label: 'Gemini 429 · retries exhausted', short: 'Gemini was still rate limiting after every retry had been used.', fix: 'Lower the client-side limit or space the requests further apart.'},
+    llm_unavailable: {label: 'Gemini 5xx or network down', short: 'Gemini returned a 5xx error or was unreachable, and the retries did not help.', fix: 'Check the network and the Google AI status page.'},
+    llm_request_error: {label: 'Gemini rejected the request (4xx)', short: 'Gemini rejected the request with a 4xx error, and retrying will not help.', fix: 'The request format or schema is wrong; read the message and fix the code.'},
+    llm_cache_miss_offline: {label: 'Cache miss while offline', short: 'Offline mode has no cached answer for this input, so the LLM was not called.', fix: 'Run again with --live to fill the cache, or check whether the prompt hash changed.'},
+    budget_cap_reached: {label: 'Self-imposed budget cap reached', short: 'ShopMate hit its own cap on LLM calls, so the request was not sent.', fix: 'The cap of 450 calls per day or 300 per run is full; wait for the next quota day.'},
+    saleor_error: {label: 'Saleor returned an error', short: 'Saleor returned an error other than a timeout, so the order could not be looked up.', fix: 'It is an HTTP or GraphQL error; read the message, it is usually a token permission or a bad query.'},
+    request_interrupted: {label: 'Request interrupted midway', short: 'The process was interrupted (Ctrl+C or exit) while the request was running.', fix: 'Read the message to see whether it was KeyboardInterrupt or SystemExit, and find out who stopped the process if nobody meant to.'},
+    answer_guardrail_fallback: {label: 'Answer replaced by a template', short: 'The guardrail rejected the AI-written answer and sent a fallback built from the data.', fix: 'Read the message to see which rule was violated (price, stock, order status, clause or personal data).'},
+    agent_step_cap_reached: {label: 'Agent step cap reached', short: 'One turn went over the maximum number of steps and was stopped with a safe reply.', fix: 'The longest valid path is 7 steps, so this points to a loop or a bug in the graph.'},
+    ticket_write_failed: {label: 'Ticket write failed', short: 'The customer agreed, but the ticket could not be written; staff must handle it.', fix: 'Check write permission and disk space for data/tickets/tickets.jsonl, then create the ticket by hand.'},
+    internal_error: {label: 'Internal code error', short: 'A code error that fits no other type; find the stack trace by trace id.', fix: 'Look for the stack trace in stderr using the trace id.'}
+  }
+};
+const S = STRINGS;
+/* how serious each error type is: warn (the request still worked), error (it did not) or security */
+const ERR_SEV = {
+  llm_429_minute: 'warn', llm_429_daily: 'error', llm_invalid_output: 'error', filter_out_of_vocab: 'warn', qdrant_unreachable: 'error', saleor_timeout: 'error',
+  readonly_violation: 'security', llm_rate_limited: 'error', llm_unavailable: 'error', llm_request_error: 'error', llm_cache_miss_offline: 'error', budget_cap_reached: 'error',
+  saleor_error: 'error', request_interrupted: 'error', answer_guardrail_fallback: 'warn', agent_step_cap_reached: 'error', ticket_write_failed: 'error', internal_error: 'error'
+};
+
+/* ---------- number and time formats: English locale, the shop's own clock ---------- */
+const LOCALE = 'en-GB', TZ = 'Asia/Ho_Chi_Minh';
 const num = v => { const n = +v; return isFinite(n) ? n : 0; };
-const dec = (v, d) => v.toFixed(d).replace('.', ',');
-const fInt = n => Math.round(n).toLocaleString('vi-VN');
+const dec = (v, d) => v.toFixed(d);
+const fInt = n => Math.round(n).toLocaleString('en-US');
 const fMs = ms => ms == null ? '—' : (ms >= 1000 ? dec(ms / 1000, 2) + ' s' : Math.round(ms) + ' ms');
-const fVnd = n => fInt(n) + 'đ';
+const fVnd = n => fInt(n) + ' ₫';
 const fUsd = (v, d) => '$' + dec(v, d == null ? 4 : d);
 const fTok = n => n >= 1e6 ? dec(n / 1e6, 2) + 'M' : n >= 1e3 ? dec(n / 1e3, 1) + 'k' : String(Math.round(n));
 const fScore = n => dec(num(n), 3);
-const TZ = 'Asia/Ho_Chi_Minh';
-const fTime = t => new Date(t).toLocaleTimeString('vi-VN', {timeZone: TZ, hour: '2-digit', minute: '2-digit'});
-const fTimeS = t => new Date(t).toLocaleTimeString('vi-VN', {timeZone: TZ, hour: '2-digit', minute: '2-digit', second: '2-digit'});
-const fFull = t => new Date(t).toLocaleString('vi-VN', {timeZone: TZ, hour: '2-digit', minute: '2-digit', second: '2-digit', day: '2-digit', month: '2-digit'});
+const fTime = t => new Date(t).toLocaleTimeString(LOCALE, {timeZone: TZ, hour: '2-digit', minute: '2-digit'});
+const fTimeS = t => new Date(t).toLocaleTimeString(LOCALE, {timeZone: TZ, hour: '2-digit', minute: '2-digit', second: '2-digit'});
+const fFull = t => new Date(t).toLocaleString(LOCALE, {timeZone: TZ, hour: '2-digit', minute: '2-digit', second: '2-digit', day: '2-digit', month: '2-digit'});
 const isObj = v => v !== null && typeof v === 'object' && !Array.isArray(v);
 const str = (v, n) => String(v == null ? '' : v).slice(0, n || 300);
+const fmt = (tpl, vars) => String(tpl).replace(/\{(\w+)\}/g, (m, k) => vars && vars[k] != null ? vars[k] : m);
+const plural = (n, unit) => fInt(n) + ' ' + S.unit[unit][n === 1 ? 0 : 1];
+const joinList = a => a.length === 0 ? '' : a.length === 1 ? a[0] : a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1];
 function pct(arr, p){ if (!arr.length) return null; const a = arr.slice().sort((x, y) => x - y); const i = (a.length - 1) * p; const lo = Math.floor(i), hi = Math.ceil(i); return a[lo] + (a[hi] - a[lo]) * (i - lo); }
 
+/* ---------- the tables the code works with (text from STRINGS, the rest is logic) ---------- */
 const LLM = new Set(['router', 'extractor', 'answer']);
-const STAGE = {
-  router:         {label: 'Phân loại ý định', kind: 'llm'},
-  extractor:      {label: 'Trích bộ lọc', kind: 'llm'},
-  retrieval:      {label: 'Tìm kiếm', kind: 'ret'},
-  order_lookup:   {label: 'Tra cứu đơn', kind: 'tool'},
-  ticket_confirm: {label: 'Xác nhận tạo ticket', kind: 'tool'},
-  reply:          {label: 'Câu trả lời mẫu', kind: 'tool'},
-  answer:         {label: 'Viết câu trả lời', kind: 'llm'}
-};
-const GUARDRAIL = {label: 'Kiểm tra guardrail', kind: 'tool'};
+const STAGE_KIND = {router: 'llm', extractor: 'llm', retrieval: 'ret', order_lookup: 'tool', ticket_confirm: 'tool', reply: 'tool', answer: 'llm'};
+const STAGE = Object.fromEntries(Object.keys(STAGE_KIND).map(k => [k, {label: S.stage[k], kind: STAGE_KIND[k]}]));
+const GUARDRAIL = {label: S.stage.guardrail, kind: 'tool'};
 const KIND_COLOR = {llm: 'var(--accent)', ret: 'var(--violet)', tool: 'var(--ok)'};
-const INTENT = {product_search: 'Tìm sản phẩm', policy_question: 'Chính sách', order_status: 'Tra đơn', create_ticket: 'Tạo ticket', out_of_scope: 'Ngoài phạm vi', smalltalk: 'Chào hỏi', unknown: 'Chưa xác định'};
+const INTENT = S.intent;
 const INTENT_ORDER = ['product_search', 'policy_question', 'order_status', 'create_ticket', 'smalltalk', 'out_of_scope', 'unknown'];
-const OUTCOME = {ok: 'Thành công', warn: 'Cảnh báo', fallback: 'Dự phòng', error: 'Lỗi'};
+const OUTCOME = S.outcome;
 const OUTCOME_ORDER = ['ok', 'warn', 'fallback', 'error'];
 const OUTCOME_COLOR = {ok: 'var(--ok)', warn: 'var(--warn)', fallback: 'var(--warn)', error: 'var(--err)'};
-const SOURCE = {
-  llm: 'Câu trả lời do AI viết, đã qua guardrail',
-  template: 'Câu trả lời mẫu (không do AI viết)',
-  guardrail_fallback: 'Câu trả lời dự phòng của guardrail',
-  clarify: 'Câu hỏi làm rõ gửi khách',
-  error_template: 'Thông báo lỗi gửi khách'
-};
-const TEMPLATE = {
-  smalltalk: 'chào hỏi', out_of_scope: 'từ chối ngoài phạm vi', technical_problem: 'báo lỗi kỹ thuật', step_cap: 'quá số bước cho phép',
-  ask_product_type: 'hỏi loại sản phẩm', ask_number_and_email: 'xin số đơn và email', ask_order_number: 'xin số đơn', ask_email: 'xin email đặt hàng',
-  ask_email_for_phone: 'xin email thay số điện thoại', ask_contact_email: 'xin email liên hệ', handoff: 'chuyển nhân viên',
-  refuse_verification: 'từ chối: thông tin không khớp', refuse_verification_locked: 'từ chối: tạm khóa tra đơn', lookup_disabled: 'tra đơn đang tạm khóa',
-  no_results: 'không có kết quả', no_results_relaxed: 'không có kết quả kể cả khi nới lỏng', no_policy_info: 'chưa có thông tin chính sách',
-  ticket_cancelled: 'khách từ chối tạo phiếu', ticket_not_confirmed: 'chưa được xác nhận nên không tạo phiếu', ticket_failed: 'tạo phiếu thất bại',
-  ticket_created: 'đã tạo phiếu hỗ trợ', offer_invite: 'hỏi khách có muốn bỏ bớt điều kiện để xem hàng gần đúng không', offer_declined: 'khách từ chối lời mời: giữ nguyên yêu cầu'
-};
-const RULE = {
-  price_mismatch: 'Sai giá', price_not_in_evidence: 'Giá không có trong dữ liệu', unknown_sku: 'SKU lạ', no_sku_cited: 'Không nêu SKU', stock_mismatch: 'Sai tồn kho',
-  unknown_clause: 'Điều khoản lạ', no_clause_cited: 'Không dẫn điều khoản', order_status_mismatch: 'Sai trạng thái đơn', order_number_mismatch: 'Sai số đơn',
-  email: 'Lộ email', phone: 'Lộ số điện thoại', address: 'Lộ địa chỉ', prompt_leak: 'Lộ prompt', empty: 'Câu trả lời rỗng', unusable: 'Không dùng được', kind: 'Loại lạ'
-};
-const OFFER_LABEL = {size: 'kích cỡ', color: 'màu sắc', material: 'chất liệu', price: 'mức giá'};
-const joinVi = a => a.length === 0 ? '' : a.length === 1 ? a[0] : a.slice(0, -1).join(', ') + ' và ' + a[a.length - 1];
-const offerNames = a => joinVi((Array.isArray(a) ? a : []).map(n => OFFER_LABEL[n] || str(n, 20)));
-const FIELD_LABEL = {category: 'nhóm', kind: 'loại', color: 'màu', material: 'chất liệu', size: 'kích cỡ', price_min: 'giá tối thiểu', price_max: 'giá tối đa', in_stock: 'còn hàng'};
-const COLOR_SWATCH = {'Đen': '#1d1d1f', 'Trắng': '#f1f1f1', 'Be': '#d8c3a0', 'Xanh rêu': '#6b7d4b', 'Nâu': '#8a5a3c', 'Đỏ': '#d9434e', 'Xanh': '#3d7fd6', 'Xanh đậm': '#1f3f78',
-  'Kem': '#efe3c6', 'Vàng': '#e8c340', 'Hồng': '#ef9bb5', 'Xám': '#8a8f98'};
+const SOURCE = S.source;
+const TEMPLATE = S.template;
+const RULE = S.rule;
+const OFFER_LABEL = S.offer;
+const offerNames = a => joinList((Array.isArray(a) ? a : []).map(n => OFFER_LABEL[n] || str(n, 20)));
+const FIELD_LABEL = S.field;
 /* stages a request of each intent normally goes through after the router; used to dim what did not run after an error */
 const EXPECTED = {
   product_search: ['extractor', 'retrieval', 'answer', 'guardrail'], policy_question: ['retrieval', 'answer', 'guardrail'],
   order_status: ['order_lookup', 'answer', 'guardrail'], create_ticket: ['ticket_confirm'], smalltalk: ['reply'], out_of_scope: ['reply']
 };
-
-const ERR = {
-  llm_429_minute:     {label: 'Gemini 429 theo phút', sev: 'warn', short: 'Gemini báo quá giới hạn theo phút; ShopMate đã chờ và thử lại thành công.', fix: 'Đã chờ rồi thử lại thành công. Nếu tăng dần, hạ giới hạn phía client xuống dưới 12 request mỗi phút.'},
-  llm_429_daily:      {label: 'Gemini hết quota ngày', sev: 'error', short: 'Gemini đã hết quota trong ngày, chưa gọi được nữa đến lúc reset.', fix: 'Ngừng gọi đến khi reset lúc 14:00 giờ Việt Nam. Không thử lại.'},
-  llm_invalid_output: {label: 'Đầu ra LLM không hợp lệ', sev: 'error', short: 'LLM trả về nội dung không dùng được nên request dừng, không đoán nhãn.', fix: 'Request bị dừng, không đoán nhãn. Xem phản hồi thô trong eval/llm_cache.'},
-  filter_out_of_vocab:{label: 'Giá trị ngoài từ vựng', sev: 'warn', short: 'LLM trích giá trị ngoài từ vựng catalog; trường đó bị bỏ và vẫn tìm tiếp.', fix: 'Trường đó bị đặt null và vẫn tìm tiếp. Lặp lại nhiều thì bổ sung từ vựng catalog.'},
-  qdrant_unreachable: {label: 'Qdrant không phản hồi', sev: 'error', short: 'Không kết nối được Qdrant nên chưa tìm được sản phẩm hay chính sách.', fix: 'Bật lại container: docker compose up -d qdrant, rồi chạy test integration.'},
-  saleor_timeout:     {label: 'Saleor quá thời gian', sev: 'error', short: 'Saleor không trả lời kịp nên chưa tra được đơn hàng.', fix: 'Kiểm tra API cổng 8000 bằng check_saleor --wait 60.'},
-  readonly_violation: {label: 'Đã chặn mutation', sev: 'security', short: 'Client chỉ đọc đã chặn một thao tác ghi trước khi gửi đi.', fix: 'Client chỉ đọc chặn một thao tác ghi trước khi rời tiến trình. Mở trace để tìm nơi phát sinh.'},
-  llm_rate_limited:   {label: 'Gemini 429 · hết lượt thử lại', sev: 'error', short: 'Gemini vẫn giới hạn tốc độ sau khi đã thử lại hết lượt.', fix: 'Thử lại hết lượt mà vẫn bị giới hạn tốc độ. Hạ giới hạn phía client hoặc giãn thời gian giữa các request.'},
-  llm_unavailable:    {label: 'Gemini lỗi 5xx hoặc mất mạng', sev: 'error', short: 'Gemini lỗi 5xx hoặc mất mạng, đã thử lại mà vẫn không được.', fix: 'Đã thử lại hết lượt mà vẫn lỗi. Kiểm tra mạng và trang trạng thái của Google AI.'},
-  llm_request_error:  {label: 'Gemini từ chối request (4xx)', sev: 'error', short: 'Gemini từ chối request (lỗi 4xx), thử lại cũng không giúp được.', fix: 'Request sai định dạng hoặc schema. Thử lại không giúp được; xem message và sửa code.'},
-  llm_cache_miss_offline: {label: 'Thiếu cache khi chạy offline', sev: 'error', short: 'Chế độ offline không có cache cho câu này nên không gọi LLM.', fix: 'Chạy lại với --live để tạo cache, hoặc kiểm tra hash prompt có bị đổi không.'},
-  budget_cap_reached: {label: 'Chạm trần ngân sách tự đặt', sev: 'error', short: 'Chạm trần số lời gọi LLM do ShopMate tự đặt nên request không được gửi.', fix: 'Trần 450 lời gọi mỗi ngày hoặc 300 mỗi lần chạy đã đầy. Chờ sang ngày quota mới.'},
-  saleor_error:       {label: 'Saleor trả lỗi', sev: 'error', short: 'Saleor trả lỗi (không phải timeout) nên chưa tra được đơn hàng.', fix: 'Lỗi HTTP hoặc GraphQL không phải timeout. Đọc message; thường là quyền token hoặc truy vấn sai.'},
-  request_interrupted:{label: 'Request bị ngắt giữa chừng', sev: 'error', short: 'Tiến trình bị ngắt (Ctrl+C hoặc thoát) khi request đang chạy.', fix: 'Tiến trình bị dừng (Ctrl+C hoặc thoát) khi request đang chạy nên request không hoàn tất. Xem message để biết là KeyboardInterrupt hay SystemExit; nếu không ai chủ ý dừng thì kiểm tra nơi tắt tiến trình.'},
-  answer_guardrail_fallback: {label: 'Câu trả lời bị thay bằng mẫu', sev: 'warn', short: 'Guardrail loại câu AI viết và gửi câu dự phòng dựng từ dữ liệu.', fix: 'Văn bản do LLM sinh ra vi phạm guardrail (giá, tồn kho, trạng thái đơn, điều khoản hoặc dữ liệu cá nhân không có trong kết quả tool) nên đã được thay bằng mẫu cố định. Xem message để biết quy tắc nào bị vi phạm.'},
-  agent_step_cap_reached: {label: 'Chạm trần số bước của agent', sev: 'error', short: 'Một lượt hội thoại vượt số bước tối đa nên bị dừng bằng câu trả lời an toàn.', fix: 'Một lượt hội thoại vượt số bước tối đa nên bị dừng bằng câu trả lời an toàn. Đường hợp lệ dài nhất là 7 bước, nên đây là dấu hiệu của vòng lặp hoặc lỗi trong đồ thị.'},
-  ticket_write_failed: {label: 'Ghi ticket thất bại', sev: 'error', short: 'Khách đã đồng ý nhưng không ghi được phiếu; cần nhân viên xử lý.', fix: 'Khách đã xác nhận nhưng không ghi được data/tickets/tickets.jsonl nên chưa có ticket; cần nhân viên xử lý thủ công. Kiểm tra quyền ghi và dung lượng đĩa.'},
-  internal_error:     {label: 'Lỗi code nội bộ', sev: 'error', short: 'Lỗi code không thuộc loại nào khác; tìm stack trace theo trace id.', fix: 'Ngoại lệ không thuộc loại nào ở trên. Tìm stack trace trong stderr theo trace id.'}
-};
+const ERR = Object.fromEntries(Object.keys(ERR_SEV).map(k => [k, Object.assign({sev: ERR_SEV[k]}, S.err[k])]));
 const SEV_COLOR = {warn: 'var(--warn)', error: 'var(--err)', security: 'var(--sec)'};
-const errMeta = t => ERR[t] || {label: t, sev: 'error', short: 'Loại lỗi chưa có trong danh mục.', fix: 'Loại lỗi chưa có trong danh mục.'};
+const errMeta = t => ERR[t] || {label: t, sev: 'error', short: S.errors.unknown, fix: S.errors.unknown};
 
 /* ---------- reading a trace line (v1 and v2) ---------- */
 function normalize(r){
@@ -562,7 +684,7 @@ function normalize(r){
 function parseFile(text){
   text = text.replace(/^﻿/, '').trim();
   let recs = [], bad = 0;
-  if (text.startsWith('[')){ recs = JSON.parse(text); if (!Array.isArray(recs)) throw new Error('File JSON phải là một mảng trace.'); }
+  if (text.startsWith('[')){ recs = JSON.parse(text); if (!Array.isArray(recs)) throw new Error(S.banner.notArray); }
   else { for (const line of text.split(/\r?\n/)){ if (!line.trim()) continue; try { recs.push(JSON.parse(line)); } catch (e) { bad++; } } }
   const out = [];
   for (const r of recs){ if (isObj(r) && typeof r.trace_id === 'string' && r.ts && !isNaN(Date.parse(r.ts)) && Array.isArray(r.spans)) out.push(normalize(r)); else bad++; }
@@ -597,6 +719,12 @@ function replaySchedule(weights, target){
 }
 
 /* ---------- sample data: deterministic for a given `now` ---------- */
+/* @vi-data begin: sample trace data. Customer messages, product names, filter values and replies are Vietnamese, as in a real trace; nothing here is interface text */
+const COLOR_SWATCH = {'Đen': '#1d1d1f', 'Trắng': '#f1f1f1', 'Be': '#d8c3a0', 'Xanh rêu': '#6b7d4b', 'Nâu': '#8a5a3c', 'Đỏ': '#d9434e', 'Xanh': '#3d7fd6', 'Xanh đậm': '#1f3f78',
+  'Kem': '#efe3c6', 'Vàng': '#e8c340', 'Hồng': '#ef9bb5', 'Xám': '#8a8f98'};
+const viMoney = n => Math.round(n).toLocaleString('vi-VN') + 'đ';  // how the agent writes a price in a reply
+const VI_OFFER = {size: 'kích cỡ', color: 'màu sắc', material: 'chất liệu', price: 'mức giá'};
+const joinVi = a => a.length === 0 ? '' : a.length === 1 ? a[0] : a.slice(0, -1).join(', ') + ' và ' + a[a.length - 1];
 function mulberry32(a){ return function(){ a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
 const CATALOG = [
   {sku: 'SM-NAM-0001', name: 'Áo khoác dù nam xanh rêu', kind: 'Áo khoác nam', color: 'Xanh rêu', material: 'Dù', price: 459000, stock: true, sizes: ['M', 'L']},
@@ -690,7 +818,7 @@ function makeSample(now){
       const s = T.add(stage, cache ? 2 + rnd() * 3 : logn(p50, p95), {model: MODEL, tokens_in: tin, tokens_out: tout, cache_hit: cache, summary});
       if (!cache && chance(.03)){
         const extra = Math.round(2000 + rnd() * 4000); s.duration_ms += extra; off += extra;
-        s.error = {type: 'llm_429_minute', message: '429 theo phút, chờ ' + dec(extra / 1000, 1) + ' s rồi thử lại thành công'};
+        s.error = {type: 'llm_429_minute', message: '429 per-minute limit: waited ' + dec(extra / 1000, 1) + ' s, then the retry succeeded'};
       }
       return s;
     };
@@ -720,13 +848,13 @@ function makeSample(now){
   }
   const productList = hits => hits.map(p => ({id: 'product:' + p.sku, kind: 'product', title: p.name}));
   const policyList = keys => keys.map(k => ({id: 'policy:' + k, kind: 'policy', title: POLICY[k].title}));
-  const bullets = hits => hits.slice(0, 3).map(p => '- ' + p.name + ' (' + p.sku + '): ' + fVnd(p.price) + ', ' + (p.stock ? 'còn hàng' : 'hết hàng') + ', kích cỡ ' + p.sizes.join(', ')).join('\n');
+  const bullets = hits => hits.slice(0, 3).map(p => '- ' + p.name + ' (' + p.sku + '): ' + viMoney(p.price) + ', ' + (p.stock ? 'còn hàng' : 'hết hàng') + ', kích cỡ ' + p.sizes.join(', ')).join('\n');
   const TECH = 'Xin lỗi, mình đang gặp trục trặc kỹ thuật nên chưa xử lý được tin nhắn này. Bạn thử gửi lại giúp mình nhé.';
   const NO_FULL = 'Mình không tìm thấy sản phẩm nào khớp tất cả yêu cầu của bạn.';
   /* the offer after an empty search (app/agent/relax.py plan_offer and templates.offer_invite, in JavaScript): the sample must tell the same story as the agent */
   const OFFER_NAMES = ['size', 'color', 'material', 'price'], keysOf = n => n === 'price' ? ['price_min', 'price_max'] : [n];
   const phrase = (n, v) => n === 'size' ? 'kích cỡ ' + v.size : n === 'color' ? 'màu ' + String(v.color).toLowerCase() : n === 'material' ? 'chất liệu ' + String(v.material).toLowerCase()
-    : (v.price_min != null && v.price_max != null ? 'mức giá từ ' + fVnd(v.price_min) + ' đến ' + fVnd(v.price_max) : v.price_max != null ? 'mức giá tối đa ' + fVnd(v.price_max) : 'mức giá từ ' + fVnd(v.price_min));
+    : (v.price_min != null && v.price_max != null ? 'mức giá từ ' + viMoney(v.price_min) + ' đến ' + viMoney(v.price_max) : v.price_max != null ? 'mức giá tối đa ' + viMoney(v.price_max) : 'mức giá từ ' + viMoney(v.price_min));
   function samplePlan(f){  // each constraint alone first, then the first 2, 3, ... together: at most 7 counts, like plan_offer
     const present = OFFER_NAMES.filter(n => keysOf(n).some(k => f[k] != null)), probes = [];
     const attempt = names => {
@@ -766,7 +894,7 @@ function makeSample(now){
     let hits = sampleSearch(f), used = f, relaxed = null;
     const incident = t >= incStart && t <= incEnd;
     if (incident){
-      const failure = failIn(T, 'retrieval', 'qdrant_unreachable', 'Connection refused 127.0.0.1:6333 sau 3 s', 3000, {model: EMBED});
+      const failure = failIn(T, 'retrieval', 'qdrant_unreachable', 'Connection refused 127.0.0.1:6333 after 3 s', 3000, {model: EMBED});
       return T.finish(question, 'product_search', TECH, 'error_template', failure);
     }
     hits.k = 5; T.retrieval(productList(hits));
@@ -788,7 +916,7 @@ function makeSample(now){
         const hits2 = sampleSearch(plan.filters), r2 = T2.retrieval(productList(hits2)); r2.summary.offer_drops = plan.dropped;
         const text2 = 'Mình tìm được ' + hits2.length + ' sản phẩm:\n' + bullets(hits2);
         T2.answer(text2);
-        return T2.finish(pick(['có', 'ok shop', 'vâng']), 'product_search', 'Không khớp hoàn toàn: khác ' + joinVi(plan.dropped.map(n => OFFER_LABEL[n])) + '.\n' + text2, 'llm');
+        return T2.finish(pick(['có', 'ok shop', 'vâng']), 'product_search', 'Không khớp hoàn toàn: khác ' + joinVi(plan.dropped.map(n => VI_OFFER[n])) + '.\n' + text2, 'llm');
       }
       T2.reply('offer_declined');  // no: a bare refusal gets a fixed reply, no router, no search (D7.33)
       return T2.finish(pick(['không', 'thôi khỏi', 'không cần đâu']), 'product_search', 'Dạ, mình giữ nguyên yêu cầu ban đầu của bạn nên chưa có sản phẩm nào để gợi ý. Khi muốn tìm món khác hoặc mô tả lại, bạn cứ nhắn mình nhé.', 'template');
@@ -812,7 +940,7 @@ function makeSample(now){
     const T = newTurn(session, 1, ts);
     T.router('policy_question');
     if (ts >= incStart && ts <= incEnd){
-      const failure = failIn(T, 'retrieval', 'qdrant_unreachable', 'Connection refused 127.0.0.1:6333 sau 3 s', 3000, {model: EMBED});
+      const failure = failIn(T, 'retrieval', 'qdrant_unreachable', 'Connection refused 127.0.0.1:6333 after 3 s', 3000, {model: EMBED});
       return T.finish(spec.q, 'policy_question', TECH, 'error_template', failure);
     }
     const hits = policyList(spec.hits); hits.k = 3; T.retrieval(hits);
@@ -838,7 +966,7 @@ function makeSample(now){
       const T = newTurn(session, n++, t);
       T.router('order_status');
       if (chance(.05)){
-        const failure = failIn(T, 'order_lookup', 'saleor_timeout', 'Saleor GraphQL quá 5 s', 5000, {summary: {verified: false, found: false, attempts: 1}});
+        const failure = failIn(T, 'order_lookup', 'saleor_timeout', 'Saleor GraphQL timed out after 5 s', 5000, {summary: {verified: false, found: false, attempts: 1}});
         return T.finish('đơn #' + number + ' của mình tới đâu rồi, email [email]', 'order_status', TECH, 'error_template', failure);
       }
       lookup(T, 1, verified, verified || chance(.5));
@@ -852,7 +980,7 @@ function makeSample(now){
     t += gap();
     const T2 = newTurn(session, n++, t);
     if (chance(.05)){
-      const failure = failIn(T2, 'order_lookup', 'saleor_timeout', 'Saleor GraphQL quá 5 s', 5000, {summary: {verified: false, found: false, attempts: 1}});
+      const failure = failIn(T2, 'order_lookup', 'saleor_timeout', 'Saleor GraphQL timed out after 5 s', 5000, {summary: {verified: false, found: false, attempts: 1}});
       return T2.finish('[email]', 'order_status', TECH, 'error_template', failure);
     }
     lookup(T2, 1, verified, verified || chance(.5));
@@ -899,12 +1027,12 @@ function makeSample(now){
       T.reply('technical_problem');
       return T.finish(q, null, TECH, 'error_template', {type: 'llm_invalid_output', message: 'the intent "refund" is not one of the six'});
     }
-    const s = T.add('router', 240, {model: MODEL}); s.error = {type: 'llm_429_daily', message: 'DailyLimitExhausted: 429 RESOURCE_EXHAUSTED, quota của ngày đã hết'};
+    const s = T.add('router', 240, {model: MODEL}); s.error = {type: 'llm_429_daily', message: 'DailyLimitExhausted: 429 RESOURCE_EXHAUSTED, the daily quota is exhausted'};
     T.finish(q, null, TECH, 'error_template', s.error);
   }
   function security(ts, session){
     const T = newTurn(session, 1, ts); T.router('order_status');
-    const failure = failIn(T, 'order_lookup', 'readonly_violation', 'Từ chối operation orderCancel: không có trong allowlist, chặn trước khi gửi', 4);
+    const failure = failIn(T, 'order_lookup', 'readonly_violation', 'operation orderCancel is not in the read-only allowlist: blocked before it was sent', 4);
     T.finish('hủy đơn #90 giúp mình', 'order_status', TECH, 'error_template', failure);
   }
 
@@ -954,10 +1082,11 @@ function makeSample(now){
   }
   return records;
 }
+/* @vi-data end */
 
 /* tests under Node: expose the pure part and stop before touching the DOM */
 if (typeof window !== 'undefined' && window.__SHOPMATE_TEST__){
-  window.__shopmate = {normalize, parseFile, outcomeOf, flowGraph, replaySchedule, makeSample, ERR, STAGE, INTENT, SOURCE, TEMPLATE, RULE, intentOf, sampleSearch, CATALOG};
+  window.__shopmate = {normalize, parseFile, outcomeOf, flowGraph, replaySchedule, makeSample, ERR, ERR_SEV, STAGE, STAGE_KIND, INTENT, SOURCE, TEMPLATE, RULE, STRINGS, intentOf, sampleSearch, CATALOG, fmt, plural, fVnd, fInt};
   return;
 }
 
@@ -987,6 +1116,30 @@ function sv(tag, attrs){
   if (attrs) for (const k of Object.keys(attrs)){ const v = attrs[k]; if (v == null || v === false) continue; if (k.startsWith('on')) el.addEventListener(k.slice(2), v); else el.setAttribute(k, String(v)); }
   put(el, Array.prototype.slice.call(arguments, 2));
   return el;
+}
+/* a STRINGS text as nodes: `code` -> monospace span, **bold** -> <b> */
+function rich(text){
+  const out = [];
+  String(text).split(/(`[^`]+`|\*\*[^*]+\*\*)/).forEach(part => {
+    if (!part) return;
+    if (part[0] === '`') out.push(h('span', {class: 'mono'}, part.slice(1, -1)));
+    else if (part.startsWith('**')) out.push(h('b', {}, part.slice(2, -2)));
+    else out.push(part);
+  });
+  return out;
+}
+const lookup = path => path.split('.').reduce((o, k) => o == null ? o : o[k], STRINGS);
+/* the markup carries no text of its own: data-s="path" fills the element, data-s-<attribute>="path" fills an attribute; a wrong path shows up as ⟦path⟧ */
+function applyStrings(){
+  for (const el of $$('[data-s]')){ const v = lookup(el.dataset.s); el.replaceChildren(...rich(typeof v === 'string' ? v : '⟦' + el.dataset.s + '⟧')); }
+  for (const attr of ['aria-label', 'placeholder', 'title']) for (const el of $$('[data-s-' + attr + ']')){
+    const path = el.getAttribute('data-s-' + attr), v = lookup(path);
+    el.setAttribute(attr, typeof v === 'string' ? v : '⟦' + path + '⟧');
+  }
+  document.title = S.app.title;
+  $('#evalRows').replaceChildren(...S.eval.rows.map(r => h('div', {class: 'ev'}, h('span', {class: 'k'}, r.k),
+    h('span', {class: 'v'}, rich(r.v), r.hint ? [' ', h('span', {class: 'hint'}, r.hint)] : null), h('span', {class: 'n'}, r.n))));
+  $('#pins').replaceChildren(...S.eval.pins.map(p => h('span', {}, p[0] + ' ', h('b', {}, p[1]), p[2] ? ' ' + p[2] : '')));
 }
 const reduceMotion = () => !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
 const narrow = () => !!(window.matchMedia && matchMedia('(max-width: 759px)').matches);
@@ -1032,25 +1185,18 @@ function compute(){
 
 /* ---------- banner, tabs ---------- */
 function renderBanner(){
-  const T = state.traces, b = $('#banner');
-  $('#windowLabel').textContent = T.length ? fFull(T[0].t) + ' → ' + fFull(T[T.length - 1].t) : 'chưa có dữ liệu';
+  const T = state.traces, b = $('#banner'), B = S.banner, requests = plural(T.length, 'request');
+  const head = (mode, title, body, meta) => { b.dataset.mode = mode; $('#bannerHead').textContent = title; $('#bannerBody').textContent = body; $('#bannerMeta').textContent = meta; };
+  $('#windowLabel').textContent = T.length ? fFull(T[0].t) + ' → ' + fFull(T[T.length - 1].t) + ' · ' + S.app.timezone : S.app.noData;
   if (state.mode === 'sample'){
-    b.dataset.mode = 'sample';
-    $('#bannerHead').textContent = 'DỮ LIỆU MẪU.';
-    $('#bannerBody').textContent = 'ShopMate chưa có traffic thật. Các request dưới đây được sinh tất định, phân phối độ trễ lấy theo số đo eval giai đoạn 5. Tab Đánh giá là số đo thật.';
-    $('#bannerMeta').textContent = fInt(T.length) + ' request mẫu';
+    head('sample', B.sampleHead, B.sampleBody, fmt(B.sampleMeta, {requests}));
     $('#resetSample').hidden = true;
   } else if (state.mode === 'live'){
-    b.dataset.mode = state.liveErr ? 'lost' : 'live';
-    $('#bannerHead').textContent = state.liveErr ? 'MẤT KẾT NỐI.' : 'TRỰC TIẾP.';
-    $('#bannerBody').textContent = state.liveErr ? 'Không đọc được api/traces (' + state.liveErr + '). Đang giữ số liệu lần trước, tự thử lại sau 5 giây.' : 'Đọc logs/traces.jsonl qua ShopMate, làm mới mỗi 5 giây.';
-    $('#bannerMeta').textContent = fInt(T.length) + ' request · cập nhật ' + (state.lastLive ? new Date(state.lastLive).toLocaleTimeString('vi-VN', {timeZone: TZ}) : '—');
+    head(state.liveErr ? 'lost' : 'live', state.liveErr ? B.lostHead : B.liveHead, state.liveErr ? fmt(B.lostBody, {reason: state.liveErr}) : B.liveBody,
+      fmt(B.liveMeta, {requests, time: state.lastLive ? new Date(state.lastLive).toLocaleTimeString(LOCALE, {timeZone: TZ}) : '—'}));
     $('#resetSample').hidden = true;
   } else {
-    b.dataset.mode = 'file';
-    $('#bannerHead').textContent = 'ĐANG XEM FILE.';
-    $('#bannerBody').textContent = state.fileName + ' · tính toàn bộ trong trình duyệt.';
-    $('#bannerMeta').textContent = fInt(T.length) + ' request' + (state.bad ? ' · bỏ qua ' + fInt(state.bad) + ' dòng không hợp lệ' : '');
+    head('file', B.fileHead, fmt(B.fileBody, {name: state.fileName}), state.bad ? fmt(B.fileMetaBad, {requests, skipped: plural(state.bad, 'invalidLine')}) : fmt(B.fileMeta, {requests}));
     $('#resetSample').hidden = false;
   }
 }
@@ -1082,16 +1228,16 @@ function goFlow(filter){
   const j = $('#journey'); if (narrow() && j) j.scrollIntoView({behavior: reduceMotion() ? 'auto' : 'smooth', block: 'start'});
 }
 
-/* ---------- tab: Tổng quan ---------- */
+/* ---------- tab: Overview ---------- */
 function renderKpis(m){
-  const errRate = m.n ? m.err / m.n * 100 : 0;
+  const O = S.overview, errRate = m.n ? m.err / m.n * 100 : 0;
   const items = [
-    {k: 'Request', v: fInt(m.n), s: state.mode === 'sample' ? '24 giờ qua · mẫu' : state.mode === 'live' ? 'trực tiếp · gần nhất' : 'trong file'},
-    {k: 'Tỉ lệ lỗi', v: dec(errRate, 1) + '%', s: fInt(m.err) + ' lỗi · ' + fInt(m.warn) + ' cảnh báo', sev: errRate >= 5 ? 'error' : errRate >= 1 ? 'warn' : ''},
-    {k: 'Đầu cuối p50', v: fMs(m.p50), s: 'p95 ' + fMs(m.p95)},
-    {k: 'Token mỗi request', v: m.n ? fInt((m.tin + m.tout) / m.n) : '—', s: 'vào ' + (m.n ? fInt(m.tin / m.n) : '—') + ' · ra ' + (m.n ? fInt(m.tout / m.n) : '—')},
-    {k: '$ mỗi request', v: m.n ? '$' + dec(m.cost / m.n * 1000, 3) + '‰' : '—', s: 'nghìn câu: ' + (m.n ? fUsd(m.cost / m.n * 1000, 2) : '—')},
-    {k: 'Lời gọi LLM thật', v: fInt(m.liveLLM), s: 'cache ' + fInt(m.cacheHits) + ' · 429 ' + fInt(m.r429)}
+    {k: O.requests, v: fInt(m.n), s: state.mode === 'sample' ? O.requestsSample : state.mode === 'live' ? O.requestsLive : O.requestsFile},
+    {k: O.errorRate, v: dec(errRate, 1) + '%', s: fmt(O.errorSub, {errors: plural(m.err, 'error'), warnings: plural(m.warn, 'warning')}), sev: errRate >= 5 ? 'error' : errRate >= 1 ? 'warn' : ''},
+    {k: O.p50, v: fMs(m.p50), s: fmt(O.p95, {v: fMs(m.p95)})},
+    {k: O.tokens, v: m.n ? fInt((m.tin + m.tout) / m.n) : '—', s: fmt(O.tokensSub, {in: m.n ? fInt(m.tin / m.n) : '—', out: m.n ? fInt(m.tout / m.n) : '—'})},
+    {k: O.cost, v: m.n ? fUsd(m.cost / m.n, 5) : '—', s: fmt(O.costSub, {usd: m.n ? fUsd(m.cost / m.n * 1000, 2) : '—'})},
+    {k: O.llmCalls, v: fInt(m.liveLLM), s: fmt(O.llmSub, {cache: fInt(m.cacheHits), r429: fInt(m.r429)})}
   ];
   $('#kpis').replaceChildren(...items.map(i => h('div', {class: 'kpi', dataset: i.sev ? {sev: i.sev} : {}},
     h('span', {class: 'label'}, i.k), h('span', {class: 'v num'}, i.v), h('span', {class: 's num'}, i.s))));
@@ -1099,10 +1245,10 @@ function renderKpis(m){
 
 /* the aggregate flow as a simple sankey drawn by hand: columns customer -> router -> intent -> outcome */
 function renderSankey(){
-  const box = $('#sankey'), g = flowGraph(state.traces);
+  const box = $('#sankey'), g = flowGraph(state.traces), K = S.sankey;
   const legend = $('#sankeyLegend');
   legend.replaceChildren(...OUTCOME_ORDER.map(o => h('span', {}, h('i', {style: {background: o === 'fallback' ? 'repeating-linear-gradient(135deg,var(--warn) 0 3px,transparent 3px 6px)' : OUTCOME_COLOR[o], border: o === 'fallback' ? '1px solid var(--warn)' : 'none'}}), OUTCOME[o])));
-  if (!g.total){ box.replaceChildren(h('div', {class: 'empty'}, 'Chưa có request.')); return; }
+  if (!g.total){ box.replaceChildren(h('div', {class: 'empty'}, S.overview.empty)); return; }
   const W = Math.max(300, Math.floor(box.clientWidth || 700)), compact = W < 560;
   const nodeW = 16, labelW = compact ? 78 : 130, H = compact ? 330 : 360, gapY = compact ? 8 : 10, minH = 4;
   const x0 = 2, x3 = W - labelW - nodeW, x1 = x0 + (x3 - x0) * 0.14, x2 = x0 + (x3 - x0) * (compact ? 0.42 : 0.4);
@@ -1115,7 +1261,7 @@ function renderSankey(){
   };
   const I = stack(intents, i => g.byIntent[i].total), O = stack(outs, o => g.byOutcome[o]);
   const bottom = Math.max(I.bottom, O.bottom, H);
-  const svg = sv('svg', {viewBox: '0 0 ' + W + ' ' + (bottom + 4), role: 'img', 'aria-label': 'Sơ đồ luồng: khách hỏi, router, ý định, kết cục'});
+  const svg = sv('svg', {viewBox: '0 0 ' + W + ' ' + (bottom + 4), role: 'img', 'aria-label': K.label});
   const defs = sv('defs', {}, sv('pattern', {id: 'hatch', width: 7, height: 7, patternUnits: 'userSpaceOnUse', patternTransform: 'rotate(45)'},
     sv('rect', {width: 7, height: 7, fill: 'rgba(232,178,63,.18)'}), sv('line', {x1: 0, y1: 0, x2: 0, y2: 7, stroke: '#e8b23f', 'stroke-width': 3.2})));
   svg.appendChild(defs);
@@ -1124,42 +1270,43 @@ function renderSankey(){
     return sv('path', {d: 'M' + xa + ',' + ca + ' C' + xm + ',' + ca + ' ' + xm + ',' + cb + ' ' + xb + ',' + cb, fill: 'none', stroke, 'stroke-width': Math.max(1, thick), opacity, 'stroke-linecap': 'butt'});
   };
   const act = (el, label, fn) => { el.setAttribute('tabindex', '0'); el.setAttribute('role', 'button'); el.setAttribute('aria-label', label); el.addEventListener('click', fn); el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); fn(); } }); return el; };
+  const reqs = n => plural(n, 'request');
   const links = sv('g', {}), nodes = sv('g', {});
   const scaleAll = (H - 0) / g.total;
   // customer -> router -> each intent
-  links.appendChild(act(sv('g', {class: 'lk'}, band(x0 + nodeW, 0, x1, 0, H, 'var(--accent)', .16), sv('title', {}, 'Khách hỏi → Router: ' + fInt(g.total) + ' request')), 'Khách hỏi tới Router: ' + g.total + ' request', () => goFlow({})));
+  const toRouter = fmt(K.toRouter, {requests: reqs(g.total)});
+  links.appendChild(act(sv('g', {class: 'lk'}, band(x0 + nodeW, 0, x1, 0, H, 'var(--accent)', .16), sv('title', {}, toRouter)), toRouter, () => goFlow({})));
   let offR = 0;
   for (const i of intents){
-    const th = g.byIntent[i].total * scaleAll, p = I.pos[i], hh = p.h;
-    links.appendChild(act(sv('g', {class: 'lk'}, band(x1 + nodeW, offR, x2, p.y, Math.max(1, Math.min(th, hh)), 'var(--accent)', .26), sv('title', {}, 'Router → ' + INTENT[i] + ': ' + fInt(g.byIntent[i].total))), 'Router tới ' + INTENT[i] + ': ' + g.byIntent[i].total + ' request', () => goFlow({intent: i})));
+    const th = g.byIntent[i].total * scaleAll, p = I.pos[i], hh = p.h, text = fmt(K.toIntent, {intent: INTENT[i], requests: reqs(g.byIntent[i].total)});
+    links.appendChild(act(sv('g', {class: 'lk'}, band(x1 + nodeW, offR, x2, p.y, Math.max(1, Math.min(th, hh)), 'var(--accent)', .26), sv('title', {}, text)), text, () => goFlow({intent: i})));
     offR += th;
   }
   // intent -> outcome
   for (const i of intents){
     for (const o of OUTCOME_ORDER){
       const c = g.byIntent[i][o]; if (!c) continue;
-      const th = Math.max(1, c * I.scale), ip = I.pos[i], op = O.pos[o];
+      const th = Math.max(1, c * I.scale), ip = I.pos[i], op = O.pos[o], text = fmt(K.toOutcome, {intent: INTENT[i], outcome: OUTCOME[o], requests: reqs(c)});
       const stroke = o === 'fallback' ? 'url(#hatch)' : OUTCOME_COLOR[o];
-      links.appendChild(act(sv('g', {class: 'lk'}, band(x2 + nodeW, ip.y + ip.out, x3, op.y + op.inn, th, stroke, o === 'ok' ? .42 : .8), sv('title', {}, INTENT[i] + ' → ' + OUTCOME[o] + ': ' + fInt(c) + ' request')),
-        INTENT[i] + ', ' + OUTCOME[o] + ': ' + c + ' request', () => goFlow({intent: i, status: o})));
+      links.appendChild(act(sv('g', {class: 'lk'}, band(x2 + nodeW, ip.y + ip.out, x3, op.y + op.inn, th, stroke, o === 'ok' ? .42 : .8), sv('title', {}, text)), text, () => goFlow({intent: i, status: o})));
       ip.out += th; op.inn += th;
     }
   }
   svg.appendChild(links);
   const rot = (x, label, sub) => sv('text', {x: x + nodeW / 2 + 4, y: H / 2, transform: 'rotate(-90 ' + (x + nodeW / 2 + 4) + ' ' + H / 2 + ')', 'text-anchor': 'middle', style: 'font-size:12px;fill:#04222a;stroke:none'}, label + ' · ' + sub);
-  nodes.appendChild(act(sv('g', {class: 'nd'}, sv('rect', {x: x0, y: 0, width: nodeW, height: H, fill: 'var(--accent)', rx: 2}), rot(x0, 'Khách hỏi', fInt(g.total))), 'Khách hỏi: ' + g.total + ' request', () => goFlow({})));
-  nodes.appendChild(act(sv('g', {class: 'nd'}, sv('rect', {x: x1, y: 0, width: nodeW, height: H, fill: 'var(--accent)', rx: 2}), rot(x1, 'Router', fInt(g.total))), 'Router: ' + g.total + ' request', () => goFlow({})));
+  nodes.appendChild(act(sv('g', {class: 'nd'}, sv('rect', {x: x0, y: 0, width: nodeW, height: H, fill: 'var(--accent)', rx: 2}), rot(x0, K.customer, fInt(g.total))), fmt(K.node, {name: K.customer, requests: reqs(g.total)}), () => goFlow({})));
+  nodes.appendChild(act(sv('g', {class: 'nd'}, sv('rect', {x: x1, y: 0, width: nodeW, height: H, fill: 'var(--accent)', rx: 2}), rot(x1, K.router, fInt(g.total))), fmt(K.node, {name: K.router, requests: reqs(g.total)}), () => goFlow({})));
   for (const i of intents){
     const p = I.pos[i], c = g.byIntent[i].total;
     nodes.appendChild(act(sv('g', {class: 'nd'}, sv('rect', {x: x2, y: p.y, width: nodeW, height: p.h, fill: 'var(--accent)', rx: 2}),
       sv('text', {x: x2 + nodeW + 6, y: p.y + Math.min(p.h / 2, 12) + 1}, INTENT[i]),
-      p.h >= 24 ? sv('text', {x: x2 + nodeW + 6, y: p.y + Math.min(p.h / 2, 12) + 14, class: 'sub'}, fInt(c) + ' · ' + dec(c / g.total * 100, 0) + '%') : null), INTENT[i] + ': ' + c + ' request', () => goFlow({intent: i})));
+      p.h >= 24 ? sv('text', {x: x2 + nodeW + 6, y: p.y + Math.min(p.h / 2, 12) + 14, class: 'sub'}, fInt(c) + ' · ' + dec(c / g.total * 100, 0) + '%') : null), fmt(K.node, {name: INTENT[i], requests: reqs(c)}), () => goFlow({intent: i})));
   }
   for (const o of outs){
     const p = O.pos[o], c = g.byOutcome[o];
     nodes.appendChild(act(sv('g', {class: 'nd'}, sv('rect', {x: x3, y: p.y, width: nodeW, height: p.h, fill: o === 'fallback' ? 'url(#hatch)' : OUTCOME_COLOR[o], stroke: o === 'fallback' ? 'var(--warn)' : null, rx: 2}),
       sv('text', {x: x3 + nodeW + 6, y: p.y + Math.min(p.h / 2, 12) + 1}, OUTCOME[o]),
-      sv('text', {x: x3 + nodeW + 6, y: p.y + Math.min(p.h / 2, 12) + 14, class: 'sub'}, fInt(c) + ' · ' + dec(c / g.total * 100, 0) + '%')), OUTCOME[o] + ': ' + c + ' request', () => goFlow({status: o})));
+      sv('text', {x: x3 + nodeW + 6, y: p.y + Math.min(p.h / 2, 12) + 14, class: 'sub'}, fInt(c) + ' · ' + dec(c / g.total * 100, 0) + '%')), fmt(K.node, {name: OUTCOME[o], requests: reqs(c)}), () => goFlow({status: o})));
   }
   svg.appendChild(nodes);
   box.replaceChildren(svg);
@@ -1189,12 +1336,12 @@ function frame(yMax, yFmt, B){
 function chartReq(B){
   const yMax = niceMax(Math.max(1, ...B.map(b => b.ok + b.warn + b.err)));
   const ih = VH - PT - PB, iw = VW - PL - PR, bw = iw / B.length;
-  const svg = sv('svg', {viewBox: '0 0 ' + VW + ' ' + VH, role: 'img', 'aria-label': 'Số request theo giờ'}, ...frame(yMax, v => String(Math.round(v)), B));
+  const svg = sv('svg', {viewBox: '0 0 ' + VW + ' ' + VH, role: 'img', 'aria-label': S.charts.ariaRequests}, ...frame(yMax, v => String(Math.round(v)), B));
   B.forEach((b, i) => {
     let y = PT + ih; const x = PL + i * bw + bw * .18, w = bw * .64;
     [['ok', 'var(--accent)'], ['warn', 'var(--warn)'], ['err', 'var(--err)']].forEach(([k, c]) => {
       const hh = b[k] / yMax * ih;
-      if (hh > 0){ y -= hh; svg.appendChild(sv('rect', {x, y, width: w, height: hh, fill: c, opacity: k === 'ok' ? .6 : .95}, sv('title', {}, fTime(b.t0) + ' · ổn ' + b.ok + ' · cảnh báo ' + b.warn + ' · lỗi ' + b.err))); }
+      if (hh > 0){ y -= hh; svg.appendChild(sv('rect', {x, y, width: w, height: hh, fill: c, opacity: k === 'ok' ? .6 : .95}, sv('title', {}, fTime(b.t0) + ' · ' + fmt(S.charts.tipRequests, {ok: b.ok, warn: b.warn, err: b.err})))); }
     });
   });
   return svg;
@@ -1205,7 +1352,7 @@ function chartLat(B){
   const yMax = niceMax(Math.max(1000, ...p95.filter(v => v != null)));
   const ih = VH - PT - PB, iw = VW - PL - PR;
   const pts = arr => arr.map((v, i) => v == null ? null : [PL + iw * (i + .5) / B.length, PT + ih - Math.min(v, yMax) / yMax * ih]);
-  const svg = sv('svg', {viewBox: '0 0 ' + VW + ' ' + VH, role: 'img', 'aria-label': 'Độ trễ đầu cuối p50 và p95 theo giờ'}, ...frame(yMax, v => v >= 1000 ? dec(v / 1000, 1) + 's' : Math.round(v) + 'ms', B));
+  const svg = sv('svg', {viewBox: '0 0 ' + VW + ' ' + VH, role: 'img', 'aria-label': S.charts.ariaLatency}, ...frame(yMax, v => v >= 1000 ? dec(v / 1000, 1) + 's' : Math.round(v) + 'ms', B));
   svg.appendChild(sv('path', {d: linePath(pts(p95)), fill: 'none', stroke: 'var(--violet)', 'stroke-width': 1.6, 'stroke-dasharray': '4 3'}));
   const b = pts(p50);
   svg.appendChild(sv('path', {d: linePath(b), fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2}));
@@ -1217,7 +1364,7 @@ function chartCost(B){
   const yMax = niceMax(Math.max(1e-6, acc));
   const ih = VH - PT - PB, iw = VW - PL - PR;
   const pts = cum.map((v, i) => [PL + iw * (i + .5) / B.length, PT + ih - v / yMax * ih]);
-  const svg = sv('svg', {viewBox: '0 0 ' + VW + ' ' + VH, role: 'img', 'aria-label': 'Chi phí cộng dồn nếu trả phí'}, ...frame(yMax, v => '$' + (yMax < 0.1 ? dec(v, 3) : dec(v, 2)), B));
+  const svg = sv('svg', {viewBox: '0 0 ' + VW + ' ' + VH, role: 'img', 'aria-label': S.charts.ariaCost}, ...frame(yMax, v => '$' + (yMax < 0.1 ? dec(v, 3) : dec(v, 2)), B));
   if (pts.length){
     svg.appendChild(sv('path', {d: linePath(pts) + ' L' + pts[pts.length - 1][0] + ' ' + (PT + ih) + ' L' + pts[0][0] + ' ' + (PT + ih) + ' Z', fill: 'var(--accent-soft)'}));
     svg.appendChild(sv('path', {d: linePath(pts), fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2}));
@@ -1229,29 +1376,29 @@ function chartCost(B){
 }
 function renderCharts(){
   const B = buckets();
-  if (!B.length){ for (const id of ['#chReq', '#chLat', '#chCost']) $(id).replaceChildren(h('div', {class: 'empty'}, 'Chưa có request.')); return; }
+  if (!B.length){ for (const id of ['#chReq', '#chLat', '#chCost']) $(id).replaceChildren(h('div', {class: 'empty'}, S.overview.empty)); return; }
   $('#chReq').replaceChildren(chartReq(B)); $('#chLat').replaceChildren(chartLat(B)); $('#chCost').replaceChildren(chartCost(B));
 }
 
-/* ---------- tab: Lỗi ---------- */
+/* ---------- tab: Errors ---------- */
 function renderErrors(m){
   const order = {security: 0, error: 1, warn: 2};
   const groups = Object.values(m.errGroups).sort((a, b) => order[errMeta(a.type).sev] - order[errMeta(b.type).sev] || b.count - a.count);
   const box = $('#errList');
-  if (!groups.length){ box.replaceChildren(h('div', {class: 'empty'}, 'Không có lỗi hay cảnh báo trong cửa sổ này.')); return; }
+  if (!groups.length){ box.replaceChildren(h('div', {class: 'empty'}, S.errors.empty)); return; }
   box.replaceChildren(...groups.map(g => {
-    const em = errMeta(g.type), sevTxt = em.sev === 'security' ? 'bảo mật' : em.sev === 'warn' ? 'cảnh báo' : 'lỗi';
+    const em = errMeta(g.type), sevTxt = S.errors.sev[em.sev] || S.errors.sev.error;
     return h('button', {type: 'button', class: 'err-row', onclick: () => goFlow({err: g.type})},
       h('span', {class: 'stripe', style: {background: SEV_COLOR[em.sev] || SEV_COLOR.error}}),
       h('span', {},
         h('span', {class: 't'}, em.label, ' ', h('span', {class: 'pill ' + (em.sev === 'security' ? 'p-sec' : em.sev === 'warn' ? 'p-warn' : 'p-err')}, sevTxt)),
-        h('div', {class: 'm'}, g.type + ' · ' + [...g.stages].map(s => (STAGE[s] || {label: s}).label).join(', ') + ' · gần nhất ' + fTime(g.last)),
+        h('div', {class: 'm'}, g.type + ' · ' + [...g.stages].map(s => (STAGE[s] || {label: s}).label).join(', ') + ' · ' + fmt(S.errors.last, {time: fTime(g.last)})),
         h('div', {class: 'm'}, '“' + g.message + '”'), h('div', {class: 'fix'}, em.fix)),
-      h('span', {class: 'c num'}, fInt(g.count), h('small', {}, 'lần')));
+      h('span', {class: 'c num'}, fInt(g.count), h('small', {}, g.count === 1 ? S.errors.time : S.errors.times)));
   }));
 }
 
-/* ---------- tab: Đánh giá (the real numbers are static text in the page; quota and cost come from the traces) ---------- */
+/* ---------- tab: Evaluation (the real numbers are static text in STRINGS; quota and cost come from the traces) ---------- */
 function renderEvalTab(m){
   $('#qCalls').textContent = fInt(m.liveLLM) + ' / 450';
   $('#qBar').style.width = Math.min(100, m.liveLLM / 500 * 100) + '%';
@@ -1263,7 +1410,7 @@ function renderEvalTab(m){
   $('#cTok').textContent = fTok(m.tin) + ' / ' + fTok(m.tout);
 }
 
-/* ---------- tab: Luồng xử lý ---------- */
+/* ---------- tab: Request flow ---------- */
 function filtered(){
   const f = state.filter, q = f.q.trim().toLowerCase();
   const out = state.traces.filter(t =>
@@ -1274,25 +1421,25 @@ function filtered(){
 }
 function statusPill(t){
   const o = outcomeOf(t);
-  return h('span', {class: 'pill p-' + (o === 'fallback' ? 'fb' : o)}, o === 'ok' ? 'ổn' : o === 'warn' ? 'cảnh báo' : o === 'fallback' ? 'dự phòng' : 'lỗi');
+  return h('span', {class: 'pill p-' + (o === 'fallback' ? 'fb' : o)}, OUTCOME[o]);
 }
 function updateIntentOptions(){
   const sel = $('#fIntent'), have = new Set(state.traces.map(intentOf));
   const cur = state.filter.intent;
-  sel.replaceChildren(h('option', {value: 'all'}, 'mọi ý định'), ...INTENT_ORDER.filter(i => have.has(i) || i === cur).map(i => h('option', {value: i}, INTENT[i])));
+  sel.replaceChildren(h('option', {value: 'all'}, S.flow.allIntents), ...INTENT_ORDER.filter(i => have.has(i) || i === cur).map(i => h('option', {value: i}, INTENT[i])));
   sel.value = INTENT[cur] ? cur : 'all';
   $('#fStatus').value = state.filter.status;
 }
 function rowOf(t, inGroup){
   return h('div', {class: 'row' + (inGroup ? ' in-group' : ''), role: 'option', tabindex: -1, 'aria-selected': t.trace_id === state.selected ? 'true' : 'false', dataset: {id: t.trace_id}},
-    h('div', {class: 'r1'}, h('span', {class: 'rt num'}, fTime(t.t)), h('span', {class: 'rq'}, t.question || '(trống)')),
-    h('div', {class: 'r2'}, h('span', {class: 'chip'}, INTENT[intentOf(t)]), inGroup && t.turn ? h('span', {class: 'turn'}, 'Lượt ' + t.turn) : null, statusPill(t), h('span', {class: 'rms num'}, fMs(t.total))));
+    h('div', {class: 'r1'}, h('span', {class: 'rt num'}, fTime(t.t)), h('span', {class: 'rq'}, t.question || S.app.empty)),
+    h('div', {class: 'r2'}, h('span', {class: 'chip'}, INTENT[intentOf(t)]), inGroup && t.turn ? h('span', {class: 'turn'}, fmt(S.flow.turn, {n: t.turn})) : null, statusPill(t), h('span', {class: 'rms num'}, fMs(t.total))));
 }
 function renderList(){
   const rows = filtered(), shown = rows.slice(0, state.limit), box = $('#rows');
   const f = state.filter;
-  $('#listCount').textContent = fInt(rows.length) + ' request' + (f.err ? ' · lỗi ' + errMeta(f.err).label : '');
-  if (!shown.length){ box.replaceChildren(h('div', {class: 'empty'}, 'Không có request nào khớp. Bấm “Xóa lọc”.')); return; }
+  $('#listCount').textContent = plural(rows.length, 'request') + (f.err ? ' · ' + fmt(S.flow.errFilter, {label: errMeta(f.err).label}) : '');
+  if (!shown.length){ box.replaceChildren(h('div', {class: 'empty'}, S.flow.noMatch)); return; }
   const groups = []; const bySession = new Map();
   for (const t of shown){
     if (!t.session_id){ groups.push({single: t}); continue; }
@@ -1305,10 +1452,10 @@ function renderList(){
     if (g.single){ nodes.push(rowOf(g.single, false)); continue; }
     g.items.sort((a, b) => (a.turn || 0) - (b.turn || 0) || a.t - b.t);
     if (g.items.length === 1){ nodes.push(rowOf(g.items[0], false)); continue; }
-    nodes.push(h('div', {class: 'group-head', role: 'presentation'}, 'Hội thoại ' + g.session.slice(0, 6) + ' · ' + g.items.length + ' lượt · ' + fTime(g.items[0].t)));
+    nodes.push(h('div', {class: 'group-head', role: 'presentation'}, fmt(S.flow.group, {id: g.session.slice(0, 6), turns: plural(g.items.length, 'turn'), time: fTime(g.items[0].t)})));
     for (const t of g.items) nodes.push(rowOf(t, true));
   }
-  if (rows.length > shown.length) nodes.push(h('div', {class: 'more'}, h('button', {class: 'btn', type: 'button', onclick: () => { state.limit += 60; renderList(); }}, 'Xem thêm 60 dòng')));
+  if (rows.length > shown.length) nodes.push(h('div', {class: 'more'}, h('button', {class: 'btn', type: 'button', onclick: () => { state.limit += 60; renderList(); }}, S.flow.more)));
   box.replaceChildren(...nodes);
   syncRovingFocus();
 }
@@ -1332,16 +1479,16 @@ function selectTrace(id, opts){
 const GLYPH = {ok: '✓', warn: '!', err: '✕', skip: '–'};
 const sevState = type => { const s = errMeta(type).sev; return s === 'warn' ? 'warn' : 'err'; };
 function filterChips(f){
-  const chips = []; const used = new Set();
+  const C = S.chip, chips = []; const used = new Set();
   const add = (key, text, cls, swatch) => { used.add(key); chips.push(h('span', {class: 'chip ' + (cls || '')}, swatch ? h('span', {class: 'sw', style: {background: swatch}}) : null, text)); };
-  if (f.kind != null) add('kind', 'Loại: ' + str(f.kind, 60), 'f-kind');
-  if (f.category != null) add('category', 'Nhóm: ' + str(f.category, 60), 'f-kind');
-  if (f.color != null) add('color', 'Màu ' + str(f.color, 40), '', COLOR_SWATCH[f.color] || 'var(--dim)');
-  if (f.material != null) add('material', 'Chất liệu ' + str(f.material, 40), '');
-  if (f.size != null) add('size', 'Size ' + str(f.size, 20), '');
-  if (f.price_min != null) add('price_min', 'giá ≥ ' + fVnd(num(f.price_min)), 'f-price');
-  if (f.price_max != null) add('price_max', 'giá ≤ ' + fVnd(num(f.price_max)), 'f-price');
-  if (f.in_stock != null) add('in_stock', f.in_stock ? 'còn hàng' : 'hết hàng', 'f-stock');
+  if (f.kind != null) add('kind', fmt(C.kind, {v: str(f.kind, 60)}), 'f-kind');
+  if (f.category != null) add('category', fmt(C.category, {v: str(f.category, 60)}), 'f-kind');
+  if (f.color != null) add('color', fmt(C.color, {v: str(f.color, 40)}), '', COLOR_SWATCH[f.color] || 'var(--dim)');
+  if (f.material != null) add('material', fmt(C.material, {v: str(f.material, 40)}), '');
+  if (f.size != null) add('size', fmt(C.size, {v: str(f.size, 20)}), '');
+  if (f.price_min != null) add('price_min', fmt(C.priceMin, {v: fVnd(num(f.price_min))}), 'f-price');
+  if (f.price_max != null) add('price_max', fmt(C.priceMax, {v: fVnd(num(f.price_max))}), 'f-price');
+  if (f.in_stock != null) add('in_stock', f.in_stock ? C.inStock : C.outOfStock, 'f-stock');
   for (const k of Object.keys(f)) if (!used.has(k)) chips.push(h('span', {class: 'chip'}, str(k, 30) + ': ' + str(f[k], 60)));
   return chips;
 }
@@ -1350,101 +1497,101 @@ function errBlock(s){
   return h('div', {class: 'why'}, h('span', {class: 'pill ' + (warn ? 'p-warn' : m.sev === 'security' ? 'p-sec' : 'p-err')}, m.label), ' ', m.short, ' ', h('span', {class: 'code'}, s.error.type + (s.error.message ? ' · ' + str(s.error.message, 200) : '')));
 }
 function bodyOf(t, s, nth){
-  const sm = s.summary, out = [];
+  const sm = s.summary, out = [], D = S.body;
   const has = k => isObj(sm) && k in sm;  // a span that failed has an empty summary: it shows its error and nothing invented
   if (s.stage === 'router'){
     const intent = sm && sm.intent ? sm.intent : (!s.error && t.intent !== 'unknown' ? t.intent : null);
-    out.push(h('div', {}, intent ? ['Ý định: ', h('b', {}, INTENT[intent] || str(intent, 40))] : 'Chưa xác định được ý định'));
+    out.push(h('div', {}, intent ? [D.intent, h('b', {}, INTENT[intent] || str(intent, 40))] : D.intentUnknown));
   } else if (s.stage === 'extractor'){
-    if (!sm) out.push(h('div', {class: 'hint'}, 'Trace cũ: không ghi bộ lọc.'));
+    if (!sm) out.push(h('div', {class: 'hint'}, D.oldFilters));
     else if (!has('filters') && s.error) { /* failed before it had filters */ }
-    else if (sm.filters == null) out.push(h('div', {}, 'Không trích được bộ lọc, tìm theo nguyên văn câu hỏi.'));
+    else if (sm.filters == null) out.push(h('div', {}, D.noFilters));
     else {
       const chips = filterChips(isObj(sm.filters) ? sm.filters : {});
-      out.push(chips.length ? h('div', {class: 'chips'}, chips) : h('div', {}, 'Không có bộ lọc, tìm theo nội dung câu hỏi.'));
+      out.push(chips.length ? h('div', {class: 'chips'}, chips) : h('div', {}, D.emptyFilters));
     }
-    if (sm && Array.isArray(sm.relaxed) && sm.relaxed.length) out.push(h('div', {class: 'chips'}, sm.relaxed.map(r => h('span', {class: 'chip f-relax'}, 'Đã nới: bỏ ' + (FIELD_LABEL[r] || str(r, 20))))), h('div', {class: 'hint'}, 'Không có kết quả khớp hết nên tìm lại một lần, bỏ điều kiện này.'));
+    if (sm && Array.isArray(sm.relaxed) && sm.relaxed.length) out.push(h('div', {class: 'chips'}, sm.relaxed.map(r => h('span', {class: 'chip f-relax'}, fmt(D.relaxedChip, {field: FIELD_LABEL[r] || str(r, 20)})))), h('div', {class: 'hint'}, D.relaxedWhy));
   } else if (s.stage === 'retrieval'){
-    if (!sm) out.push(h('div', {class: 'hint'}, 'Trace cũ: không ghi kết quả tìm kiếm.'));
-    else if (!has('hits')) { if (!s.error) out.push(h('div', {class: 'hint'}, 'Không có tóm tắt kết quả.')); }
+    if (!sm) out.push(h('div', {class: 'hint'}, D.oldSearch));
+    else if (!has('hits')) { if (!s.error) out.push(h('div', {class: 'hint'}, D.noSummary)); }
     else if (sm.mode === 'count'){  // the counts that explain an empty search (no embedding, no LLM): which constraint blocks and how many products there would be
-      out.push(h('div', {class: 'hint'}, 'Đếm số sản phẩm trong Qdrant, không gọi LLM · thử bỏ từng điều kiện riêng lẻ (kích cỡ, màu, chất liệu, mức giá), chưa đủ thì bỏ dồn; không bao giờ bỏ loại sản phẩm'));
+      out.push(h('div', {class: 'hint'}, D.countHint));
       const probes = Array.isArray(sm.probes) ? sm.probes : [];
-      if (probes.length) out.push(h('ol', {class: 'hits'}, probes.map(p => h('li', {}, h('span', {class: 'hk'}, 'ĐẾM'), h('span', {class: 'ht'}, 'Bỏ ' + offerNames(p.dropped)), h('span', {class: 'hs num'}, fInt(num(p.count)))))));
-      out.push(sm.blocking_constraint ? h('div', {class: 'chips'}, h('span', {class: 'chip f-relax'}, 'Ràng buộc chặn: ' + (OFFER_LABEL[sm.blocking_constraint] || str(sm.blocking_constraint, 20))),
-        h('span', {class: 'chip f-kind'}, 'Đề nghị ' + fInt(num(sm.offer_count)) + ' sản phẩm nếu bỏ ' + offerNames(sm.offer_drops))) : h('div', {}, 'Bỏ ràng buộc nào cũng không có sản phẩm: không đưa ra lời mời.'));
+      if (probes.length) out.push(h('ol', {class: 'hits'}, probes.map(p => h('li', {}, h('span', {class: 'hk'}, D.countTag), h('span', {class: 'ht'}, fmt(D.probe, {names: offerNames(p.dropped)})), h('span', {class: 'hs num'}, fInt(num(p.count)))))));
+      out.push(sm.blocking_constraint ? h('div', {class: 'chips'}, h('span', {class: 'chip f-relax'}, fmt(D.blocking, {name: OFFER_LABEL[sm.blocking_constraint] || str(sm.blocking_constraint, 20)})),
+        h('span', {class: 'chip f-kind'}, fmt(D.offers, {products: plural(num(sm.offer_count), 'product'), names: offerNames(sm.offer_drops)}))) : h('div', {}, D.noOffer));
     } else {
       const hits = Array.isArray(sm.hits) ? sm.hits : [];
-      if (Array.isArray(sm.offer_drops) && sm.offer_drops.length) out.push(h('div', {class: 'chips'}, h('span', {class: 'chip f-relax'}, 'Theo lời mời khách đã đồng ý: bỏ ' + offerNames(sm.offer_drops))));
-      out.push(h('div', {class: 'hint'}, 'Chế độ ' + str(sm.mode, 30) + ' · lấy tối đa ' + num(sm.k) + ' kết quả · ' + (hits.length ? 'top ' + hits.length : 'không có kết quả')));
-      if (hits.length) out.push(h('ol', {class: 'hits'}, hits.map(x => h('li', {}, h('span', {class: 'hk'}, x.kind === 'policy' ? 'CS' : 'SP'),
-        h('span', {class: 'ht'}, str(x.title, 80), h('small', {}, str(x.id, 60).replace(/^(product|policy):/, ''))), h('span', {class: 'hs num', title: 'điểm RRF'}, fScore(x.score))))));
-      if (sm.hits_truncated) out.push(h('div', {class: 'hint'}, 'Đã bớt kết quả để summary của trace vừa 4 KB.'));
+      if (Array.isArray(sm.offer_drops) && sm.offer_drops.length) out.push(h('div', {class: 'chips'}, h('span', {class: 'chip f-relax'}, fmt(D.offerSearch, {names: offerNames(sm.offer_drops)}))));
+      out.push(h('div', {class: 'hint'}, fmt(D.mode, {mode: str(sm.mode, 30), k: num(sm.k), found: hits.length ? fmt(D.top, {n: hits.length}) : D.none})));
+      if (hits.length) out.push(h('ol', {class: 'hits'}, hits.map(x => h('li', {}, h('span', {class: 'hk'}, x.kind === 'policy' ? D.policy : D.product),
+        h('span', {class: 'ht'}, str(x.title, 80), h('small', {}, str(x.id, 60).replace(/^(product|policy):/, ''))), h('span', {class: 'hs num', title: D.scoreTitle}, fScore(x.score))))));
+      if (sm.hits_truncated) out.push(h('div', {class: 'hint'}, D.hitsCut));
     }
   } else if (s.stage === 'order_lookup'){
-    if (!sm) out.push(h('div', {class: 'hint'}, 'Trace cũ: không ghi kết quả tra đơn.'));
-    else if (!has('verified')) { if (!s.error) out.push(h('div', {class: 'hint'}, 'Không có tóm tắt kết quả.')); }
+    if (!sm) out.push(h('div', {class: 'hint'}, D.oldLookup));
+    else if (!has('verified')) { if (!s.error) out.push(h('div', {class: 'hint'}, D.noSummary)); }
     else {
-      out.push(h('div', {class: 'chips'}, h('span', {class: 'chip ' + (sm.verified ? 'f-stock' : 'c-warn')}, sm.verified ? 'Email khớp, đã xác minh' : 'Không xác minh được, từ chối'),
-        sm.attempts != null ? h('span', {class: 'chip'}, 'Lần thử thứ ' + num(sm.attempts)) : null));
-      if (sm.found != null) out.push(h('div', {class: 'hint'}, 'Dành cho người vận hành: tìm thấy đơn theo số ' + (sm.found ? 'có' : 'không') + '. Khách không được biết điều này.'));
+      out.push(h('div', {class: 'chips'}, h('span', {class: 'chip ' + (sm.verified ? 'f-stock' : 'c-warn')}, sm.verified ? D.verified : D.notVerified),
+        sm.attempts != null ? h('span', {class: 'chip'}, fmt(D.attempt, {n: num(sm.attempts)})) : null));
+      if (sm.found != null) out.push(h('div', {class: 'hint'}, fmt(D.operator, {found: sm.found ? D.found : D.notFound})));
     }
   } else if (s.stage === 'ticket_confirm'){
     const st = sm && sm.state;
-    out.push(h('div', {}, st === 'written' ? 'Khách đã đồng ý: phiếu hỗ trợ đã được ghi.' : st === 'asked' ? 'Đã gửi nội dung phiếu và hỏi khách có đồng ý tạo không.' : 'Bước xác nhận tạo phiếu.'));
+    out.push(h('div', {}, st === 'written' ? D.ticketWritten : st === 'asked' ? D.ticketAsked : D.ticketStep));
   } else if (s.stage === 'reply'){
     const tpl = sm && sm.template;
-    out.push(h('div', {}, tpl ? ['Câu mẫu: ', h('b', {}, TEMPLATE[tpl] || str(tpl, 40)), ' ', h('span', {class: 'hint mono'}, str(tpl, 40))] : 'Trả lời bằng câu mẫu, không gọi LLM.'));
+    out.push(h('div', {}, tpl ? [D.fixedReply, h('b', {}, TEMPLATE[tpl] || str(tpl, 40)), ' ', h('span', {class: 'hint mono'}, str(tpl, 40))] : D.fixedNoLlm));
   } else if (s.stage === 'answer'){
-    if (!sm) out.push(h('div', {class: 'hint'}, 'Trace cũ: không ghi prompt và guardrail.'));
+    if (!sm) out.push(h('div', {class: 'hint'}, D.oldAnswer));
     else if (!has('prompt_version') && s.error) { /* failed before it wrote anything */ }
-    else out.push(h('div', {}, sm.prompt_version ? ['Prompt ', h('b', {}, str(sm.prompt_version, 30)), ' viết từ kết quả tìm kiếm.'] : 'Câu trả lời dựng từ mẫu, không gọi LLM.'));
+    else out.push(h('div', {}, sm.prompt_version ? [D.promptPre, h('b', {}, str(sm.prompt_version, 30)), D.promptPost] : D.answerTemplate));
   }
   if (s.error) out.push(errBlock(s));
   return out;
 }
 function stepsOf(t){
-  const out = []; const seen = {}; let total = Math.max(1, t.total);
+  const out = []; const seen = {}; let total = Math.max(1, t.total); const D = S.body, G = S.stage;
   t.spans.forEach(s => {
     const counting = s.stage === 'retrieval' && s.summary && s.summary.mode === 'count';  // the counts of an offer are not a search: they do not number the searches
     if (!counting) seen[s.stage] = (seen[s.stage] || 0) + 1;
     const meta = STAGE[s.stage] || {label: str(s.stage, 30), kind: 'tool'};
     let label = meta.label;
-    if (counting) label = 'Đếm để gợi ý hàng gần đúng';
-    else if (s.stage === 'retrieval' && s.summary && Array.isArray(s.summary.offer_drops) && s.summary.offer_drops.length) label = 'Tìm kiếm theo lời mời';
-    else if (s.stage === 'retrieval' && seen.retrieval > 1) label = 'Tìm kiếm lần ' + seen.retrieval + ' (đã nới lỏng)';
+    if (counting) label = G.offer;
+    else if (s.stage === 'retrieval' && s.summary && Array.isArray(s.summary.offer_drops) && s.summary.offer_drops.length) label = G.offerSearch;
+    else if (s.stage === 'retrieval' && seen.retrieval > 1) label = fmt(G.retrievalAgain, {n: seen.retrieval});
     out.push({span: s, kind: meta.kind, label, state: s.error ? sevState(s.error.type) : 'ok', body: bodyOf(t, s, seen[s.stage])});
     const g = s.stage === 'answer' && s.summary && 'guardrail' in s.summary ? s.summary.guardrail : undefined;
     if (g !== undefined){
       const fb = g && g.fallback_used, bad = g && Array.isArray(g.violations) ? g.violations : [];
-      const body = !g ? [h('div', {}, 'Không có kiểm tra: câu trả lời này không do LLM viết.')] : [
-        h('div', {}, h('b', {}, fInt(num(g.checked)) + ' câu'), ' đã kiểm — ', h('b', {}, fInt(bad.length) + ' vi phạm')),
+      const body = !g ? [h('div', {}, D.noCheck)] : [
+        h('div', {}, rich(fmt(D.checked, {sentences: '**' + plural(num(g.checked), 'sentence') + '**', violations: '**' + plural(bad.length, 'violation') + '**'}))),
         bad.length ? h('div', {class: 'chips'}, bad.map(r => h('span', {class: 'chip c-warn'}, RULE[r] || str(r, 40), ' ', h('span', {class: 'code'}, str(r, 40))))) : null,
-        fb ? h('div', {class: 'why'}, 'Guardrail loại câu AI viết và gửi câu dự phòng dựng từ dữ liệu cửa hàng.') : null];
+        fb ? h('div', {class: 'why'}, D.fallback) : null];
       out.push({virtual: true, kind: GUARDRAIL.kind, label: GUARDRAIL.label, state: fb ? 'warn' : 'ok', body, span: null, parent: s});
     }
   });
   if (t.status === 'error' && t.spans.length){
     const intent = intentOf(t);
     const todo = (EXPECTED[intent] || []).filter(k => k === 'guardrail' ? !out.some(o => o.virtual) : !seen[k]);
-    if (intent === 'unknown' || !EXPECTED[intent]) out.push({ghost: true, kind: 'tool', label: 'Các bước tiếp theo', state: 'skip', body: [h('div', {class: 'hint'}, 'Không chạy: chưa xác định được ý định nên chưa biết đi tiếp bước nào.')]});
-    else for (const k of todo) out.push({ghost: true, kind: k === 'guardrail' ? 'tool' : STAGE[k].kind, label: k === 'guardrail' ? GUARDRAIL.label : STAGE[k].label, state: 'skip', body: [h('div', {class: 'hint'}, 'Không chạy vì bước trước đã lỗi.')]});
+    if (intent === 'unknown' || !EXPECTED[intent]) out.push({ghost: true, kind: 'tool', label: G.laterSteps, state: 'skip', body: [h('div', {class: 'hint'}, S.step.unknownIntent)]});
+    else for (const k of todo) out.push({ghost: true, kind: k === 'guardrail' ? 'tool' : STAGE[k].kind, label: k === 'guardrail' ? GUARDRAIL.label : STAGE[k].label, state: 'skip', body: [h('div', {class: 'hint'}, S.step.earlierFailed)]});
   }
   return out;
 }
 function stepEl(t, st, total){
-  const s = st.span;
+  const s = st.span, P = S.step;
   const head = h('div', {class: 'c-head'}, h('h3', {}, st.label),
-    st.state === 'warn' ? h('span', {class: 'pill p-warn'}, 'cảnh báo') : st.state === 'err' ? h('span', {class: 'pill p-err'}, 'lỗi') : st.state === 'skip' ? h('span', {class: 'pill p-dim'}, 'không chạy') : null,
-    s && s.cache_hit ? h('span', {class: 'chip c-cache'}, 'cache hit') : null,
-    h('span', {class: 'dur num'}, s ? fMs(s.duration_ms) : st.virtual ? 'chạy trong bước trên' : ''));
+    st.state === 'warn' ? h('span', {class: 'pill p-warn'}, P.warning) : st.state === 'err' ? h('span', {class: 'pill p-err'}, P.error) : st.state === 'skip' ? h('span', {class: 'pill p-dim'}, P.skipped) : null,
+    s && s.cache_hit ? h('span', {class: 'chip c-cache'}, P.cacheHit) : null,
+    h('span', {class: 'dur num'}, s ? fMs(s.duration_ms) : st.virtual ? P.inside : ''));
   const side = [];
   if (s){
-    side.push(h('div', {class: 'wbar', title: 'vị trí và độ dài so với tổng thời gian của request'}, h('i', {style: {left: (s.start_ms / total * 100) + '%', width: Math.min(100 - s.start_ms / total * 100, Math.max(0.8, s.duration_ms / total * 100)) + '%'}})));
-    side.push(h('div', {}, dec(s.duration_ms / total * 100, 0) + '% tổng thời gian · bắt đầu ' + fMs(s.start_ms)));
-    if (s.model) side.push(h('div', {}, 'model ', h('b', {}, s.model)));
-    if (LLM.has(s.stage) && (s.tokens_in != null || s.tokens_out != null)) side.push(h('div', {}, 'token vào/ra ', h('b', {class: 'num'}, fInt(s.tokens_in || 0) + ' / ' + fInt(s.tokens_out || 0))));
-    if (LLM.has(s.stage) && s.cache_hit === false) side.push(h('div', {}, 'gọi LLM thật · ', h('b', {}, fUsd(spanCost(s), 6)), ' nếu trả phí'));
+    side.push(h('div', {class: 'wbar', title: P.barTitle}, h('i', {style: {left: (s.start_ms / total * 100) + '%', width: Math.min(100 - s.start_ms / total * 100, Math.max(0.8, s.duration_ms / total * 100)) + '%'}})));
+    side.push(h('div', {}, fmt(P.share, {pct: dec(s.duration_ms / total * 100, 0), start: fMs(s.start_ms)})));
+    if (s.model) side.push(h('div', {}, P.model + ' ', h('b', {}, s.model)));
+    if (LLM.has(s.stage) && (s.tokens_in != null || s.tokens_out != null)) side.push(h('div', {}, P.tokens + ' ', h('b', {class: 'num'}, fInt(s.tokens_in || 0) + ' / ' + fInt(s.tokens_out || 0))));
+    if (LLM.has(s.stage) && s.cache_hit === false) side.push(h('div', {}, rich(fmt(P.liveCall, {usd: '**' + fUsd(spanCost(s), 6) + '**'}))));
   }
   return h('li', {class: 'step', dataset: {kind: st.kind, state: st.state}},
     h('span', {class: 'marker', 'aria-hidden': 'true'}, GLYPH[st.state]),
@@ -1454,15 +1601,15 @@ let replayTimers = [];
 function stopReplay(){
   replayTimers.forEach(clearTimeout); replayTimers = [];
   $$('#journey [data-replay]').forEach(e => e.removeAttribute('data-replay'));
-  const b = $('#replayBtn'); if (b) b.textContent = 'Phát lại';
+  const b = $('#replayBtn'); if (b) b.textContent = S.journey.replay;
 }
 function startReplay(items, weights){
   stopReplay();
   const b = $('#replayBtn'), live = $('#replayLive');
-  if (reduceMotion()){ if (live) live.textContent = 'Đã hiển thị toàn bộ hành trình (đang bật giảm chuyển động).'; return; }
+  if (reduceMotion()){ if (live) live.textContent = S.journey.replayShown; return; }
   const plan = replaySchedule(weights, 3000);
   items.forEach(e => e.setAttribute('data-replay', 'pending'));
-  if (b) b.textContent = 'Dừng';
+  if (b) b.textContent = S.journey.stop;
   items.forEach((el, i) => {
     replayTimers.push(setTimeout(() => { if (i > 0) items[i - 1].setAttribute('data-replay', 'done'); el.setAttribute('data-replay', 'active'); }, plan.starts[i]));
   });
@@ -1470,34 +1617,34 @@ function startReplay(items, weights){
 }
 function renderJourney(){
   stopReplay();
-  const box = $('#journey'), t = state.byId.get(state.selected);
-  if (!t){ box.replaceChildren(h('div', {class: 'empty'}, 'Chưa có request nào để vẽ hành trình.')); return; }
+  const box = $('#journey'), t = state.byId.get(state.selected), J = S.journey;
+  if (!t){ box.replaceChildren(h('div', {class: 'empty'}, J.none)); return; }
   const total = Math.max(1, t.total), steps = stepsOf(t);
   const src = t.version < 2 ? 'none' : t.reply == null ? 'none' : t.reply_source || 'template';
-  const cust = h('div', {class: 'bubble cust'}, h('div', {class: 'who'}, h('span', {class: 'label'}, 'Khách hỏi')), h('div', {class: 'text'}, t.question || '(trống)'));
-  const replyText = t.version < 2 ? 'Trace cũ (v1) — không có nội dung câu trả lời' : t.reply == null ? 'Khách không nhận được câu trả lời: lỗi đã dừng request trước khi có thông báo.' : t.reply;
+  const cust = h('div', {class: 'bubble cust'}, h('div', {class: 'who'}, h('span', {class: 'label'}, J.customer)), h('div', {class: 'text'}, t.question || S.app.empty));
+  const replyText = t.version < 2 ? J.oldReply : t.reply == null ? J.noReply : t.reply;
   const shop = h('div', {class: 'bubble shop', dataset: {source: src}},
-    h('div', {class: 'who'}, h('span', {class: 'label'}, 'ShopMate trả lời'),
+    h('div', {class: 'who'}, h('span', {class: 'label'}, J.shop),
       t.version >= 2 && t.reply_source ? h('span', {class: 'pill ' + (t.reply_source === 'guardrail_fallback' ? 'p-warn' : t.reply_source === 'error_template' ? 'p-err' : t.reply_source === 'llm' ? 'p-acc' : 'p-dim')}, SOURCE[t.reply_source] || str(t.reply_source, 40)) : null),
     h('div', {class: 'text'}, replyText),
-    t.reply_truncated ? h('div', {class: 'src'}, 'Đã cắt ở 800 ký tự khi ghi trace.') : null);
+    t.reply_truncated ? h('div', {class: 'src'}, J.cut) : null);
   const stepEls = steps.map(st => stepEl(t, st, total));
   const items = [cust, ...stepEls, shop];
   const weights = [total * 0.04, ...steps.map(st => st.span ? st.span.duration_ms : total * 0.02), total * 0.08];
   const sessionMates = t.session_id ? state.traces.filter(x => x.session_id === t.session_id).length : 0;
   const head = h('div', {class: 'j-head'},
-    h('div', {}, h('h2', {}, 'Hành trình của request'),
-      h('div', {class: 'j-meta'}, h('span', {}, fFull(t.t)), h('span', {}, 'tổng ', h('b', {class: 'num'}, fMs(t.total))), h('span', {}, INTENT[intentOf(t)]),
-        t.session_id ? h('span', {}, 'hội thoại ', h('b', {}, t.session_id.slice(0, 6)), ' · lượt ', h('b', {}, t.turn || '?'), sessionMates > 1 ? ' / ' + sessionMates : '') : null,
-        h('span', {class: 'mono'}, t.trace_id.slice(0, 12)), h('span', {}, fUsd(traceCost(t), 6) + ' nếu trả phí'))),
-    h('div', {class: 'filters-row'}, statusPill(t), h('button', {class: 'btn', type: 'button', id: 'replayBtn', onclick: () => { if (replayTimers.length) stopReplay(); else startReplay(items, weights); }}, 'Phát lại'), h('span', {class: 'sr', id: 'replayLive', 'aria-live': 'polite'}, '')));
-  const legend = h('div', {class: 'j-legend'}, h('span', {}, h('i', {style: {background: 'var(--accent)'}}), 'LLM · Gemini'), h('span', {}, h('i', {style: {background: 'var(--violet)'}}), 'truy hồi · Qdrant'), h('span', {}, h('i', {style: {background: 'var(--ok)'}}), 'công cụ · Saleor chỉ đọc, mẫu'));
-  const tech = h('details', {class: 'tech'}, h('summary', {}, 'Chi tiết kỹ thuật của ' + t.spans.length + ' span'),
-    h('div', {class: 'table-scroll'}, h('table', {}, h('thead', {}, h('tr', {}, ['bước', 'model', 'bắt đầu', 'thời gian', 'token vào/ra', 'cache', 'lỗi'].map((c, i) => h('th', {class: i >= 2 && i <= 5 ? 'r' : ''}, c)))),
+    h('div', {}, h('h2', {}, J.title),
+      h('div', {class: 'j-meta'}, h('span', {}, fFull(t.t)), h('span', {}, J.total + ' ', h('b', {class: 'num'}, fMs(t.total))), h('span', {}, INTENT[intentOf(t)]),
+        t.session_id ? h('span', {}, J.conversation + ' ', h('b', {}, t.session_id.slice(0, 6)), ' · ' + J.turn + ' ', h('b', {}, t.turn || '?'), sessionMates > 1 ? ' / ' + sessionMates : '') : null,
+        h('span', {class: 'mono'}, t.trace_id.slice(0, 12)), h('span', {}, fmt(J.ifBilled, {usd: fUsd(traceCost(t), 6)})))),
+    h('div', {class: 'filters-row'}, statusPill(t), h('button', {class: 'btn', type: 'button', id: 'replayBtn', onclick: () => { if (replayTimers.length) stopReplay(); else startReplay(items, weights); }}, J.replay), h('span', {class: 'sr', id: 'replayLive', 'aria-live': 'polite'}, '')));
+  const legend = h('div', {class: 'j-legend'}, h('span', {}, h('i', {style: {background: 'var(--accent)'}}), J.legendLlm), h('span', {}, h('i', {style: {background: 'var(--violet)'}}), J.legendRet), h('span', {}, h('i', {style: {background: 'var(--ok)'}}), J.legendTool));
+  const tech = h('details', {class: 'tech'}, h('summary', {}, fmt(J.tech, {spans: plural(t.spans.length, 'span')})),
+    h('div', {class: 'table-scroll'}, h('table', {}, h('thead', {}, h('tr', {}, J.cols.map((c, i) => h('th', {class: i >= 2 && i <= 5 ? 'r' : ''}, c)))),
       h('tbody', {}, t.spans.map(s => h('tr', {}, h('td', {}, (STAGE[s.stage] || {label: s.stage}).label), h('td', {class: 'mono'}, s.model || '—'), h('td', {class: 'r mono num'}, fMs(s.start_ms)), h('td', {class: 'r mono num'}, fMs(s.duration_ms)),
-        h('td', {class: 'r mono num'}, LLM.has(s.stage) && s.tokens_in != null ? fInt(s.tokens_in) + ' / ' + fInt(s.tokens_out || 0) : '—'), h('td', {class: 'r mono'}, s.cache_hit == null ? '—' : s.cache_hit ? 'có' : 'không'),
+        h('td', {class: 'r mono num'}, LLM.has(s.stage) && s.tokens_in != null ? fInt(s.tokens_in) + ' / ' + fInt(s.tokens_out || 0) : '—'), h('td', {class: 'r mono'}, s.cache_hit == null ? '—' : s.cache_hit ? J.yes : J.no),
         h('td', {}, s.error ? s.error.type : '—')))))));
-  box.replaceChildren(head, legend, cust, h('ol', {class: 'steps', 'aria-label': 'Các bước đã chạy'}, stepEls), shop, tech);
+  box.replaceChildren(head, legend, cust, h('ol', {class: 'steps', 'aria-label': J.stepsLabel}, stepEls), shop, tech);
 }
 
 /* ---------- wiring ---------- */
@@ -1514,7 +1661,7 @@ async function fetchLive(){
     const txt = await r.text();
     if (!txt.trim()) return {traces: [], bad: 0};
     const res = parseFile(txt);
-    if (!res.traces.length && res.bad) throw new Error('phản hồi không phải trace');
+    if (!res.traces.length && res.bad) throw new Error(S.banner.reasonNotTrace);
     return res;
   } finally { clearTimeout(to); }
 }
@@ -1523,7 +1670,7 @@ async function pollLive(){
   const before = state.sig;
   let res = null;
   try { res = await fetchLive(); }
-  catch (e) { if (state.mode !== 'live') return; state.liveErr = e.name === 'AbortError' ? 'quá 3 giây' : (e.message || 'lỗi mạng'); }
+  catch (e) { if (state.mode !== 'live') return; state.liveErr = e.name === 'AbortError' ? S.banner.reasonTimeout : (e.message || S.banner.reasonNetwork); }
   if (state.mode !== 'live') return;  // the reader loaded a file while this request was in flight: the file wins
   if (res){ setTraces(res.traces, res.bad); state.lastLive = Date.now(); state.liveErr = null; }
   if (state.sig !== before || state.liveErr !== null || state.tab !== 'flow') renderAll(); else renderBanner();
@@ -1548,15 +1695,16 @@ function applyUrl(){
 
 $('#fileInput').addEventListener('change', e => {
   const file = e.target.files && e.target.files[0]; if (!file) return;
-  const rd = new FileReader();
+  const rd = new FileReader(), B = S.banner;
+  const unreadable = body => { $('#bannerHead').textContent = B.badHead; $('#bannerBody').textContent = body; $('#banner').dataset.mode = 'lost'; };
   rd.onload = () => {
     try {
       const res = parseFile(String(rd.result));
-      if (!res.traces.length){ $('#bannerHead').textContent = 'KHÔNG ĐỌC ĐƯỢC.'; $('#bannerBody').textContent = file.name + ' không có dòng trace hợp lệ. Mỗi dòng cần trace_id, ts (ISO) và mảng spans, xem mẫu ở cuối trang.'; $('#banner').dataset.mode = 'lost'; return; }
+      if (!res.traces.length){ unreadable(fmt(B.badBody, {name: file.name})); return; }
       if (liveTimer){ clearInterval(liveTimer); liveTimer = null; }
       state.mode = 'file'; state.fileName = file.name; setTraces(res.traces, res.bad); state.selected = null; state.limit = 60; state.filter.err = null; renderAll();
     } catch (err) {
-      $('#bannerHead').textContent = 'KHÔNG ĐỌC ĐƯỢC.'; $('#bannerBody').textContent = file.name + ': ' + err.message + '. Dùng JSONL (mỗi dòng một trace) hoặc một mảng JSON.'; $('#banner').dataset.mode = 'lost';
+      unreadable(fmt(B.badParse, {name: file.name, error: err.message}));
     }
     e.target.value = '';
   };
@@ -1597,14 +1745,15 @@ $('.tabs').addEventListener('keydown', e => {
 $('#copySchema').addEventListener('click', () => {
   const txt = $('#schema').textContent;
   const done = msg => { $('#copyMsg').textContent = msg; };
-  const select = () => { const r = document.createRange(); r.selectNodeContents($('#schema')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); done('Đã chọn sẵn, bấm Ctrl+C.'); };
-  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(() => done('Đã chép.'), select); else select();
+  const select = () => { const r = document.createRange(); r.selectNodeContents($('#schema')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); done(S.help.selected); };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(() => done(S.help.copied), select); else select();
 });
 let resizeTimer = null;
 window.addEventListener('resize', () => { if (state.tab !== 'overview') return; clearTimeout(resizeTimer); resizeTimer = setTimeout(renderSankey, 150); });
 
 { const saved = store.get(TAB_KEY); if (TABS.includes(saved)) state.tab = saved; }
 try { const n = Date.parse(new URLSearchParams(location.search).get('now') || ''); if (!isNaN(n)) state.now = n; } catch (e) { /* ?now=ISO fixes the clock of the sample data, so a screenshot is reproducible */ }
+applyStrings();
 showTab(state.tab);
 init();
 })();

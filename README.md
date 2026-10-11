@@ -6,7 +6,7 @@
 
 | The dashboard: the journey of one real request (live traces of a run on synthetic data) | The chat widget on a demo shop page |
 |---|---|
-| ![Dashboard, tab Luồng xử lý: router, filter extraction, hybrid retrieval, grounded answer, guardrail, reply](docs/screenshots/phase7/dashboard-live-product-desktop.png) | ![Chat widget with product cards](docs/screenshots/phase7/widget-products-desktop.png) |
+| ![Dashboard, tab Request flow: intent routing, filter extraction, retrieval, grounded answer, guardrail check, reply](docs/screenshots/phase7/dashboard-live-product-desktop.png) | ![Chat widget with product cards](docs/screenshots/phase7/widget-products-desktop.png) |
 
 More screenshots (sample data, desktop and phone): [`docs/screenshots/phase7/`](docs/screenshots/phase7/).
 

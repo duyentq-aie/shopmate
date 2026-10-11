@@ -37,7 +37,7 @@ to undo) and written here. Format: **context / choice / why / how to undo.**
 ### D7.4 No new stage: the guardrail lives in the `answer` span
 
 - **Choice.** `STAGES` is unchanged. The guardrail verdict is `answer.summary.guardrail = {checked, violations, fallback_used}` (`checked` = sentences
-  the check went through, `violations` = rule names before the colon of each problem). The dashboard draws "Kiểm tra guardrail" as a node derived from it.
+  the check went through, `violations` = rule names before the colon of each problem). The dashboard draws "Guardrail check" (was "Kiểm tra guardrail" until D7.34) as a node derived from it.
 - **Why.** A new stage would touch the taxonomy test, the dashboard stage table and AGENT-DESIGN for no new information.
 
 ### D7.5 `ticket_confirm` summary is `asked` or `written`; "confirmed" and "declined" are read from the next step
@@ -111,15 +111,15 @@ to undo) and written here. Format: **context / choice / why / how to undo.**
 - **Outcome of a request** (used by the list filter, the badges and the flow diagram): `error` if the request has an error; else `fallback` if the guardrail replaced the AI text
   (`reply_source` is `guardrail_fallback`, or an `answer_guardrail_fallback` span warning); else `warn` if a span has a warning; else `ok`. A fallback is a warning in the trace but is
   shown separately because the brief asks for it as an outcome. It keeps the warning colour; the diagram also hatches it, so colour is not the only cue.
-- **Stages that did not run.** After a request that ended in error, the stages that intent normally goes through and that never ran are drawn dimmed and dashed with "không chạy". With no
+- **Stages that did not run.** After a request that ended in error, the stages that intent normally goes through and that never ran are drawn dimmed and dashed with "skipped" (D7.34; "không chạy" before). With no
   known intent (the router itself failed) one dimmed node says so; the page does not guess a path.
-- **The guardrail node** ("Kiểm tra guardrail") is not a stage: it is drawn from `summary.guardrail` of the `answer` span (D7.4).
-- **Version 1 lines** are read as before: the journey is drawn from the spans, the reply bubble says "Trace cũ (v1) — không có nội dung câu trả lời". The sample mixes in six v1 lines.
+- **The guardrail node** ("Guardrail check", D7.34) is not a stage: it is drawn from `summary.guardrail` of the `answer` span (D7.4).
+- **Version 1 lines** are read as before: the journey is drawn from the spans, the reply bubble says "Old trace (v1): the reply text was not recorded" (D7.34; Vietnamese before). The sample mixes in six v1 lines.
 - **The flow diagram** is drawn by hand in SVG (no library): customer → router → intent → outcome, band thickness proportional to the number of requests; every band and node is a
   button that opens the list filtered the same way.
 - **A race found while testing and fixed:** a live poll that was in flight when a file was loaded could overwrite the file with live data; a finished poll now does nothing unless the page is
   still in live mode.
-- **`order_lookup.found`** is shown in the journey with the sentence "Dành cho người vận hành ... Khách không được biết điều này" (D7.6).
+- **`order_lookup.found`** is shown in the journey with the sentence "For operators: the order number was found. The customer is not told this." (D7.6, D7.34).
 
 ## Part C: chat API and widget
 
@@ -172,7 +172,7 @@ HTTPS reverse proxy with real authentication in front of it and a real CORS orig
   or touched). The API ran with `--live --max-live-calls 30`, bound to 127.0.0.1:8766, and was stopped afterwards.
 - Six short conversations, each in a new session: a product search that found nothing (even after relaxing the size), a policy question, an order lookup of seed order #84 with its (synthetic) owner email, an out-of-scope
   request, a second product search that found nothing, and a product search that found two sneakers with their cards. **Live Gemini requests used by Phase 7: 12** (counter 135 -> 147), all of them in this step.
-- Every new line of `logs/traces.jsonl` passed `validate_trace_line` (schema v2). The dashboard, served by the real monitor on 127.0.0.1:8765, showed them in "TRỰC TIẾP" mode with no console message.
+- Every new line of `logs/traces.jsonl` passed `validate_trace_line` (schema v2). The dashboard, served by the real monitor on 127.0.0.1:8765, showed them in "LIVE" mode ("TRỰC TIẾP" at the time, D7.34) with no console message.
 
 ## Part D: CI
 
@@ -255,7 +255,7 @@ catalogue has no black Dù jacket under 500k and no white or Linen men's shirt),
   **still 7 steps** (`intake, route, extract, check_product, search_products, relax_search, suggest`); a second node, `search_offer`, handles the accepted offer (`intake, search_offer, compose`, 3 steps).
   `docs/AGENT-DESIGN.md` (table, paths, bounds) and its diagram were updated, and the tests that compare them with the code pass.
 - **Trace.** The counts are one `retrieval` span of mode `count`: `blocking_constraint`, `offer_count` (as asked), and also `offer_drops` and `probes` (every count made, so the dashboard can show why). The reply span says
-  `template: offer_invite`; `reply_source` is `template` (as asked, not `clarify`). The search after a yes carries `offer_drops` on its retrieval span. The dashboard shows both, with Vietnamese labels, and the sample
+  `template: offer_invite`; `reply_source` is `template` (as asked, not `clarify`). The search after a yes carries `offer_drops` on its retrieval span. The dashboard shows both, with labels (Vietnamese when written, English since D7.34), and the sample
   data tells the story (offer, accepted, declined).
 - The chat API's `awaiting_confirmation` stays "a ticket is waiting"; the offer is answered by typing "có", like any message (no widget button was built).
 
@@ -357,3 +357,25 @@ catalogue has no black Dù jacket under 500k and no white or Linen men's shirt),
   offer gone (a "có" afterwards accepts nothing); the four mixed messages above reach the router; a bare "không" without an offer reaches the router. `tests/test_agent_parsing.py`: the positive and negative lists of
   `is_plain_decline` and a consistency check against `parse_yes_no` (nothing is both a yes and a refusal). `docs/AGENT-DESIGN.md` (intake row, the paragraph, the diagram) and its comparison test were updated.
 - **Undo.** Delete the two lines of the branch in `intake`; the refusal goes to the router again.
+
+## Dashboard language
+
+### D7.34 The dashboard's interface is English, in one `STRINGS` object
+
+- **Context.** The dashboard of D7.10 to D7.13 had Vietnamese interface text spread over the markup and the script. The owner asked for natural, short English in sentence case (tabs, buttons, KPIs, chart titles and
+  axes, legends, tooltips, banners, empty and error states, one sentence per error code, the scorecard, the help text), with no language switch.
+- **Choice.** `dashboard/index.html` has `<html lang="en">` and one object, `STRINGS`, holding every piece of interface text. The markup carries none: an element marked `data-s="path"` is filled from it at start-up
+  (`data-s-aria-label`, `data-s-placeholder` and `data-s-title` fill attributes), and the script reads the rest through `S`. A wrong path shows as `⟦path⟧` instead of failing silently. Light markup inside a string
+  (`` `code` ``, `**bold**`) is turned into nodes, never parsed as HTML, so the rule of D7.13 (no `innerHTML`) holds. Tables that mix text and logic were split: `STAGE_KIND` and `ERR_SEV` hold the logic, `STRINGS.stage` and
+  `STRINGS.err` the words. Stage names: Intent routing, Filter extraction, Retrieval, Order lookup, Ticket confirmation, Fixed reply, Answer, Guardrail check, Offer (the counting step of an empty search; the search after an
+  accepted offer is "Retrieval (offer accepted)").
+- **What is not translated.** Trace data: customer questions and replies, product names, filter values (`Áo khoác nam`, `Đen`), reply text, and the sample generator that makes them. The sample's own error messages are
+  English, like the ones the code writes (they were Vietnamese, which no real trace has). Prices in the interface use the English locale and the dong sign (`459,000 ₫`); inside a Vietnamese reply they stay as the agent wrote
+  them (`459.000đ`). Numbers use a point for decimals (`0.939`, `1.03 s`), times are 24-hour in the shop's own zone (UTC+7).
+- **Small changes that came with it.** The "requests per hour" chart is "Requests over time" (in a loaded file the 24 buckets are not hours); the cost KPI is cost per request (it used to print a per-mille sign); the window
+  label says UTC+7; the sample banner is one line shorter.
+- **Tests.** `tests/test_dashboard_page.py`: the page is English (no Vietnamese letter outside two regions marked `@vi-data`: the sample generator and the example trace line), the markup holds no text of its own, every
+  `data-s` path exists in `STRINGS` (Node), money and plurals format as agreed, one sentence of at most 120 characters per error type. `tests/test_monitor.py`: the error types of the page still equal `ERROR_TYPES`, and
+  the help text still lists the same ones; the monitor's port is still 8765. Screenshots in `docs/screenshots/phase7/` were taken again (desktop 1440 px, mobile 390 px, the four "live" ones from the real monitor
+  reading the recorded Phase 7 and 7.5 traces).
+- **Undo.** Restore `dashboard/index.html` and the two test files from the previous commit; nothing else depends on the language of the page.

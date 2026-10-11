@@ -37,12 +37,30 @@ def _script() -> str:
     return re.search(r"<script>(.*)</script>", HTML, re.S).group(1)
 
 
+def _section(name: str) -> str:
+    """The text of one section of the STRINGS object of the page (all interface text lives there): a one-line object or a block of lines."""
+    one = re.search(rf"^  {name}: \{{([^\n]*)\}},?$", HTML, re.M)
+    block = re.search(rf"^  {name}: \{{\n(.*?)\n  \}},?$", HTML, re.M | re.S)
+    assert one or block, f"STRINGS has no section {name}"
+    return (block or one).group(1)
+
+
+def _texts(name: str) -> dict[str, str]:
+    """key -> text of the one-line `key: 'text'` entries of a STRINGS section."""
+    return dict(re.findall(r"([A-Za-z_0-9]+): '([^']*)'", _section(name)))
+
+
+VIETNAMESE = re.compile("[àáảãạăằắẳẵặâầấẩẫậèéẻẽẹêềếểễệìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵđ]", re.I)
+VI_DATA = re.compile(r"(?:/\*|<!--) @vi-data begin.*?(?:/\*|<!--) @vi-data end (?:\*/|-->)", re.S)
+
+
 # --- structure ---------------------------------------------------------------------------------------------------------------
 
 
 def test_the_page_has_exactly_the_four_tabs_with_flow_first_and_selected():
-    tabs = re.findall(r'<button class="tab" role="tab" id="tab-(\w+)" data-tab="\w+" aria-controls="panel-\w+" aria-selected="(\w+)"[^>]*>([^<]+)', HTML)
-    assert [(name, label) for name, _, label in tabs] == [("flow", "Luồng xử lý"), ("overview", "Tổng quan"), ("errors", "Lỗi"), ("eval", "Đánh giá")]
+    tabs = re.findall(r'<button class="tab" role="tab" id="tab-(\w+)" data-tab="\w+" aria-controls="panel-\w+" aria-selected="(\w+)"[^>]*><span data-s="tabs\.(\w+)">', HTML)
+    labels = _texts("tabs")
+    assert [(name, labels[key]) for name, _, key in tabs] == [("flow", "Request flow"), ("overview", "Overview"), ("errors", "Errors"), ("eval", "Evaluation")]
     assert [selected for _, selected, _ in tabs] == ["true", "false", "false", "false"]
     assert 'role="tablist"' in HTML
     for name, *_ in tabs:
@@ -50,22 +68,25 @@ def test_the_page_has_exactly_the_four_tabs_with_flow_first_and_selected():
 
 
 def test_the_flow_tab_has_the_list_the_filters_the_journey_and_the_replay_button():
-    for needle in ('id="rows" role="listbox"', 'id="fQuery"', 'id="fStatus"', 'id="fIntent"', 'id="journey"', "'Phát lại'"):
+    for needle in ('id="rows" role="listbox"', 'id="fQuery"', 'id="fStatus"', 'id="fIntent"', 'id="journey"', "replay: 'Replay'"):
         assert needle in HTML, needle
     for status in ('value="ok"', 'value="warn"', 'value="fallback"', 'value="error"'):
         assert status in HTML
 
 
-def test_the_stage_names_of_the_journey_are_the_agreed_vietnamese_ones():
-    for label in ("Phân loại ý định", "Trích bộ lọc", "Tìm kiếm", "Tra cứu đơn", "Xác nhận tạo ticket", "Viết câu trả lời", "Kiểm tra guardrail", "Khách hỏi", "ShopMate trả lời"):
-        assert label in HTML, label
-    assert "Câu trả lời dự phòng của guardrail" in HTML and "Trace cũ (v1) — không có nội dung câu trả lời" in HTML
+def test_the_stage_names_of_the_journey_are_the_agreed_english_ones():
+    stage = _texts("stage")
+    assert [stage[k] for k in ("router", "extractor", "retrieval", "order_lookup", "ticket_confirm", "answer", "guardrail", "offer")] == [
+        "Intent routing", "Filter extraction", "Retrieval", "Order lookup", "Ticket confirmation", "Answer", "Guardrail check", "Offer"]
+    journey = _texts("journey")
+    assert (journey["customer"], journey["shop"]) == ("Customer", "ShopMate")
+    assert _texts("source")["guardrail_fallback"] == "Guardrail fallback answer" and "Old trace (v1)" in journey["oldReply"]
 
 
 def test_live_mode_polls_every_5_seconds_and_the_three_banners_exist():
     assert re.search(r"fetch\('api/traces\?limit=5000'", HTML) and "setInterval(pollLive, 5000)" in HTML
-    for banner in ("TRỰC TIẾP.", "MẤT KẾT NỐI.", "DỮ LIỆU MẪU."):
-        assert banner in HTML, banner
+    banner = _texts("banner")
+    assert (banner["liveHead"], banner["lostHead"], banner["sampleHead"]) == ("LIVE", "DISCONNECTED", "SAMPLE DATA")
 
 
 def test_no_trace_data_is_ever_parsed_as_html():
@@ -109,34 +130,83 @@ def _object_keys(name: str) -> set[str]:
 
 
 def test_the_page_knows_every_stage_and_every_reply_source_of_the_tracer():
-    stage_block = re.search(r"const STAGE = \{(.*?)\n\};", HTML, re.S).group(1)
-    assert set(re.findall(r"^\s+([a-z_]+):\s+\{label:", stage_block, re.M)) == set(STAGES)
-    source_block = re.search(r"const SOURCE = \{(.*?)\n\};", HTML, re.S).group(1)
-    assert set(re.findall(r"^\s+([a-z_]+):\s+'", source_block, re.M)) == set(REPLY_SOURCES)
+    kind_block = re.search(r"const STAGE_KIND = \{(.*?)\};", HTML, re.S).group(1)
+    assert set(re.findall(r"([a-z_]+):\s*'", kind_block)) == set(STAGES)  # the page draws every stage the tracer can write
+    assert set(STAGES) <= set(_texts("stage"))  # and has a name for each
+    assert set(_texts("source")) == set(REPLY_SOURCES)
 
 
 def test_the_page_knows_every_intent_and_every_fixed_reply_and_every_guardrail_rule():
-    intent_block = re.search(r"const INTENT = \{(.*?)\};", HTML, re.S).group(1)
-    assert set(re.findall(r"([a-z_]+):\s*'", intent_block)) == set(INTENTS) | {"unknown"}
-    template_block = re.search(r"const TEMPLATE = \{(.*?)\n\};", HTML, re.S).group(1)
-    known = set(re.findall(r"\b([a-z_]+):\s*'", template_block))
+    assert set(_texts("intent")) == set(INTENTS) | {"unknown"}
+    known = set(_texts("template"))
     assert set(templates._FIXED) | {"ticket_created", "no_results_relaxed", "offer_invite"} <= known
-    rule_block = re.search(r"const RULE = \{(.*?)\n\};", HTML, re.S).group(1)
-    rules = set(re.findall(r"\b([a-z_]+):\s*'", rule_block))
+    rules = set(_texts("rule"))
     written = set(re.findall(r'"([a-z_]+): ', Path(guardrails.__file__).read_text(encoding="utf-8"))) | set(re.findall(r'f"([a-z_]+): ', Path(guardrails.__file__).read_text(encoding="utf-8")))
     assert written and written <= rules, sorted(written - rules)
 
 
 def test_the_journey_can_show_the_counts_of_an_offer():
-    for text in ("Đếm để gợi ý hàng gần đúng", "Ràng buộc chặn:", "Theo lời mời khách đã đồng ý", "Tìm kiếm theo lời mời", "sm.mode === 'count'"):
-        assert text in HTML, text
+    assert _texts("stage")["offer"] == "Offer" and _texts("stage")["offerSearch"] == "Retrieval (offer accepted)"
+    body = _texts("body")
+    assert body["blocking"] == "Blocking constraint: {name}" and body["offerSearch"].startswith("Following the offer the customer accepted")
+    assert "sm.mode === 'count'" in HTML
 
 
-def test_every_error_type_has_a_short_vietnamese_explanation_for_the_journey():
-    block = re.search(r"const ERR = \{(.*?)\n\};", HTML, re.S).group(1)
-    shorts = re.findall(r"^\s+([a-z0-9_]+):\s*\{label: '[^']*', sev: '\w+', short: '([^']+)'", block, re.M)
+def test_every_error_type_has_a_short_english_explanation_for_the_journey():
+    shorts = re.findall(r"^    ([a-z0-9_]+): \{label: '[^']*', short: '([^']+)', fix: '[^']+'\}", _section("err"), re.M)
     assert {name for name, _ in shorts} == set(ERROR_TYPES)
     assert all(len(text) <= 120 for _, text in shorts)  # short means short
+    assert all(text.endswith(".") and text.count(". ") == 0 for _, text in shorts)  # one sentence each
+    severities = dict(re.findall(r"([a-z0-9_]+): '(\w+)'", re.search(r"const ERR_SEV = \{(.*?)\};", HTML, re.S).group(1)))
+    assert set(severities) == set(ERROR_TYPES) and set(severities.values()) <= {"warn", "error", "security"}
+
+
+# --- all interface text is English, in one object -------------------------------------------------------------------------------
+
+
+def test_the_page_is_english():
+    assert '<html lang="en">' in HTML
+    assert not VIETNAMESE.search(VI_DATA.sub("", HTML)), "Vietnamese text outside the marked sample data: " + ", ".join(
+        sorted({line.strip()[:80] for line in VI_DATA.sub("", HTML).split("\n") if VIETNAMESE.search(line)})[:5])
+
+
+def test_only_the_sample_trace_data_and_the_example_line_are_vietnamese():
+    regions = VI_DATA.findall(HTML)
+    assert len(regions) == 2 and all(VIETNAMESE.search(r) for r in regions)  # the sample generator, and the example trace line in the help text
+    assert re.search(r"@vi-data begin: [^*\n]*sample trace data", HTML) and 'id="schema"' in regions[0]  # each region says why it is there
+
+
+def test_the_markup_carries_no_interface_text_of_its_own():
+    body = HTML[HTML.index("<body>"):HTML.index("<script>")]
+    body = re.sub(r"<pre\b.*?</pre>", "", re.sub(r"<!--.*?-->", "", body, flags=re.S), flags=re.S)
+    text = {chunk.strip() for chunk in re.findall(r">([^<>]+)<", body)} - {""}
+    assert text <= {"SHOPMATE", "MONITOR", "model", "retrieval", "gemini-3.5-flash-lite", "dense_folded", "—", "$0"}, sorted(text)  # brand, technical names, a dash, a number
+
+
+def test_the_strings_object_has_no_apostrophes_so_the_tests_can_read_it_as_text():
+    block = re.search(r"const STRINGS = \{(.*?)\n\};", HTML, re.S).group(1)
+    assert "\\'" not in block
+
+
+@needs_node
+def test_every_text_the_markup_asks_for_exists_in_strings():
+    markup = HTML[:HTML.index("<script>")]
+    paths = set(re.findall(r'data-s(?:-[a-z-]+)?="([\w.]+)"', markup))
+    strings = js("api.STRINGS")
+
+    def lookup(path):
+        node = strings
+        for key in path.split("."):
+            node = node.get(key) if isinstance(node, dict) else None
+        return node
+
+    assert len(paths) > 40 and [p for p in sorted(paths) if not isinstance(lookup(p), str)] == []
+
+
+@needs_node
+def test_money_and_numbers_use_the_english_locale_and_the_dong_sign():
+    assert js("[api.fVnd(459000), api.fVnd(1234567), api.fInt(1960), api.plural(1, 'request'), api.plural(2, 'request')]") == ["459,000 ₫", "1,234,567 ₫", "1,960", "1 request", "2 requests"]
+    assert js("api.fmt('{a} and {b}', {a: 1})") == "1 and {b}"  # an unknown placeholder stays visible
 
 
 # --- the pure code under Node ---------------------------------------------------------------------------------------------------
