@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
 <style>
-  :root { --indigo: #1F2A5C; --paper: #F7F8FA; --ink: #1A1D24; --tint: #E8EAF4; --green: #2E7D5B; --red: #B3261E; --muted: #566075; --line: #D5D9EA; color-scheme: light; }
+  :root { --indigo: #1F2A5C; --paper: #F7F8FA; --ink: #1A1D24; --tint: #E8EAF4; --green: #2E7D5B; --red: #B3261E; --muted: #566075; --line: #D5D9EA; --photo: #EEF0F5; color-scheme: light; }
   * { box-sizing: border-box; }
   body { margin: 0; font: 400 16px/1.55 "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; color: var(--ink); background: var(--paper); }
   a { color: inherit; }
@@ -24,7 +24,11 @@
   nav a:hover { background: var(--tint); }
   nav a[aria-current="true"] { background: var(--indigo); color: #fff; }
 
-  .hero { margin-top: 28px; background: var(--tint); border-radius: 12px; padding: 36px 32px; }
+  .hero { margin-top: 28px; background: var(--tint); border-radius: 12px; padding: 36px 32px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; align-items: center; }
+  .hero.has-pic { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); }
+  .hero-pic { position: relative; margin: 0; aspect-ratio: 3 / 2; border-radius: 10px; overflow: hidden; background: var(--photo); }
+  .hero-pic img { width: 100%; height: 100%; display: block; object-fit: cover; }
+  .hero-pic figcaption { position: absolute; right: 8px; bottom: 8px; max-width: calc(100% - 16px); padding: 2px 9px; border-radius: 999px; background: rgba(255, 255, 255, .88); color: var(--muted); font-size: 12px; line-height: 1.5; }
   .hero h1 { margin: 0 0 8px; font-size: clamp(26px, 4vw, 38px); line-height: 1.2; font-weight: 700; color: var(--indigo); letter-spacing: -.02em; }
   .hero p { margin: 0 0 20px; max-width: 56ch; font-size: 17px; }
   .ask { display: inline-flex; align-items: center; gap: 10px; border: 0; border-radius: 10px; background: var(--indigo); color: #fff; padding: 12px 18px; font-family: inherit; font-size: 15px; font-weight: 600; line-height: 1.3; cursor: pointer; text-align: left; }
@@ -36,18 +40,24 @@
   .section-head h2 { margin: 0; font-size: 22px; font-weight: 600; }
   .section-head p { margin: 0; color: var(--muted); font-size: 14px; }
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; }
-  .item { background: #fff; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
-  .item .thumb { background: var(--tint); aspect-ratio: 1 / 1; display: block; }
-  .item .thumb svg { width: 100%; height: 100%; display: block; }
-  .item .body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 4px; flex: 1; }
-  .item h3 { margin: 0; font-size: 15.5px; font-weight: 600; line-height: 1.35; }
-  .item .meta { color: var(--muted); font-size: 13.5px; }
+  .item { background: #fff; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; transition: transform .18s ease, border-color .18s ease; }
+  .item .thumb { display: block; padding: 10px 10px 0; }
+  .item .frame { aspect-ratio: 4 / 5; background: var(--photo); border-radius: 10px; overflow: hidden; }
+  .item .frame img, .item .frame svg { width: 100%; height: 100%; display: block; }
+  .item .frame img { object-fit: cover; }
+  .item .body { padding: 12px 16px 16px; display: flex; flex-direction: column; gap: 4px; flex: 1; }
+  .item h3 { margin: 0; font-size: 15.5px; font-weight: 600; line-height: 1.35; min-height: 2.7em; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
+  .item .meta { color: var(--muted); font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .item .price { font-size: 17px; font-weight: 700; color: var(--indigo); margin-top: 6px; }
   .stock { align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; padding: 2px 10px; border-radius: 999px; margin-top: 4px; }
   .stock::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
   .stock.in { color: var(--green); background: rgba(46, 125, 91, .12); }
   .stock.out { color: var(--red); background: rgba(179, 38, 30, .10); }
   .empty { grid-column: 1 / -1; color: var(--muted); padding: 24px 0; }
+  .photo-note { margin: 14px 0 0; color: var(--muted); font-size: 13px; }
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .item:hover { transform: translateY(-2px); border-color: var(--indigo); }
+  }
 
   footer.shop { margin-top: 28px; background: #fff; border-top: 1px solid var(--line); padding: 36px 0 112px; }
   .policies { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 28px; }
@@ -61,7 +71,10 @@
     .wrap { padding: 0 16px; }
     nav { gap: 2px 0; }
     nav a { padding: 8px 8px; font-size: 14px; }
-    .hero { padding: 24px 20px; }
+    .hero { padding: 24px 20px; gap: 20px; }
+    .hero.has-pic { grid-template-columns: minmax(0, 1fr); }
+    .hero-pic { aspect-ratio: 16 / 10; }
+    .item .thumb { padding: 8px 8px 0; }
     .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
     .item .body { padding: 10px 12px 12px; }
     .item h3 { font-size: 14px; }
@@ -84,18 +97,25 @@
   </header>
 
   <main class="wrap">
-    <div class="hero">
-      <h1>Thời trang gọn gàng cho mỗi ngày</h1>
-      <p>ShopMate Fashion bán quần áo nam nữ, giày dép và phụ kiện, giao hàng toàn quốc từ kho tại TP. Hồ Chí Minh.</p>
-      <button class="ask" id="ask" type="button">
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.6-.8L3 20.5l1.5-4.6A8.4 8.4 0 1 1 21 11.5z"/></svg>
-        Hỏi trợ lý về size, chất liệu, đổi trả hoặc tra đơn
-      </button>
+    <div class="hero" id="hero">
+      <div class="hero-text">
+        <h1>Thời trang gọn gàng cho mỗi ngày</h1>
+        <p>ShopMate Fashion bán quần áo nam nữ, giày dép và phụ kiện, giao hàng toàn quốc từ kho tại TP. Hồ Chí Minh.</p>
+        <button class="ask" id="ask" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.6-.8L3 20.5l1.5-4.6A8.4 8.4 0 1 1 21 11.5z"/></svg>
+          Hỏi trợ lý về size, chất liệu, đổi trả hoặc tra đơn
+        </button>
+      </div>
+      <figure class="hero-pic" id="hero-pic" hidden>
+        <img id="hero-img" alt="" width="960" height="640">
+        <figcaption id="hero-credit"></figcaption>
+      </figure>
     </div>
 
     <section class="products" id="san-pham" aria-labelledby="products-title">
       <div class="section-head"><h2 id="products-title">Sản phẩm nổi bật</h2><p id="count" role="status"></p></div>
       <div class="grid" id="grid"></div>
+      <p class="photo-note">Ảnh minh họa từ Unsplash/Pexels — xem CREDITS (widget/img/products/CREDITS.md)</p>
     </section>
   </main>
 

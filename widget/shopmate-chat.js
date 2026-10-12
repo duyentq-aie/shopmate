@@ -15,6 +15,8 @@
  * Script API, on window.ShopMateChat (the demo page uses the same thumbnail function as the widget, so a product looks the same everywhere):
  *   ShopMateChat.thumbnail({kind, color, material, name}, {decorative, tile}) -> an <svg> "fabric swatch": a silhouette by kind, the product's own colour,
  *   a weave by material. shapeOf(kind), colorOf(name), patternOf(material) are the three rules it is made of.
+ *   ShopMateChat.setProductImages({ '<product slug>': '<image src>' }): the photos a page has of its products (the chat API sends no picture with a card, only the
+ *   slug). ShopMateChat.picture(product, options) is what a card shows: the photo of that slug (an <img>, 4:5) if the page gave one, else the swatch above.
  *   On the element: open(), close(), ask(text).
  *
  * Fonts: the widget asks for "Be Vietnam Pro" and falls back to the system font. It loads nothing itself; a page that wants the font loads it (the demo page does).
@@ -185,6 +187,40 @@
   window.ShopMateChat.colorOf = colorOf;
   window.ShopMateChat.patternOf = patternOf;
 
+  /* ---------------------------------------------------------------------------------------------------------------------------------------------------
+   * Product photos. A card from the chat API names its product (name, kind, colour, material, slug) and carries no picture. A page that has photos of its
+   * products registers them by slug; a card without one keeps the swatch, so a product nobody photographed is never left blank or given another's picture.
+   * ------------------------------------------------------------------------------------------------------------------------------------------------- */
+
+  var IMAGE_SRC = /^(?:data:image\/(?:webp|png|jpeg|avif);base64,[A-Za-z0-9+\/=]+|https?:\/\/[^\s"'<>]+)$/;
+  var photoBySlug = Object.create(null);
+
+  function setProductImages(map) {
+    photoBySlug = Object.create(null);
+    Object.keys(map || {}).forEach(function (slug) { if (typeof map[slug] === 'string' && IMAGE_SRC.test(map[slug])) photoBySlug[slug] = map[slug]; });
+  }
+
+  function photoFor(product) {
+    var slug = product && product.slug;
+    return typeof slug === 'string' && slug in photoBySlug ? photoBySlug[slug] : null;
+  }
+
+  function picture(product, options) {
+    options = options || {};
+    var src = photoFor(product);
+    if (!src) return thumbnail(product, options);
+    var img = document.createElement('img');
+    img.setAttribute('src', src);
+    img.setAttribute('alt', options.decorative ? '' : String((product && product.name) || 'Sản phẩm'));
+    img.setAttribute('width', 600); img.setAttribute('height', 750);  // the 4:5 box is reserved before the file is decoded
+    img.setAttribute('loading', 'lazy'); img.setAttribute('decoding', 'async'); img.setAttribute('draggable', 'false');
+    return img;
+  }
+
+  window.ShopMateChat.setProductImages = setProductImages;
+  window.ShopMateChat.photoFor = photoFor;
+  window.ShopMateChat.picture = picture;
+
   if (!window.customElements || window.customElements.get('shopmate-chat')) return;
 
   /* ---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -201,7 +237,7 @@
   var memorySession = null;
 
   var GREETING = 'Chào bạn! Mình là trợ lý của ShopMate Fashion. Bạn cần tìm sản phẩm, hỏi về size, chất liệu, đổi trả hay tra đơn hàng?';
-  var CHIPS = ['Áo khoác nam dưới 500k', 'Đổi hàng trong bao nhiêu ngày?', 'Kiểm tra đơn hàng', 'Giao hàng mất mấy ngày?'];
+  var CHIPS = ['Giày tây nam màu nâu dưới 1 triệu', 'Đổi hàng trong bao nhiêu ngày?', 'Kiểm tra đơn hàng', 'Giao hàng mất mấy ngày?'];
   var T = {
     open: 'Mở trò chuyện với trợ lý ShopMate', minimize: 'Thu nhỏ cửa sổ trò chuyện', name: 'Trợ lý ShopMate', status: 'Thường trả lời trong vài giây',
     dialog: 'Trò chuyện với trợ lý ShopMate', log: 'Cuộc trò chuyện', suggestions: 'Gợi ý câu hỏi', placeholder: 'Nhập tin nhắn…', label: 'Tin nhắn của bạn',
@@ -251,6 +287,7 @@
     '.rail{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 14px;margin:0 -14px;padding:2px 14px 6px;align-self:stretch;scrollbar-width:thin;scrollbar-color:var(--field) transparent}',
     '.card{flex:0 0 164px;scroll-snap-align:start;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}',
     '.thumb{background:var(--tint);height:92px;display:block}.thumb svg{width:100%;height:100%;display:block}',
+    '.thumb.photo,.rail.photos .thumb{height:auto;aspect-ratio:4/5}.thumb img{width:100%;height:100%;display:block;object-fit:cover}',
     '.info{padding:9px 10px 10px;display:flex;flex-direction:column;gap:5px;flex:1}',
     '.name{font-weight:600;font-size:13.5px;line-height:1.35;min-height:2.7em;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}',
     '.price{font-weight:700;font-size:15px;color:var(--indigo)}',
@@ -356,8 +393,8 @@
 
   function productCard(p) {
     var href = p.url ? safeUrl(p.url) : null;
-    var thumb = el('div', { class: 'thumb' });
-    thumb.appendChild(thumbnail(p, { decorative: true }));
+    var thumb = el('div', { class: 'thumb' + (photoFor(p) ? ' photo' : '') });
+    thumb.appendChild(picture(p, { decorative: true }));
     var info = el('div', { class: 'info' }, el('span', { class: 'name', text: String(p.name || '') }), el('span', { class: 'price', text: formatPrice(p.price_vnd) }),
       el('span', { class: 'stock ' + (p.in_stock ? 'in' : 'out'), text: p.in_stock ? T.inStock : T.outOfStock }));
     if (href) info.appendChild(el('a', { class: 'view', href: href, target: '_blank', rel: 'noopener noreferrer', 'aria-label': T.view + ': ' + String(p.name || ''), text: T.view }));
@@ -469,7 +506,7 @@
       this._log.appendChild(msg);
       var cards = Array.isArray(extra.products) ? extra.products.filter(function (p) { return p && typeof p === 'object'; }).slice(0, 5) : [];
       if (cards.length) {
-        var rail = el('div', { class: 'rail', role: 'group', 'aria-label': T.cards });
+        var rail = el('div', { class: 'rail' + (cards.some(photoFor) ? ' photos' : ''), role: 'group', 'aria-label': T.cards });  // one photo makes every thumb 4:5, so the cards line up
         cards.forEach(function (p) { rail.appendChild(productCard(p)); });
         this._log.appendChild(rail);
       }

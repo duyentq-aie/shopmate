@@ -1,8 +1,11 @@
 /*
  * The product grid and the "Hỏi trợ lý" button of the demo page (widget/demo.html). No inline script: the page's CSP forbids it.
  * The products are the static list widget/demo-products.json (built from the real catalogue by scripts/build_demo_products.py); the page only reads it.
- * The thumbnails are drawn by the same function the widget uses for its product cards (window.ShopMateChat.thumbnail, from shopmate-chat.js).
- * Everything from the file goes on the page as text or created nodes.
+ * The pictures come with it (the chat API serves that one file, not a folder of images, so they are data: URIs in it): a photo per product and one hero picture.
+ * The card picture is the same function the widget uses for its own product cards (window.ShopMateChat.picture, from shopmate-chat.js): the product's photo, or, for a
+ * product without one, the fabric swatch (window.ShopMateChat.thumbnail). The page also gives the widget the photos by product slug, so the carousel of the
+ * assistant shows the same pictures as the grid.
+ * Everything from the file goes on the page as text, created nodes or an image `src` the widget has checked.
  */
 (function () {
   'use strict';
@@ -25,12 +28,14 @@
   }
 
   function card(p) {
+    var frame = el('div', 'frame');
+    var draw = window.ShopMateChat && (window.ShopMateChat.picture || window.ShopMateChat.thumbnail);
+    if (draw) frame.appendChild(draw(p, { decorative: true }));
     var thumb = el('div', 'thumb');
-    var draw = window.ShopMateChat && window.ShopMateChat.thumbnail;
-    if (draw) thumb.appendChild(draw(p, { decorative: true }));
+    thumb.appendChild(frame);
     var body = el('div', 'body');
     body.appendChild(el('h3', null, p.name));
-    body.appendChild(el('span', 'meta', 'Chất liệu: ' + p.material + ' · ' + p.color));
+    body.appendChild(el('span', 'meta', p.material + ' · ' + p.color));
     body.appendChild(el('span', 'price', price(p.price_vnd)));
     body.appendChild(el('span', 'stock ' + (p.in_stock ? 'in' : 'out'), p.in_stock ? 'Còn hàng' : 'Hết hàng'));
     var item = el('article', 'item');
@@ -63,8 +68,25 @@
     if (chat && chat.open) chat.open();
   });
 
+  function showHero(hero) {
+    var src = hero && typeof hero.image === 'string' ? hero.image : '';
+    if (!/^data:image\/(?:webp|png|jpeg);base64,[A-Za-z0-9+\/=]+$/.test(src)) return;  // no picture, no empty frame
+    var img = document.getElementById('hero-img');
+    img.setAttribute('src', src);
+    img.setAttribute('alt', typeof hero.alt === 'string' ? hero.alt : '');
+    document.getElementById('hero-credit').textContent = typeof hero.credit === 'string' ? hero.credit : '';
+    document.getElementById('hero-pic').hidden = false;
+    document.getElementById('hero').classList.add('has-pic');
+  }
+
+  function givePhotosToTheWidget() {
+    var photos = {};
+    products.forEach(function (p) { if (p && typeof p.slug === 'string' && typeof p.image === 'string') photos[p.slug] = p.image; });
+    if (window.ShopMateChat && window.ShopMateChat.setProductImages) window.ShopMateChat.setProductImages(photos);
+  }
+
   fetch('/widget/demo-products.json', { cache: 'no-store' })
     .then(function (res) { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
-    .then(function (data) { products = Array.isArray(data.products) ? data.products : []; show(null); })
+    .then(function (data) { products = Array.isArray(data.products) ? data.products : []; givePhotosToTheWidget(); showHero(data.hero); show(null); })
     .catch(function () { grid.replaceChildren(el('p', 'empty', 'Không đọc được danh sách sản phẩm của trang demo.')); count.textContent = ''; });
 })();

@@ -363,8 +363,8 @@ def test_the_fake_backend_answers_the_chips_of_the_widget_with_the_real_policy_f
     assert "1–2 ngày" in shipping and "2–5 ngày" in shipping and "500.000đ" in shipping
     order = say(c, sid(), "Kiểm tra đơn hàng").json()  # no number in the question: the assistant asks for the number and the email
     assert order["reply"] == T.ASK_NUMBER_AND_EMAIL and order["reply_source"] == "clarify" and order["products"] == []
-    cheap = say(c, sid(), "Áo khoác nam dưới 500k").json()["products"]
-    assert cheap and all(p["price_vnd"] <= 500000 and p["kind"] == "Áo khoác nam" for p in cheap)
+    shoes = say(c, sid(), "Giày tây nam màu nâu dưới 1 triệu").json()["products"]  # the product chip: exactly the two brown dress shoes of the demo page
+    assert {p["name"] for p in shoes} == {"Giày tây nam derby nâu", "Giày tây nam loafer nâu"} and all(p["price_vnd"] <= 1_000_000 and p["color"] == "Nâu" for p in shoes)
 
 
 # --- nothing internal reaches the customer ---------------------------------------------------------------------------------------------------

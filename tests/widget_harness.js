@@ -1,6 +1,6 @@
 // Runs the thumbnail part of widget/shopmate-chat.js under Node with a tiny fake DOM and prints JSON.
 //   node tests/widget_harness.js widget/shopmate-chat.js "<expression using `api`>"
-// With no customElements on the fake window the script stops after it has published window.ShopMateChat (thumbnail, shapeOf, colorOf, patternOf).
+// With no customElements on the fake window the script stops after it has published window.ShopMateChat (thumbnail, shapeOf, colorOf, patternOf, setProductImages, photoFor, picture).
 // `xml(node)` serialises a fake node, so a test can parse the drawing with a real XML parser.
 const vm = require('vm'), fs = require('fs');
 
@@ -15,7 +15,7 @@ function xml(n) {
   const a = Object.keys(n.attrs).map(k => ' ' + k + '="' + esc(n.attrs[k]) + '"').join('');
   return '<' + n.tag + a + '>' + esc(n.text) + n.children.map(xml).join('') + '</' + n.tag + '>';
 }
-const sandbox = {window: {}, document: {createElementNS: (ns, tag) => new Node(tag)}, console};
+const sandbox = {window: {}, document: {createElementNS: (ns, tag) => new Node(tag), createElement: tag => new Node(tag)}, console};
 vm.createContext(sandbox);
 vm.runInContext(fs.readFileSync(process.argv[2], 'utf8'), sandbox);
 sandbox.api = sandbox.window.ShopMateChat;
