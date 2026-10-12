@@ -46,16 +46,30 @@ def test_the_three_jobs_are_test_integrity_and_secrets():
 
 def test_the_test_job_syncs_the_frozen_lock_on_python_3_12_and_runs_the_unit_suite_without_the_service_tests():
     uses = [s["uses"] for s in steps("test") if "uses" in s]
-    assert uses[0].startswith("actions/checkout@v") and uses[1].startswith("astral-sh/setup-uv@v")
+    assert uses[0].startswith("actions/checkout@") and uses[1].startswith("astral-sh/setup-uv@")
     assert next(s for s in steps("test") if s.get("uses", "").startswith("astral-sh/setup-uv"))["with"]["python-version"] == "3.12"
     runs = [s["run"] for s in steps("test") if "run" in s]
     assert runs[0] == "uv sync --frozen"
     assert runs[1] == 'uv run pytest -q -m "not integration and not live_llm"'  # the brief's `not integration`, plus the tests that would spend Gemini quota
 
 
-def test_actions_are_pinned_to_a_major_tag_and_none_is_a_branch():
-    for line in re.findall(r"uses:\s*(\S+)", TEXT):
-        assert re.fullmatch(r"[\w.-]+/[\w.-]+@v\d+", line), line
+PINS = {"actions/checkout": ("3d3c42e5aac5ba805825da76410c181273ba90b1", "v7"), "astral-sh/setup-uv": ("37802adc94f370d6bfd71619e3f0bf239e1f3b78", "v7"),
+        "gitleaks/gitleaks-action": ("e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e", "v3")}
+
+
+def test_actions_are_pinned_to_a_full_commit_sha_with_the_tag_in_a_comment_and_none_is_a_branch_or_a_tag():
+    lines = re.findall(r"uses:\s*(\S+)\s*(#\s*\S+)?", TEXT)
+    assert len(lines) == 6  # checkout and setup-uv in two jobs, checkout and gitleaks in the third
+    for ref, comment in lines:
+        name, _, sha = ref.partition("@")
+        assert re.fullmatch(r"[0-9a-f]{40}", sha), ref  # a tag can move, a commit cannot
+        assert PINS[name] == (sha, comment.lstrip("# ").strip()), ref  # the SHAs of docs/DECISIONS-phase8.md D8.1, and the tag they were resolved from
+
+
+def test_the_pins_are_the_ones_the_decision_record_names():
+    record = (REPO / "docs" / "DECISIONS-phase8.md").read_text(encoding="utf-8")
+    for name, (sha, tag) in PINS.items():
+        assert f"`{name}@{tag}` = `{sha}`" in record, name
 
 
 def test_no_secret_of_ours_is_used_the_only_secrets_reference_is_the_run_token_of_gitleaks():
@@ -73,7 +87,7 @@ def test_the_environment_makes_the_run_offline_whatever_a_test_does():
 
 def test_the_secrets_job_scans_the_whole_history():
     checkout, scan = steps("secrets")
-    assert checkout["with"]["fetch-depth"] == 0 and scan["uses"].startswith("gitleaks/gitleaks-action@v")
+    assert checkout["with"]["fetch-depth"] == 0 and scan["uses"].startswith("gitleaks/gitleaks-action@")
 
 
 def test_the_integrity_job_runs_the_offline_check():

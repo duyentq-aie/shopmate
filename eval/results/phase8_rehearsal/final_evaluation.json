@@ -1,0 +1,1946 @@
+{
+  "deterministic": {
+    "kind": "final_evaluation",
+    "split": "dev",
+    "n_items": 71,
+    "excluded_matched": 1,
+    "intervals": {
+      "proportions": {
+        "interval": "wilson",
+        "confidence": 0.95
+      },
+      "mrr_latency_cost": {
+        "interval": "percentile bootstrap",
+        "confidence": 0.95,
+        "resamples": 10000,
+        "seed": 20261009
+      }
+    },
+    "metrics": {
+      "all": {
+        "router_accuracy": {
+          "n": 71,
+          "successes": 71,
+          "estimate": 1.0,
+          "ci_low": 0.948672047035,
+          "ci_high": 1.0,
+          "interval": "wilson"
+        },
+        "extractor_exact_match": {
+          "n": 24,
+          "successes": 23,
+          "estimate": 0.9583333333333334,
+          "ci_low": 0.797581933412,
+          "ci_high": 0.992606543916,
+          "interval": "wilson"
+        },
+        "product_mrr": {
+          "n": 19,
+          "estimate": 1.0,
+          "ci_low": 1.0,
+          "ci_high": 1.0,
+          "interval": "bootstrap"
+        },
+        "policy_mrr": {
+          "n": 14,
+          "estimate": 0.8392857142857143,
+          "ci_low": 0.6964285714285714,
+          "ci_high": 0.9642857142857143,
+          "interval": "bootstrap"
+        },
+        "no_answer_correct": {
+          "n": 5,
+          "successes": 5,
+          "estimate": 1.0,
+          "ci_low": 0.565517531341,
+          "ci_high": 1.0,
+          "interval": "wilson"
+        },
+        "guardrail_fallback_rate": {
+          "n": 39,
+          "successes": 1,
+          "estimate": 0.02564102564102564,
+          "ci_low": 0.004540703051,
+          "ci_high": 0.13180990297,
+          "interval": "wilson"
+        },
+        "cost_per_1000_usd": {
+          "n": 71,
+          "estimate": 0.9784661971830985,
+          "ci_low": 0.8271591549295775,
+          "ci_high": 1.1307154929577465,
+          "interval": "bootstrap"
+        },
+        "answer_correct": {
+          "n": 71,
+          "successes": 70,
+          "estimate": 0.9859154929577465,
+          "ci_low": 0.924439494023,
+          "ci_high": 0.997509396757,
+          "interval": "wilson"
+        },
+        "product_mrr_gold_routing": {
+          "n": 19,
+          "estimate": 1.0,
+          "ci_low": 1.0,
+          "ci_high": 1.0,
+          "interval": "bootstrap"
+        }
+      },
+      "without_excluded": {
+        "router_accuracy": {
+          "n": 70,
+          "successes": 70,
+          "estimate": 1.0,
+          "ci_low": 0.947976936812,
+          "ci_high": 1.0,
+          "interval": "wilson"
+        },
+        "extractor_exact_match": {
+          "n": 23,
+          "successes": 22,
+          "estimate": 0.9565217391304348,
+          "ci_low": 0.790088447445,
+          "ci_high": 0.992283333942,
+          "interval": "wilson"
+        },
+        "product_mrr": {
+          "n": 18,
+          "estimate": 1.0,
+          "ci_low": 1.0,
+          "ci_high": 1.0,
+          "interval": "bootstrap"
+        },
+        "policy_mrr": {
+          "n": 14,
+          "estimate": 0.8392857142857143,
+          "ci_low": 0.6964285714285714,
+          "ci_high": 0.9642857142857143,
+          "interval": "bootstrap"
+        },
+        "no_answer_correct": {
+          "n": 5,
+          "successes": 5,
+          "estimate": 1.0,
+          "ci_low": 0.565517531341,
+          "ci_high": 1.0,
+          "interval": "wilson"
+        },
+        "guardrail_fallback_rate": {
+          "n": 38,
+          "successes": 1,
+          "estimate": 0.02631578947368421,
+          "ci_low": 0.004660587634,
+          "ci_high": 0.134948762457,
+          "interval": "wilson"
+        },
+        "cost_per_1000_usd": {
+          "n": 70,
+          "estimate": 0.960452857142857,
+          "ci_low": 0.8125085714285715,
+          "ci_high": 1.1099785714285715,
+          "interval": "bootstrap"
+        },
+        "answer_correct": {
+          "n": 70,
+          "successes": 69,
+          "estimate": 0.9857142857142858,
+          "ci_low": 0.923418127904,
+          "ci_high": 0.99747375357,
+          "interval": "wilson"
+        },
+        "product_mrr_gold_routing": {
+          "n": 18,
+          "estimate": 1.0,
+          "ci_low": 1.0,
+          "ci_high": 1.0,
+          "interval": "bootstrap"
+        }
+      }
+    },
+    "secondary": {
+      "description": "registered, descriptive, all items only; proportions with the Wilson 95% interval, MRRs as means; groups of fewer than 8 items are flagged too small to interpret",
+      "by_author": {
+        "human": {
+          "n_items": 27,
+          "too_small_to_interpret": false,
+          "proportions": {
+            "router_accuracy": {
+              "n": 27,
+              "successes": 27,
+              "estimate": 1.0,
+              "ci_low": 0.875444968538,
+              "ci_high": 1.0,
+              "interval": "wilson"
+            },
+            "answer_correct": {
+              "n": 27,
+              "successes": 27,
+              "estimate": 1.0,
+              "ci_low": 0.875444968538,
+              "ci_high": 1.0,
+              "interval": "wilson"
+            },
+            "extractor_exact_match": {
+              "n": 8,
+              "successes": 8,
+              "estimate": 1.0,
+              "ci_low": 0.675592431659,
+              "ci_high": 1.0,
+              "interval": "wilson"
+            },
+            "no_answer_correct": {
+              "n": 4,
+              "successes": 4,
+              "estimate": 1.0,
+              "ci_low": 0.510109159603,
+              "ci_high": 1.0,
+              "interval": "wilson"
+            },
+            "guardrail_fallback_rate": {
+              "n": 12,
+              "successes": 0,
+              "estimate": 0.0,
+              "ci_low": 0.0,
+              "ci_high": 0.242494009553,
+              "interval": "wilson"
+            }
+          },
+          "means": {
+            "product_mrr": {
+              "n": 4,
+              "estimate": 1.0
+            },
+            "policy_mrr": {
+              "n": 4,
+              "estimate": 0.75
+            }
+          }
+        },
+        "agent_draft": {
+          "n_items": 44,
+          "too_small_to_interpret": false,
+          "proportions": {
+            "router_accuracy": {
+              "n": 44,
+              "successes": 44,
+              "estimate": 1.0,
+              "ci_low": 0.919704395077,
+              "ci_high": 1.0,
+              "interval": "wilson"
+            },
+            "answer_correct": {
+              "n": 44,
+              "successes": 43,
+              "estimate": 0.9772727272727273,
+              "ci_low": 0.881922901861,
+              "ci_high": 0.995976747984,
+              "interval": "wilson"
+            },
+            "extractor_exact_match": {
+              "n": 16,
+              "successes": 15,
+              "estimate": 0.9375,
+              "ci_low": 0.716712622019,
+              "ci_high": 0.988880655359,
+              "interval": "wilson"
+            },
+            "no_answer_correct": {
+              "n": 1,
+              "successes": 1,
+              "estimate": 1.0,
+              "ci_low": 0.206549311792,
+              "ci_high": 1.0,
+              "interval": "wilson"
+            },
+            "guardrail_fallback_rate": {
+              "n": 27,
+              "successes": 1,
+              "estimate": 0.037037037037037035,
+              "ci_low": 0.006568145908,
+              "ci_high": 0.182834661001,
+              "interval": "wilson"
+            }
+          },
+          "means": {
+            "product_mrr": {
+              "n": 15,
+              "estimate": 1.0
+            },
+            "policy_mrr": {
+              "n": 10,
+              "estimate": 0.875
+            }
+          }
+        }
+      },
+      "by_intent": {
+        "product_search": {
+          "n_items": 24,
+          "too_small_to_interpret": false,
+          "proportions": {
+            "router_accuracy": {
+              "n": 24,
+              "successes": 24,
+              "estimate": 1.0,
+              "ci_low": 0.862023793449,
+              "ci_high": 1.0,
+              "interval": "wilson"
+            },
+            "answer_correct": {
+              "n": 24,
+              "successes": 24,
+              "estimate": 1.0,
+              "ci_low": 0.862023793449,
+              "ci_high": 1.0,
+              "interval": "wilson"
+            },
+            "extractor_exact_match": {
+              "n": 24,
+              "successes": 23,
+              "estimate": 0.9583333333333334,
+              "ci_low": 0.797581933412,
+              "ci_high": 0.992606543916,
+              "interval": "wilson"
+            },
+            "no_answer_correct": {
+              "n": 5,
+              "successes": 5,
+              "estimate": 1.0,
+              "ci_low": 0.565517531341,
+              "ci_high": 1.0,
+              "interval": "wilson"
+            },
+            "guardrail_fallback_rate": {
+              "n": 21,
+              "successes": 0,
+              "estimate": 0.0,
+              "ci_low": 0.0,
+              "ci_high": 0.154639020987,
+              "interval": "wilson"
+            }
+          },
+          "means": {
+            "product_mrr": {
+              "n": 19,
+              "estimate": 1.0
+            },
+            "policy_mrr": {
+              "n": 0,
+              "estimate": null
+            }
+          }
+        },
+        "policy_question": {
+          "n_items": 14,
+          "too_small_to_interpret": false,
+          "proportions": {
+            "router_accuracy": {
+              "n": 14,
+              "successes": 14,
+              "estimate": 1.0,
+              "ci_low": 0.784689194597,
+              "ci_high": 1.0,
+              "interval": "wilson"
+            },
+            "answer_correct": {
+              "n": 14,
+              "successes": 13,
+              "estimate": 0.9285714285714286,
+              "ci_low": 0.685312953333,
+              "ci_high": 0.987277784893,
+              "interval": "wilson"
+            },
+            "extractor_exact_match": {
+              "n": 0,
+              "successes": 0,
+              "estimate": null,
+              "ci_low": null,
+              "ci_high": null,
+              "interval": "wilson"
+            },
+            "no_answer_correct": {
+              "n": 0,
+              "successes": 0,
+              "estimate": null,
+              "ci_low": null,
+              "ci_high": null,
+              "interval": "wilson"
+            },
+            "guardrail_fallback_rate": {
+              "n": 14,
+              "successes": 1,
+              "estimate": 0.07142857142857142,
+              "ci_low": 0.012722215107,
+              "ci_high": 0.314687046667,
+              "interval": "wilson"
+            }
+          },
+          "means": {
+            "product_mrr": {
+              "n": 0,
+              "estimate": null
+            },
+            "policy_mrr": {
+              "n": 14,
+              "estimate": 0.8392857142857143
+            }
+          }
+        },
+        "order_status": {
+          "n_items": 12,
+          "too_small_to_interpret": false,
+          "proportions": {
+            "router_accuracy": {
+              "n": 12,
+              "successes": 12,
+              "estimate": 1.0,
+              "ci_low": 0.757505990447,
+              "ci_high": 1.0,
+              "interval": "wilson"
+            },
+            "answer_correct": {
+              "n": 12,
+              "successes": 12,
+              "estimate": 1.0,
+              "ci_low": 0.757505990447,
+              "ci_high": 1.0,
+              "interval": "wilson"
+            },
+            "extractor_exact_match": {
+              "n": 0,
+              "successes": 0,
+              "estimate": null,
+              "ci_low": null,
+              "ci_high": null,
+              "interval": "wilson"
+            },
+            "no_answer_correct": {
+              "n": 0,
+              "successes": 0,
+              "estimate": null,
+              "ci_low": null,
+              "ci_high": null,
+              "interval": "wilson"
+            },
+            "guardrail_fallback_rate": {
+              "n": 4,
+              "successes": 0,
+              "estimate": 0.0,
+              "ci_low": 0.0,
+              "ci_high": 0.489890840397,
+              "interval": "wilson"
+            }
+          },
+          "means": {
+            "product_mrr": {
+              "n": 0,
+              "estimate": null
+            },
+            "policy_mrr": {
+              "n": 0,
+              "estimate": null
+            }
+          }
+        },
+        "create_ticket": {
+          "n_items": 7,
+          "too_small_to_interpret": true,
+          "proportions": {
+            "router_accuracy": {
+              "n": 7,
+              "successes": 7,
+              "estimate": 1.0,
+              "ci_low": 0.645669561324,
+              "ci_high": 1.0,
+              "interval": "wilson"
+            },
+            "answer_correct": {
+              "n": 7,
+              "successes": 7,
+              "estimate": 1.0,
+              "ci_low": 0.645669561324,
+              "ci_high": 1.0,
+              "interval": "wilson"
+            },
+            "extractor_exact_match": {
+              "n": 0,
+              "successes": 0,
+              "estimate": null,
+              "ci_low": null,
+              "ci_high": null,
+              "interval": "wilson"
+            },
+            "no_answer_correct": {
+              "n": 0,
+              "successes": 0,
+              "estimate": null,
+              "ci_low": null,
+              "ci_high": null,
+              "interval": "wilson"
+            },
+            "guardrail_fallback_rate": {
+              "n": 0,
+              "successes": 0,
+              "estimate": null,
+              "ci_low": null,
+              "ci_high": null,
+              "interval": "wilson"
+            }
+          },
+          "means": {
+            "product_mrr": {
+              "n": 0,
+              "estimate": null
+            },
+            "policy_mrr": {
+              "n": 0,
+              "estimate": null
+            }
+          }
+        },
+        "out_of_scope": {
+          "n_items": 7,
+          "too_small_to_interpret": true,
+          "proportions": {
+            "router_accuracy": {
+              "n": 7,
+              "successes": 7,
+              "estimate": 1.0,
+              "ci_low": 0.645669561324,
+              "ci_high": 1.0,
+              "interval": "wilson"
+            },
+            "answer_correct": {
+              "n": 7,
+              "successes": 7,
+              "estimate": 1.0,
+              "ci_low": 0.645669561324,
+              "ci_high": 1.0,
+              "interval": "wilson"
+            },
+            "extractor_exact_match": {
+              "n": 0,
+              "successes": 0,
+              "estimate": null,
+              "ci_low": null,
+              "ci_high": null,
+              "interval": "wilson"
+            },
+            "no_answer_correct": {
+              "n": 0,
+              "successes": 0,
+              "estimate": null,
+              "ci_low": null,
+              "ci_high": null,
+              "interval": "wilson"
+            },
+            "guardrail_fallback_rate": {
+              "n": 0,
+              "successes": 0,
+              "estimate": null,
+              "ci_low": null,
+              "ci_high": null,
+              "interval": "wilson"
+            }
+          },
+          "means": {
+            "product_mrr": {
+              "n": 0,
+              "estimate": null
+            },
+            "policy_mrr": {
+              "n": 0,
+              "estimate": null
+            }
+          }
+        },
+        "smalltalk": {
+          "n_items": 7,
+          "too_small_to_interpret": true,
+          "proportions": {
+            "router_accuracy": {
+              "n": 7,
+              "successes": 7,
+              "estimate": 1.0,
+              "ci_low": 0.645669561324,
+              "ci_high": 1.0,
+              "interval": "wilson"
+            },
+            "answer_correct": {
+              "n": 7,
+              "successes": 7,
+              "estimate": 1.0,
+              "ci_low": 0.645669561324,
+              "ci_high": 1.0,
+              "interval": "wilson"
+            },
+            "extractor_exact_match": {
+              "n": 0,
+              "successes": 0,
+              "estimate": null,
+              "ci_low": null,
+              "ci_high": null,
+              "interval": "wilson"
+            },
+            "no_answer_correct": {
+              "n": 0,
+              "successes": 0,
+              "estimate": null,
+              "ci_low": null,
+              "ci_high": null,
+              "interval": "wilson"
+            },
+            "guardrail_fallback_rate": {
+              "n": 0,
+              "successes": 0,
+              "estimate": null,
+              "ci_low": null,
+              "ci_high": null,
+              "interval": "wilson"
+            }
+          },
+          "means": {
+            "product_mrr": {
+              "n": 0,
+              "estimate": null
+            },
+            "policy_mrr": {
+              "n": 0,
+              "estimate": null
+            }
+          }
+        }
+      }
+    },
+    "per_item": [
+      {
+        "id": "gs-002",
+        "intent": "product_search",
+        "author": "agent_draft",
+        "routed_to": "product_search",
+        "correct": true,
+        "check": "gold_sku",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 3,
+        "cost_usd": 0.0022394
+      },
+      {
+        "id": "gs-003",
+        "intent": "product_search",
+        "author": "agent_draft",
+        "routed_to": "product_search",
+        "correct": true,
+        "check": "gold_sku",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 3,
+        "cost_usd": 0.0015847
+      },
+      {
+        "id": "gs-004",
+        "intent": "product_search",
+        "author": "agent_draft",
+        "routed_to": "product_search",
+        "correct": true,
+        "check": "gold_sku",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 3,
+        "cost_usd": 0.0018069
+      },
+      {
+        "id": "gs-007",
+        "intent": "product_search",
+        "author": "agent_draft",
+        "routed_to": "product_search",
+        "correct": true,
+        "check": "gold_sku",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 3,
+        "cost_usd": 0.0022369
+      },
+      {
+        "id": "gs-008",
+        "intent": "product_search",
+        "author": "agent_draft",
+        "routed_to": "product_search",
+        "correct": true,
+        "check": "gold_sku",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 3,
+        "cost_usd": 0.0017381999999999999
+      },
+      {
+        "id": "gs-009",
+        "intent": "product_search",
+        "author": "agent_draft",
+        "routed_to": "product_search",
+        "correct": true,
+        "check": "gold_sku",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 3,
+        "cost_usd": 0.0022191
+      },
+      {
+        "id": "gs-011",
+        "intent": "product_search",
+        "author": "agent_draft",
+        "routed_to": "product_search",
+        "correct": true,
+        "check": "gold_sku",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 3,
+        "cost_usd": 0.0017227
+      },
+      {
+        "id": "gs-012",
+        "intent": "product_search",
+        "author": "agent_draft",
+        "routed_to": "product_search",
+        "correct": true,
+        "check": "gold_sku",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 3,
+        "cost_usd": 0.0021655
+      },
+      {
+        "id": "gs-013",
+        "intent": "product_search",
+        "author": "agent_draft",
+        "routed_to": "product_search",
+        "correct": true,
+        "check": "gold_sku",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 3,
+        "cost_usd": 0.0016079
+      },
+      {
+        "id": "gs-014",
+        "intent": "product_search",
+        "author": "agent_draft",
+        "routed_to": "product_search",
+        "correct": true,
+        "check": "gold_sku",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 3,
+        "cost_usd": 0.0016098
+      },
+      {
+        "id": "gs-015",
+        "intent": "product_search",
+        "author": "agent_draft",
+        "routed_to": "product_search",
+        "correct": true,
+        "check": "gold_sku",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 3,
+        "cost_usd": 0.0019809999999999997
+      },
+      {
+        "id": "gs-016",
+        "intent": "product_search",
+        "author": "agent_draft",
+        "routed_to": "product_search",
+        "correct": true,
+        "check": "gold_sku",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 3,
+        "cost_usd": 0.0019795
+      },
+      {
+        "id": "gs-017",
+        "intent": "product_search",
+        "author": "agent_draft",
+        "routed_to": "product_search",
+        "correct": true,
+        "check": "gold_sku",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 3,
+        "cost_usd": 0.0016611
+      },
+      {
+        "id": "gs-018",
+        "intent": "product_search",
+        "author": "agent_draft",
+        "routed_to": "product_search",
+        "correct": true,
+        "check": "gold_sku",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 3,
+        "cost_usd": 0.001926
+      },
+      {
+        "id": "gs-019",
+        "intent": "product_search",
+        "author": "agent_draft",
+        "routed_to": "product_search",
+        "correct": true,
+        "check": "gold_sku",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 3,
+        "cost_usd": 0.001599
+      },
+      {
+        "id": "gs-021",
+        "intent": "product_search",
+        "author": "agent_draft",
+        "routed_to": "product_search",
+        "correct": true,
+        "check": "no_answer",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 2,
+        "cost_usd": 0.0009379
+      },
+      {
+        "id": "gs-023",
+        "intent": "policy_question",
+        "author": "agent_draft",
+        "routed_to": "policy_question",
+        "correct": true,
+        "check": "gold_clause",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 2,
+        "cost_usd": 0.0009862999999999999
+      },
+      {
+        "id": "gs-024",
+        "intent": "policy_question",
+        "author": "agent_draft",
+        "routed_to": "policy_question",
+        "correct": true,
+        "check": "gold_clause",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 2,
+        "cost_usd": 0.0011558
+      },
+      {
+        "id": "gs-025",
+        "intent": "policy_question",
+        "author": "agent_draft",
+        "routed_to": "policy_question",
+        "correct": false,
+        "check": "gold_clause",
+        "fallback": false,
+        "declined": true,
+        "answers_written": 1,
+        "llm_calls": 2,
+        "cost_usd": 0.0010332
+      },
+      {
+        "id": "gs-026",
+        "intent": "policy_question",
+        "author": "agent_draft",
+        "routed_to": "policy_question",
+        "correct": true,
+        "check": "gold_clause",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 2,
+        "cost_usd": 0.0010944
+      },
+      {
+        "id": "gs-027",
+        "intent": "policy_question",
+        "author": "agent_draft",
+        "routed_to": "policy_question",
+        "correct": true,
+        "check": "gold_clause",
+        "fallback": true,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 2,
+        "cost_usd": 0.0010368999999999999
+      },
+      {
+        "id": "gs-029",
+        "intent": "policy_question",
+        "author": "agent_draft",
+        "routed_to": "policy_question",
+        "correct": true,
+        "check": "gold_clause",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 2,
+        "cost_usd": 0.0011052
+      },
+      {
+        "id": "gs-030",
+        "intent": "policy_question",
+        "author": "agent_draft",
+        "routed_to": "policy_question",
+        "correct": true,
+        "check": "gold_clause",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 2,
+        "cost_usd": 0.0010582999999999999
+      },
+      {
+        "id": "gs-031",
+        "intent": "policy_question",
+        "author": "agent_draft",
+        "routed_to": "policy_question",
+        "correct": true,
+        "check": "gold_clause",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 2,
+        "cost_usd": 0.0011481
+      },
+      {
+        "id": "gs-032",
+        "intent": "policy_question",
+        "author": "agent_draft",
+        "routed_to": "policy_question",
+        "correct": true,
+        "check": "gold_clause",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 2,
+        "cost_usd": 0.0011151
+      },
+      {
+        "id": "gs-034",
+        "intent": "policy_question",
+        "author": "agent_draft",
+        "routed_to": "policy_question",
+        "correct": true,
+        "check": "gold_clause",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 2,
+        "cost_usd": 0.0010516
+      },
+      {
+        "id": "gs-035",
+        "intent": "order_status",
+        "author": "agent_draft",
+        "routed_to": "order_status",
+        "correct": true,
+        "check": "behaviour",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 2,
+        "cost_usd": 0.0009651000000000001
+      },
+      {
+        "id": "gs-037",
+        "intent": "order_status",
+        "author": "agent_draft",
+        "routed_to": "order_status",
+        "correct": true,
+        "check": "behaviour",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.00028639999999999997
+      },
+      {
+        "id": "gs-040",
+        "intent": "order_status",
+        "author": "agent_draft",
+        "routed_to": "order_status",
+        "correct": true,
+        "check": "behaviour",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.0002867
+      },
+      {
+        "id": "gs-041",
+        "intent": "order_status",
+        "author": "agent_draft",
+        "routed_to": "order_status",
+        "correct": true,
+        "check": "behaviour",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.0002992
+      },
+      {
+        "id": "gs-042",
+        "intent": "order_status",
+        "author": "agent_draft",
+        "routed_to": "order_status",
+        "correct": true,
+        "check": "behaviour",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 2,
+        "cost_usd": 0.0010175999999999998
+      },
+      {
+        "id": "gs-044",
+        "intent": "create_ticket",
+        "author": "agent_draft",
+        "routed_to": "create_ticket",
+        "correct": true,
+        "check": "ticket",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.0003004
+      },
+      {
+        "id": "gs-046",
+        "intent": "create_ticket",
+        "author": "agent_draft",
+        "routed_to": "create_ticket",
+        "correct": true,
+        "check": "ticket",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.0003001
+      },
+      {
+        "id": "gs-047",
+        "intent": "create_ticket",
+        "author": "agent_draft",
+        "routed_to": "create_ticket",
+        "correct": true,
+        "check": "ticket",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.0003022
+      },
+      {
+        "id": "gs-049",
+        "intent": "out_of_scope",
+        "author": "agent_draft",
+        "routed_to": "out_of_scope",
+        "correct": true,
+        "check": "polite",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.0002914
+      },
+      {
+        "id": "gs-050",
+        "intent": "out_of_scope",
+        "author": "agent_draft",
+        "routed_to": "out_of_scope",
+        "correct": true,
+        "check": "polite",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.00030480000000000004
+      },
+      {
+        "id": "gs-051",
+        "intent": "out_of_scope",
+        "author": "agent_draft",
+        "routed_to": "out_of_scope",
+        "correct": true,
+        "check": "polite",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.000303
+      },
+      {
+        "id": "gs-053",
+        "intent": "out_of_scope",
+        "author": "agent_draft",
+        "routed_to": "out_of_scope",
+        "correct": true,
+        "check": "polite",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.0002914
+      },
+      {
+        "id": "gs-055",
+        "intent": "smalltalk",
+        "author": "agent_draft",
+        "routed_to": "smalltalk",
+        "correct": true,
+        "check": "polite",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.00028209999999999997
+      },
+      {
+        "id": "gs-057",
+        "intent": "smalltalk",
+        "author": "agent_draft",
+        "routed_to": "smalltalk",
+        "correct": true,
+        "check": "polite",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.0002827
+      },
+      {
+        "id": "gs-060",
+        "intent": "smalltalk",
+        "author": "agent_draft",
+        "routed_to": "smalltalk",
+        "correct": true,
+        "check": "polite",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.00028359999999999995
+      },
+      {
+        "id": "gs-062",
+        "intent": "order_status",
+        "author": "agent_draft",
+        "routed_to": "order_status",
+        "correct": true,
+        "check": "behaviour",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.00030189999999999997
+      },
+      {
+        "id": "gs-063",
+        "intent": "order_status",
+        "author": "agent_draft",
+        "routed_to": "order_status",
+        "correct": true,
+        "check": "behaviour",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.0002992
+      },
+      {
+        "id": "gs-064",
+        "intent": "order_status",
+        "author": "agent_draft",
+        "routed_to": "order_status",
+        "correct": true,
+        "check": "behaviour",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.0003043
+      },
+      {
+        "id": "gs-104",
+        "intent": "product_search",
+        "author": "human",
+        "routed_to": "product_search",
+        "correct": true,
+        "check": "gold_sku",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 3,
+        "cost_usd": 0.0016369
+      },
+      {
+        "id": "gs-105",
+        "intent": "product_search",
+        "author": "human",
+        "routed_to": "product_search",
+        "correct": true,
+        "check": "no_answer",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 3,
+        "cost_usd": 0.0016367
+      },
+      {
+        "id": "gs-106",
+        "intent": "product_search",
+        "author": "human",
+        "routed_to": "product_search",
+        "correct": true,
+        "check": "gold_sku",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 3,
+        "cost_usd": 0.0016917
+      },
+      {
+        "id": "gs-107",
+        "intent": "product_search",
+        "author": "human",
+        "routed_to": "product_search",
+        "correct": true,
+        "check": "gold_sku",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 3,
+        "cost_usd": 0.0015545000000000001
+      },
+      {
+        "id": "gs-108",
+        "intent": "product_search",
+        "author": "human",
+        "routed_to": "product_search",
+        "correct": true,
+        "check": "no_answer",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 2,
+        "cost_usd": 0.0009397000000000001
+      },
+      {
+        "id": "gs-109",
+        "intent": "product_search",
+        "author": "human",
+        "routed_to": "product_search",
+        "correct": true,
+        "check": "gold_sku",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 3,
+        "cost_usd": 0.0016550999999999998
+      },
+      {
+        "id": "gs-110",
+        "intent": "product_search",
+        "author": "human",
+        "routed_to": "product_search",
+        "correct": true,
+        "check": "no_answer",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 2,
+        "cost_usd": 0.0009807
+      },
+      {
+        "id": "gs-112",
+        "intent": "product_search",
+        "author": "human",
+        "routed_to": "product_search",
+        "correct": true,
+        "check": "no_answer",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 3,
+        "cost_usd": 0.0022145
+      },
+      {
+        "id": "gs-113",
+        "intent": "policy_question",
+        "author": "human",
+        "routed_to": "policy_question",
+        "correct": true,
+        "check": "gold_clause",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 2,
+        "cost_usd": 0.001196
+      },
+      {
+        "id": "gs-118",
+        "intent": "policy_question",
+        "author": "human",
+        "routed_to": "policy_question",
+        "correct": true,
+        "check": "gold_clause",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 2,
+        "cost_usd": 0.0012083
+      },
+      {
+        "id": "gs-119",
+        "intent": "policy_question",
+        "author": "human",
+        "routed_to": "policy_question",
+        "correct": true,
+        "check": "gold_clause",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 2,
+        "cost_usd": 0.0012106999999999999
+      },
+      {
+        "id": "gs-120",
+        "intent": "policy_question",
+        "author": "human",
+        "routed_to": "policy_question",
+        "correct": true,
+        "check": "gold_clause",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 2,
+        "cost_usd": 0.0011306
+      },
+      {
+        "id": "gs-121",
+        "intent": "order_status",
+        "author": "human",
+        "routed_to": "order_status",
+        "correct": true,
+        "check": "behaviour",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 2,
+        "cost_usd": 0.0010630000000000001
+      },
+      {
+        "id": "gs-122",
+        "intent": "order_status",
+        "author": "human",
+        "routed_to": "order_status",
+        "correct": true,
+        "check": "behaviour",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.0002995
+      },
+      {
+        "id": "gs-124",
+        "intent": "order_status",
+        "author": "human",
+        "routed_to": "order_status",
+        "correct": true,
+        "check": "behaviour",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.00030309999999999994
+      },
+      {
+        "id": "gs-126",
+        "intent": "order_status",
+        "author": "human",
+        "routed_to": "order_status",
+        "correct": true,
+        "check": "behaviour",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 2,
+        "cost_usd": 0.0009925
+      },
+      {
+        "id": "gs-127",
+        "intent": "create_ticket",
+        "author": "human",
+        "routed_to": "create_ticket",
+        "correct": true,
+        "check": "ticket",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.0003043
+      },
+      {
+        "id": "gs-129",
+        "intent": "create_ticket",
+        "author": "human",
+        "routed_to": "create_ticket",
+        "correct": true,
+        "check": "ticket",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.0003013
+      },
+      {
+        "id": "gs-130",
+        "intent": "create_ticket",
+        "author": "human",
+        "routed_to": "create_ticket",
+        "correct": true,
+        "check": "ticket",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.0002897
+      },
+      {
+        "id": "gs-131",
+        "intent": "create_ticket",
+        "author": "human",
+        "routed_to": "create_ticket",
+        "correct": true,
+        "check": "ticket",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.0002915
+      },
+      {
+        "id": "gs-132",
+        "intent": "out_of_scope",
+        "author": "human",
+        "routed_to": "out_of_scope",
+        "correct": true,
+        "check": "polite",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.0003054
+      },
+      {
+        "id": "gs-134",
+        "intent": "out_of_scope",
+        "author": "human",
+        "routed_to": "out_of_scope",
+        "correct": true,
+        "check": "polite",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.0003063
+      },
+      {
+        "id": "gs-135",
+        "intent": "out_of_scope",
+        "author": "human",
+        "routed_to": "out_of_scope",
+        "correct": true,
+        "check": "polite",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.0002917
+      },
+      {
+        "id": "gs-136",
+        "intent": "smalltalk",
+        "author": "human",
+        "routed_to": "smalltalk",
+        "correct": true,
+        "check": "polite",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.0002851
+      },
+      {
+        "id": "gs-137",
+        "intent": "smalltalk",
+        "author": "human",
+        "routed_to": "smalltalk",
+        "correct": true,
+        "check": "polite",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.0002982
+      },
+      {
+        "id": "gs-139",
+        "intent": "smalltalk",
+        "author": "human",
+        "routed_to": "smalltalk",
+        "correct": true,
+        "check": "polite",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.00028389999999999996
+      },
+      {
+        "id": "gs-140",
+        "intent": "smalltalk",
+        "author": "human",
+        "routed_to": "smalltalk",
+        "correct": true,
+        "check": "polite",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.00029759999999999997
+      }
+    ],
+    "cross_checks": {
+      "answer_correct_matches_phase6": true,
+      "cost_matches_phase6": true
+    },
+    "phase5": {
+      "routing": {
+        "n": 71,
+        "accuracy": 1.0,
+        "macro_f1": 1.0,
+        "errors": [],
+        "confusion": {
+          "create_ticket": {
+            "create_ticket": 7
+          },
+          "order_status": {
+            "order_status": 12
+          },
+          "out_of_scope": {
+            "out_of_scope": 7
+          },
+          "policy_question": {
+            "policy_question": 14
+          },
+          "product_search": {
+            "product_search": 24
+          },
+          "smalltalk": {
+            "smalltalk": 7
+          }
+        }
+      },
+      "extraction": {
+        "metrics": {
+          "n": 24,
+          "exact_match": 23,
+          "exact_match_rate": 0.9583333333333334,
+          "failures": 0,
+          "excluded_fields": [],
+          "fields": {
+            "category": {
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0
+            },
+            "kind": {
+              "tp": 24,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0
+            },
+            "color": {
+              "tp": 15,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0
+            },
+            "material": {
+              "tp": 8,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0
+            },
+            "size": {
+              "tp": 10,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0
+            },
+            "price_min": {
+              "tp": 2,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0
+            },
+            "price_max": {
+              "tp": 6,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0
+            },
+            "in_stock": {
+              "tp": 2,
+              "fp": 0,
+              "fn": 1,
+              "precision": 1.0,
+              "recall": 0.6666666666666666
+            }
+          }
+        },
+        "metrics_without_in_stock": {
+          "n": 24,
+          "exact_match": 24,
+          "exact_match_rate": 1.0,
+          "failures": 0,
+          "excluded_fields": [
+            "in_stock"
+          ],
+          "fields": {
+            "category": {
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0
+            },
+            "kind": {
+              "tp": 24,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0
+            },
+            "color": {
+              "tp": 15,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0
+            },
+            "material": {
+              "tp": 8,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0
+            },
+            "size": {
+              "tp": 10,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0
+            },
+            "price_min": {
+              "tp": 2,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0
+            },
+            "price_max": {
+              "tp": 6,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0
+            }
+          }
+        }
+      },
+      "no_answer": {
+        "n": 5,
+        "correct": 5,
+        "rate": 1.0,
+        "rule": "routed to product_search AND an empty result"
+      },
+      "pipeline_counts": {
+        "product_answerable": 19,
+        "policy": 14,
+        "no_answer": 5
+      }
+    },
+    "phase6": {
+      "per_intent": {
+        "product_search": {
+          "n": 24,
+          "correct": 24,
+          "accuracy": 1.0,
+          "by_kind": {
+            "skus": {
+              "n": 19,
+              "correct": 19,
+              "accuracy": 1.0
+            },
+            "no_answer": {
+              "n": 5,
+              "correct": 5,
+              "accuracy": 1.0
+            }
+          }
+        },
+        "policy_question": {
+          "n": 14,
+          "correct": 13,
+          "accuracy": 0.9285714285714286
+        },
+        "order_status": {
+          "n": 12,
+          "correct": 12,
+          "accuracy": 1.0
+        },
+        "create_ticket": {
+          "n": 7,
+          "correct": 7,
+          "accuracy": 1.0
+        },
+        "out_of_scope": {
+          "n": 7,
+          "correct": 7,
+          "accuracy": 1.0
+        },
+        "smalltalk": {
+          "n": 7,
+          "correct": 7,
+          "accuracy": 1.0
+        },
+        "all": {
+          "n": 71,
+          "correct": 70,
+          "accuracy": 0.9859154929577465
+        }
+      },
+      "guardrails": {
+        "answers": 39,
+        "fallbacks": 1,
+        "declines": 1,
+        "rules": {
+          "unknown_clause": 1
+        },
+        "items_with_fallback": [
+          "gs-027"
+        ],
+        "items_with_decline": [
+          "gs-025"
+        ]
+      },
+      "bounds": {
+        "steps_per_turn": {
+          "limit": 8,
+          "max_seen": 7,
+          "held": true
+        },
+        "clarifying_questions": {
+          "limit": 2,
+          "max_seen": 1,
+          "held": true
+        },
+        "product_searches_per_turn": {
+          "limit": 2,
+          "max_seen": 2,
+          "held": true
+        },
+        "failed_verifications": {
+          "limit": 3,
+          "max_seen": 1,
+          "held": true
+        },
+        "confirmation_asks": {
+          "limit": 2,
+          "max_seen": 1,
+          "held": true
+        },
+        "tickets_without_confirmation": {
+          "limit": 0,
+          "max_seen": 0,
+          "held": true
+        }
+      },
+      "calls": {
+        "dev_turns": 71,
+        "llm_calls_per_turn": {
+          "mean": 1.8873239436619718,
+          "max": 3
+        },
+        "by_component_dev_first_turns": {
+          "router": {
+            "n": 71,
+            "input_tokens": 63342,
+            "output_tokens": 815,
+            "thought_tokens": 0
+          },
+          "filters": {
+            "n": 24,
+            "input_tokens": 36840,
+            "output_tokens": 1725,
+            "thought_tokens": 0
+          },
+          "answer": {
+            "n": 39,
+            "input_tokens": 70980,
+            "output_tokens": 4709,
+            "thought_tokens": 0
+          }
+        }
+      },
+      "cost_theoretical_paid_tier": {
+        "prices_usd_per_million_tokens": {
+          "input": 0.3,
+          "output": 2.5
+        },
+        "source": "https://ai.google.dev/gemini-api/docs/pricing, Gemini 3.5 Flash-Lite, paid tier, Standard; 'Last updated 2026-10-09 UTC'; read 2026-10-10",
+        "per_1000_conversations_usd": 0.9784661971830987,
+        "free_tier_cost_usd": 0,
+        "note": "a conversation here is one dev item (one turn); the dev mix is not a traffic forecast"
+      }
+    },
+    "provenance": {
+      "split": "dev",
+      "rehearsal": true,
+      "git_commit": "c9cfdc820e17c59a7df169058f48ac39d6de075c",
+      "git_dirty": true,
+      "dirty_paths": [
+        ".github/workflows/ci.yml",
+        "docs/PHASE8-PREREG.md",
+        "tests/test_ci.py",
+        "docs/DECISIONS-phase8.md",
+        "docs/PHASE8-COMMITS.md",
+        "eval/external_state.py",
+        "eval/final_evaluation.py",
+        "tests/test_external_state.py",
+        "tests/test_final_evaluation.py"
+      ],
+      "freeze": {},
+      "dev_run_sha": null,
+      "model_id": "gemini-3.5-flash-lite",
+      "items_sha256": "c925ddaffd23d9d895cc4e2576575cf9d3f07c24c78519efac0f504cf2df5fc0",
+      "golden_file_sha256": "89f0dd2deff438b09e7849c0f6c2bed022a347ce12e3ec97b93514bf9631bd81",
+      "n_items": 71,
+      "answer_prompt": {
+        "name": "answer_v2",
+        "sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544"
+      },
+      "router_prompt_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+      "filters_prompt_sha256": "27e2ade227970c84db5ee5ec975c0aad4429fd2de698616d249357431672f74a",
+      "router_schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+      "filters_schema_sha256": "489fb422d325ff2d910238ab1144c01789bf3a76ffb48a375cac3691bb0d1bce",
+      "vocabulary_sha256": "b238cec96174229fdbbe5385d03dd175ab033af444dd17c9c7bca449f08f41b8",
+      "generation_configs": {
+        "router": {
+          "temperature": 0,
+          "maxOutputTokens": 256,
+          "thinkingConfig": {
+            "thinkingLevel": "minimal"
+          }
+        },
+        "filters": {
+          "temperature": 0,
+          "maxOutputTokens": 512,
+          "thinkingConfig": {
+            "thinkingLevel": "minimal"
+          }
+        }
+      },
+      "retrieval": {
+        "mode": "dense_folded",
+        "k": 10,
+        "index_manifest_sha256": "8bee3a76b734c9d245e81f8a0727d7975e675e02b1b7ba8e0e32956712a7fb38"
+      },
+      "langgraph": "1.2.14",
+      "prices_usd_per_million_tokens": {
+        "input": 0.3,
+        "output": 2.5
+      },
+      "price_source": "https://ai.google.dev/gemini-api/docs/pricing, Gemini 3.5 Flash-Lite, paid tier, Standard; 'Last updated 2026-10-09 UTC'; read 2026-10-10",
+      "final_evaluation_flag": false
+    }
+  },
+  "deterministic_sha256": "daefb4802eadb7289eee1a25cf709dcb7048795ebbb1ed6f4591c29a72932f90",
+  "measurements": {
+    "latency_ms": {
+      "all": {
+        "latency_p50_ms": {
+          "n": 71,
+          "estimate": 2490.4,
+          "ci_low": 1648.2,
+          "ci_high": 2859.8,
+          "interval": "bootstrap"
+        },
+        "latency_p95_ms": {
+          "n": 71,
+          "estimate": 4752.2,
+          "ci_low": 4135.6,
+          "ci_high": 4861.4,
+          "interval": "bootstrap"
+        }
+      },
+      "without_excluded": {
+        "latency_p50_ms": {
+          "n": 70,
+          "estimate": 2478.2,
+          "ci_low": 1530.5,
+          "ci_high": 2718.4,
+          "interval": "bootstrap"
+        },
+        "latency_p95_ms": {
+          "n": 70,
+          "estimate": 4752.2,
+          "ci_low": 4135.6,
+          "ci_high": 4808.6,
+          "interval": "bootstrap"
+        }
+      }
+    },
+    "live_calls_this_run": 0,
+    "cache_hits_this_run": 231,
+    "wall_seconds": 44.3
+  }
+}
