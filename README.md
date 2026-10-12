@@ -4,6 +4,10 @@
 
 **A bounded, measured AI sales assistant for a Vietnamese online shop: a LangGraph agent that answers product, policy and order questions in Vietnamese from retrieved facts, checks its own answers with code before the customer sees them, and records every step of every request in a trace you can replay in a dashboard.** It runs next to an open-source Saleor stack and only ever reads from it.
 
+<img src=".github/assets/readme/architecture.png" alt="ShopMate architecture. A customer uses the shopmate-chat widget, which calls a loopback chat API. A bounded LangGraph agent (at most 8 steps per turn) routes the message, extracts filters, searches Qdrant, looks up orders in a read-only Saleor, writes the answer with Gemini Flash-Lite and checks it with code guardrails; a ticket is written only after the customer says yes. Every request is traced to logs/traces.jsonl and shown by a loopback monitor and dashboard. An offline lane runs the golden set (dev open, test locked) through eval runners and a guarded final evaluation, and GitHub Actions re-checks the hashed results." width="100%">
+
+*The picture simplifies the code: `intake` is folded into Route and `check_product` into Extract, the guardrail (code inside the answerer, not a graph node) sits under Answer, the three ticket nodes are one box, and it leaves out the fixed replies for small talk (Route → Reply) and the edges from the evaluation runners to Qdrant, Saleor and Gemini. The text version under [Architecture](#architecture) lists the same flows.*
+
 | The dashboard: the journey of one real request (live traces of a run on synthetic data) | The chat widget on a demo shop page |
 |---|---|
 | ![Dashboard, tab Request flow: intent routing, filter extraction, retrieval, grounded answer, guardrail check, reply](docs/screenshots/phase7/dashboard-live-product-desktop.png) | ![The ShopMate Fashion demo page with the chat widget showing two product cards](docs/screenshots/phase7/widget-products-desktop.png) |
@@ -21,26 +25,43 @@ More screenshots (sample data and the demo shop, desktop and phone): [`docs/scre
 
 ## Architecture
 
+<details>
+<summary>Text version</summary>
+
 ```mermaid
 flowchart LR
-    W["Storefront widget<br/>&lt;shopmate-chat&gt;"] -->|"POST /api/chat"| API["Chat API<br/>FastAPI · loopback"]
-    API --> A
-    subgraph A["LangGraph agent (bounded)"]
+    C["Customer"] <--> W["Chat widget<br/>&lt;shopmate-chat&gt;"]
+    W <-->|"POST /api/chat"| API["Chat API<br/>FastAPI · 127.0.0.1:8766"]
+    API <--> A
+    subgraph A["LangGraph agent · at most 8 steps per turn"]
         direction TB
-        R["Router<br/>6 intents · Gemini"] --> E["Filter extractor<br/>closed vocabulary"]
-        R --> POL["Policy search"]
-        E --> RET["Hybrid retrieval<br/>dense_folded · bge-m3 + folded BM25<br/>Qdrant"]
-        POL --> RET
-        R --> TOOLS["Read-only Saleor tools<br/>order lookup · email must match"]
-        RET --> ANS["Answer (LLM)"]
-        TOOLS --> ANS
-        ANS --> G["Code guardrails<br/>price · stock · SKU · clause · PII"]
-        G --> OUT["Reply"]
-        TOOLS --> TK["Ticket<br/>only after an explicit yes"]
+        R["1 Route<br/>6 intents · LLM"]
+        R -->|product_search| E["2 Extract filters<br/>closed vocabulary · LLM"]
+        E --> S["3 Search<br/>relax once, then an offer the customer must accept"]
+        R -->|policy_question| S
+        R -->|"order_status, create_ticket"| CS["2 Check slots<br/>asks at most twice"]
+        CS --> LO["3 Lookup order<br/>number and owner email must match"]
+        S --> AN["4 Answer · LLM"]
+        LO -->|order_status| AN
+        AN --> G["4 Guardrail · code<br/>price · stock · SKU · clause · PII"]
+        G --> RP["5 Reply"]
+        LO -->|create_ticket| T["4 Ticket<br/>asks for a yes, then writes the file"]
+        T --> RP
     end
+    R -.->|LLM call| GEM["Gemini Flash-Lite"]
+    E -.-> GEM
+    AN -.-> GEM
+    S -.->|data lookup| Q[("Qdrant<br/>shopmate_vn_v2 · dense_folded · bge-m3")]
+    LO -.->|"data lookup"| SAL[("Saleor, read-only<br/>runtime token · allowlist")]
+    T --> TF[("data/tickets/tickets.jsonl")]
     A -->|"one JSON line per request"| TR[("logs/traces.jsonl")]
-    TR --> M["Monitor<br/>127.0.0.1:8765"]
+    TR --> M["Monitor<br/>127.0.0.1:8765"] --> D["Dashboard<br/>request journey"]
+    GS["Golden set<br/>dev open · test locked"] -.-> EV["Eval runners + LLM cache"] -.-> RES["Results with sha256"]
+    GS -.-> FE["final_evaluation<br/>freeze tag · state fingerprint"] -.-> RES
+    RES -.-> CI["GitHub Actions<br/>tests · integrity · gitleaks"]
 ```
+
+</details>
 
 ## Results (dev split only)
 

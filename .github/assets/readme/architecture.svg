@@ -1,0 +1,256 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900" role="img" aria-labelledby="arch-title arch-desc">
+  <title id="arch-title">ShopMate architecture</title>
+  <desc id="arch-desc">A customer talks to a chat widget, which calls a loopback chat API, which runs a bounded LangGraph agent. The agent calls Gemini Flash-Lite, Qdrant and a read-only Saleor. Every request is traced to logs/traces.jsonl and shown in a loopback monitor and dashboard. Offline, a golden set (dev open, test locked) feeds eval runners and a guarded final evaluation, whose hashed results are checked by GitHub Actions.</desc>
+  <style>
+    text { font-family: "Segoe UI", system-ui, sans-serif; font-size: 16px; fill: #475569; }
+    .ttl { font-size: 30px; font-weight: 700; fill: #1F2A5C; }
+    .sub { font-size: 17px; }
+    .bnd { font-size: 18px; font-weight: 700; letter-spacing: .06em; }
+    .nm  { font-size: 17px; font-weight: 700; fill: #1F2A5C; }
+    .sb  { font-size: 16px; fill: #475569; }
+    .mid { text-anchor: middle; }
+    .end { text-anchor: end; }
+    .bg  { font-weight: 700; fill: #FFFFFF; text-anchor: middle; }
+    .nn text { font-weight: 700; fill: #FFFFFF; text-anchor: middle; }
+    .chp { font-weight: 600; fill: #FFFFFF; }
+    .on  { font-size: 17px; font-weight: 700; fill: #7C2D12; }
+    .os  { fill: #9A3412; }
+    .tn  { font-size: 17px; font-weight: 700; fill: #134E4A; }
+    .ts  { fill: #115E59; }
+    .pn  { font-size: 17px; font-weight: 700; fill: #4C1D95; }
+    .ps  { fill: #5B21B6; }
+    .req  { stroke: #1F2A5C; stroke-width: 3;   fill: none; }
+    .req2 { stroke: #1F2A5C; stroke-width: 2.5; fill: none; }
+    .llm  { stroke: #C2410C; stroke-width: 2.5; fill: none; }
+    .dat  { stroke: #0369A1; stroke-width: 3; stroke-dasharray: 0.1 6.5; stroke-linecap: round; fill: none; }
+    .trc  { stroke: #0F766E; stroke-width: 2.5; fill: none; }
+    .off  { stroke: #6D28D9; stroke-width: 2.5; stroke-dasharray: 9 6; fill: none; }
+    .node { fill: #FFFFFF; stroke: #1F2A5C; stroke-width: 1.5; }
+  </style>
+  <defs>
+    <marker id="aReq"   markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" viewBox="0 0 12 12" refX="11" refY="6" orient="auto-start-reverse"><path d="M0 1 L11 6 L0 11 Z" fill="#1F2A5C"/></marker>
+    <marker id="aLlm"   markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" viewBox="0 0 12 12" refX="11" refY="6" orient="auto"><path d="M0 1 L11 6 L0 11 Z" fill="#C2410C"/></marker>
+    <marker id="aDat"   markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" viewBox="0 0 12 12" refX="11" refY="6" orient="auto"><path d="M0 1 L11 6 L0 11 Z" fill="#0369A1"/></marker>
+    <marker id="aTrc"   markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" viewBox="0 0 12 12" refX="11" refY="6" orient="auto"><path d="M0 1 L11 6 L0 11 Z" fill="#0F766E"/></marker>
+    <marker id="aOff"   markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" viewBox="0 0 12 12" refX="11" refY="6" orient="auto"><path d="M0 1 L11 6 L0 11 Z" fill="#6D28D9"/></marker>
+  </defs>
+
+  <rect width="1400" height="900" fill="#F8FAFC"/>
+
+  <!-- ============ header ============ -->
+  <text x="32" y="50" class="ttl">ShopMate — AI sales assistant for a Vietnamese fashion shop</text>
+  <text x="32" y="80" class="sub">A bounded agent that answers from retrieved facts, checks its own answers in code, and traces every request.</text>
+  <text x="1368" y="50" class="end">synthetic data · local only</text>
+
+  <!-- ============ RUNTIME ============ -->
+  <rect x="24" y="100" width="1352" height="420" rx="18" fill="#E9ECFA" stroke="#1F2A5C" stroke-width="1.5"/>
+  <text x="44" y="127" class="bnd" fill="#1F2A5C" style="fill:#1F2A5C">RUNTIME</text>
+  <text x="152" y="127" class="sb">one customer message, from the widget to the answer</text>
+
+  <!-- customer, widget, chat API -->
+  <rect x="44" y="216" width="88" height="158" rx="12" class="node"/>
+  <circle cx="88" cy="242" r="9" fill="#1F2A5C"/>
+  <path d="M69 276 C69 258 78 253 88 253 C98 253 107 258 107 276 Z" fill="#1F2A5C"/>
+  <text x="88" y="302" class="nm mid" style="font-size:16px">Customer</text>
+  <text x="88" y="323" class="sb mid">shopper</text>
+
+  <rect x="160" y="216" width="122" height="158" rx="12" class="node"/>
+  <rect x="205" y="230" width="32" height="24" rx="6" fill="#1F2A5C"/>
+  <path d="M213 254 L213 264 L224 254 Z" fill="#1F2A5C"/>
+  <circle cx="213" cy="242" r="2.6" fill="#fff"/><circle cx="221" cy="242" r="2.6" fill="#fff"/><circle cx="229" cy="242" r="2.6" fill="#fff"/>
+  <text x="221" y="294" class="nm mid">Chat widget</text>
+  <text x="221" y="315" class="sb mid">shopmate-chat</text>
+  <text x="221" y="336" class="sb mid">demo page or</text>
+  <text x="221" y="357" class="sb mid">storefront</text>
+
+  <rect x="310" y="216" width="94" height="158" rx="12" class="node"/>
+  <rect x="333" y="230" width="48" height="14" rx="3" fill="#1F2A5C"/>
+  <rect x="333" y="248" width="48" height="14" rx="3" fill="#1F2A5C"/>
+  <circle cx="341" cy="237" r="2.2" fill="#fff"/><circle cx="341" cy="255" r="2.2" fill="#fff"/>
+  <text x="357" y="294" class="nm mid">Chat API</text>
+  <text x="357" y="315" class="sb mid">FastAPI</text>
+  <text x="357" y="336" class="sb mid">:8766</text>
+  <text x="357" y="357" class="sb mid">loopback</text>
+
+  <path d="M132 295 H160" class="req" marker-start="url(#aReq)" marker-end="url(#aReq)"/>
+  <path d="M282 295 H310" class="req" marker-start="url(#aReq)" marker-end="url(#aReq)"/>
+  <path d="M404 295 H434" class="req" marker-start="url(#aReq)" marker-end="url(#aReq)"/>
+
+  <!-- agent block -->
+  <rect x="434" y="140" width="666" height="364" rx="14" fill="#FAFBFF" stroke="#1F2A5C" stroke-width="2.5"/>
+  <text x="452" y="166" class="bnd" style="fill:#1F2A5C;letter-spacing:0">LangGraph agent</text>
+  <text x="622" y="166" class="sb">numbers = order of the steps in one turn</text>
+
+  <!-- hard limits (code, not prompts) -->
+  <rect x="452" y="178" width="176" height="28" rx="14" fill="#1F2A5C"/><circle cx="466" cy="192" r="3.5" fill="#fff"/>
+  <text x="476" y="198" class="chp">≤ 8 steps per turn</text>
+  <rect x="638" y="178" width="200" height="28" rx="14" fill="#1F2A5C"/><circle cx="652" cy="192" r="3.5" fill="#fff"/>
+  <text x="662" y="198" class="chp">ticket only after yes</text>
+  <rect x="848" y="178" width="214" height="28" rx="14" fill="#1F2A5C"/><circle cx="862" cy="192" r="3.5" fill="#fff"/>
+  <text x="872" y="198" class="chp">prices checked by code</text>
+
+  <!-- connectors inside the agent (under the nodes) -->
+  <path d="M536 295 H560" class="req2" marker-end="url(#aReq)"/>
+  <path d="M648 295 H672" class="req2" marker-end="url(#aReq)"/>
+  <path d="M796 295 H820" class="req2" marker-end="url(#aReq)"/>
+  <path d="M958 295 H982" class="req2" marker-end="url(#aReq)"/>
+  <path d="M510 328 V354 H654 V316 H672" class="req2" marker-end="url(#aReq)"/>
+  <text x="518" y="347" class="sb" style="fill:#1F2A5C">policy_question</text>
+  <path d="M470 328 V437 H536" class="req2" marker-end="url(#aReq)"/>
+  <path d="M648 437 H672" class="req2" marker-end="url(#aReq)"/>
+  <path d="M796 437 H820" class="req2" marker-end="url(#aReq)"/>
+  <path d="M770 400 V372 H870 V344" class="req2" marker-end="url(#aReq)"/>
+  <text x="776" y="366" class="sb" style="fill:#1F2A5C">order_status</text>
+  <path d="M958 437 H1034 V328" class="req2" marker-end="url(#aReq)"/>
+
+  <!-- lane 1: product and policy answers -->
+  <rect x="448" y="262" width="88" height="66" rx="10" class="node"/>
+  <text x="460" y="291" class="nm">Route</text><text x="460" y="313" class="sb">6 intents</text>
+  <rect x="560" y="262" width="88" height="66" rx="10" class="node"/>
+  <text x="572" y="291" class="nm">Extract</text><text x="572" y="313" class="sb">filters</text>
+  <rect x="672" y="262" width="124" height="66" rx="10" class="node"/>
+  <text x="684" y="291" class="nm">Search</text><text x="684" y="313" class="sb">relax → offer</text>
+  <rect x="820" y="262" width="138" height="82" rx="10" class="node"/>
+  <path d="M820 302 H958 V334 A10 10 0 0 1 948 344 H830 A10 10 0 0 1 820 334 Z" fill="#DDE2F6"/>
+  <rect x="820" y="262" width="138" height="82" rx="10" fill="none" stroke="#1F2A5C" stroke-width="1.5"/>
+  <line x1="820" y1="302" x2="958" y2="302" stroke="#1F2A5C" stroke-width="1"/>
+  <text x="832" y="289" class="nm">Answer</text>
+  <text x="832" y="329" class="nm">Guardrail</text><text x="950" y="329" class="sb end" style="font-style:italic;fill:#2E3A7A">code</text>
+  <rect x="982" y="262" width="104" height="66" rx="10" class="node"/>
+  <text x="994" y="291" class="nm">Reply</text><text x="994" y="313" class="sb">to the API</text>
+
+  <!-- lane 2: orders and tickets -->
+  <rect x="536" y="400" width="112" height="74" rx="10" class="node"/>
+  <text x="548" y="428" class="nm">Check slots</text><text x="548" y="450" class="sb">asks, max 2</text>
+  <rect x="672" y="400" width="124" height="74" rx="10" class="node"/>
+  <text x="684" y="428" class="nm">Lookup order</text><text x="684" y="450" class="sb">no. + email</text>
+  <rect x="820" y="400" width="138" height="74" rx="10" class="node"/>
+  <text x="832" y="425" class="nm">Ticket</text><text x="832" y="446" class="sb">ask “yes?”</text><text x="832" y="466" class="sb">then write file</text>
+  <text x="448" y="494" class="sb" style="font-style:italic;fill:#2E3A7A">order_status, create_ticket</text>
+
+  <!-- step numbers -->
+  <g class="nn">
+    <circle cx="448" cy="262" r="12" fill="#1F2A5C"/><text x="448" y="267.5">1</text>
+    <circle cx="560" cy="262" r="12" fill="#1F2A5C"/><text x="560" y="267.5">2</text>
+    <circle cx="672" cy="262" r="12" fill="#1F2A5C"/><text x="672" y="267.5">3</text>
+    <circle cx="820" cy="262" r="12" fill="#1F2A5C"/><text x="820" y="267.5">4</text>
+    <circle cx="982" cy="262" r="12" fill="#1F2A5C"/><text x="982" y="267.5">5</text>
+    <circle cx="536" cy="400" r="12" fill="#1F2A5C"/><text x="536" y="405.5">2</text>
+    <circle cx="672" cy="400" r="12" fill="#1F2A5C"/><text x="672" y="405.5">3</text>
+    <circle cx="820" cy="400" r="12" fill="#1F2A5C"/><text x="820" y="405.5">4</text>
+  </g>
+
+  <!-- tags: orange = calls the LLM, blue = reads a data source -->
+  <rect x="490" y="251" width="42" height="22" rx="6" fill="#C2410C"/><text x="511" y="267.5" class="bg">LLM</text>
+  <rect x="602" y="251" width="42" height="22" rx="6" fill="#C2410C"/><text x="623" y="267.5" class="bg">LLM</text>
+  <rect x="912" y="251" width="42" height="22" rx="6" fill="#C2410C"/><text x="933" y="267.5" class="bg">LLM</text>
+  <rect x="722" y="251" width="68" height="22" rx="6" fill="#0369A1"/><text x="756" y="267.5" class="bg">Qdrant</text>
+  <rect x="678" y="463" width="68" height="22" rx="6" fill="#0369A1"/><text x="712" y="479.5" class="bg">Saleor</text>
+
+  <!-- calls to the outside: LLM bus (hops over the Qdrant stub), Qdrant, Saleor -->
+  <path d="M511 251 V236 H744 a12 12 0 0 1 24 0 H1118 V300 H1136" class="llm" marker-end="url(#aLlm)"/>
+  <path d="M623 251 V236" class="llm"/><path d="M933 251 V236" class="llm"/>
+  <circle cx="623" cy="236" r="3.5" fill="#C2410C"/><circle cx="933" cy="236" r="3.5" fill="#C2410C"/><circle cx="511" cy="236" r="3.5" fill="#C2410C"/>
+  <path d="M756 251 V218 H1136" class="dat" marker-end="url(#aDat)"/>
+  <path d="M770 474 V492 H1136" class="dat" marker-end="url(#aDat)"/>
+
+  <!-- external sources -->
+  <rect x="1138" y="146" width="218" height="104" rx="12" fill="#FFEDD5" stroke="#C2410C" stroke-width="1.5"/>
+  <ellipse cx="1161" cy="164" rx="11" ry="4" fill="none" stroke="#C2410C" stroke-width="2"/>
+  <path d="M1150 164 V186 A11 4 0 0 0 1172 186 V164 M1150 175 A11 4 0 0 0 1172 175" fill="none" stroke="#C2410C" stroke-width="2"/>
+  <text x="1184" y="170" class="on">Qdrant</text>
+  <text x="1184" y="191" class="os">shopmate_vn_v2</text>
+  <text x="1184" y="212" class="os">dense_folded, bge-m3</text>
+  <text x="1184" y="233" class="os">indexed offline</text>
+
+  <rect x="1138" y="262" width="218" height="104" rx="12" fill="#FFEDD5" stroke="#C2410C" stroke-width="1.5"/>
+  <rect x="1150" y="274" width="22" height="22" rx="5" fill="none" stroke="#C2410C" stroke-width="2"/>
+  <rect x="1156" y="280" width="10" height="10" rx="2" fill="#C2410C"/>
+  <path d="M1156 270 V274 M1166 270 V274 M1156 296 V300 M1166 296 V300" stroke="#C2410C" stroke-width="2"/>
+  <text x="1184" y="287" class="on">Gemini Flash-Lite</text>
+  <text x="1184" y="308" class="os">gemini-3.5-flash-lite</text>
+  <text x="1184" y="329" class="os">free tier, 450 a day</text>
+  <text x="1184" y="350" class="os">cached on disk</text>
+
+  <rect x="1138" y="410" width="218" height="98" rx="12" fill="#FFEDD5" stroke="#C2410C" stroke-width="1.5"/>
+  <rect x="1150" y="426" width="22" height="18" rx="3" fill="none" stroke="#C2410C" stroke-width="2"/>
+  <path d="M1155 426 V422 A6 6 0 0 1 1167 422 V426" fill="none" stroke="#C2410C" stroke-width="2"/>
+  <text x="1184" y="433" class="on">Saleor, read-only</text>
+  <text x="1184" y="453" class="os">runtime token</text>
+  <text x="1184" y="473" class="os">allowlisted queries</text>
+  <text x="1184" y="493" class="os">seeded from data/seed</text>
+
+  <!-- ============ OBSERVABILITY ============ -->
+  <rect x="24" y="530" width="1352" height="92" rx="18" fill="#E3F4F1" stroke="#0F766E" stroke-width="1.5"/>
+  <text x="44" y="556" class="bnd" style="fill:#0F766E">OBSERVABILITY</text>
+  <text x="44" y="580" class="ts">One JSON line per request, errors included;</text>
+  <text x="44" y="602" class="ts">customer text is masked before it is written.</text>
+
+  <path d="M540 504 V548" class="trc" marker-end="url(#aTrc)"/>
+  <rect x="440" y="548" width="200" height="58" rx="10" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.5"/>
+  <text x="454" y="572" class="tn">Tracing</text><text x="454" y="594" class="ts">span per step, masked</text>
+  <rect x="680" y="548" width="200" height="58" rx="10" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.5"/>
+  <text x="694" y="572" class="tn">logs/traces.jsonl</text><text x="694" y="594" class="ts">one line per request</text>
+  <rect x="920" y="548" width="200" height="58" rx="10" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.5"/>
+  <text x="934" y="572" class="tn">Monitor · :8765</text><text x="934" y="594" class="ts">loopback, read-only</text>
+  <rect x="1160" y="548" width="196" height="58" rx="10" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.5"/>
+  <text x="1174" y="572" class="tn">Dashboard</text><text x="1174" y="594" class="ts">request journey, flow</text>
+  <path d="M640 577 H680" class="trc" marker-end="url(#aTrc)"/>
+  <path d="M880 577 H920" class="trc" marker-end="url(#aTrc)"/>
+  <path d="M1120 577 H1160" class="trc" marker-end="url(#aTrc)"/>
+
+  <!-- ============ EVALUATION & CI ============ -->
+  <rect x="24" y="634" width="1352" height="178" rx="18" fill="#F1ECFB" stroke="#6D28D9" stroke-width="1.5"/>
+  <text x="44" y="661" class="bnd" style="fill:#5B21B6">EVALUATION &amp; CI</text>
+  <text x="256" y="661" class="ps">offline by design: no key, no network in CI</text>
+
+  <rect x="44" y="672" width="240" height="134" rx="12" fill="#FFFFFF" stroke="#6D28D9" stroke-width="1.5"/>
+  <text x="60" y="696" class="pn">Golden set</text>
+  <rect x="60" y="712" width="208" height="30" rx="15" fill="#FFFFFF" stroke="#6D28D9" stroke-width="1.5"/>
+  <text x="76" y="733" class="ps" style="font-weight:600">dev split · open</text>
+  <rect x="60" y="760" width="208" height="30" rx="15" fill="#4C1D95"/>
+  <rect x="72" y="772" width="14" height="10" rx="2" fill="#FFFFFF"/><path d="M75 772 V769 A4 4 0 0 1 83 769 V772" fill="none" stroke="#FFFFFF" stroke-width="2"/>
+  <text x="96" y="781" class="chp">test split · locked</text>
+
+  <rect x="318" y="672" width="380" height="66" rx="12" fill="#FFFFFF" stroke="#6D28D9" stroke-width="1.5"/>
+  <text x="334" y="698" class="pn">Eval runners</text><text x="334" y="721" class="ps">router, retrieval, agent</text>
+  <rect x="528" y="688" width="158" height="32" rx="16" fill="#EDE4FB" stroke="#6D28D9" stroke-width="1.5"/>
+  <ellipse cx="548" cy="699" rx="7" ry="3" fill="none" stroke="#5B21B6" stroke-width="1.8"/><path d="M541 699 V709 A7 3 0 0 0 555 709 V699" fill="none" stroke="#5B21B6" stroke-width="1.8"/>
+  <text x="562" y="710" class="ps" style="font-weight:600">LLM cache</text>
+
+  <rect x="318" y="748" width="380" height="58" rx="12" fill="#FFFFFF" stroke="#6D28D9" stroke-width="1.5"/>
+  <text x="334" y="773" class="pn">final_evaluation</text><text x="334" y="796" class="ps">freeze tag · state fingerprint</text>
+
+  <rect x="732" y="672" width="260" height="134" rx="12" fill="#FFFFFF" stroke="#6D28D9" stroke-width="1.5"/>
+  <text x="748" y="698" class="pn">Results + hash</text>
+  <text x="748" y="722" class="ps">deterministic_sha256</text>
+  <text x="748" y="744" class="ps">committed JSON files</text>
+
+  <rect x="1026" y="672" width="330" height="134" rx="12" fill="#FFFFFF" stroke="#6D28D9" stroke-width="1.5"/>
+  <text x="1042" y="698" class="pn">GitHub Actions</text>
+  <text x="1042" y="722" class="ps">test · unit tests, offline</text>
+  <text x="1042" y="744" class="ps">integrity · results recompute</text>
+  <text x="1042" y="766" class="ps">secrets · gitleaks, history</text>
+  <text x="1042" y="788" class="ps">actions pinned by SHA</text>
+
+  <path d="M268 727 H318" class="off" marker-end="url(#aOff)"/>
+  <path d="M268 775 H318" class="off" marker-end="url(#aOff)"/>
+  <path d="M698 705 H732" class="off" marker-end="url(#aOff)"/>
+  <path d="M698 777 H732" class="off" marker-end="url(#aOff)"/>
+  <path d="M992 739 H1026" class="off" marker-end="url(#aOff)"/>
+
+  <!-- ============ legend ============ -->
+  <rect x="24" y="822" width="1352" height="68" rx="14" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="44" y="849" class="nm" style="font-size:16px">Arrows</text>
+  <path d="M120 843 H170" class="req" marker-start="url(#aReq)" marker-end="url(#aReq)"/>
+  <text x="182" y="849" class="sb">request / response</text>
+  <path d="M352 843 H402" class="llm" marker-end="url(#aLlm)"/>
+  <text x="414" y="849" class="sb">LLM call</text>
+  <path d="M510 843 H560" class="dat" marker-end="url(#aDat)"/>
+  <text x="572" y="849" class="sb">data lookup</text>
+  <path d="M692 843 H742" class="trc" marker-end="url(#aTrc)"/>
+  <text x="754" y="849" class="sb">trace write / read</text>
+  <path d="M912 843 H962" class="off" marker-end="url(#aOff)"/>
+  <text x="974" y="849" class="sb">offline flow</text>
+  <text x="44" y="877" class="sb">Numbers: order of the steps in one turn · orange tag: calls the LLM · blue tag: reads Qdrant or Saleor · dark pills: hard limits in code</text>
+</svg>
