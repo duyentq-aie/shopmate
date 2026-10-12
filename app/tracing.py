@@ -27,6 +27,11 @@ untouched (BaseException too: Ctrl+C and sys.exit() end a request, so they are r
 only GeneratorExit, which is how Python closes a generator and not a failure, passes through unrecorded), and a failing
 log write is reported on stderr and otherwise ignored.
 
+Langfuse is an optional second output of the same trace (docs/DECISIONS-langfuse.md): a Tracer built with `sink=` tells the sink when a request
+and each of its spans start and end, and hands it the finished line (already through `mask`). It is opt-in per Tracer, never switched on by the
+environment, and it can neither change the line nor fail a request: every hook is wrapped, and a failure is only logged (the class of the
+exception, never its message, which could hold what the customer typed).
+
 Tokens are the numbers of the Gemini `usageMetadata` of the response, never estimates (null when the response has
 none); tokens_out is candidates + thought tokens, the billed output. A cache hit carries the recorded metadata of the
 answer that was cached, with cache_hit true: it was not billed again.
@@ -64,6 +69,7 @@ from __future__ import annotations
 import contextvars
 import datetime as dt
 import json
+import logging
 import os
 import re
 import sys
@@ -106,6 +112,7 @@ WARNING_ONLY = frozenset({"llm_429_minute"})  # a recovered condition: valid on 
 SPAN_ONLY = frozenset({"filter_out_of_vocab", "answer_guardrail_fallback"})  # warnings of one span; a request never fails with them
 STATUSES = ("ok", "warn", "error")
 MESSAGE_LIMIT = 300
+_SINK_LOG = logging.getLogger("shopmate.observability")
 
 # --- masking -------------------------------------------------------------------------------------------------------------
 
@@ -207,6 +214,15 @@ def _check_failure_type(error_type: str, *, request: bool = False) -> None:
         raise ValueError(f"{error_type!r} is a warning of one span, not the failure of a request")
 
 
+def _call_sink(hook: str, call: Callable, *args, **kwargs):
+    """Run one hook of the sink. Langfuse must never break a request, so whatever it raises is logged (the class only) and dropped; None then."""
+    try:
+        return call(*args, **kwargs)
+    except Exception as exc:
+        _SINK_LOG.warning("langfuse sink: %s failed (%s); the request is not affected", hook, type(exc).__name__)
+        return None
+
+
 class SpanRecorder:
     """What the code inside a span can say about it."""
 
@@ -252,6 +268,7 @@ class Trace:
         self.spans: list[dict] = []
         self._clock, self._t0 = clock, clock()
         self._escaping: tuple[BaseException, dict] | None = None  # the exception a span saw, and how it classified it
+        self._sink, self._sink_request = None, None  # the Langfuse sink of this request, and what it gave back for it (both None: not sent)
 
     def fail(self, error_type: str, message: str) -> None:
         _check_failure_type(error_type, request=True)
@@ -317,7 +334,9 @@ def span(stage: str, model: str | None = None) -> Iterator[SpanRecorder]:
     if trace is None:
         yield recorder
         return
-    start = trace._clock()
+    sink_span = None if trace._sink_request is None else _call_sink("span_started", trace._sink.span_started, trace._sink_request,
+                                                                    stage=stage, model=model)
+    start = trace._clock()  # after the sink opened its observation: what the sink costs is not part of the step's time
     try:
         yield recorder
     except GeneratorExit:  # Python closing a generator is not a failure of this step: let it through, record nothing
@@ -335,6 +354,8 @@ def span(stage: str, model: str | None = None) -> Iterator[SpanRecorder]:
                             "tokens_in": recorder.tokens_in, "tokens_out": recorder.tokens_out,
                             "cache_hit": recorder.cache_hit, "error": recorder.error or recorder.recovered,
                             "summary": recorder.summary})
+        if sink_span is not None:
+            _call_sink("span_ended", trace._sink.span_ended, trace._sink_request, sink_span, index=len(trace.spans) - 1)
 
 
 def summary_bytes(summary) -> int:
@@ -367,8 +388,9 @@ class Tracer:
     def __init__(self, path: Path = TRACE_PATH, *, secrets: list[str] | None = None,
                  clock: Callable[[], float] = time.perf_counter,
                  now: Callable[[], dt.datetime] = lambda: dt.datetime.now(dt.timezone.utc),
-                 new_id: Callable[[], str] = lambda: uuid.uuid4().hex) -> None:
+                 new_id: Callable[[], str] = lambda: uuid.uuid4().hex, sink=None) -> None:
         self.path = Path(path)
+        self.sink = sink  # opt-in: the entry point passes it (app.observability.factory.build_sink), nothing here reads the environment
         self.secrets = known_secrets() + list(secrets or [])
         self._clock, self._now, self._new_id = clock, now, new_id
         self._lock = threading.Lock()
@@ -377,6 +399,9 @@ class Tracer:
     def request(self, question: str, *, session_id: str | None = None, turn: int | None = None) -> Iterator[Trace]:
         trace = Trace(question, self._now(), self._new_id(), self._clock, session_id=session_id, turn=turn)
         token = _CURRENT.set(trace)
+        if self.sink is not None:
+            trace._sink = self.sink
+            trace._sink_request = _call_sink("request_started", self.sink.request_started, trace_id=trace.trace_id, session_id=trace.session_id, turn=trace.turn)
         try:
             yield trace
         except GeneratorExit:  # the generator that holds this request open is being closed: not a failure
@@ -386,7 +411,9 @@ class Tracer:
             raise
         finally:
             _CURRENT.reset(token)
-            self._write(trace)
+            line = self._write(trace)
+            if trace._sink_request is not None:
+                _call_sink("request_ended", self.sink.request_ended, trace._sink_request, line, duration_ms=round((self._clock() - trace._t0) * 1000, 1))
 
     def _clean(self, text: str | None) -> str | None:
         """`redact` only: for ids, model names and error messages (see `mask` for the customer's own text)."""
@@ -431,15 +458,19 @@ class Tracer:
             "error": self._error(trace.error),
         }
 
-    def _write(self, trace: Trace) -> None:
+    def _write(self, trace: Trace) -> dict | None:
+        """Write the line of `trace` and return it (None if it could not be built: a failed write still returns the line)."""
+        line = None
         try:
-            text = json.dumps(self.line(trace), ensure_ascii=False, separators=(",", ":"))
+            line = self.line(trace)
+            text = json.dumps(line, ensure_ascii=False, separators=(",", ":"))
             with self._lock:
                 self.path.parent.mkdir(parents=True, exist_ok=True)
                 with open(self.path, "a", encoding="utf-8") as out:
                     out.write(text + "\n")
         except Exception as exc:  # tracing must never break a request
             print(f"trace write failed: {type(exc).__name__}", file=sys.stderr)
+        return line
 
 
 # --- validation of a line ------------------------------------------------------------------------------------------------
