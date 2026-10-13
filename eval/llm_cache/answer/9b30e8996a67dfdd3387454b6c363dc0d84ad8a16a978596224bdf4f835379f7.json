@@ -1,0 +1,50 @@
+{
+ "digest": "9b30e8996a67dfdd3387454b6c363dc0d84ad8a16a978596224bdf4f835379f7",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"color\":\"Hồng\",\"in_stock\":false,\"kind\":\"Áo sơ mi nữ\",\"material\":\"Cotton\",\"name\":\"Áo sơ mi nữ cổ nơ hồng\",\"price_vnd\":399000,\"sizes\":[\"S\",\"M\",\"L\",\"XL\",\"XXL\"],\"sku\":\"SM-NU-0002\"},{\"color\":\"Hồng\",\"in_stock\":true,\"kind\":\"Áo sơ mi nữ\",\"material\":\"Voan\",\"name\":\"Áo sơ mi nữ dáng rộng hồng\",\"price_vnd\":279000,\"sizes\":[\"XL\",\"XXL\"],\"sku\":\"SM-NU-0023\"}],\"relaxed\":[]},\"kind\":\"products\",\"question\":\"Áo sơ mi nữ cổ nơ màu hồng còn ko shop?\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"text\": \"Áo sơ mi nữ cổ nơ hồng (SKU SM-NU-0002) có giá 399.000đ và hiện đã hết hàng. Áo sơ mi nữ dáng rộng hồng (SKU SM-NU-0023) có giá 279.000đ và hiện còn hàng.\",\n  \"cited_skus\": [\n    \"SM-NU-0002\",\n    \"SM-NU-0023\"\n  ],\n  \"cited_clauses\": []\n}",
+       "thoughtSignature": "EmAKXgFpFH0T48ET23kWvsCmFusIn0mZ0a6MsdTqXlTaP1kq5g3YgKwuFLD8HHJ6kBPlC8ldH3GyvI2YwRahPnXNnAIZN7Dah8L6BvqpSkEx+ITE1ghEKUJTeUrCRNnYeY0="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1702,
+   "candidatesTokenCount": 128,
+   "totalTokenCount": 1830,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1702
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "od7NarmrKZjUjuMPi5-P6Ao"
+ },
+ "latency_ms": 1812.8,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:32:49+00:00"
+}

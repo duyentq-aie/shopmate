@@ -1,0 +1,50 @@
+{
+ "digest": "2997ed1c9676835d976a78149fddcadcaff21fe03cf7c0844b7511399986022f",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "Hàng nhận được bị sai màu ở đơn 100, mở phiếu hỗ trợ giúp tôi với email khachhang18@example.com.",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"intent\": \"create_ticket\"}",
+       "thoughtSignature": "EmAKXgFpFH0TisWWzzGTZCm96c4XcabpnJ5rcK6DpEeH+Z9g9v6A7PqT+C2llw0n5pBWmdGTsOanRl60WeQAKDw0hRcr5waJaj22GfGKczG5py4Id4pW0hKzVrw9wZp3BkM="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 910,
+   "candidatesTokenCount": 8,
+   "totalTokenCount": 918,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 910
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "Md7Naq2oK67JjuMPjbGfwAs"
+ },
+ "latency_ms": 801.1,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:30:56+00:00"
+}

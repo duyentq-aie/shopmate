@@ -1,0 +1,50 @@
+{
+ "digest": "c565c1951a654fbd8a5ca85c1a7a32d11d2837814a3638261e013bc0854a1c7c",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"clause\":5,\"file\":\"van-chuyen\",\"text\":\"Chính sách vận chuyển – ShopMate Fashion\\nĐiều 5. Thanh toán khi nhận hàng (COD) và kiểm tra hàng\\n1. Hỗ trợ thanh toán khi nhận hàng (COD) cho đơn hàng có giá trị đến **5.000.000đ**.\\n2. Khách hàng được **kiểm tra hàng** (xem sản phẩm, không thử) trước khi thanh toán.\\n3. Nếu sản phẩm không đúng mẫu đã đặt, khách hàng có quyền từ chối nhận và không phải trả phí.\",\"title\":\"Thanh toán khi nhận hàng (COD) và kiểm tra hàng\"},{\"clause\":6,\"file\":\"doi-tra\",\"text\":\"Chính sách đổi trả – ShopMate Fashion\\nĐiều 6. Hoàn tiền\\n1. Tiền được hoàn trong vòng **5–7 ngày làm việc** kể từ khi kho xác nhận đã nhận lại sản phẩm đạt điều kiện tại Điều 3.\\n2. Đơn thanh toán khi nhận hàng (COD): hoàn tiền qua chuyển khoản ngân hàng theo thông tin khách hàng cung cấp.\\n3. Đơn thanh toán trực tuyến: hoàn tiền về đúng phương thức thanh toán ban đầu.\",\"title\":\"Hoàn tiền\"},{\"clause\":6,\"file\":\"van-chuyen\",\"text\":\"Chính sách vận chuyển – ShopMate Fashion\\nĐiều 6. Giao hàng không thành công\\n1. Đơn vị vận chuyển liên hệ giao lại tối đa **2 lần**.\\n2. Sau 2 lần giao không thành công, đơn hàng được hoàn về kho và tự động hủy.\\n3. Khách hàng từ chối nhận hàng không có lý do chính đáng từ **2 lần** trở lên có thể bị tạm ngưng hình thức COD.\",\"title\":\"Giao hàng không thành công\"}]},\"kind\":\"policies\",\"question\":\"nhan hang co duoc kiem tra truoc khi tra tien cod khong\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"text\": \"Khách hàng được kiểm tra hàng (xem sản phẩm, không thử) trước khi thanh toán.\",\n  \"cited_skus\": [],\n  \"cited_clauses\": [\n    {\n      \"file\": \"van-chuyen\",\n      \"clause\": 5\n    }\n  ]\n}",
+       "thoughtSignature": "EmAKXgFpFH0T4oWF6M1CVvrxx5+kSyt1ZNl2bVPWxeLUxbOz0NDpZjVOjgK2jNgelL/zlhq4LAJWPDVud2vCtwNjNGQ5c/UZ9k6zSC3S/1176UcOGAfLjbfpadVxdkIkSHM="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1957,
+   "candidatesTokenCount": 75,
+   "totalTokenCount": 2032,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1957
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "w97Nat_qGP6wmNMP6bv26Aw"
+ },
+ "latency_ms": 1403.5,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:33:22+00:00"
+}

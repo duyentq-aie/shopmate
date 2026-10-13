@@ -1,0 +1,50 @@
+{
+ "digest": "7300c1521f40486e4caeeb524821744feae9e3e1e9e6c8068ca06616f94d6534",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"color\":\"Hồng\",\"in_stock\":true,\"kind\":\"Váy liền nữ\",\"material\":\"Voan\",\"name\":\"Váy liền nữ maxi đi biển hồng\",\"price_vnd\":639000,\"sizes\":[\"S\",\"M\",\"L\",\"XL\",\"XXL\"],\"sku\":\"SM-NU-0045\"}],\"relaxed\":[\"color\"]},\"kind\":\"products\",\"question\":\"tim giup minh vay lien nu mau be chat lieu voan\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"text\": \"Dạ hiện tại không có sản phẩm màu bé, nhưng bên mình có sản phẩm màu hồng khác để bạn tham khảo. Váy liền nữ maxi đi biển hồng (SKU SM-NU-0045) có giá 639.000đ và hiện còn hàng.\",\n  \"cited_skus\": [\n    \"SM-NU-0045\"\n  ],\n  \"cited_clauses\": []\n}",
+       "thoughtSignature": "EmAKXgFpFH0TT5eK3sDBUTkt/nJX1Y5a7cCCRAeoRXkFhJMeaAWuSX1sKFcPSx5oJh0sdHHx7JjeMZP7BU2eVXTky9Qe0yKt04dJZLzcedmPq0RvBjoyveBXf1sa26PJaIk="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1637,
+   "candidatesTokenCount": 103,
+   "totalTokenCount": 1740,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1637
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "rN7NaoCpJMipjuMPsqO90A4"
+ },
+ "latency_ms": 1358.4,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:32:59+00:00"
+}

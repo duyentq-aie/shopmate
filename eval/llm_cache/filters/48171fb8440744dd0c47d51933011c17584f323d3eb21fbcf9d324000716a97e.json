@@ -1,0 +1,50 @@
+{
+ "digest": "48171fb8440744dd0c47d51933011c17584f323d3eb21fbcf9d324000716a97e",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "27e2ade227970c84db5ee5ec975c0aad4429fd2de698616d249357431672f74a",
+  "schema_sha256": "489fb422d325ff2d910238ab1144c01789bf3a76ffb48a375cac3691bb0d1bce",
+  "input": "Shop có chân váy nữ màu đen size M nào dưới 400 nghìn không?",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 512,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"category\": null,\n  \"kind\": \"Chân váy nữ\",\n  \"color\": \"Đen\",\n  \"material\": null,\n  \"size\": \"M\",\n  \"price_min\": null,\n  \"price_max\": 400000,\n  \"in_stock\": null\n}",
+       "thoughtSignature": "EmAKXgFpFH0T0Ws3082TI/UDGSNpQtv+QuV0drGSvwd273q105n4ULvtgjTS8Y3IHii3wEfwb4eptGBllMXANfyhonfRr88OAacIrt1Ito/rubHVJO7lOu42oo6XC0hVMHg="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1541,
+   "candidatesTokenCount": 77,
+   "totalTokenCount": 1618,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1541
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "bN7Naq_DLuOljuMPpOmQyAs"
+ },
+ "latency_ms": 1972.4,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:31:56+00:00"
+}

@@ -1,0 +1,50 @@
+{
+ "digest": "47a261317964ce8f692800fc2b96e2260d0c06cba062e35bf56dcffd52d041bc",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "chan vay xep ly co mau nao vay shop",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"intent\": \"product_search\"\n}",
+       "thoughtSignature": "EmAKXgFpFH0TFGjBePhF8K02bGCbRiYDRB2YrKUMCyWIiVbO32r1RXZh0sIzIukTmI5EAtRgzwC1cEuRvoBcaFibFn2AV6imJZhN75N8KSbrpcz97gzXXW892COEnRS8vPs="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 888,
+   "candidatesTokenCount": 13,
+   "totalTokenCount": 901,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 888
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "td3NatP4DM_XjuMP_ffN4As"
+ },
+ "latency_ms": 1147.4,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:28:52+00:00"
+}

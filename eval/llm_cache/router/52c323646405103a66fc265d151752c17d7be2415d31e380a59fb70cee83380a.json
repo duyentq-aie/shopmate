@@ -1,0 +1,50 @@
+{
+ "digest": "52c323646405103a66fc265d151752c17d7be2415d31e380a59fb70cee83380a",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "Bên bạn có đang tuyển dụng vị trí nhân viên kế toán kho không?",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"intent\": \"out_of_scope\"}",
+       "thoughtSignature": "EmAKXgFpFH0TrujpcpECzBQ4XPIM4clQ/pbaqQ3pFGP/Z7KJYvLQq2kkBQDlVoOH/z9lUfD9eM9eItwedZnPBTbNycBpL4rj7ZP26vvMjURS0BSzhnnKbd9VlIBsMV1kxj8="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 894,
+   "candidatesTokenCount": 10,
+   "totalTokenCount": 904,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 894
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "Mt7NaueWH-irjuMPg7en2As"
+ },
+ "latency_ms": 939.0,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:30:57+00:00"
+}

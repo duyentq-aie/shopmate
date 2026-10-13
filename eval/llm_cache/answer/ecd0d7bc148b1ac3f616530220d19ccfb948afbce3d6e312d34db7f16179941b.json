@@ -1,0 +1,50 @@
+{
+ "digest": "ecd0d7bc148b1ac3f616530220d19ccfb948afbce3d6e312d34db7f16179941b",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"color\":\"Be\",\"in_stock\":true,\"kind\":\"Áo thun nam\",\"material\":\"Cotton\",\"name\":\"Áo thun nam oversize be\",\"price_vnd\":179000,\"sizes\":[\"XL\",\"XXL\"],\"sku\":\"SM-NAM-0008\"},{\"color\":\"Xanh navy\",\"in_stock\":true,\"kind\":\"Áo thun nam\",\"material\":\"Cotton pha spandex\",\"name\":\"Áo thun nam in chữ xanh navy\",\"price_vnd\":289000,\"sizes\":[\"S\",\"M\",\"L\",\"XL\",\"XXL\"],\"sku\":\"SM-NAM-0015\"}],\"relaxed\":[]},\"kind\":\"products\",\"question\":\"ao thun nam XXL còn hàng ko shop\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"text\": \"Áo thun nam oversize be (SKU SM-NAM-0008) có giá 179.000đ và hiện còn hàng. Áo thun nam in chữ xanh navy (SKU SM-NAM-0015) có giá 289.000đ và hiện còn hàng.\", \"cited_skus\": [\"SM-NAM-0008\", \"SM-NAM-0015\"], \"cited_clauses\": []}",
+       "thoughtSignature": "EmAKXgFpFH0ToGBej4/rABxHMoSlUTsAYcXN4a0ElkpuCwTOc1fY1dcGPcK+g1zta25Y0hPwdiL0Wr63DGHp1nZl9KTShlX7KBN8xz+6bABDErquaHPLSqKDECSvtfbHl2A="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1697,
+   "candidatesTokenCount": 110,
+   "totalTokenCount": 1807,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1697
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "hd7NateTCLnx4-EP6-zK0Qs"
+ },
+ "latency_ms": 1363.8,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:32:20+00:00"
+}

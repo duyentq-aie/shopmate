@@ -1,0 +1,50 @@
+{
+ "digest": "31625f7e0c92ff3ed595454b37a3cd3379d2d6e802170c7162e9cbc5449f6899",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "27e2ade227970c84db5ee5ec975c0aad4429fd2de698616d249357431672f74a",
+  "schema_sha256": "489fb422d325ff2d910238ab1144c01789bf3a76ffb48a375cac3691bb0d1bce",
+  "input": "shop có túi da bò cho nữ ko ạ",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 512,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"category\": null, \"kind\": \"Túi xách nữ\", \"color\": null, \"material\": \"Da bò\", \"size\": null, \"price_min\": null, \"price_max\": null, \"in_stock\": null}",
+       "thoughtSignature": "EmAKXgFpFH0TcF8jlDO3yxE40LIkUzIO9Rg4MNb1kENWcVWPBiJckkP4337DB8HsfQaNYvRYbd/Gv694Y8TnGgQE31HCL8oh/EtGPgo721ptPB1ODJ31NsBPpLqWaQ0RuzA="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1531,
+   "candidatesTokenCount": 54,
+   "totalTokenCount": 1585,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1531
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "Nt7NauC0Mo7bjuMPv-Ht0Ao"
+ },
+ "latency_ms": 970.8,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:31:01+00:00"
+}

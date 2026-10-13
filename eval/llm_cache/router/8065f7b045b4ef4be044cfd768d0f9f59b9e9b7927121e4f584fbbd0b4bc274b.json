@@ -1,0 +1,50 @@
+{
+ "digest": "8065f7b045b4ef4be044cfd768d0f9f59b9e9b7927121e4f584fbbd0b4bc274b",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "Shop ơi, có sơ mi nam màu xanh dương ko?",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"intent\": \"product_search\"}",
+       "thoughtSignature": "EmAKXgFpFH0TKEZORO+5qTAMucKyV/b0iCMndbabvui+jwZ+h2utBs4aClDuM5+0kGI3dR/E3WhzWSkwTRNsE1itNbQvWZSv7NeaheKR21ZrUutKp21BA+uLD3Vy0hNAbUc="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 890,
+   "candidatesTokenCount": 8,
+   "totalTokenCount": 898,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 890
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "sd3NaoivIbDz4-EPxJyo8Qs"
+ },
+ "latency_ms": 1421.0,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:28:48+00:00"
+}

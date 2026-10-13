@@ -1,0 +1,50 @@
+{
+ "digest": "733f47068b644d77a21601e1e022280183df29300e473ae11d8bb60be054c03c",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"clause\":4,\"file\":\"doi-tra\",\"text\":\"Chính sách đổi trả – ShopMate Fashion\\nĐiều 4. Phí đổi trả\\n1. Sản phẩm lỗi do nhà sản xuất hoặc giao sai: ShopMate Fashion chịu **toàn bộ** phí vận chuyển hai chiều.\\n2. Đổi kích cỡ hoặc màu sắc lần đầu: **miễn phí** đổi, khách hàng chỉ trả phí gửi hàng về là **30.000đ**.\\n3. Trả hàng do đổi ý: khách hàng chịu phí vận chuyển hai chiều; phí giao hàng ban đầu không được hoàn lại.\",\"title\":\"Phí đổi trả\"},{\"clause\":2,\"file\":\"doi-tra\",\"text\":\"Chính sách đổi trả – ShopMate Fashion\\nĐiều 2. Thời hạn đổi trả\\n1. Đổi kích cỡ hoặc màu sắc: trong vòng **7 ngày** kể từ ngày nhận hàng.\\n2. Trả hàng hoàn tiền do khách hàng đổi ý: trong vòng **7 ngày** kể từ ngày nhận hàng.\\n3. Đổi hoặc trả sản phẩm bị lỗi do nhà sản xuất, giao sai mẫu, sai kích cỡ so với đơn đặt: trong vòng **30 ngày** kể từ ngày nhận hàng.\\n4. Ngày nhận hàng được tính theo thời điểm giao hàng thành công ghi nhận trên hệ thống của đơn vị vận chuyển.\",\"title\":\"Thời hạn đổi trả\"},{\"clause\":4,\"file\":\"bao-hanh\",\"text\":\"Chính sách bảo hành – ShopMate Fashion\\nĐiều 4. Hình thức bảo hành\\n1. Sửa chữa miễn phí lỗi thuộc phạm vi bảo hành.\\n2. Nếu không thể sửa chữa, ShopMate Fashion đổi sản phẩm mới cùng mẫu; nếu hết mẫu, đổi sang sản phẩm có giá trị tương đương hoặc hoàn tiền theo giá trị đơn hàng.\\n3. Sau thời hạn bảo hành, ShopMate Fashion hỗ trợ sửa chữa có tính phí; báo giá được gửi trước khi sửa.\",\"title\":\"Hình thức bảo hành\"}]},\"kind\":\"policies\",\"question\":\"Đổi size có tốn phí gì ko shop?\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"text\": \"Đổi kích cỡ hoặc màu sắc lần đầu được miễn phí đổi, khách hàng chỉ trả phí gửi hàng về là 30.000đ. Thời gian áp dụng là trong vòng 7 ngày kể từ ngày nhận hàng.\", \"cited_skus\": [], \"cited_clauses\": [{\"file\": \"doi-tra\", \"clause\": 4}, {\"file\": \"doi-tra\", \"clause\": 2}]}",
+       "thoughtSignature": "EmAKXgFpFH0TzgMVcjfGvKDAugQCKs1VZ5g6ghhw++fFJVWUnwAaiK7zRQ5PSCx1HggSyk+cDBEs++sjwdi+DGGZy/BgxhuLjai/PuQBY5NDV4NXvoGpZtUTRw1t0N+gaPg="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1980,
+   "candidatesTokenCount": 93,
+   "totalTokenCount": 2073,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1980
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "pd7Naq7XFeirjuMPg7en2As"
+ },
+ "latency_ms": 1366.0,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:32:52+00:00"
+}

@@ -1,0 +1,50 @@
+{
+ "digest": "02c7df32787ad646a331eef35692bb896ab3d15504b2143528f3cf6feac45aa5",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"clause\":4,\"file\":\"van-chuyen\",\"text\":\"Chính sách vận chuyển – ShopMate Fashion\\nĐiều 4. Theo dõi đơn hàng\\n1. Khi đơn hàng được giao cho đơn vị vận chuyển, khách hàng nhận được **mã vận đơn** để theo dõi.\\n2. Khách hàng có thể hỏi trạng thái đơn hàng qua trợ lý ShopMate bằng mã đơn hàng.\",\"title\":\"Theo dõi đơn hàng\"},{\"clause\":1,\"file\":\"doi-tra\",\"text\":\"Chính sách đổi trả – ShopMate Fashion\\nĐiều 1. Phạm vi áp dụng\\n1. Chính sách này áp dụng cho mọi sản phẩm mua tại website ShopMate Fashion, trừ các trường hợp nêu tại Điều 5.\\n2. Khách hàng có thể **đổi** sản phẩm (sang kích cỡ, màu sắc hoặc sản phẩm khác) hoặc **trả** sản phẩm để được hoàn tiền.\",\"title\":\"Phạm vi áp dụng\"},{\"clause\":4,\"file\":\"doi-tra\",\"text\":\"Chính sách đổi trả – ShopMate Fashion\\nĐiều 4. Phí đổi trả\\n1. Sản phẩm lỗi do nhà sản xuất hoặc giao sai: ShopMate Fashion chịu **toàn bộ** phí vận chuyển hai chiều.\\n2. Đổi kích cỡ hoặc màu sắc lần đầu: **miễn phí** đổi, khách hàng chỉ trả phí gửi hàng về là **30.000đ**.\\n3. Trả hàng do đổi ý: khách hàng chịu phí vận chuyển hai chiều; phí giao hàng ban đầu không được hoàn lại.\",\"title\":\"Phí đổi trả\"}]},\"kind\":\"policies\",\"question\":\"nhung sp nao k dc doi tra the shop\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"text\": \"Chính sách đổi trả áp dụng cho mọi sản phẩm mua tại website ShopMate Fashion, trừ các trường hợp nêu tại Điều 5.\",\n  \"cited_skus\": [],\n  \"cited_clauses\": [\n    {\n      \"file\": \"doi-tra\",\n      \"clause\": 1\n    }\n  ]\n}",
+       "thoughtSignature": "EmAKXgFpFH0TwgJiF3KnsjQZJsZjx5T2Mvd0wweksTxfqy+aE+kI7qLs+aEXZu89DeeA+acyyk5VLEPlwrO5RP49X8KLLJSTj95aS+GG23d/cJyCk0Wvqy18SKJEQA4K2+I="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1898,
+   "candidatesTokenCount": 81,
+   "totalTokenCount": 1979,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1898
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "wd7NaoSLK93djuMP4OXgyQo"
+ },
+ "latency_ms": 1530.8,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:33:21+00:00"
+}

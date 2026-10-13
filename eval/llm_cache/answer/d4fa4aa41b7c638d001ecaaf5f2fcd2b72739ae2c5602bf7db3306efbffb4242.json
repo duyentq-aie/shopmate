@@ -1,0 +1,50 @@
+{
+ "digest": "d4fa4aa41b7c638d001ecaaf5f2fcd2b72739ae2c5602bf7db3306efbffb4242",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"color\":\"Xanh dương\",\"in_stock\":true,\"kind\":\"Áo sơ mi nam\",\"material\":\"Kate\",\"name\":\"Áo sơ mi nam kẻ sọc xanh dương\",\"price_vnd\":279000,\"sizes\":[\"S\",\"M\",\"L\",\"XL\",\"XXL\"],\"sku\":\"SM-NAM-0023\"},{\"color\":\"Xanh dương\",\"in_stock\":false,\"kind\":\"Áo sơ mi nam\",\"material\":\"Bamboo\",\"name\":\"Áo sơ mi nam tay dài công sở xanh dương\",\"price_vnd\":489000,\"sizes\":[\"S\",\"M\",\"L\",\"XL\",\"XXL\"],\"sku\":\"SM-NAM-0044\"},{\"color\":\"Xanh dương\",\"in_stock\":true,\"kind\":\"Áo sơ mi nam\",\"material\":\"Cotton\",\"name\":\"Áo sơ mi nam oxford xanh dương\",\"price_vnd\":439000,\"sizes\":[\"XL\",\"XXL\"],\"sku\":\"SM-NAM-0016\"}],\"relaxed\":[]},\"kind\":\"products\",\"question\":\"Shop ơi, có sơ mi nam màu xanh dương ko?\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"text\": \"Dạ chào bạn, bên mình có Áo sơ mi nam kẻ sọc xanh dương (SKU SM-NAM-0023) với giá 279.000đ, hiện còn hàng. Áo sơ mi nam tay dài công sở xanh dương (SKU SM-NAM-0044) có giá 489.000đ, hiện đã hết hàng. Áo sơ mi nam oxford xanh dương (SKU SM-NAM-0016) có giá 439.000đ, hiện còn hàng.\",\n  \"cited_skus\": [\n    \"SM-NAM-0023\",\n    \"SM-NAM-0044\",\n    \"SM-NAM-0016\"\n  ],\n  \"cited_clauses\": []\n}",
+       "thoughtSignature": "EmAKXgFpFH0T1/yLKgGip77ssHZdBzfgBMNhiA1VzmcGsug0T5pxEH1sfTHYSNZToTMzjNxtsQwL6iNRxKofdYkMmUcB8osJcgeBfnTataZpFJL6C+gjjLNq52flx6nvkEQ="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1775,
+   "candidatesTokenCount": 188,
+   "totalTokenCount": 1963,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1775
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "gd7NaoXDNYO2juMPvrrE0Q4"
+ },
+ "latency_ms": 1663.1,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:32:17+00:00"
+}

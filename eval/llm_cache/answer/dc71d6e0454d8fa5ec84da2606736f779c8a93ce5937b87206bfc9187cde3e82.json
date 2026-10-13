@@ -1,0 +1,50 @@
+{
+ "digest": "dc71d6e0454d8fa5ec84da2606736f779c8a93ce5937b87206bfc9187cde3e82",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"order\":{\"created\":\"2026-08-12T14:14:23+00:00\",\"fulfillments\":[],\"lines\":[{\"name\":\"Quần legging nữ lưng cao tím\",\"quantity\":2,\"quantity_fulfilled\":0,\"sku\":\"SM-TT-0013\"}],\"number\":\"87\",\"status\":\"CANCELED\"}},\"kind\":\"order\",\"question\":\"Đơn 87 của mình bị hủy rồi hả shop? Email đặt hàng là khachhang04@example.com.\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"text\": \"Đơn hàng số 87 của bạn đã bị hủy. Đơn hàng bao gồm sản phẩm Quần legging nữ lưng cao tím.\", \"cited_skus\": [], \"cited_clauses\": []}",
+       "thoughtSignature": "EmAKXgFpFH0TzjUFX/3SIkZ07p7g0ao6W38SKDQFlx6P8wwfbRY59OwptILZGZ1VF9+P/k8/opnVPBqnNivK7tD3Ut4jzZOGvdQMAgem+WBtvP2Fy8mbJHsa2gG+Es8cTlo="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1656,
+   "candidatesTokenCount": 48,
+   "totalTokenCount": 1704,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1656
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "pt7NasmkMtHQqfkP6_LgwQs"
+ },
+ "latency_ms": 1263.2,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:32:53+00:00"
+}

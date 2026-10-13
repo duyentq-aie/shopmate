@@ -1,0 +1,50 @@
+{
+ "digest": "5f2ad24b527062b8847d4a25d5501ba9d4f05d867730b9feb600b2da08d09cc0",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "27e2ade227970c84db5ee5ec975c0aad4429fd2de698616d249357431672f74a",
+  "schema_sha256": "489fb422d325ff2d910238ab1144c01789bf3a76ffb48a375cac3691bb0d1bce",
+  "input": "shop oi co ao polo nam mau xanh navy size L k z",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 512,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"category\": null,\n  \"kind\": \"Áo polo nam\",\n  \"color\": \"Xanh navy\",\n  \"material\": null,\n  \"size\": \"L\",\n  \"price_min\": null,\n  \"price_max\": null,\n  \"in_stock\": null\n}",
+       "thoughtSignature": "EmAKXgFpFH0Tg50uyb9f4U8PO/Lwrh2Od4b7uDPDoaUEdrSnsYBYPGnbLWrShFzEuElNn8Exn2JIIeMlSl/A7zojS9vpuDqItHybCLhgCdxBxEyD4T7ksrIPAaIENhmE8+I="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1535,
+   "candidatesTokenCount": 72,
+   "totalTokenCount": 1607,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1535
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "ad7NaovcMJ7TjuMP7rmD0Q4"
+ },
+ "latency_ms": 1175.3,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:31:52+00:00"
+}

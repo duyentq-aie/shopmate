@@ -1,0 +1,50 @@
+{
+ "digest": "18c7bef721ccc2d94ffb48208422fc5fd747215ac95b959d235e6fc2eb052a7c",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"clause\":1,\"file\":\"bao-hanh\",\"text\":\"Chính sách bảo hành – ShopMate Fashion\\nĐiều 1. Sản phẩm được bảo hành\\n1. Giày dép (giày sneaker, giày tây, giày cao gót, giày chạy bộ, sandal): bảo hành **6 tháng** đối với lỗi bong keo, tuột chỉ, gãy đế.\\n2. Túi xách, túi đeo chéo, balo, ví và thắt lưng làm từ **da bò**: bảo hành **12 tháng** đối với lỗi đường may, khóa kéo, khóa cài.\\n3. Túi, ví, thắt lưng làm từ chất liệu khác: bảo hành **6 tháng** đối với lỗi đường may và khóa kéo.\\n4. Kính mát và phụ kiện kim loại: bảo hành **3 tháng** đối với lỗi gọng, bản lề.\\n5. Quần áo và đồ thể thao: không bảo hành; lỗi do nhà sản xuất được xử lý theo Chính sách đổi trả (Điều 2, khoản 3: đổi trả trong 30 ngày).\",\"title\":\"Sản phẩm được bảo hành\"},{\"clause\":2,\"file\":\"bao-hanh\",\"text\":\"Chính sách bảo hành – ShopMate Fashion\\nĐiều 2. Điều kiện bảo hành\\n1. Sản phẩm còn trong thời hạn bảo hành tính từ ngày nhận hàng.\\n2. Có mã đơn hàng hoặc hóa đơn mua hàng.\\n3. Lỗi phát sinh do chất lượng sản xuất, không do tác động của người sử dụng.\",\"title\":\"Điều kiện bảo hành\"},{\"clause\":5,\"file\":\"bao-hanh\",\"text\":\"Chính sách bảo hành – ShopMate Fashion\\nĐiều 5. Thời gian xử lý và phí vận chuyển bảo hành\\n1. Thời gian xử lý bảo hành: **7–14 ngày làm việc** kể từ khi kho nhận được sản phẩm.\\n2. ShopMate Fashion chịu phí vận chuyển hai chiều cho sản phẩm được chấp nhận bảo hành.\\n3. Nếu sản phẩm không thuộc diện bảo hành, khách hàng chịu phí gửi trả lại là **30.000đ**.\",\"title\":\"Thời gian xử lý và phí vận chuyển bảo hành\"}]},\"kind\":\"policies\",\"question\":\"giày bong keo thì bảo hành bao lâu shop\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"text\": \"Giày dép được bảo hành 6 tháng đối với lỗi bong keo, tuột chỉ, gãy đế.\",\n  \"cited_skus\": [],\n  \"cited_clauses\": [\n    {\n      \"file\": \"bao-hanh\",\n      \"clause\": 1\n    }\n  ]\n}",
+       "thoughtSignature": "EmAKXgFpFH0TmXtG6JeFO6RolyDSoORAUPk3mQhBiqJnGmW3vLcn12tEa3+eo+uDS4X8XO5TPg74GF2SF7R3N9X4K1pWedLifvPL4EGJ395zotGqN/WYs7XZIG8tWRShyoc="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 2026,
+   "candidatesTokenCount": 78,
+   "totalTokenCount": 2104,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 2026
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "o97NatblIr7jjuMPvJXyyQ4"
+ },
+ "latency_ms": 1528.5,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:32:50+00:00"
+}

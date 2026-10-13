@@ -1,0 +1,50 @@
+{
+ "digest": "a076664f4cbb759c3a4307731973d55091749020b4ea46bddce2c8fab2fb62e4",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "ao thun nam XXL còn hàng ko shop",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"intent\": \"product_search\"\n}",
+       "thoughtSignature": "EmAKXgFpFH0TEq70CEWxcNrFaLR+R0WNFlcbPTqgU9iGk/45oWJNKNtY/ZbxqyCc6lFxWVgo6x4qCAw8IjlEop7cbsmzAeHpeY9uQ3BHviXu6FC0hoNJRUKcjOwksg5nP5A="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 887,
+   "candidatesTokenCount": 13,
+   "totalTokenCount": 900,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 887
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "s93Nav74NJDh4-EPgK2j2Qs"
+ },
+ "latency_ms": 1305.7,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:28:51+00:00"
+}

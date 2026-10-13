@@ -1,0 +1,50 @@
+{
+ "digest": "ac4059e03347b0cee86733562c8825c6d3d2afc24f6e325f12e1cb5143ce13ae",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "Nếu sản phẩm bị lỗi do người dùng làm rơi rách thì có được bảo hành không?",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"intent\": \"policy_question\"\n}",
+       "thoughtSignature": "EmAKXgFpFH0TZzaB7IgXu/x7LQN8st/BqoU3M0Rfr/rpICN62Nk1n0RhDnzPejrBz1lYTB/KsYZ9e8feLwGkpF+1cp2MjePkcuv9jpTLfTDMjv9sM9FFfrCzmE/WUPczfpg="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 897,
+   "candidatesTokenCount": 13,
+   "totalTokenCount": 910,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 897
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "Ld7NaufgM_L7juMP5pCW6Qs"
+ },
+ "latency_ms": 1340.5,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:30:53+00:00"
+}

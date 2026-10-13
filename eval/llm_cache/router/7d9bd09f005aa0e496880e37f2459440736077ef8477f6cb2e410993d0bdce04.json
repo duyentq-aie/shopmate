@@ -1,0 +1,50 @@
+{
+ "digest": "7d9bd09f005aa0e496880e37f2459440736077ef8477f6cb2e410993d0bdce04",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "sp bị lỗi đường may rồi shop ơi, xử lý giúp e với",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"intent\": \"create_ticket\"\n}",
+       "thoughtSignature": "EmAKXgFpFH0TeZo67YEX0/QExTGeDkOGWyiMMPbXjnHIyFcErtQzN1PLBmOtgPUAd5EoEYdEnxcGg9uz+/1BnJNMIsEeZJZ5DB3bDPLtsAXcpxU6NwSr7VNsQeclkD9iHrs="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 892,
+   "candidatesTokenCount": 13,
+   "totalTokenCount": 905,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 892
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "7d3NarKVH5jUjuMPi5-P6Ao"
+ },
+ "latency_ms": 1127.1,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:29:48+00:00"
+}

@@ -1,0 +1,50 @@
+{
+ "digest": "d599a4d11d7fd787a35f38958ad9762f41339e278f0ae410af26659665b88bff",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "tim giup minh vay lien nu mau be chat lieu voan",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"intent\": \"product_search\"\n}",
+       "thoughtSignature": "EmAKXgFpFH0Td0X0IEgE95ZkW21ElYqRhzOhaZ8DpGDvDMZcr0Z+b1nCwkriJfar5H56HtoeEwSwPk1zcVg/Q9pvNyIQi6POqzkmn8w5yXPV0lGcosH4gd0sYTteCLhepIQ="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 891,
+   "candidatesTokenCount": 13,
+   "totalTokenCount": 904,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 891
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "-N3NaqLgKaTa4-EPveqGyAs"
+ },
+ "latency_ms": 1147.3,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:29:59+00:00"
+}

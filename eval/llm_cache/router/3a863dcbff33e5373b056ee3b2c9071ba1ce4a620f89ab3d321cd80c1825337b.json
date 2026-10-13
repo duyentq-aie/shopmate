@@ -1,0 +1,50 @@
+{
+ "digest": "3a863dcbff33e5373b056ee3b2c9071ba1ce4a620f89ab3d321cd80c1825337b",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "Đơn 87 của mình bị hủy rồi hả shop? Email đặt hàng là khachhang04@example.com.",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"intent\": \"order_status\"\n}",
+       "thoughtSignature": "EmAKXgFpFH0Tddo/8e0VvF4viqQlNMUf72z2T4bxtjC+meJJPzlA+Jtv/Y4BGvLvmNN5IiI9tYSpngzwVVwBhmEY3AGblrSxOKQdRZ2kD6MJZFyRc+49G+KXw4C10sTjyZU="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 905,
+   "candidatesTokenCount": 13,
+   "totalTokenCount": 918,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 905
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "u93NaqnlGK6ljuMPmJHj2Q4"
+ },
+ "latency_ms": 1167.2,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:28:58+00:00"
+}

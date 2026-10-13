@@ -1,0 +1,50 @@
+{
+ "digest": "1e29d8f3c85afeb8dbbeeb5e47e2ea8a9d0f7e8a0153e25845d73123803282fb",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"order\":{\"created\":\"2026-09-04T05:00:41+00:00\",\"fulfillments\":[{\"created\":\"2026-10-09T11:34:28.659378+00:00\",\"status\":\"FULFILLED\",\"tracking_number\":\"SMVN335495432\"}],\"lines\":[{\"name\":\"Giày cao gót nữ đế vuông 5cm đỏ\",\"quantity\":1,\"quantity_fulfilled\":1,\"sku\":\"SM-GIAY-0028\"},{\"name\":\"Mũ nồi beret đen\",\"quantity\":1,\"quantity_fulfilled\":1,\"sku\":\"SM-PK-0032\"},{\"name\":\"Balo du lịch xanh navy\",\"quantity\":2,\"quantity_fulfilled\":2,\"sku\":\"SM-TUI-0023\"}],\"number\":\"97\",\"status\":\"FULFILLED\"}},\"kind\":\"order\",\"question\":\"Mình là chủ đơn 97, email đặt hàng khachhang10@example.com. Shop xem đơn tới đâu rồi?\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"text\": \"Đơn hàng số 97 của bạn đã giao. Đơn gồm Giày cao gót nữ đế vuông 5cm đỏ, Mũ nồi beret đen và Balo du lịch xanh navy, với mã vận đơn là SMVN335495432.\",\n  \"cited_skus\": [],\n  \"cited_clauses\": []\n}",
+       "thoughtSignature": "EmAKXgFpFH0T00WbBreteTXTf91cOCkjUxTvHPACkiIGp9sFjSQDyzuhyxCH8JEchp/07z/J7vyuv+EV1kEIjuaSJ8kk8Zi3qLk75uRXnl8SxKO+aLYPauosNRU7Twp22oA="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1781,
+   "candidatesTokenCount": 86,
+   "totalTokenCount": 1867,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1781
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "qN7NauGSFMe6juMPzfulyAo"
+ },
+ "latency_ms": 1762.2,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:32:55+00:00"
+}

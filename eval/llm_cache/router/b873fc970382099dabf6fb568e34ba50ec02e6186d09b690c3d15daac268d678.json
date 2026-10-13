@@ -1,0 +1,50 @@
+{
+ "digest": "b873fc970382099dabf6fb568e34ba50ec02e6186d09b690c3d15daac268d678",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "toi muon huy don 100 shop oi",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"intent\": \"create_ticket\"}",
+       "thoughtSignature": "EmAKXgFpFH0TApGzBs8ztq0158ENmgSd7BuOjC+ZClaHKMPyV3OFH4A4hgxe6RV/ji9c+6ch/uyScVu64+YAO6+0Ls49aXyW8ltypaIayUbxXa/HSOTcbqUK/i3+dsLkDUI="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 888,
+   "candidatesTokenCount": 8,
+   "totalTokenCount": 896,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 888
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "7t3Nav-rLq3D4-EPgdvlsQ0"
+ },
+ "latency_ms": 1190.6,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:29:49+00:00"
+}

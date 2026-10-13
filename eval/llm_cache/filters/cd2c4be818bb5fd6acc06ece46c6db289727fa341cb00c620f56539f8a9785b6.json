@@ -1,0 +1,50 @@
+{
+ "digest": "cd2c4be818bb5fd6acc06ece46c6db289727fa341cb00c620f56539f8a9785b6",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "27e2ade227970c84db5ee5ec975c0aad4429fd2de698616d249357431672f74a",
+  "schema_sha256": "489fb422d325ff2d910238ab1144c01789bf3a76ffb48a375cac3691bb0d1bce",
+  "input": "ao thun nam XXL còn hàng ko shop",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 512,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"category\": null,\n  \"kind\": \"Áo thun nam\",\n  \"color\": null,\n  \"material\": null,\n  \"size\": \"XXL\",\n  \"price_min\": null,\n  \"price_max\": null,\n  \"in_stock\": null\n}",
+       "thoughtSignature": "EmAKXgFpFH0TW00OoBrKHrafIiwvbhzIJKL3XyT9UuHAfIMJ7ob6LbPbukCJKjegCD8U+jOdk7UgADbMQbtPTzknKwW/5IjjLBv5uUEFJhx0UjuUBewJg0GMvrY+JGsvsbs="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1531,
+   "candidatesTokenCount": 71,
+   "totalTokenCount": 1602,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1531
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "N97NauaNM-_-juMPi7nnoAs"
+ },
+ "latency_ms": 1533.4,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:31:03+00:00"
+}

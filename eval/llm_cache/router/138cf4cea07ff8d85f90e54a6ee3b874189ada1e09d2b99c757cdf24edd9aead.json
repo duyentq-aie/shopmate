@@ -1,0 +1,50 @@
+{
+ "digest": "138cf4cea07ff8d85f90e54a6ee3b874189ada1e09d2b99c757cdf24edd9aead",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "viết hộ e bài văn tả mẹ đc ko",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"intent\": \"out_of_scope\"\n}",
+       "thoughtSignature": "EmAKXgFpFH0TgAQPBiEFl+ywWiJxiUSgiylWikmuNMK1iDQmgEYdb6kyNr4+v8y8sqbi+RW3uy1gGyVIvit8UzvOxJ6atqvkcqr9DlKsomd9Lw2bQQx1uE6PoKXSJG/lIx4="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 888,
+   "candidatesTokenCount": 15,
+   "totalTokenCount": 903,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 888
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "793Nap-9OLOnjuMPltWz0Qo"
+ },
+ "latency_ms": 1124.7,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:29:50+00:00"
+}

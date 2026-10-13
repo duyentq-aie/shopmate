@@ -1,0 +1,50 @@
+{
+ "digest": "c8fe3b10bf5ef6c3daa5c9a1a59c331c089f54fa90419b0cc6a7453c0dfae059",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "Mình mới đặt đơn 90, shop xác nhận chưa vậy?",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"intent\": \"order_status\"\n}",
+       "thoughtSignature": "EmAKXgFpFH0T1GGo6whSnlI/jn/nmth6KKVrRzpLj0WJAQTkvYPG2ufBOjcS4KLXk0ZfANBu4QDkbPYYJFT623a2Lx3Ou2Qr411cvEkkmLDE/igQvvi2RE5sxtps1KWCgZg="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 892,
+   "candidatesTokenCount": 13,
+   "totalTokenCount": 905,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 892
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "vN3NatTkI-j-juMP3N__wAs"
+ },
+ "latency_ms": 1165.9,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:28:59+00:00"
+}

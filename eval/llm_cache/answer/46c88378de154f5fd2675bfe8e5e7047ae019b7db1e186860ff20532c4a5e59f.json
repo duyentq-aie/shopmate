@@ -1,0 +1,50 @@
+{
+ "digest": "46c88378de154f5fd2675bfe8e5e7047ae019b7db1e186860ff20532c4a5e59f",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"color\":\"Đỏ\",\"in_stock\":true,\"kind\":\"Giày cao gót nữ\",\"material\":\"Da bò\",\"name\":\"Giày cao gót nữ mũi nhọn 7cm đỏ\",\"price_vnd\":599000,\"sizes\":[\"36\",\"37\",\"38\",\"39\"],\"sku\":\"SM-GIAY-0010\"},{\"color\":\"Đỏ\",\"in_stock\":true,\"kind\":\"Giày cao gót nữ\",\"material\":\"Da lộn\",\"name\":\"Giày cao gót nữ đế vuông 5cm đỏ\",\"price_vnd\":799000,\"sizes\":[\"38\",\"39\"],\"sku\":\"SM-GIAY-0028\"},{\"color\":\"Be\",\"in_stock\":true,\"kind\":\"Giày cao gót nữ\",\"material\":\"Da tổng hợp\",\"name\":\"Giày cao gót nữ quai mảnh 9cm be\",\"price_vnd\":509000,\"sizes\":[\"35\",\"36\",\"37\",\"38\",\"39\"],\"sku\":\"SM-GIAY-0022\"},{\"color\":\"Đỏ\",\"in_stock\":true,\"kind\":\"Giày cao gót nữ\",\"material\":\"Da bò\",\"name\":\"Giày cao gót nữ quai mảnh 9cm đỏ\",\"price_vnd\":869000,\"sizes\":[\"38\",\"39\"],\"sku\":\"SM-GIAY-0016\"},{\"color\":\"Be\",\"in_stock\":true,\"kind\":\"Giày cao gót nữ\",\"material\":\"Da lộn\",\"name\":\"Giày cao gót nữ mũi nhọn 7cm be\",\"price_vnd\":889000,\"sizes\":[\"35\",\"36\",\"37\",\"38\",\"39\"],\"sku\":\"SM-GIAY-0040\"}],\"relaxed\":[]},\"kind\":\"products\",\"question\":\"shop có giày cao gót xanh lá ko?\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"text\": \"Dạ hiện tại ShopMate Fashion không có sản phẩm giày cao gót màu xanh lá trong hệ thống.\", \"cited_skus\": [], \"cited_clauses\": []}",
+       "thoughtSignature": "EmAKXgFpFH0TCrfrD1y9Q6s5f/AtQkSYr1qarZ0R+ikRYv6Oqmu3GwuZdqTk/Ec/oen0erb78Bpl3z7hZ+XI8ny3r7iOtF8LTwr7V7pFpUMJoRujzVUovh6u8bp7BqbhQ8E="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1953,
+   "candidatesTokenCount": 41,
+   "totalTokenCount": 1994,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1953
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "iN7NaqOdEtfbjuMPlrWT4As"
+ },
+ "latency_ms": 2481.7,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:32:24+00:00"
+}

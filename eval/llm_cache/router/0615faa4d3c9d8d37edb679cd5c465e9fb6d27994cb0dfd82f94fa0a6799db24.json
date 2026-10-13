@@ -1,0 +1,50 @@
+{
+ "digest": "0615faa4d3c9d8d37edb679cd5c465e9fb6d27994cb0dfd82f94fa0a6799db24",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "Thời hạn đổi trả hàng là bao nhiêu ngày kể từ lúc nhận được đồ vậy shop?",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"intent\": \"policy_question\"\n}",
+       "thoughtSignature": "EmAKXgFpFH0TaUbiXOjYBX3wWopQyNpClTL/hzA48U1e9RrK0WQf5HiX0N0Zbm2lY7HB9k2LOMBeGZwCdmGvOTVYT40HuUUSZ6gXHpBOXaAA8Xjl510SoLuAajJuEnXckRw="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 896,
+   "candidatesTokenCount": 13,
+   "totalTokenCount": 909,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 896
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "Kd7NaqX0JpqCg8UP1IqDsQc"
+ },
+ "latency_ms": 1602.9,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:30:48+00:00"
+}

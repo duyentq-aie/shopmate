@@ -1,0 +1,50 @@
+{
+ "digest": "4eacc44ea0fe3ad31237c6c1fb4e26861f812f258e03acc5675c57fbdef13b80",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "hihi shop cute ghê",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"intent\": \"smalltalk\"}",
+       "thoughtSignature": "EmAKXgFpFH0TFRQlE3C6S9of7wUtEDLDOz0eavtyXA7/x2S/VW6fXZl7LuAgVf4+cS9N4cfT5gRgbl/J+RfDF3bR2oh45XJ8KeVXkICTNOmMdUeOfThHErq1B4Q4oZ2Ko/w="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 884,
+   "candidatesTokenCount": 7,
+   "totalTokenCount": 891,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 884
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "9N3NapfjJ7WzjuMPhZXg4A4"
+ },
+ "latency_ms": 1199.5,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:29:55+00:00"
+}

@@ -1,0 +1,1445 @@
+{
+  "deterministic": {
+    "kind": "final_evaluation",
+    "split": "test",
+    "n_items": 33,
+    "excluded_matched": 1,
+    "intervals": {
+      "proportions": {
+        "interval": "wilson",
+        "confidence": 0.95
+      },
+      "mrr_latency_cost": {
+        "interval": "percentile bootstrap",
+        "confidence": 0.95,
+        "resamples": 10000,
+        "seed": 20261009
+      }
+    },
+    "metrics": {
+      "all": {
+        "router_accuracy": {
+          "n": 33,
+          "successes": 33,
+          "estimate": 1.0,
+          "ci_low": 0.895730000984,
+          "ci_high": 1.0,
+          "interval": "wilson"
+        },
+        "extractor_exact_match": {
+          "n": 10,
+          "successes": 6,
+          "estimate": 0.6,
+          "ci_low": 0.312673767921,
+          "ci_high": 0.831819671474,
+          "interval": "wilson"
+        },
+        "product_mrr": {
+          "n": 6,
+          "estimate": 1.0,
+          "ci_low": 1.0,
+          "ci_high": 1.0,
+          "interval": "bootstrap"
+        },
+        "policy_mrr": {
+          "n": 6,
+          "estimate": 0.8518518518518517,
+          "ci_low": 0.5555555555555556,
+          "ci_high": 1.0,
+          "interval": "bootstrap"
+        },
+        "no_answer_correct": {
+          "n": 4,
+          "successes": 3,
+          "estimate": 0.75,
+          "ci_low": 0.300641840097,
+          "ci_high": 0.954412739705,
+          "interval": "wilson"
+        },
+        "guardrail_fallback_rate": {
+          "n": 18,
+          "successes": 2,
+          "estimate": 0.1111111111111111,
+          "ci_low": 0.031019522365,
+          "ci_high": 0.327997653361,
+          "interval": "wilson"
+        },
+        "cost_per_1000_usd": {
+          "n": 33,
+          "estimate": 0.9108242424242424,
+          "ci_low": 0.7109424242424242,
+          "ci_high": 1.1152787878787878,
+          "interval": "bootstrap"
+        },
+        "answer_correct": {
+          "n": 33,
+          "successes": 31,
+          "estimate": 0.9393939393939394,
+          "ci_low": 0.803937550467,
+          "ci_high": 0.983219117064,
+          "interval": "wilson"
+        },
+        "product_mrr_gold_routing": {
+          "n": 6,
+          "estimate": 1.0,
+          "ci_low": 1.0,
+          "ci_high": 1.0,
+          "interval": "bootstrap"
+        }
+      },
+      "without_excluded": {
+        "router_accuracy": {
+          "n": 32,
+          "successes": 32,
+          "estimate": 1.0,
+          "ci_low": 0.892820800235,
+          "ci_high": 1.0,
+          "interval": "wilson"
+        },
+        "extractor_exact_match": {
+          "n": 10,
+          "successes": 6,
+          "estimate": 0.6,
+          "ci_low": 0.312673767921,
+          "ci_high": 0.831819671474,
+          "interval": "wilson"
+        },
+        "product_mrr": {
+          "n": 6,
+          "estimate": 1.0,
+          "ci_low": 1.0,
+          "ci_high": 1.0,
+          "interval": "bootstrap"
+        },
+        "policy_mrr": {
+          "n": 6,
+          "estimate": 0.8518518518518517,
+          "ci_low": 0.5555555555555556,
+          "ci_high": 1.0,
+          "interval": "bootstrap"
+        },
+        "no_answer_correct": {
+          "n": 4,
+          "successes": 3,
+          "estimate": 0.75,
+          "ci_low": 0.300641840097,
+          "ci_high": 0.954412739705,
+          "interval": "wilson"
+        },
+        "guardrail_fallback_rate": {
+          "n": 18,
+          "successes": 2,
+          "estimate": 0.1111111111111111,
+          "ci_low": 0.031019522365,
+          "ci_high": 0.327997653361,
+          "interval": "wilson"
+        },
+        "cost_per_1000_usd": {
+          "n": 32,
+          "estimate": 0.930365625,
+          "ci_low": 0.7275968749999999,
+          "ci_high": 1.13381875,
+          "interval": "bootstrap"
+        },
+        "answer_correct": {
+          "n": 32,
+          "successes": 30,
+          "estimate": 0.9375,
+          "ci_low": 0.798528767081,
+          "ci_high": 0.982689433125,
+          "interval": "wilson"
+        },
+        "product_mrr_gold_routing": {
+          "n": 6,
+          "estimate": 1.0,
+          "ci_low": 1.0,
+          "ci_high": 1.0,
+          "interval": "bootstrap"
+        }
+      }
+    },
+    "secondary": {
+      "description": "registered, descriptive, all items only; proportions with the Wilson 95% interval, MRRs as means; groups of fewer than 8 items are flagged too small to interpret",
+      "by_author": {
+        "human": {
+          "n_items": 13,
+          "too_small_to_interpret": false,
+          "proportions": {
+            "router_accuracy": {
+              "n": 13,
+              "successes": 13,
+              "estimate": 1.0,
+              "ci_low": 0.771904624868,
+              "ci_high": 1.0,
+              "interval": "wilson"
+            },
+            "answer_correct": {
+              "n": 13,
+              "successes": 12,
+              "estimate": 0.9230769230769231,
+              "ci_low": 0.666860488286,
+              "ci_high": 0.98628957891,
+              "interval": "wilson"
+            },
+            "extractor_exact_match": {
+              "n": 4,
+              "successes": 3,
+              "estimate": 0.75,
+              "ci_low": 0.300641840097,
+              "ci_high": 0.954412739705,
+              "interval": "wilson"
+            },
+            "no_answer_correct": {
+              "n": 3,
+              "successes": 3,
+              "estimate": 1.0,
+              "ci_low": 0.438502964361,
+              "ci_high": 1.0,
+              "interval": "wilson"
+            },
+            "guardrail_fallback_rate": {
+              "n": 8,
+              "successes": 1,
+              "estimate": 0.125,
+              "ci_low": 0.0224174912,
+              "ci_high": 0.470888185056,
+              "interval": "wilson"
+            }
+          },
+          "means": {
+            "product_mrr": {
+              "n": 1,
+              "estimate": 1.0
+            },
+            "policy_mrr": {
+              "n": 4,
+              "estimate": 0.7777777777777778
+            }
+          }
+        },
+        "agent_draft": {
+          "n_items": 20,
+          "too_small_to_interpret": false,
+          "proportions": {
+            "router_accuracy": {
+              "n": 20,
+              "successes": 20,
+              "estimate": 1.0,
+              "ci_low": 0.838874839815,
+              "ci_high": 1.0,
+              "interval": "wilson"
+            },
+            "answer_correct": {
+              "n": 20,
+              "successes": 19,
+              "estimate": 0.95,
+              "ci_low": 0.763868804536,
+              "ci_high": 0.991118551298,
+              "interval": "wilson"
+            },
+            "extractor_exact_match": {
+              "n": 6,
+              "successes": 3,
+              "estimate": 0.5,
+              "ci_low": 0.18761630498,
+              "ci_high": 0.81238369502,
+              "interval": "wilson"
+            },
+            "no_answer_correct": {
+              "n": 1,
+              "successes": 0,
+              "estimate": 0.0,
+              "ci_low": 0.0,
+              "ci_high": 0.793450688208,
+              "interval": "wilson"
+            },
+            "guardrail_fallback_rate": {
+              "n": 10,
+              "successes": 1,
+              "estimate": 0.1,
+              "ci_low": 0.017876212896,
+              "ci_high": 0.404150029525,
+              "interval": "wilson"
+            }
+          },
+          "means": {
+            "product_mrr": {
+              "n": 5,
+              "estimate": 1.0
+            },
+            "policy_mrr": {
+              "n": 2,
+              "estimate": 1.0
+            }
+          }
+        }
+      },
+      "by_intent": {
+        "product_search": {
+          "n_items": 10,
+          "too_small_to_interpret": false,
+          "proportions": {
+            "router_accuracy": {
+              "n": 10,
+              "successes": 10,
+              "estimate": 1.0,
+              "ci_low": 0.722467196974,
+              "ci_high": 1.0,
+              "interval": "wilson"
+            },
+            "answer_correct": {
+              "n": 10,
+              "successes": 9,
+              "estimate": 0.9,
+              "ci_low": 0.595849970475,
+              "ci_high": 0.982123787104,
+              "interval": "wilson"
+            },
+            "extractor_exact_match": {
+              "n": 10,
+              "successes": 6,
+              "estimate": 0.6,
+              "ci_low": 0.312673767921,
+              "ci_high": 0.831819671474,
+              "interval": "wilson"
+            },
+            "no_answer_correct": {
+              "n": 4,
+              "successes": 3,
+              "estimate": 0.75,
+              "ci_low": 0.300641840097,
+              "ci_high": 0.954412739705,
+              "interval": "wilson"
+            },
+            "guardrail_fallback_rate": {
+              "n": 9,
+              "successes": 1,
+              "estimate": 0.1111111111111111,
+              "ci_low": 0.019890887417,
+              "ci_high": 0.434999708371,
+              "interval": "wilson"
+            }
+          },
+          "means": {
+            "product_mrr": {
+              "n": 6,
+              "estimate": 1.0
+            },
+            "policy_mrr": {
+              "n": 0,
+              "estimate": null
+            }
+          }
+        },
+        "policy_question": {
+          "n_items": 6,
+          "too_small_to_interpret": true,
+          "proportions": {
+            "router_accuracy": {
+              "n": 6,
+              "successes": 6,
+              "estimate": 1.0,
+              "ci_low": 0.609665708344,
+              "ci_high": 1.0,
+              "interval": "wilson"
+            },
+            "answer_correct": {
+              "n": 6,
+              "successes": 5,
+              "estimate": 0.8333333333333334,
+              "ci_low": 0.436497174974,
+              "ci_high": 0.969946630588,
+              "interval": "wilson"
+            },
+            "extractor_exact_match": {
+              "n": 0,
+              "successes": 0,
+              "estimate": null,
+              "ci_low": null,
+              "ci_high": null,
+              "interval": "wilson"
+            },
+            "no_answer_correct": {
+              "n": 0,
+              "successes": 0,
+              "estimate": null,
+              "ci_low": null,
+              "ci_high": null,
+              "interval": "wilson"
+            },
+            "guardrail_fallback_rate": {
+              "n": 6,
+              "successes": 1,
+              "estimate": 0.16666666666666666,
+              "ci_low": 0.030053369412,
+              "ci_high": 0.563502825026,
+              "interval": "wilson"
+            }
+          },
+          "means": {
+            "product_mrr": {
+              "n": 0,
+              "estimate": null
+            },
+            "policy_mrr": {
+              "n": 6,
+              "estimate": 0.8518518518518517
+            }
+          }
+        },
+        "order_status": {
+          "n_items": 6,
+          "too_small_to_interpret": true,
+          "proportions": {
+            "router_accuracy": {
+              "n": 6,
+              "successes": 6,
+              "estimate": 1.0,
+              "ci_low": 0.609665708344,
+              "ci_high": 1.0,
+              "interval": "wilson"
+            },
+            "answer_correct": {
+              "n": 6,
+              "successes": 6,
+              "estimate": 1.0,
+              "ci_low": 0.609665708344,
+              "ci_high": 1.0,
+              "interval": "wilson"
+            },
+            "extractor_exact_match": {
+              "n": 0,
+              "successes": 0,
+              "estimate": null,
+              "ci_low": null,
+              "ci_high": null,
+              "interval": "wilson"
+            },
+            "no_answer_correct": {
+              "n": 0,
+              "successes": 0,
+              "estimate": null,
+              "ci_low": null,
+              "ci_high": null,
+              "interval": "wilson"
+            },
+            "guardrail_fallback_rate": {
+              "n": 3,
+              "successes": 0,
+              "estimate": 0.0,
+              "ci_low": 0.0,
+              "ci_high": 0.561497035639,
+              "interval": "wilson"
+            }
+          },
+          "means": {
+            "product_mrr": {
+              "n": 0,
+              "estimate": null
+            },
+            "policy_mrr": {
+              "n": 0,
+              "estimate": null
+            }
+          }
+        },
+        "create_ticket": {
+          "n_items": 4,
+          "too_small_to_interpret": true,
+          "proportions": {
+            "router_accuracy": {
+              "n": 4,
+              "successes": 4,
+              "estimate": 1.0,
+              "ci_low": 0.510109159603,
+              "ci_high": 1.0,
+              "interval": "wilson"
+            },
+            "answer_correct": {
+              "n": 4,
+              "successes": 4,
+              "estimate": 1.0,
+              "ci_low": 0.510109159603,
+              "ci_high": 1.0,
+              "interval": "wilson"
+            },
+            "extractor_exact_match": {
+              "n": 0,
+              "successes": 0,
+              "estimate": null,
+              "ci_low": null,
+              "ci_high": null,
+              "interval": "wilson"
+            },
+            "no_answer_correct": {
+              "n": 0,
+              "successes": 0,
+              "estimate": null,
+              "ci_low": null,
+              "ci_high": null,
+              "interval": "wilson"
+            },
+            "guardrail_fallback_rate": {
+              "n": 0,
+              "successes": 0,
+              "estimate": null,
+              "ci_low": null,
+              "ci_high": null,
+              "interval": "wilson"
+            }
+          },
+          "means": {
+            "product_mrr": {
+              "n": 0,
+              "estimate": null
+            },
+            "policy_mrr": {
+              "n": 0,
+              "estimate": null
+            }
+          }
+        },
+        "out_of_scope": {
+          "n_items": 3,
+          "too_small_to_interpret": true,
+          "proportions": {
+            "router_accuracy": {
+              "n": 3,
+              "successes": 3,
+              "estimate": 1.0,
+              "ci_low": 0.438502964361,
+              "ci_high": 1.0,
+              "interval": "wilson"
+            },
+            "answer_correct": {
+              "n": 3,
+              "successes": 3,
+              "estimate": 1.0,
+              "ci_low": 0.438502964361,
+              "ci_high": 1.0,
+              "interval": "wilson"
+            },
+            "extractor_exact_match": {
+              "n": 0,
+              "successes": 0,
+              "estimate": null,
+              "ci_low": null,
+              "ci_high": null,
+              "interval": "wilson"
+            },
+            "no_answer_correct": {
+              "n": 0,
+              "successes": 0,
+              "estimate": null,
+              "ci_low": null,
+              "ci_high": null,
+              "interval": "wilson"
+            },
+            "guardrail_fallback_rate": {
+              "n": 0,
+              "successes": 0,
+              "estimate": null,
+              "ci_low": null,
+              "ci_high": null,
+              "interval": "wilson"
+            }
+          },
+          "means": {
+            "product_mrr": {
+              "n": 0,
+              "estimate": null
+            },
+            "policy_mrr": {
+              "n": 0,
+              "estimate": null
+            }
+          }
+        },
+        "smalltalk": {
+          "n_items": 4,
+          "too_small_to_interpret": true,
+          "proportions": {
+            "router_accuracy": {
+              "n": 4,
+              "successes": 4,
+              "estimate": 1.0,
+              "ci_low": 0.510109159603,
+              "ci_high": 1.0,
+              "interval": "wilson"
+            },
+            "answer_correct": {
+              "n": 4,
+              "successes": 4,
+              "estimate": 1.0,
+              "ci_low": 0.510109159603,
+              "ci_high": 1.0,
+              "interval": "wilson"
+            },
+            "extractor_exact_match": {
+              "n": 0,
+              "successes": 0,
+              "estimate": null,
+              "ci_low": null,
+              "ci_high": null,
+              "interval": "wilson"
+            },
+            "no_answer_correct": {
+              "n": 0,
+              "successes": 0,
+              "estimate": null,
+              "ci_low": null,
+              "ci_high": null,
+              "interval": "wilson"
+            },
+            "guardrail_fallback_rate": {
+              "n": 0,
+              "successes": 0,
+              "estimate": null,
+              "ci_low": null,
+              "ci_high": null,
+              "interval": "wilson"
+            }
+          },
+          "means": {
+            "product_mrr": {
+              "n": 0,
+              "estimate": null
+            },
+            "policy_mrr": {
+              "n": 0,
+              "estimate": null
+            }
+          }
+        }
+      }
+    },
+    "per_item": [
+      {
+        "id": "gs-001",
+        "intent": "product_search",
+        "author": "agent_draft",
+        "routed_to": "product_search",
+        "correct": true,
+        "check": "gold_sku",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 3,
+        "cost_usd": 0.0019297
+      },
+      {
+        "id": "gs-005",
+        "intent": "product_search",
+        "author": "agent_draft",
+        "routed_to": "product_search",
+        "correct": true,
+        "check": "gold_sku",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 3,
+        "cost_usd": 0.0017108
+      },
+      {
+        "id": "gs-006",
+        "intent": "product_search",
+        "author": "agent_draft",
+        "routed_to": "product_search",
+        "correct": true,
+        "check": "gold_sku",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 3,
+        "cost_usd": 0.0017194999999999999
+      },
+      {
+        "id": "gs-010",
+        "intent": "product_search",
+        "author": "agent_draft",
+        "routed_to": "product_search",
+        "correct": true,
+        "check": "gold_sku",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 3,
+        "cost_usd": 0.0016780999999999999
+      },
+      {
+        "id": "gs-020",
+        "intent": "product_search",
+        "author": "agent_draft",
+        "routed_to": "product_search",
+        "correct": false,
+        "check": "no_answer",
+        "fallback": true,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 3,
+        "cost_usd": 0.0016219
+      },
+      {
+        "id": "gs-022",
+        "intent": "product_search",
+        "author": "agent_draft",
+        "routed_to": "product_search",
+        "correct": true,
+        "check": "gold_sku",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 3,
+        "cost_usd": 0.0017689999999999997
+      },
+      {
+        "id": "gs-028",
+        "intent": "policy_question",
+        "author": "agent_draft",
+        "routed_to": "policy_question",
+        "correct": true,
+        "check": "gold_clause",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 2,
+        "cost_usd": 0.0010895
+      },
+      {
+        "id": "gs-033",
+        "intent": "policy_question",
+        "author": "agent_draft",
+        "routed_to": "policy_question",
+        "correct": true,
+        "check": "gold_clause",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 2,
+        "cost_usd": 0.0011256999999999999
+      },
+      {
+        "id": "gs-036",
+        "intent": "order_status",
+        "author": "agent_draft",
+        "routed_to": "order_status",
+        "correct": true,
+        "check": "behaviour",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.0002855
+      },
+      {
+        "id": "gs-038",
+        "intent": "order_status",
+        "author": "agent_draft",
+        "routed_to": "order_status",
+        "correct": true,
+        "check": "behaviour",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 2,
+        "cost_usd": 0.0009207999999999999
+      },
+      {
+        "id": "gs-039",
+        "intent": "order_status",
+        "author": "agent_draft",
+        "routed_to": "order_status",
+        "correct": true,
+        "check": "behaviour",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.0003001
+      },
+      {
+        "id": "gs-043",
+        "intent": "create_ticket",
+        "author": "agent_draft",
+        "routed_to": "create_ticket",
+        "correct": true,
+        "check": "ticket",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.0003007
+      },
+      {
+        "id": "gs-045",
+        "intent": "create_ticket",
+        "author": "agent_draft",
+        "routed_to": "create_ticket",
+        "correct": true,
+        "check": "ticket",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.0003001
+      },
+      {
+        "id": "gs-048",
+        "intent": "create_ticket",
+        "author": "agent_draft",
+        "routed_to": "create_ticket",
+        "correct": true,
+        "check": "ticket",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.00028639999999999997
+      },
+      {
+        "id": "gs-052",
+        "intent": "out_of_scope",
+        "author": "agent_draft",
+        "routed_to": "out_of_scope",
+        "correct": true,
+        "check": "polite",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.00030389999999999996
+      },
+      {
+        "id": "gs-054",
+        "intent": "out_of_scope",
+        "author": "agent_draft",
+        "routed_to": "out_of_scope",
+        "correct": true,
+        "check": "polite",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.00030389999999999996
+      },
+      {
+        "id": "gs-056",
+        "intent": "smalltalk",
+        "author": "agent_draft",
+        "routed_to": "smalltalk",
+        "correct": true,
+        "check": "polite",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.000283
+      },
+      {
+        "id": "gs-058",
+        "intent": "smalltalk",
+        "author": "agent_draft",
+        "routed_to": "smalltalk",
+        "correct": true,
+        "check": "polite",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.00028359999999999995
+      },
+      {
+        "id": "gs-059",
+        "intent": "smalltalk",
+        "author": "agent_draft",
+        "routed_to": "smalltalk",
+        "correct": true,
+        "check": "polite",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.0002827
+      },
+      {
+        "id": "gs-061",
+        "intent": "order_status",
+        "author": "agent_draft",
+        "routed_to": "order_status",
+        "correct": true,
+        "check": "behaviour",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 2,
+        "cost_usd": 0.0010536
+      },
+      {
+        "id": "gs-101",
+        "intent": "product_search",
+        "author": "human",
+        "routed_to": "product_search",
+        "correct": true,
+        "check": "no_answer",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 3,
+        "cost_usd": 0.001624
+      },
+      {
+        "id": "gs-102",
+        "intent": "product_search",
+        "author": "human",
+        "routed_to": "product_search",
+        "correct": true,
+        "check": "no_answer",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 3,
+        "cost_usd": 0.0016863999999999998
+      },
+      {
+        "id": "gs-103",
+        "intent": "product_search",
+        "author": "human",
+        "routed_to": "product_search",
+        "correct": true,
+        "check": "gold_sku",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 3,
+        "cost_usd": 0.0016446999999999998
+      },
+      {
+        "id": "gs-111",
+        "intent": "product_search",
+        "author": "human",
+        "routed_to": "product_search",
+        "correct": true,
+        "check": "no_answer",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 2,
+        "cost_usd": 0.0009371
+      },
+      {
+        "id": "gs-114",
+        "intent": "policy_question",
+        "author": "human",
+        "routed_to": "policy_question",
+        "correct": true,
+        "check": "gold_clause",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 2,
+        "cost_usd": 0.0011098
+      },
+      {
+        "id": "gs-115",
+        "intent": "policy_question",
+        "author": "human",
+        "routed_to": "policy_question",
+        "correct": false,
+        "check": "gold_clause",
+        "fallback": true,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 2,
+        "cost_usd": 0.0010708
+      },
+      {
+        "id": "gs-116",
+        "intent": "policy_question",
+        "author": "human",
+        "routed_to": "policy_question",
+        "correct": true,
+        "check": "gold_clause",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 2,
+        "cost_usd": 0.0010756000000000001
+      },
+      {
+        "id": "gs-117",
+        "intent": "policy_question",
+        "author": "human",
+        "routed_to": "policy_question",
+        "correct": true,
+        "check": "gold_clause",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 2,
+        "cost_usd": 0.0011456
+      },
+      {
+        "id": "gs-123",
+        "intent": "order_status",
+        "author": "human",
+        "routed_to": "order_status",
+        "correct": true,
+        "check": "behaviour",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.00029239999999999995
+      },
+      {
+        "id": "gs-125",
+        "intent": "order_status",
+        "author": "human",
+        "routed_to": "order_status",
+        "correct": true,
+        "check": "behaviour",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 1,
+        "llm_calls": 2,
+        "cost_usd": 0.0010394
+      },
+      {
+        "id": "gs-128",
+        "intent": "create_ticket",
+        "author": "human",
+        "routed_to": "create_ticket",
+        "correct": true,
+        "check": "ticket",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.000293
+      },
+      {
+        "id": "gs-133",
+        "intent": "out_of_scope",
+        "author": "human",
+        "routed_to": "out_of_scope",
+        "correct": true,
+        "check": "polite",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.00029319999999999997
+      },
+      {
+        "id": "gs-138",
+        "intent": "smalltalk",
+        "author": "human",
+        "routed_to": "smalltalk",
+        "correct": true,
+        "check": "polite",
+        "fallback": false,
+        "declined": false,
+        "answers_written": 0,
+        "llm_calls": 1,
+        "cost_usd": 0.0002967
+      }
+    ],
+    "cross_checks": {
+      "answer_correct_matches_phase6": true,
+      "cost_matches_phase6": true
+    },
+    "phase5": {
+      "routing": {
+        "n": 33,
+        "accuracy": 1.0,
+        "macro_f1": 1.0,
+        "errors": [],
+        "confusion": {
+          "create_ticket": {
+            "create_ticket": 4
+          },
+          "order_status": {
+            "order_status": 6
+          },
+          "out_of_scope": {
+            "out_of_scope": 3
+          },
+          "policy_question": {
+            "policy_question": 6
+          },
+          "product_search": {
+            "product_search": 10
+          },
+          "smalltalk": {
+            "smalltalk": 4
+          }
+        }
+      },
+      "extraction": {
+        "metrics": {
+          "n": 10,
+          "exact_match": 6,
+          "exact_match_rate": 0.6,
+          "failures": 0,
+          "excluded_fields": [],
+          "fields": {
+            "category": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "precision": null,
+              "recall": null
+            },
+            "kind": {
+              "tp": 9,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.9,
+              "recall": 1.0
+            },
+            "color": {
+              "tp": 5,
+              "fp": 1,
+              "fn": 1,
+              "precision": 0.8333333333333334,
+              "recall": 0.8333333333333334
+            },
+            "material": {
+              "tp": 3,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0
+            },
+            "size": {
+              "tp": 4,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0
+            },
+            "price_min": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "precision": null,
+              "recall": null
+            },
+            "price_max": {
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0
+            },
+            "in_stock": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 2,
+              "precision": null,
+              "recall": 0.0
+            }
+          }
+        },
+        "metrics_without_in_stock": {
+          "n": 10,
+          "exact_match": 8,
+          "exact_match_rate": 0.8,
+          "failures": 0,
+          "excluded_fields": [
+            "in_stock"
+          ],
+          "fields": {
+            "category": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "precision": null,
+              "recall": null
+            },
+            "kind": {
+              "tp": 9,
+              "fp": 1,
+              "fn": 0,
+              "precision": 0.9,
+              "recall": 1.0
+            },
+            "color": {
+              "tp": 5,
+              "fp": 1,
+              "fn": 1,
+              "precision": 0.8333333333333334,
+              "recall": 0.8333333333333334
+            },
+            "material": {
+              "tp": 3,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0
+            },
+            "size": {
+              "tp": 4,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0
+            },
+            "price_min": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "precision": null,
+              "recall": null
+            },
+            "price_max": {
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "precision": 1.0,
+              "recall": 1.0
+            }
+          }
+        }
+      },
+      "no_answer": {
+        "n": 4,
+        "correct": 3,
+        "rate": 0.75,
+        "rule": "routed to product_search AND an empty result"
+      },
+      "pipeline_counts": {
+        "product_answerable": 6,
+        "policy": 6,
+        "no_answer": 4
+      }
+    },
+    "phase6": {
+      "per_intent": {
+        "product_search": {
+          "n": 10,
+          "correct": 9,
+          "accuracy": 0.9,
+          "by_kind": {
+            "skus": {
+              "n": 6,
+              "correct": 6,
+              "accuracy": 1.0
+            },
+            "no_answer": {
+              "n": 4,
+              "correct": 3,
+              "accuracy": 0.75
+            }
+          }
+        },
+        "policy_question": {
+          "n": 6,
+          "correct": 5,
+          "accuracy": 0.8333333333333334
+        },
+        "order_status": {
+          "n": 6,
+          "correct": 6,
+          "accuracy": 1.0
+        },
+        "create_ticket": {
+          "n": 4,
+          "correct": 4,
+          "accuracy": 1.0
+        },
+        "out_of_scope": {
+          "n": 3,
+          "correct": 3,
+          "accuracy": 1.0
+        },
+        "smalltalk": {
+          "n": 4,
+          "correct": 4,
+          "accuracy": 1.0
+        },
+        "all": {
+          "n": 33,
+          "correct": 31,
+          "accuracy": 0.9393939393939394
+        }
+      },
+      "guardrails": {
+        "answers": 18,
+        "fallbacks": 2,
+        "declines": 0,
+        "rules": {
+          "no_sku_cited": 1,
+          "unknown_clause": 1
+        },
+        "items_with_fallback": [
+          "gs-020",
+          "gs-115"
+        ],
+        "items_with_decline": []
+      },
+      "bounds": {
+        "steps_per_turn": {
+          "limit": 8,
+          "max_seen": 7,
+          "held": true
+        },
+        "clarifying_questions": {
+          "limit": 2,
+          "max_seen": 1,
+          "held": true
+        },
+        "product_searches_per_turn": {
+          "limit": 2,
+          "max_seen": 2,
+          "held": true
+        },
+        "failed_verifications": {
+          "limit": 3,
+          "max_seen": 0,
+          "held": true
+        },
+        "confirmation_asks": {
+          "limit": 2,
+          "max_seen": 1,
+          "held": true
+        },
+        "tickets_without_confirmation": {
+          "limit": 0,
+          "max_seen": 0,
+          "held": true
+        }
+      },
+      "calls": {
+        "dev_turns": 33,
+        "llm_calls_per_turn": {
+          "mean": 1.8484848484848484,
+          "max": 3
+        },
+        "by_component_dev_first_turns": {
+          "router": {
+            "n": 33,
+            "input_tokens": 29455,
+            "output_tokens": 371,
+            "thought_tokens": 0
+          },
+          "filters": {
+            "n": 10,
+            "input_tokens": 15345,
+            "output_tokens": 701,
+            "thought_tokens": 0
+          },
+          "answer": {
+            "n": 18,
+            "input_tokens": 32699,
+            "output_tokens": 1651,
+            "thought_tokens": 0
+          }
+        }
+      },
+      "cost_theoretical_paid_tier": {
+        "prices_usd_per_million_tokens": {
+          "input": 0.3,
+          "output": 2.5
+        },
+        "source": "https://ai.google.dev/gemini-api/docs/pricing, Gemini 3.5 Flash-Lite, paid tier, Standard; 'Last updated 2026-10-09 UTC'; read 2026-10-10",
+        "per_1000_conversations_usd": 0.9108242424242424,
+        "free_tier_cost_usd": 0,
+        "note": "a conversation here is one dev item (one turn); the dev mix is not a traffic forecast"
+      }
+    },
+    "provenance": {
+      "split": "test",
+      "rehearsal": false,
+      "git_commit": "6d6b08b69f52446af9bdb64ffbe8f98429b9a0cd",
+      "git_dirty": false,
+      "dirty_paths": [],
+      "freeze": {
+        "ref": "v1.0-frozen",
+        "commit": "d8ec6b3a57ccf64e730fcfa29e34b8d27eb00b48"
+      },
+      "dev_run_sha": "c9cfdc820e17c59a7df169058f48ac39d6de075c",
+      "model_id": "gemini-3.5-flash-lite",
+      "items_sha256": "4070dc68164dcf573ee0ed884d685050cd77c87c1b833300920eb9484c8eaf90",
+      "golden_file_sha256": "89f0dd2deff438b09e7849c0f6c2bed022a347ce12e3ec97b93514bf9631bd81",
+      "n_items": 33,
+      "answer_prompt": {
+        "name": "answer_v2",
+        "sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544"
+      },
+      "router_prompt_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+      "filters_prompt_sha256": "27e2ade227970c84db5ee5ec975c0aad4429fd2de698616d249357431672f74a",
+      "router_schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+      "filters_schema_sha256": "489fb422d325ff2d910238ab1144c01789bf3a76ffb48a375cac3691bb0d1bce",
+      "vocabulary_sha256": "b238cec96174229fdbbe5385d03dd175ab033af444dd17c9c7bca449f08f41b8",
+      "generation_configs": {
+        "router": {
+          "temperature": 0,
+          "maxOutputTokens": 256,
+          "thinkingConfig": {
+            "thinkingLevel": "minimal"
+          }
+        },
+        "filters": {
+          "temperature": 0,
+          "maxOutputTokens": 512,
+          "thinkingConfig": {
+            "thinkingLevel": "minimal"
+          }
+        }
+      },
+      "retrieval": {
+        "mode": "dense_folded",
+        "k": 10,
+        "index_manifest_sha256": "8bee3a76b734c9d245e81f8a0727d7975e675e02b1b7ba8e0e32956712a7fb38"
+      },
+      "langgraph": "1.2.14",
+      "prices_usd_per_million_tokens": {
+        "input": 0.3,
+        "output": 2.5
+      },
+      "price_source": "https://ai.google.dev/gemini-api/docs/pricing, Gemini 3.5 Flash-Lite, paid tier, Standard; 'Last updated 2026-10-09 UTC'; read 2026-10-10",
+      "final_evaluation_flag": true
+    }
+  },
+  "deterministic_sha256": "136c1b9f8843b8d201f0fbc6e8fb3f2b2077b7d028032d4b7a9ddc1483408b3e",
+  "measurements": {
+    "latency_ms": {
+      "all": {
+        "latency_p50_ms": {
+          "n": 33,
+          "estimate": 2639.4,
+          "ci_low": 1246.9,
+          "ci_high": 3051.3,
+          "interval": "bootstrap"
+        },
+        "latency_p95_ms": {
+          "n": 33,
+          "estimate": 4592.5,
+          "ci_low": 4124.6,
+          "ci_high": 5371.7,
+          "interval": "bootstrap"
+        }
+      },
+      "without_excluded": {
+        "latency_p50_ms": {
+          "n": 32,
+          "estimate": 2810.0,
+          "ci_low": 1573.7,
+          "ci_high": 3251.3,
+          "interval": "bootstrap"
+        },
+        "latency_p95_ms": {
+          "n": 32,
+          "estimate": 4592.5,
+          "ci_low": 4124.6,
+          "ci_high": 5371.7,
+          "interval": "bootstrap"
+        }
+      }
+    },
+    "live_calls_this_run": 61,
+    "cache_hits_this_run": 45,
+    "wall_seconds": 310.4
+  }
+}

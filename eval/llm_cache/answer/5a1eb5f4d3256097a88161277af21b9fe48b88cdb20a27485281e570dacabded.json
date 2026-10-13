@@ -1,0 +1,50 @@
+{
+ "digest": "5a1eb5f4d3256097a88161277af21b9fe48b88cdb20a27485281e570dacabded",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"clause\":2,\"file\":\"doi-tra\",\"text\":\"Chính sách đổi trả – ShopMate Fashion\\nĐiều 2. Thời hạn đổi trả\\n1. Đổi kích cỡ hoặc màu sắc: trong vòng **7 ngày** kể từ ngày nhận hàng.\\n2. Trả hàng hoàn tiền do khách hàng đổi ý: trong vòng **7 ngày** kể từ ngày nhận hàng.\\n3. Đổi hoặc trả sản phẩm bị lỗi do nhà sản xuất, giao sai mẫu, sai kích cỡ so với đơn đặt: trong vòng **30 ngày** kể từ ngày nhận hàng.\\n4. Ngày nhận hàng được tính theo thời điểm giao hàng thành công ghi nhận trên hệ thống của đơn vị vận chuyển.\",\"title\":\"Thời hạn đổi trả\"},{\"clause\":3,\"file\":\"doi-tra\",\"text\":\"Chính sách đổi trả – ShopMate Fashion\\nĐiều 3. Điều kiện sản phẩm được đổi trả\\n1. Sản phẩm còn nguyên tem, mác, nhãn mác và bao bì gốc.\\n2. Sản phẩm chưa qua sử dụng, chưa giặt, không có mùi lạ, không bị bẩn hoặc hư hỏng do người dùng.\\n3. Có mã đơn hàng hoặc hóa đơn mua hàng.\\n4. Mỗi đơn hàng được đổi tối đa **1 lần**.\",\"title\":\"Điều kiện sản phẩm được đổi trả\"},{\"clause\":7,\"file\":\"doi-tra\",\"text\":\"Chính sách đổi trả – ShopMate Fashion\\nĐiều 7. Quy trình yêu cầu đổi trả\\n1. Khách hàng gửi yêu cầu kèm mã đơn hàng, lý do và hình ảnh sản phẩm qua trợ lý ShopMate hoặc hotline.\\n2. Bộ phận chăm sóc khách hàng phản hồi trong vòng **24 giờ** làm việc.\\n3. Sau khi được xác nhận, khách hàng đóng gói và gửi sản phẩm về kho trong vòng **3 ngày**.\",\"title\":\"Quy trình yêu cầu đổi trả\"}]},\"kind\":\"policies\",\"question\":\"Thời hạn đổi trả hàng là bao nhiêu ngày kể từ lúc nhận được đồ vậy shop?\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"text\":\"Thời gian đổi kích cỡ hoặc màu sắc và trả hàng do khách hàng đổi ý là trong vòng 7 ngày kể từ ngày nhận hàng. Thời gian đổi hoặc trả sản phẩm bị lỗi do nhà sản xuất, giao sai mẫu hoặc sai kích cỡ là trong vòng 30 ngày kể từ ngày nhận hàng.\",\"cited_skus\":[],\"cited_clauses\":[{\"file\":\"doi-tra\",\"clause\":2}]}",
+       "thoughtSignature": "EmAKXgFpFH0TQglw5yVJTYfPFzNmlXCjHDp+BS3EsJG5aKjQOdmF7t+9LqH71fR/7ri1CLYLhPErn5dCS2jeRfc7AXk5GoWvfO3gupu+UoRxAPiLBs9xihDmJ4nkuMhzats="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1970,
+   "candidatesTokenCount": 87,
+   "totalTokenCount": 2057,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1970
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "wN7NauLpFO37juMPtqGE0Ao"
+ },
+ "latency_ms": 1270.4,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:33:19+00:00"
+}

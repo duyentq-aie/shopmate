@@ -1,0 +1,50 @@
+{
+ "digest": "7a8030bc12840a0b2475abee99d00797491fc3b310392a3e1360e5232352838c",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "Bạn là người thật hay bot vậy shop?",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"intent\": \"smalltalk\"}",
+       "thoughtSignature": "EmAKXgFpFH0TDAvHsNCtdnZMiK8GMrDXzDcDRybIV+MjI4ltQHPc4fPKTRfo8CAThi0LeppfPz7BoU44z7DB2T5/mNXB2N9HjhjpnMTI7XmNEqF6AG4qjxNcu7NP1bVs688="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 887,
+   "candidatesTokenCount": 7,
+   "totalTokenCount": 894,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 887
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "893Nao2FJq7JjuMPjbGfwAs"
+ },
+ "latency_ms": 962.0,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:29:54+00:00"
+}

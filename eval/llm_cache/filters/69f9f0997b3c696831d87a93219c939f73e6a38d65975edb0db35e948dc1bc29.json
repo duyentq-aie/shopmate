@@ -1,0 +1,50 @@
+{
+ "digest": "69f9f0997b3c696831d87a93219c939f73e6a38d65975edb0db35e948dc1bc29",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "27e2ade227970c84db5ee5ec975c0aad4429fd2de698616d249357431672f74a",
+  "schema_sha256": "489fb422d325ff2d910238ab1144c01789bf3a76ffb48a375cac3691bb0d1bce",
+  "input": "shop có giày cao gót xanh lá ko?",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 512,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"category\": null,\n  \"kind\": \"Giày cao gót nữ\",\n  \"color\": null,\n  \"material\": null,\n  \"size\": null,\n  \"price_min\": null,\n  \"price_max\": null,\n  \"in_stock\": null\n}",
+       "thoughtSignature": "EmAKXgFpFH0TKgJ7r/WbIHqnH+Iw8W3G8Qiv6ekbOAaUvifxzj6fcPHGGjo8rI3/NZqUeb1+QiPHqtIUtZBY3FNbmCzEZNQHO/t2kWKDYwbDlF6TqyhQqbJiiC3EWjU/psM="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1532,
+   "candidatesTokenCount": 70,
+   "totalTokenCount": 1602,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1532
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "Zt7Nau-yPOazjuMPk-jf4As"
+ },
+ "latency_ms": 967.2,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:31:49+00:00"
+}

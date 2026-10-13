@@ -63,27 +63,28 @@ flowchart LR
 
 </details>
 
-## Results (dev split only)
+## Results (dev and held-out test)
 
-Everything below was measured on the **dev split** (71 questions, the author has seen them). **Held-out test split: evaluated once, in Phase 8.** No test number is claimed here.
+The **dev** numbers were measured on the dev split (71 questions, the author has seen them, so they are optimistic). The **test** numbers are from the held-out test split (33 questions), evaluated once, in Phase 8, under a [pre-registration](docs/PHASE8-PREREG.md), with two figures per metric: on all 33 questions, and without the one question whose text was seen in Phase 6, each with its 95% interval. 33 questions is a small sample and the intervals are wide: the full tables, the dev-test gaps, the breakdowns and the incidents are in [`docs/RESULTS-final.md`](docs/RESULTS-final.md).
 
-| What | Dev result | Where |
-|---|---|---|
-| Intent router, 6 intents | 71 / 71 correct, macro-F1 1.000 (saturated, see limitations) | [phase 5](docs/RESULTS-phase5.md) |
-| Filter extraction, exact match | 23 / 24 (24 / 24 without `in_stock`; the miss is a label conflict) | [phase 5](docs/RESULTS-phase5.md) |
-| Retrieval MRR, product / policy, `dense_folded` vs baseline `hybrid` | 0.939 vs 0.838 / 0.911 vs 0.685 (policy gain +0.226, 95% CI [+0.012, +0.464]) | [phase 4](docs/RESULTS-phase4-exp1.md) |
-| Retrieval on queries typed without accents (33 items) | MRR +0.430, 95% CI [+0.271, +0.583] | [phase 4](docs/RESULTS-phase4-exp1.md) |
-| Questions with no answer in the catalog, handled with an empty result | 5 / 5 | [phase 5](docs/RESULTS-phase5.md) |
-| Grounded answers, correct items | 70 / 71 (69 / 71 before one parser fix made with that item in view: not an independent estimate) | [phase 6](docs/RESULTS-phase6.md) |
-| Scripted multi-turn conversations | 13 / 13 | [phase 6](docs/RESULTS-phase6.md) |
-| Answers replaced by the guardrail's fixed text | 1 of 45 (2.2%; every trigger on dev was a false alarm) | [phase 6](docs/RESULTS-phase6.md) |
-| Prompt-injection probes (not part of the golden set) | 7 / 8 as labeled | [phase 5](docs/RESULTS-phase5.md) |
-| Cost on a paid tier (theoretical; the free tier cost 0) | 0.978 USD per 1,000 conversations | [phase 6](docs/RESULTS-phase6.md) |
-| Latency per turn (measurement) | p50 1.5 s, p95 4.9 s | [phase 6](docs/RESULTS-phase6.md) |
+| What | Dev result | Test result (all items; without the excluded item) | Where |
+|---|---|---|---|
+| Intent router, 6 intents | 71 / 71 correct, macro-F1 1.000 (saturated, see limitations) | 33 / 33 [0.896, 1.000]; without the excluded item 32 / 32 [0.893, 1.000] | [phase 5](docs/RESULTS-phase5.md), [final](docs/RESULTS-final.md) |
+| Filter extraction, exact match | 23 / 24 (24 / 24 without `in_stock`; the miss is a label conflict) | 6 / 10 [0.313, 0.832]; without the excluded item 6 / 10 [0.313, 0.832]; 8 / 10 without `in_stock` | [phase 5](docs/RESULTS-phase5.md), [final](docs/RESULTS-final.md) |
+| Retrieval MRR, product / policy, `dense_folded` vs baseline `hybrid` | 0.939 vs 0.838 / 0.911 vs 0.685 (policy gain +0.226, 95% CI [+0.012, +0.464]) | not measured in this form (see the full-pipeline row) | [phase 4](docs/RESULTS-phase4-exp1.md) |
+| Full-pipeline MRR, product / policy (route, filters, retrieval; the Phase 8 definition) | 1.000 (n=19) / 0.839 (n=14) | product 1.000 (n=6); without the excluded item 1.000 (n=6); policy 0.852 (n=6); without the excluded item 0.852 (n=6) | [final](docs/RESULTS-final.md) |
+| Retrieval on queries typed without accents (33 items) | MRR +0.430, 95% CI [+0.271, +0.583] | not measured | [phase 4](docs/RESULTS-phase4-exp1.md) |
+| Questions with no answer in the catalog, handled with an empty result | 5 / 5 | 3 / 4 [0.301, 0.954]; without the excluded item 3 / 4 [0.301, 0.954] | [phase 5](docs/RESULTS-phase5.md), [final](docs/RESULTS-final.md) |
+| Grounded answers, correct items | 70 / 71 (69 / 71 before one parser fix made with that item in view: not an independent estimate) | 31 / 33 [0.804, 0.983]; without the excluded item 30 / 32 [0.799, 0.983] | [phase 6](docs/RESULTS-phase6.md), [final](docs/RESULTS-final.md) |
+| Scripted multi-turn conversations | 13 / 13 | not measured (they are not golden items) | [phase 6](docs/RESULTS-phase6.md) |
+| Answers replaced by the guardrail's fixed text | 1 of 45 (2.2%; every trigger on dev was a false alarm) | 2 / 18 [0.031, 0.328]; without the excluded item 2 / 18 [0.031, 0.328] (first turns of the items; dev on the same basis 1 / 39) | [phase 6](docs/RESULTS-phase6.md), [final](docs/RESULTS-final.md) |
+| Prompt-injection probes (not part of the golden set) | 7 / 8 as labeled | not measured | [phase 5](docs/RESULTS-phase5.md) |
+| Cost on a paid tier (theoretical; the free tier cost 0), per 1,000 conversations | 0.978 USD | 0.911 USD [0.711, 1.115]; without the excluded item 0.930 USD [0.728, 1.134] | [phase 6](docs/RESULTS-phase6.md), [final](docs/RESULTS-final.md) |
+| Latency per turn (measurement) | p50 1.5 s, p95 4.9 s (over all turns, multi-turn cases included) | p50 2.6 s / 2.8 s, p95 4.6 s / 4.6 s (all items / without the excluded item); one live first turn per item, so not comparable with the dev figure | [phase 6](docs/RESULTS-phase6.md), [final](docs/RESULTS-final.md) |
 
 ## Honest limitations
 
-- **The router's dev score is saturated.** 71 / 71 says the prompt is good enough for these questions, not how it generalises; the prompt was written after reading the dev items. The real number is the test split's.
+- **The router's dev score is saturated.** 71 / 71 says the prompt is good enough for these questions, not how it generalises; the prompt was written after reading the dev items. The test split gave 33 / 33 (Wilson 95% [0.896, 1.000]): a result with a wide interval, not a proof.
 - **Guardrail recall is unmeasured.** The model never lied on dev, so there is no recall to estimate: every trigger was a false alarm, and the protection is shown only by hand-made attack tests and mutation tests of the checks ([section 13 of the results](docs/RESULTS-phase6.md)). Sizes, colours, materials and numbers of days in an answer are not checked at all.
 - **The golden set v1 has `agent_draft` items**: 44 of the 71 dev items were first drafted by an agent (all are marked human-reviewed), and a few label conflicts are listed in [`docs/GOLDEN-V2-ISSUES.md`](docs/GOLDEN-V2-ISSUES.md).
 - **Free-tier latency and limits.** Gemini free tier, 450 requests a day by our own ceiling, rate limited client-side; a turn takes 1 to 5 seconds, with no streaming.

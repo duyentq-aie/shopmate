@@ -1,0 +1,50 @@
+{
+ "digest": "1b5c8981c7e1f03243d4a1fc6e83f9bb24f306086742a2fcf7aca8c0f47810b5",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"order\":{\"created\":\"2026-08-05T19:09:20+00:00\",\"fulfillments\":[{\"created\":\"2026-10-09T11:34:28.659322+00:00\",\"status\":\"FULFILLED\",\"tracking_number\":\"SMVN979241643\"}],\"lines\":[{\"name\":\"Áo polo nam thể thao trắng\",\"quantity\":2,\"quantity_fulfilled\":2,\"sku\":\"SM-NAM-0017\"},{\"name\":\"Áo thun nam cổ tròn basic xanh rêu\",\"quantity\":2,\"quantity_fulfilled\":0,\"sku\":\"SM-NAM-0036\"}],\"number\":\"85\",\"status\":\"PARTIALLY_FULFILLED\"}},\"kind\":\"order\",\"question\":\"don hang 85 da giao chua ban, mail cua minh la khachhang07@example.com\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"text\": \"Đơn hàng 85 của bạn có trạng thái đã giao một phần. Các sản phẩm trong đơn gồm Áo polo nam thể thao trắng và Áo thun nam cổ tròn basic xanh rêu. Mã vận chuyển là SMVN979241643.\",\n  \"cited_skus\": [],\n  \"cited_clauses\": []\n}",
+       "thoughtSignature": "EmAKXgFpFH0TyKTPEGt4rFLFRqFuPMmF5JY1GSqejbJTiQfZZyCwATT4HN+8Qaz76nCDDksPDGGNobRvcYDMIHKR7eG3H0xI5HDCyBLri75rIFaq9XnKzGV/ZQazz2NhIr0="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1747,
+   "candidatesTokenCount": 85,
+   "totalTokenCount": 1832,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1747
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "3d7NarXfJ5HPjuMP9euguA4"
+ },
+ "latency_ms": 1594.4,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:33:48+00:00"
+}

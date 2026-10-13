@@ -1,0 +1,50 @@
+{
+ "digest": "811ca99dd3dc02411c5eab642d596cea2be8b0b71010541eeb8e7b9e5b1aca64",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "shop oi co ao polo nam mau xanh navy size L k z",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"intent\": \"product_search\"}",
+       "thoughtSignature": "EmAKXgFpFH0TOZAPzeYEejk4tDZwCpzyGTV+8TwkusB3FBLd4esUhXY5MJYPUc2T8SqiscVaNX5UVZ8i+NPBH6jQ2VIaPZ879hH2emXybn2Q5qZH1WjfxglYtNClViJUjpw="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 891,
+   "candidatesTokenCount": 8,
+   "totalTokenCount": 899,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 891
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "993Nas27DvL7juMP5pCW6Qs"
+ },
+ "latency_ms": 1420.6,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:29:58+00:00"
+}

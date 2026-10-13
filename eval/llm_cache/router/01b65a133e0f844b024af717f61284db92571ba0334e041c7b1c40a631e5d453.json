@@ -1,0 +1,50 @@
+{
+ "digest": "01b65a133e0f844b024af717f61284db92571ba0334e041c7b1c40a631e5d453",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "cho minh xin cong thuc nau pho bo voi",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"intent\": \"out_of_scope\"\n}",
+       "thoughtSignature": "EmAKXgFpFH0T7wUv78YC1tjqCJYdOQ8w4dU0gtVlRm0oXx5LsCXLTrxQZwWFp+IVsxBDvquv6tiGyzS6EjuZmI6n7ET5gQxkI93T89rwTUja0C6V6h7GWd5I50y/V3PPkKw="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 888,
+   "candidatesTokenCount": 15,
+   "totalTokenCount": 903,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 888
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "8d3Naq6sC-r9juMPuv6OyQ4"
+ },
+ "latency_ms": 1246.9,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:29:52+00:00"
+}

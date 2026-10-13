@@ -1,0 +1,50 @@
+{
+ "digest": "bec8b04f9c257cd86e52308e56a5aabd96078881f2bf246433688b1e6914a3c4",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "bot de thuong qua ta, rep nhanh ghe lun",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"intent\": \"smalltalk\"\n}",
+       "thoughtSignature": "EmAKXgFpFH0TRAnU4Qxb7uwGyYvzF9wLhrglR428/fp3xb9wH08Y0MLMasXx33AgRExK11y8Su6F4K16js13QwpEW0uYPGcNbIOIueAow5v5rhaWiHUqUk2W+M2H2a/s1Gw="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 889,
+   "candidatesTokenCount": 12,
+   "totalTokenCount": 901,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 889
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "M97NaovgILGumNMP8Ij42Ao"
+ },
+ "latency_ms": 2135.7,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:30:59+00:00"
+}

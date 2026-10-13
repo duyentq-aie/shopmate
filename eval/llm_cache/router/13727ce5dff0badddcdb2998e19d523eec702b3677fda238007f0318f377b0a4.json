@@ -1,0 +1,50 @@
+{
+ "digest": "13727ce5dff0badddcdb2998e19d523eec702b3677fda238007f0318f377b0a4",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "8e08414e3a35fd937b2167438782d16fd79e09f4de4595950f8b316d304fd07c",
+  "schema_sha256": "5a110c2954b745dd1180569edc63a8707542cbd6e148a87ac2fa36ce45a74937",
+  "input": "shop có túi da bò cho nữ ko ạ",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 256,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\n  \"intent\": \"product_search\"\n}",
+       "thoughtSignature": "EmAKXgFpFH0Tn0PSLgS6tZKZFJRdRobhMT3hyQZUpXAgJ3jlyuVQT7gEYK//Rmuy1VjfOfvFGnoYQyn9E4DK+Sstd6MfSPg3Bo4GT4s0VVBOhSY03a7rYMZDrLcfowwhuWQ="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 887,
+   "candidatesTokenCount": 13,
+   "totalTokenCount": 900,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 887
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "st3NaqDqL6zMjuMProybwAs"
+ },
+ "latency_ms": 1059.6,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:28:49+00:00"
+}

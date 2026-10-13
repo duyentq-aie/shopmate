@@ -1,0 +1,50 @@
+{
+ "digest": "5f2c06631c54fff826d7736c7a7859056a236b9b578f94dcfcd8023ba57d37fc",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"color\":\"Hồng\",\"in_stock\":true,\"kind\":\"Túi xách nữ\",\"material\":\"Da bò\",\"name\":\"Túi xách nữ mini hồng\",\"price_vnd\":909000,\"sizes\":[\"Freesize\"],\"sku\":\"SM-TUI-0006\"},{\"color\":\"Nâu\",\"in_stock\":true,\"kind\":\"Túi xách nữ\",\"material\":\"Da bò\",\"name\":\"Túi xách nữ tote nâu\",\"price_vnd\":839000,\"sizes\":[\"Freesize\"],\"sku\":\"SM-TUI-0026\"}],\"relaxed\":[]},\"kind\":\"products\",\"question\":\"shop có túi da bò cho nữ ko ạ\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"text\": \"Bên mình có hai mẫu túi da bò cho nữ. Túi xách nữ mini hồng (SKU SM-TUI-0006) có giá 909.000đ và hiện còn hàng. Túi xách nữ tote nâu (SKU SM-TUI-0026) có giá 839.000đ và hiện còn hàng.\", \"cited_skus\": [\"SM-TUI-0006\", \"SM-TUI-0026\"], \"cited_clauses\": []}",
+       "thoughtSignature": "EmAKXgFpFH0T8XloCU5zz17+eFNbx56e0Io6yo1q/9O7+2pEymQGaH3XVeM1wYguSNtc0wpXIlgysgM+LLZk0ri64IihgdJeAWm1+vraw4V++WS6dM3NJUm28ABJZmEhi90="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1693,
+   "candidatesTokenCount": 124,
+   "totalTokenCount": 1817,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1693
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "g97NaoOJKon7juMP1rG88As"
+ },
+ "latency_ms": 1231.4,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:32:18+00:00"
+}

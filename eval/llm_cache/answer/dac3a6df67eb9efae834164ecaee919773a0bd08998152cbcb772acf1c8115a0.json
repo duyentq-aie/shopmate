@@ -1,0 +1,50 @@
+{
+ "digest": "dac3a6df67eb9efae834164ecaee919773a0bd08998152cbcb772acf1c8115a0",
+ "key": {
+  "model": "gemini-3.5-flash-lite",
+  "template_sha256": "def7398ad82b31526f80f9b3c2711585882448eab328af0714bc1ebd6c5cb544",
+  "schema_sha256": "d47e18f7ccdafe06343669c1e3f5dfb27c55ffc0a1dc5d51cc06b719acb016e9",
+  "input": "{\"evidence\":{\"hits\":[{\"color\":\"Hồng\",\"in_stock\":true,\"kind\":\"Chân váy nữ\",\"material\":\"Tweed\",\"name\":\"Chân váy nữ xếp ly hồng\",\"price_vnd\":289000,\"sizes\":[\"L\",\"XL\"],\"sku\":\"SM-NU-0025\"},{\"color\":\"Trắng\",\"in_stock\":true,\"kind\":\"Chân váy nữ\",\"material\":\"Tweed\",\"name\":\"Chân váy nữ jean trắng\",\"price_vnd\":269000,\"sizes\":[\"M\",\"L\"],\"sku\":\"SM-NU-0046\"},{\"color\":\"Xanh navy\",\"in_stock\":true,\"kind\":\"Chân váy nữ\",\"material\":\"Kaki\",\"name\":\"Chân váy nữ chữ A xanh navy\",\"price_vnd\":259000,\"sizes\":[\"S\",\"M\",\"L\",\"XL\",\"XXL\"],\"sku\":\"SM-NU-0039\"},{\"color\":\"Đen\",\"in_stock\":true,\"kind\":\"Chân váy nữ\",\"material\":\"Tweed\",\"name\":\"Chân váy nữ bút chì đen\",\"price_vnd\":379000,\"sizes\":[\"L\",\"XL\",\"XXL\"],\"sku\":\"SM-NU-0032\"},{\"color\":\"Đen\",\"in_stock\":true,\"kind\":\"Chân váy nữ\",\"material\":\"Voan\",\"name\":\"Chân váy nữ chữ A đen\",\"price_vnd\":249000,\"sizes\":[\"M\",\"L\",\"XL\"],\"sku\":\"SM-NU-0011\"}],\"relaxed\":[]},\"kind\":\"products\",\"question\":\"chan vay xep ly co mau nao vay shop\"}",
+  "generation_config": {
+   "temperature": 0,
+   "maxOutputTokens": 700,
+   "thinkingConfig": {
+    "thinkingLevel": "minimal"
+   }
+  }
+ },
+ "response": {
+  "candidates": [
+   {
+    "content": {
+     "parts": [
+      {
+       "text": "{\"text\":\"Chào bạn, bên mình có sản phẩm Chân váy nữ xếp ly hồng (SKU SM-NU-0025) với giá 289.000đ, hiện còn hàng. Sản phẩm này có màu hồng.\",\"cited_skus\":[\"SM-NU-0025\"],\"cited_clauses\":[]}",
+       "thoughtSignature": "EmAKXgFpFH0T+jCZX0GkWGCC7wsOGkt9vrF1MlzRXcIBRPCF/zkM0KKXim6RMWRrouQcupUtqpAiGHS5JB0yg2Tuj6SvdF0X5BtvlDj1oiuX1mptzarmIxgU0AiO8Y2YBk0="
+      }
+     ],
+     "role": "model"
+    },
+    "finishReason": "STOP",
+    "index": 0
+   }
+  ],
+  "usageMetadata": {
+   "promptTokenCount": 1882,
+   "candidatesTokenCount": 74,
+   "totalTokenCount": 1956,
+   "promptTokensDetails": [
+    {
+     "modality": "TEXT",
+     "tokenCount": 1882
+    }
+   ],
+   "serviceTier": "standard"
+  },
+  "modelVersion": "gemini-3.5-flash-lite",
+  "responseId": "ht7NauXoNe_ljuMP3qKnYA"
+ },
+ "latency_ms": 1394.2,
+ "http_attempts": 1,
+ "recorded_utc": "2026-10-13T07:32:21+00:00"
+}
