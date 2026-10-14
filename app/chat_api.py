@@ -53,6 +53,7 @@ from starlette.responses import FileResponse, JSONResponse, Response
 from app.agent import templates as T
 from app.config import REPO_ROOT, get_setting
 from app.monitor import is_loopback_host
+from app.observability.factory import build_sink
 from app.retrieval.folding import fold
 
 log = logging.getLogger("shopmate.chat")
@@ -437,6 +438,14 @@ def create_app(backend: ChatBackend, *, storefront_origin: str = DEFAULT_STOREFR
 # --- starting it --------------------------------------------------------------------------------------------------------------------
 
 
+def build_tracer():
+    """The tracer of the real agent. Langfuse is switched on here and nowhere else: with LANGFUSE_PUBLIC_KEY and LANGFUSE_SECRET_KEY set the tracer also
+    sends every request to Langfuse (docs/DECISIONS-langfuse.md); without them it is the tracer of before, and `langfuse` is not even imported."""
+    from app.tracing import Tracer
+
+    return Tracer(sink=build_sink())
+
+
 def build_live_backend(*, live: bool, max_live_calls: int, storefront_url_template: str) -> AgentBackend:
     """The real agent. Heavy imports and the key are only touched here, never when the module is imported (tests use FakeBackend)."""
     from app.agent.agent import Agent
@@ -449,7 +458,6 @@ def build_live_backend(*, live: bool, max_live_calls: int, storefront_url_templa
     from app.llm.prompts import load_prompt
     from app.llm.router import GeminiRouter
     from app.saleor.readonly_client import ReadOnlySaleorClient
-    from app.tracing import Tracer
     from scripts.demo_requests import build_llm, build_retriever  # the same free-tier guards and index check as the demo script
 
     llm = build_llm(live=live, max_live_calls=max_live_calls)
@@ -457,7 +465,7 @@ def build_live_backend(*, live: bool, max_live_calls: int, storefront_url_templa
     generator = CachedGenerator(DiskCache(CACHE_DIR), llm)
     saleor = ReadOnlySaleorClient(api_url(), require_setting("SALEOR_RUNTIME_TOKEN"))
     agent = Agent(router=GeminiRouter(generator, load_prompt("router_v1")), extractor=FilterExtractor(generator, load_prompt("filters_v1")),
-                  tools=RealTools(retriever, saleor, TicketStore()), answerer=GeminiAnswerer(generator, load_prompt(ANSWER_PROMPT)), tracer=Tracer(),
+                  tools=RealTools(retriever, saleor, TicketStore()), answerer=GeminiAnswerer(generator, load_prompt(ANSWER_PROMPT)), tracer=build_tracer(),
                   catch_errors=True)
     return AgentBackend(agent, slugs={p["sku"]: p["slug"] for p in load_catalog()}, url_template=storefront_url_template, mode="live" if live else "offline")
 
